@@ -1,0 +1,906 @@
+%=================================================================-*-LaTeX-*-==
+% GRTensorII 1.50 Manual
+% Booklet D: Defining new tensors
+%
+% Denis Pollney
+% July 1996
+%==============================================================================
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{maple2e}
+\usepackage{longtable}
+\usepackage{grtensor}
+\usepackage{grbooks}
+%------------------------------------------------------------------------------
+\begin{document}
+\grlabel{\grDefLabel}
+\grtitle{\grDefTitle}
+\grdate{July 1996}
+\grtitlepage
+%==============================================================================
+% Body.
+%==============================================================================
+\copyrightpage
+\noindent The GRTensorII standard library contains the definitions of
+a number of tensors, scalars, and other indexed objects whose
+components can be calculated. The \grcmd{grdef} command is included to
+facilitate the specification of new tensors in a simple and natural
+manner.  It allows tensors to be defined either as an equation in
+terms of previously defined tensors, or by manual entry of the
+component values. Inner and outer products of tensors,
+symmetrizations, and derivatives can all be specified as part of the
+tensor definitions. Furthermore, index symmetries of the newly defined
+tensor can be included. A calculation algorithm for the new tensor is
+created automatically based on the definition and will automatically
+take index symmetries into account in order to provide an efficient
+calculation.
+
+This booklet outlines the usage and various options available with the
+\grcmd{grdef} command.\footnote{The \grcmd{grdef} command replaces the
+\grcmd{grdefine} command which was the GRTensorII standard for
+definitions of new tensors from Versions 1.00 to 1.21. The
+\grcmd{grdefine} command is still included for purposes of backwards
+compatibility. See \texttt{?grdefine} for details of its use.}
+%
+%------------------------------------------------------------------------------
+\section{Command syntax}
+%------------------------------------------------------------------------------
+%
+There are two ways to define a new tensor using \grcmd{grdef}. The
+first method is to simply state the name of the tensor, including its
+`index structure' (ie. a list of covariant and contravariant
+indices). The second method provides a complete definition in terms of
+previously defined tensors.
+
+Compare the following two invocations of \grcmd{grdef}:\footnote{The
+specifics of the notation used by these two commands are described in
+the sections to follow.}\\
+
+\noindent\texttt{> grdef ( `A\{a b\}` ):}\\
+
+\noindent\texttt{> grdef ( `G2\{a b\} := R\{a b\} - (1/2)*Ricciscalar*g\{a b\} 
+                                   + lambda*g\{a b\}` ):}\\
+
+The first form of the command defines a tensor whose component values
+are arbitrary and can be manually specified for the background
+spacetime. Specifically, it creates a definition of a covariant
+two-index object, \texttt{A}. The indices are listed in curly braces,
+\texttt{\{\}}, and assigned the labels \texttt{a} and \texttt{b}. This
+tensor would be accessed as \texttt{A(dn,dn)} in commands such as
+\grcmd{grcalc} and \grcmd{grdisplay}. Note, however, that although
+\grcmd{grdef} creates a definition of the tensor, it does not
+calculate its components automatically. The command\\
+
+\noindent\texttt{> grcalc ( A(dn,dn) ):}\\
+
+\noindent must be given in order to explicitly request the calculation
+of the components for in current background spacetime.\footnote{See
+Booklet \grCalcRef.} In this case, since no prescription for
+calculating the components of this tensor has been given, when the
+\grcmd{grcalc} command is issued the user is prompted to input the
+components of \texttt{A(dn,dn)} manually.\\
+
+The second version of \grcmd{grdef} listed above is somewhat more
+complicated. In this case the command once again defines a
+contravariant two-index tensor, \texttt{G2}, but this time it is
+explicitly assigned to an expression involving a number of previously
+defined tensors. The \grcmd{grdef} command uses this information to
+automatically create a calculation function for the object
+\texttt{G2(dn,dn)}. Thus, the command\\
+
+\noindent\texttt{> grcalc ( G2(dn,dn) ):}\\
+
+\noindent can be used to calculate the newly defined tensor based on its
+given definition involving \texttt{R(dn,dn)}, \texttt{Ricciscalar} and 
+\texttt{g(dn,dn)}.\\
+
+The argument to \grcmd{grdef} which describes the definition of a new
+tensor is a MapleV string (that is, enclosed in
+back-quotes,~`\texttt{`}'). The string specifies a tensor equation
+which includes information about the index structure, symmetries, and
+summations, which are to be carried out in the calculation of the
+tensor. This information is parsed by the \grcmd{grdef} command in
+order to create a calculation function corresponding to the
+definition. The \grcmd{grcalc} command uses this calculation function
+in order to arrive at the components of the newly defined object in a
+given background geometry. The next section of this booklet details the
+format of the tensor definition string.\\
+
+The syntax for the \grcmd{grdef} command is as follows:\\
+\begin{cmdspec}
+  \label{spec:grdef}
+  \grcmdline{grdef ( \grarg{defString}, [\grarg{symSet}], [\grarg{asymSet}],
+    [\grarg{rsumSet}] )}
+
+  \begin{description}
+    \item[\grarg{defString}] -- The definition string (described in
+      Section~\ref{sec:defStr}).
+    \item[\grarg{symSet}] -- (\textit{optional}) A set of lists of indices
+      which are symmetric under interchange (described in 
+      Section~\ref{sec:symList}).
+    \item[\grarg{asymSet}] -- (\textit{optional}) A set of lists of indices
+      which are anti-symmetric under interchange (described in
+      Section~\ref{sec:symList}).
+    \item[\grarg{rsumSet}] -- (\textit{optional}) A set of ranges over which
+      dummy indices are to by summed (described in
+      Section~\ref{sec:restrictedsum}).
+  \end{description}
+
+  \grexample{grdef ( `G2\{(a b)\} := G\{a b\} + lambda*g\{a b\}` )}
+\end{cmdspec}
+
+The next sections give details of the use of each of the arguments
+listed above. However, the first-time reader may find it instructive
+to skip ahead to the Examples section (Section \ref{sec:examples} of
+this booklet) to get some familiarity with the syntax of the
+\grcmd{grdef} command before reading the more in-depth descriptions
+that now follow.
+%
+%-----------------------------------------------------------------------------
+\section{Tensors and tensor expressions}\label{sec:defStr}
+%-----------------------------------------------------------------------------
+%
+The main job of the \grcmd{grdef} command is to parse a string containing
+a tensor definition. As an example, consider the argument of the second
+example given above,
+\begin{center}
+  \texttt{`G2\{a b\} := R\{a b\} - (1/2)*Ricciscalar*g\{a b\} +
+    lambda*g\{a b\}` }
+\end{center}
+This is a special case of the general form used for tensor assignments,
+\begin{center}
+  \texttt{`\grarg{newObject} := \grarg{objectDef}`}.
+\end{center}
+The string is interpreted by \grcmd{grdef} as an assignment of an
+expression involving indexed objects, \grarg{objectDef}, to a new
+indexed object, \grarg{newObject}. The format of this defining
+expression is outlined in the following paragraphs.\footnote{As noted
+in the previous section, the \grarg{objectDef} expression does not
+need to be specified. In this case, the tensor is created without
+assigning it a definition, and the components must be manually entered
+using the command \grcmd{grcalc}.}\\
+
+\noindent\textbf{Indexed objects:} 
+Indexed objects (tensors and the like) are specified by
+their name and index structure:
+\begin{center}
+	\texttt{\grarg{Name} \{ \grarg{indices} \}}
+\end{center}
+The \grarg{Name} is simply an unassigned MapleV name by which the
+object is referenced, such as \texttt{R} in the case of the Riemann
+tensor and its contractions, and \texttt{Chr} in the case of the
+Christoffel symbols.\footnote{See Booklet \grCalcRef~for a list of
+objects in the standard GRTensorII library.}\\
+
+The index list, \grarg{indices}, is always enclosed in curly braces,
+\{\}.  Individual indices take the form of alphabetic characters
+separated by spaces. Different classes of index are specifiable:
+\begin{center}
+  \begin{tabular}{rl}
+    \texttt{a}, \texttt{b}, \texttt{c}, $\ldots$ & -- covariant indices,\\
+    \texttt{\^{}a}, \texttt{\^{}b}, \texttt{\^{}c}, $\ldots$ & -- contravariant
+      indices, \\
+    \texttt{(a)}, \texttt{(b)}, \texttt{(c)}, $\ldots$ & -- covariant basis
+      indices, \\
+    \texttt{\^{}(a)}, \texttt{\^{}(b)}, \texttt{\^{}(c)}, $\ldots$ &
+      -- contravariant basis indices.
+  \end{tabular}
+\end{center}
+Thus, within the \grcmd{grdef} command, the Riemann tensor $R^a{}_{bcd}$ is
+referenced using:
+\begin{center}
+  \texttt{R\{\^{}a b c d\} }
+\end{center}
+while the basis components of the same tensor are
+\begin{center}
+  \texttt{R\{\^{}(a) (b) (c) (d)\} }
+\end{center}
+The characters used in the index labels (\texttt{a}, \texttt{b},
+$\ldots$) should be unassigned MapleV names. For instance, in the
+above example, none of \texttt{a}, \texttt{b}, \texttt{c}, \texttt{d},
+can have been assigned a value. This notation differs from that used
+by such commands as \grcmd{grcalc} which uses the generic labels
+`\texttt{up}', `\texttt{dn}', etc., to indicate index positions. The
+\grcmd{grdef} notation attaches a unique label to each index. This
+additional information is required to be able to specify index
+summations and correspondences, as described below. (Scalars are
+referenced using simply their name without an index list or curly
+braces.)\\
+
+\noindent\textbf{Derivatives of tensors:} The special characters
+`\texttt{,}' (comma) and `\texttt{;}' (semi-colon) can be used to
+specify partial derivatives and covariant derivatives in the index
+lists of tensors. Thus the tensor $R_{ab;c}$ ($= \nabla_c R_{ab}$)
+would be represented as:
+\begin{center}
+  \texttt{R\{a b ;c\}}
+\end{center}
+
+The specific action of the derivative operation is controlled by the
+form of the index (tensor or basis) which immediately follows the
+derivative indicator, as in the following examples:
+
+\renewcommand{\baselinestretch}{1.5}\normalsize
+\begin{center}
+  \begin{tabular}{rl}
+    \texttt{R\{\^{}a b ,c\}}:
+      & $R^a{}_{b,c} := \frac{\partial R_{ab}}{\partial x^c}$ \\
+    \texttt{R\{\^{}a b ;c\}}:
+      & $R^a{}_{b;c} := R^a{}_{b,c} - \Gamma^d_{bc} R^a{}_d + 
+        \Gamma^a_{bd} R^d{}_c$ \\
+    \texttt{R\{\^{}(a) (b) ,(c)\}}:
+      & $R^{(a)}{}_{(b),(c)} := \frac{\partial R^{(a)}{}_{(b)}}{\partial x^d}
+        e_{(c)}{}^d$ \\
+    \texttt{R\{\^{}(a) (b) ;(c)\}}:
+      & $R^{(a)}{}_{(b);(c)} := R^{(a)}{}_{(b),(c)}
+        - \gamma^{(d)}{}_{(b)(c)} R^{(a)}{}_{(d)}
+        + \gamma^{(a)}{}_{(b)(d)} R^{(d)}{}_{(c)}$ \\
+  \end{tabular}
+\end{center}
+\renewcommand{\baselinestretch}{1.0}\normalsize
+These correspond to the actions of the index labels \texttt{pdn},
+\texttt{cdn}, \texttt{pbdn}, and \texttt{cbdn} in commands such as
+\grcmd{grcalc} (see Booklet \grCalcRef).\\
+
+\noindent\textbf{Tensor sums and products:} The exterior product of a pair
+of tensors is indicated by the `\texttt{*}' symbol. It is also
+possible to specify the product of a scalar function and a tensor
+using the same operator. Addition and subtraction of tensors is carried
+out as usual by the `\texttt{+}' and `\texttt{-}' operators.  Round
+braces, \texttt{()}, can be used to group terms. Thus, the tensor
+expression
+\[
+  \frac{1}{2}\left( R_{abcd} + f(x) g_{ab} g_{cd} \right)
+\]
+would be represented as:
+
+\begin{center}
+  \texttt{ (1/2) * ( R\{a b c d\} + f(x)*g\{a b\}*g\{c d\} ) }
+\end{center}
+
+The index names and configurations of each term must be 
+consistent with each other and with the left-hand side of a tensor
+assignment.\\
+
+\noindent\textbf{Inner products (summations over indices):} A summation
+over the range of an index can be specified by repeating the index
+name, once in the covariant and once in the contravariant position.
+Thus, the expressions
+\[
+  \sum_b R^{ab}{}_{bc} \qquad\text{and}\qquad \sum_b R_a{}^b R_{bc}
+\]
+would be represented, respectively, as
+
+\begin{center}
+  \texttt{R\{\^{}a \^{}b b c\}}, $\qquad$ and $\qquad$ 
+  \texttt{R\{a \^{}b\}*R\{b c\}}.
+\end{center}
+
+By default the summation is carried out over all index values, however
+restricted summations (say over three dimensions out of four) can also
+be specified, as described in Section \ref{sec:restrictedsum},
+below.\\
+
+\noindent\textbf{Operators:} Operators can be used in \grcmd{grdef}
+just as they are used in calculations using \grcmd{grcalc}. The
+argument of the operator is placed in square braces. Thus, the
+command\\
+
+\noindent\texttt{> grdef ( `X := R\{\^{}a \^{}b\}*Box[ R\{a b\} ]` ):}\\
+
+\noindent serves to define the scalar
+\[
+  X := R^{ab}\Box R_{ab},
+\]
+A limitation on the use of operators, however, is that they can only
+be used on individual GRTensorII objects, not functions of objects.
+To define, for instance, the object
+\[
+  T_{ab} := \Box (R_{acdb}R^{cd}),
+\]
+a two stage definition is needed. First an intermediate 2-tensor 
+corresponding to the argument of the operator,
+in this case $R_{acdb}R^{cd}$, is defined:\\
+
+\noindent\texttt{> grdef ( `T1\{a b\} := R\{a c d b\}*R\{\^{}c \^{}d\}` ):}\\
+
+\noindent The final object, $T_{ab}$, is then defined as an operator acting on
+$T1_{ab}$:\\
+
+\noindent\texttt{> grdef ( `T\{a b\} := Box[T1\{a b\}]` ):}\\
+
+Nested operators, to define objects such as
+\[
+  \Box\Box R_{abcd},
+\]
+are handled in a similar fashion, defining intermediate
+objects which correspond to the action of an operator on a single
+object and building upon these.
+
+New operators can not be defined using \grcmd{grdef}.\\
+
+\noindent\textbf{Symmetrizations:} A short-hand notation can be used to 
+indicate symmetrizations over a set of indices. The notation
+corresponds to the common usage of round and square braces
+to denote symmetrization and anti-symmetrization, respectively.
+Specifically, define
+\begin{align*}
+  T_{abc \ldots (s_1 \ldots s_m) \ldots de} & 
+    := \frac{1}{m!} \sum_\pi 
+    T_{abc\ldots s_{\pi(1)} \ldots s_{\pi(m)} \ldots de},\\
+  T_{abc \ldots [s_1 \ldots s_m] \ldots de} &
+    := \frac{1}{m!} \sum_\pi (-1)^{\text{sign}(\pi)}
+    T_{abc \ldots s_{\pi(1)} \ldots s_{\pi(m)} \ldots de},
+\end{align*}
+where the summations are taken over all permutations, $\pi$, of the
+numbers $1\ldots m$, and $\text{sign}(\pi)$ represents the sign (odd or
+even) of the permutation.\\
+
+The tensor
+\[
+  T_{a(bcd)} := \frac{1}{6}\left( T_{abcd} + T_{acdb} + T_{adbc} +
+    T_{abdc} + T_{adcb} + T_{bdc} \right), 
+\]
+could be represented in \grcmd{grdef} by the string\footnote{A
+technical point arises from the fact that round braces are used to
+indicate both symmetrizations as well as basis indices. However, it is
+always possible for the parser to determine from the context which is
+intended. If the braces surround a single index, then the index is
+regarded as a basis index, otherwise a symmetrization is
+assumed.}${}^,$\footnote{Spaces are not needed between indices where
+braces occur. The example given here could also be entered as
+\texttt{T\{a(b c d)\}}, omitting the space between the \texttt{a} and
+\texttt{b}.}
+\begin{center}
+  \texttt{T\{a (b c d)\}},
+\end{center}
+while the tensor
+\[
+  T_{a[bcd]} := \frac{1}{6} \left(
+   T_{abcd} + T_{acdb} + T_{adbc} - T_{abdc} - T_{adcb} - T_{bdc} \right),
+\]
+could be represented by
+\begin{center}
+  \texttt{T\{ a [b c d]\}}.
+\end{center}
+
+Symmetrizations can also be carried over tensor products. Thus
+\[
+  R^a{}_{bc(d}R_{e)f}
+\]
+could be written
+\begin{center}
+  \texttt{R\{\^{}a b c (d\}*R\{e) f\}}
+\end{center}
+
+Braces are determined to be `covariant' or `contravariant' based on
+the index which immediately follows an open-brace, \texttt{(},
+\texttt{[}, and the index which precedes a close-brace, \texttt{)},
+\texttt{]}. Braces enclose only indices of the same character. Thus
+the name
+\begin{center}
+  \texttt{ T\{(a \^{}b c)\} }
+\end{center}
+indicates that the symmetrization is to be performed only over the
+covariant indices within the round braces, ie. \texttt{a} and \texttt{c}.
+
+Finally, indices can be excluded from symmetrizations by
+placing them between vertical bars, `\texttt{|}'. Thus if a symmetrization
+were to be carried out over the second and fourth index of a four index
+tensor, this could be written as
+\[
+  T_{a(b|c|d)} := \frac{1}{2}\left( T_{abcd} + T_{adcb} \right),
+\]
+which in \grcmd{grdef} notation is
+\begin{center}
+  \texttt{T\{a (b | c | d)\}}.
+\end{center}
+%
+%------------------------------------------------------------------------------
+\section{Index symmetries}
+%------------------------------------------------------------------------------
+%
+Symmetries among tensor indices can be used in calculation programs to
+significantly reduce the time taken for a calculation by recognizing
+redundant components. The \grcmd{grdef} command can not determine on
+its own when such index symmetries exist. However, symmetries can be
+listed explicitly in the tensor definition so that the resulting
+calculation function is as efficient as possible.\\
+
+The notation used to indicate symmetric and anti-symmetric index
+groups is identical to that used for symmetrizations, described in the
+previous section. Thus if braces are placed within the index list of
+the \textit{new} tensor (on the left-hand side of the tensor
+assignment) these are interpreted as index symmetries rather than
+symmetrizations.\\
+
+To give some explicit examples, round braces, \texttt{()}, indicate that
+a tensor is symmetric in the enclosed indices. The assignment\\
+
+\noindent\texttt{> grdef ( `A\{(a b)\} := R\{a b\}` ):}\\
+
+\noindent assigns a calculation function to the tensor
+$A_{ab}$ which assumes that it is symmetric in its indices, ie.,
+\[
+  A_{ab} = A_{ba}.
+\]
+The calculation algorithm called by the command \\
+
+\noindent\texttt{> grcalc ( A(dn,dn) ):}\\
+
+\noindent then calculates only the components in the upper diagonal
+and cross-assigns the components in the lower diagonal. By the same
+token, the command\\
+
+\noindent\texttt{> grdef ( `A\{(a b)(c d)\}` ):}\\
+
+\noindent assigns to the object \texttt{A(dn,dn,dn,dn)} a calculation
+algorithm which assumed the tensor is symmetric in its first two and
+last two indices,\footnote{A calculation function satisfying the
+required symmetries is created automatically if such a function does
+not already exist among the existing GRTensorII object definitions.}
+\[
+  A_{abcd} = A_{bacd} = A_{abdc} = A_{badc}.
+\]
+
+\indent Since in this case $A_{abcd}$ was not given a defining
+expression, a call to \grcmd{grcalc} would prompt the user to enter
+its components explicitly. However, it would only be necessary to
+input the independent components (up to the specified index
+symmetries).\\
+
+Square braces act similarly, indicating indices in which the newly
+defined object is anti-symmetric. Thus\\
+
+\noindent\texttt{> grdef ( `A\{[a b c] d\}` ): }\\
+
+\noindent defines a tensor for which it is assumed that
+\[
+  A_{abcd} = A_{bcad} = A_{cabd} = -A_{acbd} = -A_{bacd} = -A_{cbad}.
+\]
+
+The `covariant' or `contravariant' character of the braces is
+determined as for symmetrizations, described in the previous
+section. Also as above, indices which are to be excluded from a
+symmetrization can be enclosed in vertical bars, `\texttt{|}'.\\
+
+Note that the symmetries need to be stated explicitly on the left-hand
+side of the assignment. Although in the definition of $A_{ab}$ above
+the index symmetry is obvious from the properties of the Ricci tensor,
+the \grcmd{grdef} command does not search for such properties. It must
+be instructed as to which index symmetries to include in the
+calculation function for the tensor.
+
+Another important consequence of this is that the symmetries which are
+stated explicitly will be incorporated into the calculation function
+regardless of whether the listed symmetry is an actual property of
+the tensor which is being defined. Thus the definition\\
+
+\noindent\texttt{> grdef ( `A\{[a b]\} := R\{\^{}c a c b\}` ):}\\
+
+\noindent will assign a calculation function to $A_{ab}$ which assumes
+that the tensor is anti-symmetric, which it clearly is not. If the
+\grcmd{grcalc} command is subsequently used to calculate $A_{ab}$ for
+a particular metric, it will always arrive at the result
+\[
+  A_{ab} = 0,
+\]
+which is incorrect in general.\\
+
+Finally, the different role of braces on the left-hand side and
+right-hand side of a tensor assignment are emphasized: On the
+left-hand side, braces are informational, describing the symmetries
+of the newly defined object. On the right-hand side, the
+braces specify that the operation of symmetrization is to be carried
+out over the enclosed indices. Thus the command\\
+
+\noindent\texttt{> grdef ( `A\{(a b)\} := B\{(a b)\}` ):}\\
+
+\noindent defines the tensor
+\[
+  A_{ab} := \frac{1}{2} \left( B_{ab} + B_{ba} \right)
+\]
+(as indicated by the \texttt{()}-braces on the right-hand side), which
+is assumed to be symmetric in its indices (as indicated by the
+\texttt{()}-braces on the left-hand side). If the braces on the left
+of the \grcmd{grdef} command are omitted, the calculation function
+assigned to the new object would not take into account the symmetry
+inherent in $A_{ab}$, and, for example, the components $A_{12}$ and
+$A_{21}$ would be calculated independently, even though by examining the
+right-hand side of the definition it is clear that they are equal.
+%
+%------------------------------------------------------------------------------
+\subsection*{Alternate specification of index symmetries}\label{sec:symList}
+%------------------------------------------------------------------------------
+%
+The notation used to specify tensor indices in \grcmd{grdef} has been
+chosen to mirror as closely as possible the standard notation of
+textbooks of classical tensor analysis. However, because the text
+typed onto an input line is linear (lacking visual super-scripts and
+sub-scripts) the presence of a large number of braces among covariant
+and contravariant indices can serve to obscure the contents of an
+index list. Not only can this make the worksheet difficult to read
+later on, it also increases the chance of an error being introduced
+into the tensor definition.
+
+To alleviate this problem somewhat, an alternate method exists for
+specifying symmetries among the tensor indices. The \grcmd{grdef}
+command possesses optional extra arguments which can be used to enter
+symmetry and anti-symmetry lists. This can be used instead of the
+placing of braces among the tensor indices in the left-hand side of
+the definition string.\\
+
+In these optional arguments, symmetries are expressed as lists of
+index numbers: The list \texttt{[2,3,5]} indicates that the second,
+third and fifth indices are involved in a symmetry (or
+anti-symmetry). To specify symmetries, include the argument
+\begin{center}
+  \texttt{sym=\{\grarg{symLists}\}}
+\end{center}
+to the \grcmd{grdef} command. Thus,\\
+
+\noindent\texttt{> grdef ( `A\{a b c d\}`, sym=\{[1,2],[3,4]\} ):} \\
+
+\noindent indicates that the new tensor $A_{abcd}$ should be considered
+to be symmetric in its first two and last two indices:
+\[
+  A_{abcd} = A_{bacd} = A_{abdc} = A_{badc}.
+\]
+(Note that this invocation of \grcmd{grdef} has an identical effect as
+one of the examples of the previous section.) Alternatively,\\
+
+\noindent\texttt{> grdef ( `A\{a b c d\}`, sym=\{[2,3,4]\} ):}\\
+
+\noindent defines a tensor which is symmetric under interchange of its
+second third and fourth indices:
+\[
+  A_{abcd} = A_{acdb} = A_{adbc} = A_{abdc} = A_{acbd} = A_{adcb}.
+\]
+
+Anti-symmetries are specified the same way using the argument
+\begin{center}
+  \texttt{asym=\{\grarg{asymLists}\} }
+\end{center}
+The tensor defined
+by\\
+
+\noindent\texttt{> grdef ( `A\{a b c\}`, asym=\{[1,2]\} ):}\\
+
+\noindent is assigned a calculation function which assumes it is
+anti-symmetric in its first two indices,
+\[
+  A_{abc} = -A_{bac},
+\]
+while the command\\
+
+\noindent\texttt{> grdef ( `A\{a b c d\}`, sym=\{[1,3]\}, 
+asym=\{[2,4]\} ):}\\
+
+\noindent assigns a calculation function which is symmetric in indices
+1 and 3 and anti-symmetric in indices 2 and 4.\\
+
+Finally, note that a limitation of this notation (and the use of braces
+as described in the previous section) is that some more complicated index
+symmetries such as those involving groups of indices, can not be
+specified. An important example is the index pair symmetry of the
+Riemann tensor,
+\[
+  R_{abcd} = R_{cdab}.
+\]
+Although \grcmd{grdef} can not currently automatically create such
+symmetry functions, the Riemann symmetry function has been pre-programmed,
+and can be assigned to newly defined objects using the optional argument
+\texttt{symfn}. This argument has the form
+\begin{center}
+  \texttt{symfn = \grarg{objectName}}
+\end{center}
+where \grarg{objectName} is the name of a pre-defined object with the
+same symmetries as the object to be newly defined. Thus a new object
+with Riemann index symmetries can be created using the definition\\
+
+\noindent\texttt{> grdef ( `T\{a b c d\}`, symfn=R(dn,dn,dn,dn) ):}\\
+
+\noindent Symmetry functions assigned in this way overide any other
+index symmetry specifications (using braces or the \texttt{sym=} or
+\texttt{asym=} parameters) for the newly defined object.
+%
+%------------------------------------------------------------------------------
+\section{Special cases}
+%------------------------------------------------------------------------------
+%
+%------------------------------------------------------------------------------
+\subsection*{Defining vectors}
+%------------------------------------------------------------------------------
+%
+Single index objects form a special case within \grcmd{grdef}. They can
+be defined as usual by the means given in the previous section. Alternatively,
+however, they can also be assigned a value directly by specifying the
+components as a list. For example, the command\\
+
+\noindent\texttt{> grdef ( `v{\^{}a} := [0,0,0,1]` ):}\\
+
+\noindent defines a single index object, \texttt{v}, whose four components
+are assigned the values \texttt{[0,0,0,1]}. This form of the
+\grcmd{grdef} command alleviates the need to run \grcmd{grcalc} after
+the definition in order to assign values to the components. However,
+if the default spacetime is changed (either by creating or loading a
+new background\footnote{See Booklet \grMakegRef.}), then
+\grcmd{grcalc} would still be required in order to assign the
+components of the vector in the new geometry.
+%
+%------------------------------------------------------------------------------
+\subsection*{The Kronecker delta}
+%------------------------------------------------------------------------------
+%
+A special object, \texttt{kdelta\{\^{}a b\}}, allows single components
+of tensors to be isolated in tensor definitions. For example, if the
+coordinates of the background spacetime are $(r,theta,phi,t)$, the
+$t$-component can be selected using the object\\
+\begin{center}
+  \texttt{kdelta\{\^{}a \$t\}}.\\
+\end{center}
+The `\$' character preceding the coordinate name $t$ indicates that that
+the \texttt{kdelta} object is to take the form
+\[
+  \delta^a{}_t :=
+    \left\{
+      \begin{array}{l}
+        1, \quad\text{if}\quad a=t,\\
+        0, \quad\text{otherwise}.
+      \end{array}
+    \right.
+\]
+Thus a vector in the $t$-direction could be defined using the
+command\\
+
+\noindent\texttt{> grdef ( `v\{\^{}a\} := f(t)*kdelta\{\^{}a \$t\}` ):}\\
+
+\noindent (which is equivalent to the command\\
+
+\noindent\texttt{> grdef ( `v\{\^{}a\} := [0,0,0,f(t)]` ):}\\
+
+\noindent in the given coordinates). Another example is a 2-index tensor,
+\[
+  T_{ab} := P(r,t) g_{ab} + (P(r,t) + \rho(r,t)) \delta^t{}_a \delta^t{}_b,
+\]
+which could be defined using the command\\
+
+\noindent\texttt{> grdef ( `T\{(a b)\} := }\\
+\indent\texttt{\hspace{10mm} P(r,t)*g\{a b\}
+  + ( P(r,t) + rho(r,t) )*kdelta\{a \$t\}*kdelta\{b \$t\}` ):}
+%
+%------------------------------------------------------------------------------
+\subsection*{Multiple metrics}
+%------------------------------------------------------------------------------
+%
+The \grcmd{grdef} command allows the definition of objects which depend
+on multiple background geometries. Such objects arise, for instance, when
+one considers the junction between two spacetimes described by different
+metrics. In a tensor definition, objects which are to use alternate
+background geometries are indexed using angle braces, \texttt{<>}. For
+example, the following definition can be used to define a tensor,
+\texttt{Dg}, which is the difference of two metrics:\\
+
+\noindent\texttt{> grdef ( `Dg\{a b\} := g<1>\{a b\} - g<2>\{a b\}` ):} \\
+
+\noindent In this definition, the indices \texttt{<1>} and \texttt{<2>}
+in the objects \texttt{g\{a b\}} indicate that the components of
+\texttt{g(dn,dn)} should be taken from metrics specified by the user
+at calculation time. To calculate the object \texttt{Dg}, the command\\
+
+\noindent\texttt{> grcalc ( 1=ssym, 2=schw, Dg(dn,dn) ):}\\
+
+\noindent would be used, where in this example \texttt{ssym} and 
+\texttt{schw} are the names of spacetimes that have been
+previously loaded in the session.  In the calculation of \texttt{Dg},
+the objects in its definition that are labeled with the index
+\texttt{<1>} would be taken from the \texttt{ssym} spacetime, while
+objects labeled by \texttt{<2>} would use components from the
+\texttt{schw} spacetime.
+%
+%------------------------------------------------------------------------------
+\subsection*{Restricted summations}\label{sec:restrictedsum}
+%------------------------------------------------------------------------------
+%
+A further optional argument to the \grcmd{grdef} command allows
+summations over indices to be restricted to a certain range of index
+values.  Consider the definition of the scalar
+\[
+  \phi := T_{ab} u^a u^b,
+\]
+where, for some reason, we wish to restrict the implied summation over the
+dummy indices $a$ and $b$ to the range $2\ldots 4$. The \grcmd{grdef}
+command creating such a definition is:\\
+
+\noindent{\texttt{> grdef ( `phi := T\{a b\}*u\{\^{}a\}*u\{\^{}b\}`,
+  restrict=\{a=2..4, b=2..4\} ):}\\
+
+\noindent The \texttt{restrict=\{\}} argument is a set specifying the
+ranges over which summations over dummy indices are to be performed.
+Any indices not listed in the set are assumed to be summed over their
+entire range.
+%
+%------------------------------------------------------------------------------
+\section{Examples}\label{sec:examples}
+%------------------------------------------------------------------------------
+%
+In this section, a number of \grcmd{grdef} commands are listed,
+summarizing the use of the command. A number of the following examples
+are mirrored from the previous sections where they are described
+in more detail. The \grcmd{grdef} command is also used in a number
+of the demonstration worksheets available from the GRTensorII
+world-wide-web site, \texttt{http://astro.queensu.ca/\~{}grtensor/}.
+
+\begin{enumerate}
+  \item A generic contravariant single indexed object (vector):\\
+
+    \texttt{> grdef ( `u\{\^{}a\}` ):}\\
+
+  \item A generic covariant single indexed object (1-form):\\
+
+    \texttt{> grdef ( `v\{a\}` ):}\\
+
+  \item A generic 2-index tensor, anti-symmetric in its indices:\\
+
+    \texttt{> grdef ( `A\{[a b]\}` ):}\\
+
+  \item The covariant derivative of the Weyl tensor, $C_{abcd;e}$:\\
+
+    \texttt{> grdef ( `dC\{[a b] [c d] e\} := C\{a b c d ;e\}` ):}\\
+
+  \item The component of the Ricci tensor measured along a particular vector, 
+    $\phi := R_{ab} u^a u^b$:\\
+
+    \texttt{> grdef ( `phi := R\{a b\}*u\{\^{}a\}*u\{\^{}b\}` ):}\\
+
+  \item The Einstein tensor with cosmological constant:\\
+
+    \texttt{> grdef ( `G2\{(a b)\} := G\{a b\} + lambda*g\{a b\}` ):}\\
+
+    (Note the use of braces on the left-hand side to indicate the index 
+    symmetry. Although the tensors $g_{ab}$ and $G_{ab}$ have a clear
+    index symmetry, the \grcmd{grdef} command will only apply symmetries
+    explicitly stated on the left-hand side of the definition.)
+
+  \item Basis components of the Einstein tensor with cosmological constant:\\
+
+    \texttt{> grdef ( `G2\{((a) (b))\} := G\{(a) (b)\} +
+      lambda*eta\{(a) (b)\}` ):}\\
+
+    (This command is redundant if the previous definition of \texttt{G2(dn,dn)}
+    is already created, since the basis components could be calculated
+    automatically using \texttt{grcalc ( G2(bdn,bdn) )}. See also the note
+    at the end of this section.)
+
+  \item The Bel-Robinson tensor,
+    $T_{abcd} := C_{aecf} C_b{}^e{}_d{}^f -
+    \frac{3}{2} g_{a[b} C_{jk]cf} C^{jk}{}_d{}^f$.\\
+
+    \texttt{> grdef ( `T\{(abcd)\} := C\{a e c f\}*C\{b \^{}e d \^{}f\}
+      - (3/2)*g\{a [b\}*C\{j k] c f\}*C\{\^{}j \^{}k d \^{}f\}` ):}\\
+
+    (An alternate definition of the Bel-Robinson tensor is an example
+    in Booklet \grIntroRef.)
+
+  \item A timelike vector field, $v^a := [0,0,0,f(r,t)]$:\\
+
+    \texttt{> grdef ( `v\{\^{}a\} := [0,0,0,f(r,t)]` ):}\\
+
+  $\ldots$ and a corresponding perfect fluid energy-momentum tensor:\\
+
+    \texttt{> grdef ( `T\{(a b)\} := P(r,t)*g\{a b\}
+      + (rho(r,t) + P(r,t))*v\{a\}*v\{b\}` ):}\\
+
+  \item An object with Riemann symmetries:\\
+
+    \texttt{> grdef ( `T\{a b c d\} := (1/6)*g\{a[c\}*g\{d]b\}*Ricciscalar`,
+      symfn=R(dn,dn,dn,dn) ):}
+\end{enumerate}
+
+\noindent Object names can not be used twice. If an object with the
+same name already exists (either in the standard library or as
+a result of a previous use of \grcmd{grdef}), its definition must
+be removed before it can be re-used. The \grcmd{grundefine} command
+performs this task:\\
+%
+\begin{cmdspec}
+  \label{spec:grundefine}
+  \grcmdline{grundefine ( \grarg{objectName} )}
+
+  \begin{description}
+    \item[\grarg{objectSeq}] -- A sequence objects whose definitions are
+      to be removed.
+  \end{description}
+
+  \grexample{grundefine ( G(dn,dn) )}
+\end{cmdspec}
+%
+%------------------------------------------------------------------------------
+\section{Saving and loading definitions}
+%------------------------------------------------------------------------------
+%
+Definitions created with \grcmd{grdef} can be saved to a file using the
+\grcmd{grsavedef} command, allowing them to be used in other sessions and
+applications. In this way, collections of objects not in the standard
+GRTensorII library can be maintained.\\
+\begin{cmdspec}
+  \label{spec:grsavedef}
+  \grcmdline{grsavedef ( \grarg{objectSeq}, \grarg{fileName} )}
+
+  \begin{description}
+    \item[\grarg{objectSeq}] -- A sequence of objects whose definitions
+      are to be saved to a file.
+    \item[\grarg{fileName}] -- The name of a file
+      where the object definitions are to be saved.
+  \end{description}
+
+  \grexample{grsavedef ( G2(dn,dn), T(dn,dn,dn,dn), `newdefs.mpl` )}
+\end{cmdspec}
+
+For instance, the Einstein and Bel-Robinson tensors defined in the
+previous section could be saved to the file `\texttt{newdefs.mpl}'
+using the command:\\
+
+\noindent\texttt{> grsavedef ( G2(dn,dn), T(dn,dn,dn,dn), `newdefs.mpl` ):}\\
+
+\noindent If the newly created file is to reside in a directory other than
+the one in which the MapleV session was started, then the full path
+name must be used. Note also that \grcmd{grsavedef} makes use of the
+MapleV \grcmd{write} command, which does not check for the existence
+of the file which is being written. Thus if a file of the same name
+already exists in the specified directory \textit{it will be
+overwritten}.
+
+Files created by the \grcmd{grsavedef} command can be read into a
+new GRTensorII session using the command \grcmd{grloaddef}:\\
+\begin{cmdspec}
+  \label{spec:grloaddef}
+  \grcmdline{grloaddef ( \grarg{fileName} )}
+
+  \begin{description}
+    \item[\grarg{fileName}] -- The name of the file (containing definitions
+      created by \grcmd{grsavedef}) to be loaded.
+  \end{description}
+
+  \grexample{grloaddef ( `newdefs.mpl` )}
+\end{cmdspec}
+%
+%------------------------------------------------------------------------------
+%\vfill
+%\bibliographystyle{unsrt}
+%\bibliography{grtensor}
+%------------------------------------------------------------------------------
+\pagebreak
+\section*{Commands described in this booklet:}
+  \noindent
+  \grcmdline{grdef ( \grarg{defString}, [\grarg{symSet}], [\grarg{asymSet}], 
+    [\grarg{rsumSet}] )}
+   \dotfill \pageref{spec:grdef}\\
+
+  \noindent
+  \grcmdline{grundefine ( \grarg{objectName} )}
+  \dotfill \pageref{spec:grundefine}\\
+
+  \noindent
+  \grcmdline{grsavedef ( \grarg{objectSeq}, \grarg{fileName} )}
+  \dotfill \pageref{spec:grsavedef}\\
+
+  \noindent
+  \grcmdline{grloaddef ( \grarg{fileName} )}
+  \dotfill \pageref{spec:grloaddef}
+%
+%------------------------------------------------------------------------------
+\vfill
+\large
+\noindent The information contained in this booklet is also available from the
+following online help pages:\\
+
+\noindent\texttt{?grdef}, \texttt{?grundefine}, \texttt{?grsavedef},
+\texttt{?grloaddef}, \texttt{?kdelta}, \texttt{?grt\_objects},
+\texttt{?grt\_basis}, \texttt{?grt\_operators}, \texttt{?grcalc},
+\texttt{?grdefine}.
+%
+%------------------------------------------------------------------------------
+\end{document}
+%==============================================================================

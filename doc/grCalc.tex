@@ -1,0 +1,1448 @@
+%=================================================================-*-LaTeX-*-==
+% GRTensorII 1.50 Manual
+% Booklet C: Calculating tensor components
+%
+% Denis Pollney
+% July 1996
+%==============================================================================
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{maple2e}
+\usepackage{longtable}
+\usepackage{grtensor}
+\usepackage{grbooks}
+%------------------------------------------------------------------------------
+\begin{document}
+\grlabel{\grCalcLabel}
+\grtitle{\grCalcTitle}
+\grdate{July 1996}
+\grtitlepage
+%==============================================================================
+% Body.
+%==============================================================================
+\copyrightpage
+\noindent The goal of the GRTensorII program is the calculation of
+components of indexed objects, in particular tensors. This booklet
+describes the GRTensorII notation by which tensors are referenced in
+all calculation commands, as well as the functioning of commands
+related to determining components of tensors and expressing the output
+in a convenient form.
+
+The main method by which calculation is accomplished in GRTensorII is
+through the \grcmd{grcalc} command.  Simple calculation is often not
+the last step, however, in producing interpretable output. Often large
+terms result in individual tensor components which need to be
+simplified before they can be read. Of greater concern, the presence
+of large terms in intermediate objects can seriously affect the
+ability to carry out later calculations based on these objects. In
+such cases simplification at crucial points becomes necessary if any
+progress is to be made at all. GRTensorII possesses a number of
+commands allowing the manipulation of components of tensors, most
+notably \grcmd{gralter} and \grcmd{grmap}.
+
+The commands described in this booklet assume that a spacetime (metric
+or basis) has been loaded (or created) for the current GRTensorII session.
+For a description of how to do this, see Booklet \grMakegRef.
+%
+%------------------------------------------------------------------------------
+\section{Tensor notation} \label{sec:indices}
+%------------------------------------------------------------------------------
+%
+The commands provided with GRTensorII are designed to calculate and operate
+on tensors with any given index configuration. An example of such a command
+is the \grcmd{grcalc} command which requests the calculation of the tensors
+named in its arguments. For instance,\\
+
+\noindent\texttt{> grcalc ( R(dn,dn), R(up,dn,dn,dn) ):}\\
+
+\noindent requests the calculation of the covariant Ricci tensor ($R_{ab}$)
+and Riemann tensor in standard form ($R^a{}_{bcd}$). This section provides
+a description of the notation by which tensors are referred to in GRTensorII
+commands.\footnote{For more concrete examples of how these commands operate,
+the reader may wish to skip past this section or examine some
+of the online examples at the GRTensor home page \cite{www}.}
+%
+%------------------------------------------------------------------------------
+\subsection{Tensor names and indices}
+%------------------------------------------------------------------------------
+%
+In general, GRTensorII commands which act on tensors take the form:
+\begin{center}
+  \texttt{ \grarg{commandName} ( \grarg{tensorSeq},
+    [\grarg{other\_Arguments}] )}
+\end{center}
+Here the \grarg{tensorSeq} is a sequence of GRTensorII objects each of
+which has the following form:
+\begin{center}
+  \texttt{ \grarg{tensorName} ( \grarg{indexSeq} )}
+\end{center}
+
+The \grarg{tensorName} is a string specifying a name from the
+GRTensorII library of predefined objects.\footnote{Or a user-defined
+object, as can be created via the methods outlined in Booklet
+\grDefRef.} Examples are:
+\begin{center}
+  \begin{tabular}{ll}
+    \texttt{R} & -- the Riemann tensor (and its index contractions),\\
+    \texttt{G} & -- the Einstein tensor, \\
+    \texttt{g} & -- the metric, \\
+    \texttt{Chr} & -- the Christoffel symbols, \\
+    $\quad\vdots$ & \\
+    etc. &
+  \end{tabular}
+\end{center}
+Section \ref{sec:stdobj} lists objects available in the standard library.
+
+The argument \grarg{indexSeq} is a sequence of names giving the index
+configuration of the tensor. Available index types are:
+\begin{center}
+  \begin{tabular}{ll}
+    \texttt{up}, \texttt{dn} & -- covariant/contravariant indices,\\
+    \texttt{pup}, \texttt{pdn} & -- partial derivatives,\\
+    \texttt{cup}, \texttt{cdn} & -- covariant derivatives,\\
+    \texttt{bup}, \texttt{bdn} & -- covariant/contravariant basis indices,\\
+    \texttt{pbup}, \texttt{pbdn} & -- partial derivatives in a basis,\\
+    \texttt{cbup}, \texttt{cbdn} & -- covariant derivatives in a basis.\\
+  \end{tabular}
+\end{center}
+
+The different indices can be divided into two groups: those that refer
+to components arising from a metric, $g_{ab}$, and those arising from
+a spacetime described by a set of basis vectors, $e_{(a)}{}^b$. Either
+of these types of spacetimes can be created using \grcmd{makeg} or loaded
+into GRTensorII using \grcmd{qload}, as described in Booklet \grMakegRef.\\
+
+The indices take the following meanings:
+\begin{description}
+  \item[\textbf{\texttt{up}, \texttt{dn}:}] 
+    These refer to the standard covariant and
+    contravariant indices of tensors calculated from a metric, $g_{ab}$. 
+    The covariant components of the metric itself are referred to as 
+    \texttt{g(dn,dn)}.
+  \item[\textbf{\texttt{pup}, \texttt{pdn}:}] 
+    These are partial derivatives of the
+    named tensor. Thus \texttt{R(dn,dn,pdn)} refers to the object:
+    \[
+      R_{ab,c} := \frac{\partial R_{ab}}{\partial x^c},
+    \]
+    where $x^a$ are the coordinates of the metric.
+  \item[\textbf{\texttt{cup}, \texttt{cdn}:}] 
+    These specify covariant derivatives
+    of the named tensor. The definition of \texttt{R(up,dn,cdn)} is given
+    by:
+    \[
+      R^a{}_{b;c} := R^a{}_{b,c} - \Gamma^d_{bc} R^a{}_d + 
+        \Gamma^a_{bd} R^d{}_c,
+    \]
+    where $\Gamma^a_{bc}$ are the Christoffel symbols (see Section 
+    \ref{sec:stdobj} for their definition).\footnote{Here and 
+    throughout these booklets we make use of the usual summation
+    convention such that if an index is repeated in both upper and lower 
+    positions in a term, then a summation is implied over all values of
+    that index.}   
+  \item[\textbf{\texttt{bup}, \texttt{bdn}:}] These indices refer to the basis
+    components of a tensor. They can only be used if the spacetime has
+    been specified in the form of a set of basis vectors. In this case,
+    the object \texttt{R(bdn,bdn)} refers to the object
+    \[
+      R_{(a)(b)} := R_{cd} e_{(a)}{}^c e_{(b)}{}^d,
+    \]
+    where $e_{(a)}{}^d$ are the $n$ basis vectors.\footnote{Although
+    the definition given above writes the basis form of the Ricci
+    tensor as a transformation of the metric component form, in fact the
+    objects in the standard GRTensorII library have alternate definitions
+    which are optimized for calculation in a basis so that it is not
+    necessary to revert to coordinate components at any point during a
+    calculation.}
+  \item[\textbf{\texttt{pbup}, \texttt{pbdn}:}] These are the corresponding
+    partial derivatives in the basis. Thus \texttt{R(bdn,bdn,pbdn)} is
+    equivalent to
+    \[
+      R_{(a)(b),(c)} := \frac{\partial R_{(a)(b)}}{\partial x^d}
+        e_{(c)}{}^d,
+    \]
+    with $x^a$ the coordinates of the basis.
+  \item[\textbf{\texttt{cbup}, \texttt{cbdn}:}] These are the covariant
+    derivatives in the basis. The object \texttt{R(bup,bdn,cbdn)} is defined
+    by
+    \[
+      R^{(a)}{}_{(b);(c)} := R^{(a)}{}_{(b),(c)} + \gamma^{(a)}{}_{(b)(d)}
+      R^{(d)}{}_{(c)} - \gamma^{(d)}{}_{(b)(c)} R^{(a)}{}_{(d)},
+    \]
+    where $\gamma^{(a)}{}_{(b)(c)}$ are the Ricci rotation coefficients.
+    See Booklet \grBasisRef~for their definition.
+\end{description}
+\begin{table}
+  \begin{center}
+    \begin{tabular}{ll}\hline\hline
+      \textbf{GRTensorII name} & \textbf{Common representation}\\ \hline
+      \texttt{R(dn,dn)}        & $R_{ab}$ (Ricci tensor) \\
+      \texttt{R(dn,dn,dn,dn)}  & $R_{abcd}$ (Riemann tensor) \\
+      \texttt{R(up,dn,dn,dn)}  & $R^a{}_{bcd}$  \\
+      \texttt{R(dn,dn,pdn)}    & $R_{ab,c}$ (= $\partial_c R_{ab}$)\\
+      \texttt{R(dn,dn,cdn)}    & $R_{ab;c}$ (= $\nabla_c R_{ab}$)\\
+      \texttt{R(bdn,bdn)}      & $R_{(a)(b)}$ (basis components of the Ricci
+       tensor) \\
+      \texttt{R(bdn,bdn,pbdn)} & $R_{(a)(b),(c)}$ \\
+      \texttt{R(bdn,bdn,cbdn)} & $R_{(a)(b);(c)}$ \\ \hline\hline
+    \end{tabular}
+    \caption{Some examples of index specifications in GRTensorII object names.}
+    \label{tbl:indices}
+  \end{center}
+\end{table}
+
+If the spacetime has been specified in the form of a basis, then any of
+the above types of indices can be used, since the metric is easily
+calculated via
+\[
+  g^{ab} := \eta^{(c)(d)} e_{(c)}{}^a e_{(d)}{}^b.
+\]
+In such cases it is easy to transform between basis and metric
+components of a tensor simply by requesting a different set of
+indices.\footnote{More exotic index permutations than those specified
+above are also possible. For instance \texttt{R(up,dn,bdn,bdn)} refers
+to the object
+\[
+  R^a{}_{b(c)(d)} := R^a{}_{bef} e_{(c)}{}^e e_{(d)}{}^d,
+\]
+which has mixed basis and metric indices.}
+However, if the spacetime is specified in the form of a metric, $g_{ab}$,
+then the basis components of tensors can not be referenced unless a
+basis is first explicitly defined (as can be done, for example, using
+the \grcmd{nptetrad} command described in Booklet \grMakegRef).
+
+Finally, we note that the \grcmd{grdef} command (used to define new tensors
+outside of the standard GRTensorII library) necessarily uses a somewhat
+different notation from that described in this section to express tensor
+indices. This command described in Booklet \grDefRef.
+%
+%------------------------------------------------------------------------------
+\subsection{Operators} \label{sec:operators}
+%------------------------------------------------------------------------------
+%
+Certain commonly used tensors require extra information (in addition
+to the background geometry) in order to be calculated. For instance,
+consider the definitions of the `electric' and `magnetic' parts of the
+Weyl tensor,
+\[
+  E_{ab} := C_{acbd} v^c v^d, \qquad H_{ab} := C^*_{acbd} v^c v^d.
+\]
+In addition to the Weyl tensor (which can be calculated directly from
+the metric), they require the specification of a vector field $v^a$.
+Naturally, these tensors will have different values if different
+vector fields are specified.
+
+In GRTensorII, certain tensor definitions require the specification of
+such parameters as arguments to the tensor name. The arguments are
+placed in square braces `\texttt{[]}' before the index list.
+For instance, assuming a single-index tensor (a vector field)
+\texttt{v(up)} had been defined, the electric and magnetic Weyl tensors
+would be referenced in GRTensorII using
+\begin{center}
+  \texttt{E[v](dn,dn)}, \quad and \quad \texttt{H[v](dn,dn)}.
+\end{center}
+Note that in the definitions of the electric and magnetic Weyl
+tensors assume that the argument is a single index object, and
+so the index does not have to be specified, only the vector name
+(in this case `\texttt{v}').
+
+A more general example is the d'Alembertian derivative operator,
+$\Box := \nabla^a \nabla_a$. The d'Alembertian defined by GRTensorII
+takes a tensor with an arbitrary number of indices as an argument.
+We could reference $\Box R_{abcd}$ using
+\begin{center}
+  \texttt{Box[R(dn,dn,dn,dn)]}
+\end{center}
+
+Objects involving specifiable arguments were originally defined to allow
+the use of differential operators in GRTensorII, and so they have come
+to be called `operators'. This terminology will be used throughout these
+booklets. A list of operators in the standard GRTensorII object library
+is given in Section \ref{sec:stdobj}.
+%
+%------------------------------------------------------------------------------
+\subsection{Alternate spacetimes} \label{sec:altg}
+%------------------------------------------------------------------------------
+%
+Any calculations carried out by GRTensorII are done so for a particular
+background geometry, specified either by a metric or basis, which has
+been loaded and assigned a name by \grcmd{qload} (or created by
+\grcmd{makeg}). Generally, the last spacetime to be loaded is the
+default spacetime for which all calculations subsequent calculations are
+carried out.\footnote{The default spacetime can also be switched through
+use of the \grcmd{grmetric} command. See Booklet \grMakegRef.}
+However, it is possible to have
+loaded a number of different spacetimes into a single session and still
+calculate components for a particular spacetime even if it is not the
+default. This is done by specifying the name of the desired spacetime
+as an argument to the tensor in square braces. For instance, consider
+the set of commands:\footnote{The \grcmd{qload} command is described in
+Booklet \grMakegRef, and the \grcmd{grcalc} command is the subject of
+Section \ref{sec:grcalc} of this booklet.}\\
+
+\noindent\texttt{> qload ( schw ):} \\
+\texttt{> qload ( kerr ):} \\
+\texttt{> grcalc ( R(dn,dn) ):} \\
+\texttt{> grcalc ( R[schw](dn,dn) ):} \\
+
+\noindent The first two commands load the two spacetimes \texttt{schw}
+and \texttt{kerr}. After the second command, the default spacetime for
+which subsequent  calculations will refer is \texttt{kerr}. The first
+\grcmd{grcalc} command requests the calculation of the covariant Ricci
+tensor. This command automatically assumes that the calculation is
+requested for the default spacetime, ie. \texttt{kerr}.
+The second \grcmd{grcalc} command also  calculates the Ricci tensor,
+however in this case the desired spacetime is given explicitly as an
+argument to the tensor name. Thus the second command calculates the
+Ricci tensor for the \texttt{schw} spacetime.\footnote{In passing, note
+that the two \grcmd{grcalc} commands could also have been executed with
+the single command:
+
+\texttt{> grcalc ( R(dn,dn), R[schw](dn,dn) ):}}\\
+
+It is currently not possible to specify alternate spacetimes in this way
+for GRTensorII operators. For such objects the \grcmd{grmetric} command
+must be used to switch the default background geometry for calculation.
+%
+%------------------------------------------------------------------------------
+\subsection{Composite objects}
+%------------------------------------------------------------------------------
+%
+Certain objects in the standard GRTensorII library have been defined
+as `composite objects'. These objects are actually simply aliases
+which refer to some group of standard objects. Every object in the
+group will be acted upon when the alias is used. An example is the set
+of Newman-Penrose spin coefficients. These objects can be reference
+individually using the object names \texttt{NPsigma},
+\texttt{NPepsilon}, etc. They can also be referenced as a group using
+the name \texttt{NPSpin}. Thus the single command\\
+
+\noindent\texttt{> grcalc ( NPSpin ):}\\
+
+\noindent is equivalent to the set of commands\\
+
+\noindent\texttt{> grcalc ( NPsigma ):}\\
+\texttt{> grcalc ( NPepsilon ):}\\
+$\quad\vdots$\\
+etc.\\
+
+\noindent which would have to be issued for each of the twelve spin
+coefficients.
+
+Other notable examples of composite objects include the Newman-Penrose
+curvature components (\texttt{WeylSc} and \texttt{RicciSc}, described
+in Booklet \grBasisRef) and the scalar curvature invariants (see
+\texttt{?grt\_invars} and Section \ref{sec:stdobj} of this booklet).
+%
+%------------------------------------------------------------------------------
+\section{Calculating tensor components} \label{sec:grcalc}
+%------------------------------------------------------------------------------
+%
+GRTensorII's \textit{raison d'etre}, is embodied in a single command,
+\grcmd{grcalc}. This command is responsible for the calculation of the
+components of any tensor, scalar, or operator defined for
+GRTensorII. Its usage is as follows:\\
+%
+\begin{cmdspec}
+  \label{spec:grcalc}
+  \grcmdline{grcalc ( \grarg{objectSeq} )}
+
+  \begin{description}
+    \item[\grarg{objectSeq}] -- A sequence of GRTensorII indexed object names.
+  \end{description}
+
+  \grexample{grcalc ( R(up,dn,dn,dn), R(dn,dn), Ricciscalar )}
+\end{cmdspec}
+
+In order to perform any calculation with \grcmd{grcalc}, a background
+geometry must have been previously loaded into the current session
+(see Booklet \grMakegRef), either as a metric or set of basis
+vectors. Calculations of either basis or metric tensor components can
+be carried out by specifying the type of index, as outlined in the
+previous Section \ref{sec:altg}.\\
+
+The results of a calculation are not displayed automatically because
+individual terms can often be inconveniently large before they are
+simplified using \grcmd{gralter} (see Section \ref{sec:gralter}). A
+request to display the results of a \grcmd{grcalc} command must be
+given explicitly using the command \grcmd{grdisplay} (Section 
+\ref{sec:grdisplay}).\\
+
+Multiple objects can be calculated at once by separating them with
+commas in the argument to \grcmd{grcalc}. The underscore character,
+`\texttt{\_}' can be used as a short-cut if the object arguments to
+a GRTensorII command are to be re-used in succession. For instance,
+in the pair of commands\\
+
+\noindent\texttt{> grcalc ( R(up,dn), Ricciscalar ):} \\
+\texttt{> grdisplay ( \_ ):} \\
+
+\noindent the underscore character instructs \grcmd{grdisplay} to
+substitute the arguments of the previous \grcmd{grcalc} command
+(namely \texttt{R(up,dn)} and \texttt{Ricciscalar}) into its own
+argument list.\footnote{Another short-hand alternative has been
+included, because the \grcmd{grcalc} and \grcmd{grdisplay} commands
+are so often used together.  The command \grcmd{grcalcd}, is an alias
+for the combined \grcmd{grcalc} and \grcmd{grdisplay} applied in
+succession. Thus the given command pair could be replaced by the
+single command\\
+
+\noindent\texttt{> grcalcd ( R(up,dn), Ricciscalar ):}
+\label{spec:grcalcd}}\\
+
+\noindent\textbf{Calculation of intermediate objects:}
+The \grcmd{grcalc} command calculates the requested objects for the
+default metric or for any metric specified in square brackets
+after the tensor name (see Section \ref{sec:altg}). The internal
+definition of each tensor also contains a list of tensors which
+are required by that definition. Any tensors in this list (for
+example, the Christoffel symbols in the case of any of the
+curvature tensors) will also be calculated automatically. If any of
+these objects have already been calculated for the spacetime in
+question, the results of the previous calculation are used rather
+than re-calculating the objects.\\
+
+\noindent\textbf{Derivatives:} The derivatives (partial or covariant) of
+any tensor or scalar can be calculated by appending the indices
+\texttt{pdn} or \texttt{cdn} to the regular index list of the object.
+Thus the covariant derivative of the Ricci tensor, $R_{ab;c}$,
+could be calculated using the command\\
+
+\noindent\texttt{> grcalc ( R(dn,dn,cdn) ):}\\
+
+\noindent In the case of curvature tensors defined on a basis, the indices
+\texttt{pbdn} and \texttt{cbdn} should be used instead. See the previous
+section for definitions of the derivative indices.\\
+
+\noindent\textbf{Operators:} Operators defined in the GRTensorII standard
+library can also be applied to tensors. The arguments of the operator
+are specified in square braces before the index list. For instance, the
+d'Alembertian of the Ricci tensor could be calculated using the command\\
+
+\noindent\texttt{> grcalc ( Box[ R(dn,dn) ] ):}\\
+
+\noindent See Section \ref{sec:operators} for a more complete description
+of how operators are referenced in GRTensorII commands. Section
+\ref{sec:stdobj} provides a list of operators defined by the standard library.
+%
+%------------------------------------------------------------------------------
+\subsection{Calculating individual components} \label{sec:grcalc1}
+%------------------------------------------------------------------------------
+%
+An occasional difficulty when working with complicated spacetimes is
+that individual components of curvature tensors can expand to a size
+which MapleV is unable to handle, resulting in an `\texttt{Object too
+large}' error.  It may happen that this error occurs for only a few
+components of a tensor, while many others are well within the
+limitations of the computer algebra system, and sometimes in such
+cases useful information about the tensor can be inferred even if all
+of the components are not explicitly calculated.\footnote{See the
+Tomimatsu-Sato worksheet, \texttt{tosa.ms}, available from the
+GRTensorII world-wide-web page \cite{www}.}
+
+The command \grcmd{grcalc1} exists to perform the calculation of a single
+component of a tensor:\\
+%
+\begin{cmdspec}
+  \label{spec:grcalc1}
+  \grcmdline{grcalc1 ( \grarg{object}, \grarg{indexList} )}
+
+  \begin{description}
+    \item[\grarg{object}] -- The name of the object to be calculated.
+    \item[\grarg{indexList}] -- A MapleV list whose entries specify the
+      component to be calculated, either by indicating the coordinate names
+      or numbers.
+  \end{description}
+
+  \grexample{grcalc1 ( R(dn,dn,dn,dn), [r,r,theta,phi] )}
+\end{cmdspec}
+
+Note that since only one component has been calculated, GRTensorII 
+will not recognize the entire object as being calculated. Thus, the 
+result of the calculation cannot be displayed using the \grcmd{grdisplay}
+command. Instead, the component can be accessed using \grcmd{grcomponent}
+(described in Section \ref{sec:grcomponent}, below), as in the command
+sequence:\\
+
+\noindent\texttt{> grcalc1 ( R(dn,dn), [1,1] ):} \\
+\texttt{> f(x,y,z,t) := grcomponent ( R(dn,dn), [1,1] ):}\\
+
+\noindent (where we've also demonstrated the use of coordinate numbers
+as an alternative to coordinate names.)
+%
+%------------------------------------------------------------------------------
+\subsection{Clearing calculations} \label{sec:grclear}
+%------------------------------------------------------------------------------
+%
+Once the components of a tensor are calculated for a given metric the
+results are saved and used in any subsequent calculations involving
+the tensor. Further calls to calculate the same object will return
+the already determined components.
+In order to clear the results of a tensor calculation, the command
+\grcmd{grclear} can be used.\\
+%
+\begin{cmdspec}
+  \label{spec:grclear}
+  \grcmdline{grclear ( \grarg{objectSeq} )}
+
+  \begin{description}
+    \item[\grarg{objectSeq}] -- This argument can be either a sequence of
+      GRTensorII objects or one of the special parameters:
+      \begin{description}
+        \item[results] -- Clears all of the
+          GRTensorII objects which have been calculated for the
+          current default spacetime. The default spacetime
+          (ie. metric and/or basis vectors) remains initialized.
+        \item[metric] -- Clears all of the
+          objects calculated for the current spacetime, 
+          including the metric components \texttt{g(dn,dn)}.
+        \item[spacetime] -- Clears all of the objects
+          calculated for the current default spacetime as well as
+          the components of the metric and basis vectors, if assigned.
+       \end{description}
+       If either of the three special parameters are used as the 
+       \grarg{objectSeq} argument, then a prompt asks the user to confirm 
+       the use of \grcmd{grclear}.
+  \end{description}
+
+  \grexample{grclear ( results )}
+\end{cmdspec}
+%------------------------------------------------------------------------------
+\section{Displaying tensor components} \label{sec:grdisplay}
+%------------------------------------------------------------------------------
+%
+The command \grcmd{grdisplay} can be used to display the components
+of GRTensorII objects which have previously been calculated for a
+particular spacetime.\\
+%
+\begin{cmdspec}
+  \label{spec:grdisplay}
+  \grcmdline{grdisplay ( \grarg{objectSeq} )}
+
+  \begin{description}
+    \item[\grarg{objectSeq}] -- A sequence of names of previously calculated
+      objects.
+  \end{description}
+
+  \grexample{grdisplay ( R(bdn,bdn) )}
+\end{cmdspec}\\
+
+The \grcmd{grdisplay} command displays the components of all of the
+tensors named in its argument.\footnote{Recall that if \grcmd{grcalc}
+or \grcmd{gralter} have been used immediately prior to this command,
+then the short-cut underscore character can be used to indicate the
+arguments of the previous command are to be carried over (see the
+discussion in Section \ref{sec:grcalc}).}  Only the non-zero
+components are displayed, and only the independent components up to
+index symmetries (thus only the components in the upper diagonal of a
+symmetric 2-tensor would be displayed).
+
+Components whose size exceeds the value of the
+\texttt{grOptionDisplaySize} variable will have only their length displayed
+rather than their value. This limit can be increased by assigning a larger
+value to this variable. It is preferable to attempt to reduce the size of
+the components by applying simplifications via \grcmd{gralter} or 
+\grcmd{grmap} as described in Section \ref{sec:gralter}, below.
+
+For 1- and 2-index objects, the output will be in the form of a matrix
+unless the size of one of the individual tensor components (as measured in
+MapleV words) exceeds the value of the \texttt{grOptionTermSize} variable.
+If so, then the regular display of individual components is used.
+
+The display of coordinate names over coordinate numbers can be toggled
+using the global variable \texttt{grOptionCoordNames}.\\
+
+For descriptions of the \texttt{grOption} variables, see Booklet 
+\grSetupRef~or the \texttt{?groptions} online help page.
+%
+%------------------------------------------------------------------------------
+\subsection{Derivative aliases} \label{sec:alias}
+%------------------------------------------------------------------------------
+%
+Large numbers of derivatives in an expression can confuse the appearance
+of the output. It is often desirable to express partial derivatives in
+a variable by a special symbol or abbreviation. A set of commands are
+included in GRTensorII to perform such substitutions to each component of a
+result returned by \grcmd{grcalc} with the aim of producing more readable
+output.\\
+
+The most useful of these commands is \grcmd{autoAlias}, which specifies
+shorthand notation for partial derivatives to be used throughout the
+session.\\
+%
+\begin{cmdspec}
+  \label{spec:autoAlias}
+  \grcmdline{autoAlias ( \grarg{expressionName} )}
+
+  \begin{description}
+    \item[\grarg{expressionName}] -- The name of an expression which contains
+      functions whose derivatives are to be aliased.
+  \end{description}
+
+  \grexample{autoAlias ( diff(g(r,t),t)/r + diff(f(r,t),r)/t )}
+\end{cmdspec}\\
+
+The \grcmd{autoAlias} command automatically creates aliases for partial
+derivatives functions named in its argument. The form of the shorthand
+notation is to represent derivatives in a coordinate by placing the
+coordinate in a subscript. Thus, for example
+\[
+  \frac{\partial f(r,t)}{\partial r} \qquad \text{becomes} \qquad f_r.
+\]
+The \grcmd{autoAlias} command is given a single
+expression as an argument. It automatically creates derivative aliases 
+(up to third order) for each function contained in the expression. Thus,
+if $f(r,t)$ is defined by
+\[
+  f(r,t) := h(r,t) + \frac{\partial h(r,t)}{\partial r} +
+    \frac{\partial g(r,t)}{\partial t}
+\]
+and is given as an argument to \grcmd{autoAlias}, then derivative aliases
+will be automatically created for the functions $h(r,t)$ and $g(r,t)$.
+Derivative aliases created with \grcmd{autoAlias} will be active for the
+entire MapleV session.
+
+Note that in order to apply \grcmd{autoAlias} to all functions
+contained in the components of a particular tensor, the command
+\grcmd{gralter} (or \grcmd{grmap}) must be used, as in:\\
+
+\noindent{\texttt{> gralter ( R(dn,dn), autoAlias ):}\\
+
+\noindent This command ensures that derivatives of all functions in
+all component of the Ricci tensor are assigned an alias of the form
+specified above. (See Section \ref{sec:gralter} for a description of the 
+\grcmd{gralter} command.)\\
+
+The command \grcmd{diffAlias} can be used to perform a similar
+task. The main differences are that \grcmd{diffAlias} allows the user
+to specify exactly which functions are to be aliased.\\
+%
+\begin{cmdspec}
+  \label{spec:diffAlias}
+  \grcmdline{diffAlias ( \grarg{varList}, \grarg{functionList} )}\footnotemark
+
+  \begin{description}
+    \item[\grarg{varList}] -- A MapleV list of variables (coordinates) for 
+      which the shorthand alias is to be applied (eg. \texttt{[r,theta]}).
+    \item[\grarg{functionList}] -- A set of names of functions in the above 
+      specified variables for which the shorthand is to be applied
+      (eg. \texttt{[f, g]}).
+  \end{description}
+
+  \grexample{diffAlias ( [r,t], [f,g] )}
+\end{cmdspec}\\
+\footnotetext{The code for \grcmd{diffAlias} was contributed by
+Roberto Sussman.}
+
+As with \grcmd{autoAlias}, the aliases take the form of subscripts of the 
+relevant variable. Returning to the above example, the command\\
+
+\noindent{\texttt{> diffAlias ( [r,t], [h,g] ):}\\
+
+\noindent would be equivalent to the command\\
+
+\noindent{\texttt{> autoAlias ( f(r,t) ):}\\
+
+\grcmd{diffAalias} commands can also be placed in metric files (see
+Booklet \grMakegRef) to assign the aliases automatically when the
+metric is loaded.\\
+
+The final form of derivative aliasing available with GRTensorII allows more
+general representations of the derivatives than either the 
+\grcmd{diffAlias} or \grcmd{autoAlias} commands. The \grcmd{grDalias}
+command allows users to specify a character representation of the derivative
+in a particular coordinate, such as an apostrophe (\texttt{'}). The syntax
+of the command is:\\
+%
+\begin{cmdspec}
+  \label{spec:grDalias}
+  \grcmdline{grDalias ( \grarg{function}, \grarg{var1}, \grarg{str1}, 
+    \grarg{var2}, \grarg{str2}, $\ldots$ )}
+
+  \begin{description}
+    \item[\grarg{function}] -- A function for which derivative aliases are
+      to be created.
+    \item[\grarg{var}] -- The variables on which the \grarg{function}
+      is dependent.
+    \item[\grarg{str}] -- Strings which should represent derivatives of
+      the \grarg{function} in terms of the preceding named variable.
+  \end{description}
+
+  \grexample{grDalias ( f(r,t), r, `'`, t, `*` )} 
+\end{cmdspec}
+
+The \grcmd{grDalias} command replaces derivatives in the listed variables
+with a corresponding string which is specified by the user. Thus, after
+issuing the command\\
+
+\noindent\texttt{> grDalias ( f(r,t), r, `'`, t, `*` ):}\\
+
+\noindent the functions
+\[
+  \frac{\partial f(r,t)}{\partial r}, \quad 
+  \frac{\partial^2 f(r,t)}{\partial r^2}, \quad
+  \frac{\partial f(r,t)}{\partial t}, \quad
+  \frac{\partial^2 f(r,t)}{\partial t^2}, \quad
+  \frac{\partial^2 f(r,t)}{\partial r \partial t},
+\]
+would appear, respectively, as
+\[
+  f^\prime, \qquad f^{\prime\prime}, \qquad f^*, \qquad f^{**}, \qquad
+    f^{\prime *}.
+\]
+\grcmd{grDalias} commands can also be placed in metric files (see
+Booklet \grMakegRef) to assign the aliases automatically when the
+metric is loaded.
+%
+%------------------------------------------------------------------------------
+\section{Modifying tensor components} \label{sec:gralter}
+%------------------------------------------------------------------------------
+%
+The large number of summations involved in the calculation of
+curvature tensors often results in individual components consisting of
+enormous numbers of terms. Only with the aid of symbolic
+simplification functions can one hope to extract useful information
+from the expressions.
+
+Two functions are provided with GRTensorII which allow the application
+of MapleV functions to individual tensor components: \grcmd{gralter}
+and the more general \grcmd{grmap}.\\
+%
+\begin{cmdspec}
+  \label{spec:gralter}
+  \grcmdline{gralter ( \grarg{objectSeq}, [\grarg{function1}],
+    [\grarg{function2}], $\ldots$ )}
+
+  \begin{description}
+    \item[\grarg{objectSeq}] -- A sequence of GRTensorII indexed object names.
+    \item[\grarg{function}] -- Single-argument functions to be applied in
+      turn to each component of the objects named in the \grarg{objectSeq}
+      argument.
+  \end{description}
+
+  \grexample{gralter ( R(dn,dn), expand, factor )}
+\end{cmdspec}
+
+The \grcmd{gralter} command is the standard means of applying simplification
+routines to GRTensorII object components. The command recognizes any of
+the following strings in its \grarg{function} arguments:
+
+\begin{enumerate}
+  \item \texttt{simplify} -- Applies the MapleV \grcmd{simplify} command to
+    each component of the named objects. See \texttt{?simplify}.
+  \item \texttt{trig} -- Applies trigonometric simplification to each
+    component. See \texttt{?simplify[trig]}.
+  \item \texttt{power} -- Simplifies terms containing exponents, exponentials,
+    and logarithms. See \texttt{?simplify[power]}.
+  \item \texttt{hypergeom} -- Simplifies terms containing hypergeometric
+    functions. See \texttt{?simplify[hypergeom]}.
+  \item \texttt{radical} -- Converts radicals, logarithms, and exponentials
+    to their MapleV canonical form. See \texttt{?simplify[radical]}.
+  \item \texttt{expand} -- Applies the routine \grcmd{expand} to expand
+    individual terms in each component. See \texttt{?expand}.
+  \item \texttt{factor} -- Applies the routine \grcmd{factor} to factorize
+    each component. See \texttt{?factor}.
+  \item \texttt{normal} -- Applies the routine \grcmd{normal} to convert each
+    term to its MapleV `factored normal form'. See \texttt{?normal}.
+  \item \texttt{sort} -- Applies the routine \grcmd{sort} to sort the terms
+    of polynomials into descending order. See \texttt{?sort}.
+  \item \texttt{sqrt} -- Simplifies expressions involving square roots of
+    symbolic quantities. This has the effect of forcing MapleV to recognize
+    that, for instance, $\sqrt{r^2} = r$. See \texttt{?simplify[sqrt]}.
+  \item \texttt{trigsin} -- Applies trigonometric simplification (as Option 2,
+    above), however in this case biased towards introducing sine functions.
+  \item \texttt{cons} -- This option will apply any constraint equations that
+    have been specified with the metric. See Booklet \grMakegRef.
+  \item \texttt{consr} -- Like the previous option, this option applies
+    any constraints on the spacetime. However, in this case the constraints
+    are replied repeatedly until there is no change in the expression to
+    which they are being applied.   
+  \item \grarg{other} -- Any other single-argument MapleV function can be
+    specified (eg. \grcmd{radsimp}). The function will be applied to each
+    component of the listed GRTensorII objects.
+\end{enumerate}
+
+Note that each of the above options are numbered, and in fact any of the
+numbers (except 14) can be used as a substitute for the corresponding names. 
+Thus,\\
+
+\noindent \texttt{> gralter ( R(dn,dn), 6, 7 ):}\\
+
+\noindent is equivalent to the command\\
+
+\noindent \texttt{> gralter ( R(dn,dn), expand, factor):}\\
+
+Alternatively, the user may choose not to specify any form of simplification
+in the command arguments. In this case, a menu of the above options is
+presented and the user asked to choose from the above numbers. In this
+case Option 14 is available, and the user will be prompted for the MapleV
+command which is to be applied.\\
+
+The \grcmd{gralter} command can apply any single-argument MapleV function
+to the components of a tensor. In order to make use of MapleV
+functions which possess more than one argument, the
+\grcmd{grmap} command can be used. This command can apply any MapleV
+function to each component of a GRTensorII object.\\
+
+As an example, consider the case in which one wishes to give a particular
+value to some constant, say $Q = 0$, in each component of $R_{ab}$. 
+In order to perform this substitution for a single function, we would 
+use the standard MapleV command \grcmd{subs}, as in\\
+
+\noindent\texttt{> subs ( Q=0, F(x,y,z) ):}\\
+
+\noindent where $F(x,y,z)$ is some complicated function containing $Q$
+as a parameter. Note that in this case \grcmd{subs} takes two arguments,
+and thus could not be applied to \texttt{R(dn,dn)} using \grcmd{gralter}.
+We could, however, use \grcmd{grmap} to perform the substitution for each
+component of \texttt{R(dn,dn)} as follows:\\
+
+\noindent\texttt{> grmap ( R(dn,dn), subs, Q=0, 'x' ):}\\
+
+Here the first argument specifies the object to which the command is
+to be applied, the second is the command itself (`\texttt{subs}'), and
+the third and following arguments specify the arguments that should be
+passed to the given function. A place-holder, \texttt{'x'}, is used
+among these arguments to indicated where the tensor component is to be
+inserted in the command. As the above command is executed the
+components $R_{11}$, $R_{12}$, $\ldots$, are substituted into the
+location of $x$ in the command:\\
+
+\noindent\texttt{> subs ( Q=0, $x$ ):}\\
+
+\noindent The general format of the \grcmd{grmap} command is as follows:\\
+%
+\begin{cmdspec}
+  \label{spec:grmap}
+  \grcmdline{grmap ( \grarg{objectSeq}, \grarg{function}, \grarg{fnArg1},
+    $\ldots$, 'x', $\ldots$, \grarg{fnArgN} )}
+
+  \begin{description}
+    \item[\grarg{objectSeq}] -- A GRTensorII indexed object name, or sequence 
+      of object names.
+    \item[\grarg{function}] -- The name of a function to be applied to each
+      component of a tensor.
+    \item[\grarg{fnArg1} $\ldots$ \grarg{fnArgN}] -- The arguments of the
+      \grarg{function} named above.
+    \item[\texttt{'x'}] -- A place-holder indicating where the components
+      of the tensors listed in \grarg{objectSeq} are to be slotted into
+      the arguments of the \grarg{function}.
+  \end{description}
+
+  \grexample{grmap ( R(dn,dn), Ricciscalar, subs, b(r)=B, c(r)=C, 'x' )}
+\end{cmdspec}\\[\baselineskip]
+
+Finally, we note that simplifications carried out by the
+\grcmd{gralter} and \grcmd{grmap} command are carried out only after
+the use of \grcmd{grcalc} to calculate the components of a particular
+tensor. In general, however, the calculation of a tensor requires the
+calculation of a number of intermediate objects, which might also
+benefit from some simplification in order to allow the later
+calculations to proceed more smoothly.
+
+For example, if one requests a calculation of the Riemann tensor
+immediately after loading a metric then the program must first
+calculate the Christoffel symbols and then perform summations and take
+derivatives of their components. For very complicated metrics, if the
+Christoffel symbols are left in `unsimplified' form, this can cause
+problems for the subsequent calculation of the Riemann tensor.
+
+In this trivial example the most obvious solution is first to
+calculate and simplify the Christoffel symbols, then proceed to
+calculate the Riemann tensor. However, occasionally one comes across
+calculations with large numbers of such intermediate calculations in
+which it might be desirable to apply some form of simplification
+universally to each. The \grcmd{grcalcalter} command can perform this
+operation automatically, effectively performing a \grcmd{grcalc}
+followed by a \grcmd{gralter} command for each intermediate object in
+a calculation.\\
+%
+\begin{cmdspec}
+  \label{spec:grcalcalter}
+  \grcmdline{grcalcalter ( \grarg{objectSeq}, [\grarg{function1}],
+    [\grarg{function2}], $\ldots$ )}
+
+  \begin{description}
+    \item[\grarg{objectSeq}] -- A sequence of GRTensorII indexed object names.
+    \item[\grarg{function}] -- Single-argument functions to be applied in
+      turn to each component of the objects named in the \grarg{objectSeq}
+      argument.
+  \end{description}
+
+  \grexample{grcalcalter ( R(dn,dn), expand, factor )}
+\end{cmdspec}
+
+The arguments to \grcmd{grcalcalter} are identical to those of \grcmd{gralter}
+given above. Simplification routines can be specified either by name or
+number, and if no simplification routine is specified a menu will be presented
+and the user prompted to supply one. The simplification routine which is
+chosen will then be applied to the calculation of each intermediate object
+required of the calculation of objects listed in \grarg{objectSeq}.
+
+The \grcmd{grcalcalter} command should, however, be used with caution. Only
+rarely is it helpful to apply powerful simplifications universally. More
+often this will result in a large number of redundant attempts at
+simplification which increase the calculation time without noticeable
+benefit.
+These matters are the topic of the next section.
+%
+%------------------------------------------------------------------------------
+\section{Simplification strategies} \label{sec:simplification}
+%------------------------------------------------------------------------------
+%
+A brief experience with tensor calculation using computers makes clear
+the importance of selecting a correct simplification strategy for
+calculations. By choosing not to perform a simplification at a crucial
+step, one risks allowing components to become too large to be
+tractable by the computer algebra package. Alternatively, simplifying
+at each stage of a calculation often results in needless or redundant
+expansions and contractions of terms which can use up a great deal of
+time with little or no benefit.
+
+Unfortunately, the choice of which simplification routines should be
+applied, and at what stages, is a fairly non-algorithmic problem, and
+thus difficult to automate in a software package. A number of widely
+held generalizations, such as the idea that simpler components will
+result from the proper use of tetrads, have proven to be inaccurate in
+practical situations.\footnote{For an analysis of the efficiency of
+different formalisms in calculating tensor components, see
+\cite{pmsl96}.}
+
+Though the problem of finding the best simplification strategy can be
+considered to be non-algorithmic, it certainly is often solvable. If a
+number of general rules are kept in mind while performing a
+calculation, it is possible within a reasonable amount of time to
+determine a solution to a given problem, whenever such a solution
+exists at all given the memory limitations of the computer algebra
+system/platform. Summarized here are some general rules of
+simplification appropriate to GRTensorII running under MapleV.
+
+\begin{itemize}
+  \item There should be some default simplification procedure applied
+    to every step of a calculation. Failure to do this can make a
+    simple calculation intractable. The MapleV routine \grcmd{normal}
+    is the best starting point for the default. If the calculation
+    involves exponentials (e.g. the Bondi metric) the routine
+    \grcmd{expand} may be more appropriate. Only if very general
+    functions are involved is it appropriate to consider no default
+    simplification. In general cases this may be the optimal
+    choice. The choice of default simplification can be altered
+    through the use of the global variable
+    \texttt{grOptionDefaultSimp} (see \texttt{?groptions}, or Booklet
+    \grSetupRef) or by using the \grcmd{grcalcalter} command.
+%
+  \item Simplification of the metric tensor (or basis components)
+    before further calculation will improve performance.
+%
+  \item In the null tetrad formalism, pre-calculation and further
+    simplification of the spin coefficients (and their complex
+    conjugates) will improve performance only in more complicated
+    cases. The same holds for the Christoffel symbols in the
+    coordinate approach. (Note that these objects represent `first
+    derivatives' of the metric. Generally, a good point to apply
+    simplifications is after any derivatives or covariant derivatives
+    of intermediate objects are taken.)
+%
+  \item For further simplification after an object has been
+    calculated, the MapleV routine \grcmd{simplify} is seldom a good
+    first choice. The routine \grcmd{expand} followed by
+    \grcmd{factor} is often more appropriate. If the spacetime is
+    sufficiently general there will be no further reduction in
+    component size if \grcmd{normal} has been used as default.
+%
+  \item If complicated functions are involved, it can be advantageous
+    to substitute the explicit forms of the functions \textsl{after} a
+    more general calculation is completed. For both coordinate and
+    tetrad calculations the removal of trigonometric and like
+    functions via elementary transformations (such as $u(\theta) :=
+    \cos\theta$) will often improve performance.
+%
+  \item Experience shows that component calculations most often tend
+    to finish quickly (within a few minutes at most) or not at
+    all. When a calculation is proceeding slowly, it should be halted,
+    the simplification strategy altered, and the worksheet
+    re-executed. (This is more easily done in the `windows' based
+    interfaces to MapleV than in the text based interface.)
+\end{itemize}
+
+For most situations these general rules will give adequate
+performance, and reduce the calculation of curvature for even complex
+spacetimes to an essentially trivial exercise. That is to say, if
+after applying these methods an answer is still not forthcoming (most
+likely because of the size of intermediate expressions), then it is
+quite possible that no answer is attainable given the limitations of
+the computer algebra platform, and that the problem is not solvable
+without some more sophisticated analysis.\footnote{See the Tomimatsu-Sato
+example, \texttt{tosa.ms}, available from the GRTensorII
+world-wide-web site \cite{www}.}
+%
+%------------------------------------------------------------------------------
+\section{Accessing tensor components} \label{sec:grcomponent}
+%------------------------------------------------------------------------------
+%
+Results obtained by use of the \grcmd{grcalc} are stored in a data
+structure which contains the components of the particular tensors as well
+as a great deal of other information regarding the tensors including
+index configuration, index symmetries and calculation algorithms. Generally,
+the user is not interested in the additional information, and thus the
+commands \grcmd{grdisplay}, \grcmd{gralter}, \grcmd{grmap}, etc., have
+been provided to allow users to display and operate on the components of
+tensors without dealing with the more complicated data structure in which
+they are stored.
+
+Often, however, it is useful to be able to perform more complicated
+operations with the components of tensors, in which case the
+\grcmd{grmap} command can become unwieldy. For instance, a user might
+like to solve the individual Einstein equations calculated for
+a given metric. It would be most convenient, then, to extract the
+tensor component values from the GRTensorII data structure and place them
+in some user defined variables which can be more easily manipulated.
+
+The main means of extracting tensor components is through the command
+\grcmd{grcomponent}:\\
+%
+\begin{cmdspec}
+  \label{spec:grcomponent}
+  \grcmdline{grcomponent ( \grarg{object}, \grarg{component} )}
+
+  \begin{description}
+    \item[\grarg{object}] -- The indexed object name of the tensor whose
+      components are to be extracted.
+    \item[\grarg{component}] -- A MapleV list specifying the particular
+      component, either by giving the index names (eg. 
+      \texttt{[t,r,theta,phi]}) or their corresponding 
+      numbers (eg. \texttt{[1, 2, 3, 4]}).
+      In the case of GRTensorII scalars, this parameter can be omitted, or
+      an empty list, `\texttt{[]}', used.
+  \end{description}
+
+  \grexample{f(x) := grcomponent ( R(up,dn,dn,dn), [t,r,r,r]  )}
+\end{cmdspec}
+
+Unlike most other GRTensorII commands, \grcmd{grcomponent} returns a
+value (a function, usually) which can be assigned to some other MapleV name.
+
+While \grcmd{grcomponent} extracts individual components of tensors, the
+command \grcmd{grarray} can be used to place all of the components of
+an $n$-index tensor into an MapleV array. For example, using the command\\
+
+\noindent\texttt{> Riem := grarray ( R(dn,dn,dn,dn) ):}\\
+
+\noindent the components of the covariant Riemann tensor are stored in
+the array \texttt{Riem} and can be accessed as \texttt{Riem[1,2,1,2]}, etc.
+The specification of the \grcmd{grarray} command is as follows:
+%
+\begin{cmdspec}
+  \label{spec:grarray}
+  \grcmdline{grarray ( \grarg{object} )}
+
+  \begin{description}
+    \item[\grarg{object}] -- The indexed object from which the array is
+      to be created.
+  \end{description}
+
+  \grexample{Riem := grarray ( R(dn,dn,dn,dn) )}
+\end{cmdspec}
+
+For both the \grcmd{grcomponent} and \grcmd{grarray} commands, it is important
+that the names to which the extracted components are assigned are not the same
+as the names of any standard GRTensorII object. Thus, the assignment\\
+
+\noindent\texttt{> R := grarray ( R(dn,dn,dn,dn) ):}\\
+
+\noindent will result in error messages in later attempts to use
+\texttt{R(dn,dn,dn,dn)} since the name `\texttt{R}' has been assigned.
+%
+%------------------------------------------------------------------------------
+\section{Standard object library} \label{sec:stdobj}
+%------------------------------------------------------------------------------
+%
+A number of commonly used curvature tensors are defined automatically within
+GRTensorII along with optimized algorithms for their calculation. This section
+lists the objects (tensors and
+operators\footnote{For a definition of the GRTensorII use of the word
+`operator', see Section \ref{sec:operators}.}) which can be calculated once a
+metric $g_{ab}$ is specified (see Booklet \grMakegRef). Objects which are
+calculated from a set of basis vectors are listed in Booklet \grBasisRef.\\
+
+In addition to the objects listed in this section, new tensors can be
+defined using the command \grcmd{grdef}. For a description of this command,
+see Booklet \grDefRef.
+%
+%------------------------------------------------------------------------------
+\subsection{Curvature tensors}
+%------------------------------------------------------------------------------
+%
+While only a single index configuration is given in each of the following
+definitions, alternate configurations as well as their derivatives can
+be specified via the means described in Section \ref{sec:indices}.
+
+Note that the definitions given in this section do not necessarily
+specify the algorithm used for calculation. For instance, generally
+the Ricci tensor will be calculated directly from the Christoffel
+symbols, even though the definition below is given in terms of a
+contraction of the Riemann tensor.  Within GRTensorII, algorithms
+often make a choice of calculation method based on criteria such
+as which intermediate objects have already been calculated.\\
+
+\renewcommand{\baselinestretch}{1.5}\normalsize
+\begin{longtable}[c]{lp{.6\textwidth}}\hline\hline
+GRTensorII name & Definition\\ \hline
+& \\
+\texttt{g(dn,dn)}	& covariant metric, $g_{ab}$\\
+\texttt{ds}		& line element form of the metric\\
+\texttt{detg}		& metric determinant, $g := \det (g_{ab})$\\
+\texttt{dimension}	& spacetime dimension,\\
+\texttt{sig}		& spacetime signature,\\
+\texttt{x(up)}		& coordinates, $x^a$\\
+%
+\texttt{kdelta(up,dn)}	& Kronecker delta, \\ 
+			& $\delta^a{}_b :=
+			    \left\{
+			      \begin{array}{l}
+			        1, \text{~if~} a=b,\\
+			        0, \text{~otherwise.}
+			      \end{array}
+			    \right. $ \\
+\texttt{LevCS(dn,dn,dn,dn)}\footnote{Three dimensional versions of the
+Levi-Civita symbols also exist as \texttt{LevCS(dn,dn,dn)}, etc.}
+			& Levi-Civita alternating symbol,\\
+			& $ [a,b,c,d] :=
+			    \left\{
+			      \begin{array}{l}
+				1 \text{~for~}(a,b,c,d)
+				\text{~in even order}, \\
+			        -1 \text{~for~} (a,b,c,d)
+				\text{~ in odd order},\\
+				0 \text{~otherwise.}
+			      \end{array}
+			    \right. $ \\
+\texttt{LevC(dn,dn,dn,dn)} & Levi-Civita tensor, 
+			$\epsilon_{abcd} := (-g)^{1/2}[a,b,c,d]$\\
+& \\
+%
+\texttt{Chr(dn,dn,dn)}	& Christoffel symbol of the first 
+			  kind,\footnote{
+			  \parbox[t]{\textwidth}{
+			  \renewcommand{\baselinestretch}{1}\small
+			  Note that this index ordering
+			  differs from that of Misner-Thorne-Wheeler
+			  \cite{mtw}. 
+			  We retain this ordering for 
+			  consistency with earlier versions of GRTensor.
+			  \renewcommand{\baselinestretch}{1}\normalsize}}\\
+			& $ \Gamma_{bca} := \frac{1}{2}(g_{ab,c} + g_{ac,b} -
+			     g_{cb,a})$\\
+\texttt{Chr(dn,dn,up)}	& Christoffel symbol of the second kind,
+			$ \Gamma_{bc}^a := g^{ad} \Gamma_{bcd} $\\
+\texttt{R(dn,dn,dn,dn)}	& Riemann tensor,\\
+			& $ R^a{}_{bcd} := 
+			    \frac{\partial\Gamma_{bd}^a}{\partial x^c}
+			    - \frac{\partial\Gamma_{bc}^a}{\partial x^d}
+			    + \Gamma_{ec}^a \Gamma_{bd}^e
+			    - \Gamma_{ed}^a \Gamma_{bc}^e$ \\
+\texttt{R(dn,dn)}	& Ricci tensor, $R_{ab} := R^c{}_{acb}$\\
+\texttt{Ricciscalar}	& Ricci scalar, $R := R^a{}_a$\\
+& \\
+%
+\texttt{S(dn,dn)}	& trace-free Ricci tensor,
+			$ S_{ab} := R_{ab} - \frac{1}{n} R g_{ab} $\\
+\texttt{C(dn,dn,dn,dn)}	& Weyl tensor,\\
+			& $ C_{abcd} := R_{abcd} 
+			  - \frac{2}{n-2}(g_{a[c}S_{d]b} - g_{b[c}S_{d]a})
+			  - \frac{2}{n(n-1)} R g_{a[c} g_{d]b} $ \\
+\texttt{Cstar(dn,dn,dn,dn)} & $C^*_{abcd} := 
+			  \frac{1}{2}\epsilon_{abef} C^{ef}{}_{cd}$\\
+& \\
+%
+\texttt{G(dn,dn)}	& Einstein tensor, 
+			$G_{ab} := R_{ab} - \frac{1}{2} R g_{ab}$\\
+& \\
+%
+\texttt{C2(up,up,dn,dn)} & $C2^{ab}{}_{cd} := C^{abef} C_{efcd}$\\
+\texttt{S2(up,dn)}	& $S2^a{}_b := S^a{}_c S^c{}_b $ \\
+\texttt{S3(up,dn)}	& $S3^a{}_b := S2^a{}_c S^c{}_b $ \\
+\texttt{S4(up,dn)}	& $S4^a{}_b := S3^a{}_c S^c{}_b $ \\
+\texttt{CS(dn,dn)}	& $CS_{ab} := C_{acdb} S^{cd} $ \\
+\texttt{CSstar(dn,dn)}	& $CS^*_{ab} := C^*_{acbd} S^{cd} $ \\
+\hline
+\end{longtable}
+\renewcommand{\baselinestretch}{1}\normalsize
+%
+%-----------------------------------------------------------------------------
+\subsection{Scalar polynomial invariants}
+%-----------------------------------------------------------------------------
+%
+GRTensorII includes the definitions of eighteen scalar polynomial invariants
+of the Riemann tensor. This includes the set of Carminati and McLenaghan
+\cite{carminati/mclenaghan:1991}, which constitutes sixteen invariants and
+has been proven to be complete for perfect fluid as well as Maxwell-type
+Ricci tensors. It consists of the invariants
+\[ CM := \{ R, r_1, r_2, r_3, w_1, w_2, m_1, m_2, m_3, m_4, m_5 \} \]
+defined in the table below.
+
+As indicated by Zakhary and McIntosh \cite{zakhary/mcintosh:1996}, more
+general Ricci types may require at least an extra invariant (here
+labeled $m_6$) to ensure completeness. They suggest that if the $CM$
+set is augmented by this additional invariant, the resulting set is
+complete for all Ricci and Petrov types. It is certainly true that
+none of the invariants in the resulting set can be constructed from
+invariant polynomials of equal or lower order. It is also true that
+any invariant of less than sixth order which is not within this set
+can be constructed identically from members of this set
+\cite{pollney:1996}.\\
+
+\pagebreak
+\renewcommand{\baselinestretch}{1.5}\normalsize
+\begin{longtable}[c]{llrp{.5\textwidth}}\hline\hline
+GRTensor name	& Range	& &Definition\footnote{
+			   Definitions are given
+			   in terms of Ricci and Weyl spinors,
+			   $\Phi_{AB\dot{A}\dot{B}}, \Psi_{ABCD}$ 
+			   and the corresponding
+			   expression in terms of the trace free tensors,
+			   $S_{ab}, C_{abcd}$.} \\  \hline
+%
+\texttt{Ricciscalar} & Real & $R$ & $:= R^a{}_a$ \\
+\texttt{R1}	& Real	& $r_1$ & $:= \Phi_{AB\dot{A}\dot{B}} 
+				  \Phi^{AB\dot{A}\dot{B}}$\\
+		&	&	& $= \frac{1}{4} S^a{}_b S^b{}_a$ \\
+\texttt{R2}	& Real	& $r_2$ & $:= \Phi^A{}_B{}^{\dot{A}}{}_{\dot{B}}
+				  \Phi^B{}_C{}^{\dot{B}}{}_{\dot{C}}
+				  \Phi^C{}_A{}^{\dot{C}}{}_{\dot{A}} $\\
+		&	& 	& $= -\frac{1}{8} S^a{}_b S^b{}_c S^c{}_a$ \\
+\texttt{R3}	& Real	& $r_3$	& $:= \Phi^A{}_B{}^{\dot{A}}{}_{\dot{B}}
+				  \Phi^B{}_C{}^{\dot{B}}{}_{\dot{C}}
+				  \Phi^C{}_D{}^{\dot{C}}{}_{\dot{D}}
+				  \Phi^D{}_A{}^{\dot{D}}{}_{\dot{A}}$\\
+		&	&	& $= \frac{1}{16} S^a{}_b S^b{}_c S^c{}_d 
+				  S^d{}_a$ \\
+\texttt{W1}	& Complex & $w_1$ & $:= \Psi_{ABCD}\Psi^{ABCD}$\\
+		&	&	& $ = \frac{1}{8} ( C_{abcd}
+				  + i C^*_{abcd} ) C^{abcd}$ \\
+\texttt{W2}	& Complex & $w_2$ & $:= \Psi^{AB}{}_{CD}\Psi^{CD}{}_{EF}
+				  \Psi^{EF}{}_{AB}$\\
+		&	&	& $= -\frac{1}{16} ( C_{ab}{}^{cd}
+				  + i C^*_{ab}{}^{cd} ) C_{cd}{}^{ef}
+				  C_{ef}{}^{ab}$\\
+\texttt{M1}	& Complex & $m_1$ & $:= \Psi_{ABCD} \Phi^{AB{\dot{A}}{\dot{B}}}
+				  \Phi^{CD}{}_{{\dot{A}}{\dot{B}}}$\\
+		&	&	& $= \frac{1}{8} S^{ab} S^{cd} ( C_{acdb}
+				  + i C^*_{acdb})$ \\
+\texttt{M2a}	& Real	& $m_{2a}$ & $:= \frac{1}{16} S^{bc} S_{ef} C_{abcd} 
+				  C^{aefd}$ \\
+\texttt{M2b}	& Real	& $m_{2b}$ & $:= \frac{1}{16} S^{bc} S_{ef} C^*_{abcd}
+				  C^{*aefd}$ \\
+\texttt{M2}	& Complex & $m_2$& $:= \Psi_{ABCD} \Psi^{AB}{}_{EF}
+				  \Phi^{CD{\dot{A}}{\dot{B}}} 
+				  \Phi^{EF}{}_{{\dot{A}}{\dot{B}}}$\\
+		&	&	& $= (m_{2a} - m_{2b}) +
+				  \frac{1}{8} i S^{bc} S_{ef} C^*_{abcd} 
+				  C^{aefd}$\\
+\texttt{M3}	& Real	& $m_3$	& $:= \Psi_{ABCD}
+				  \bar{\Psi}_{\dot{A}\dot{B}\dot{C}\dot{D}}
+				  \Phi^{AB\dot{A}\dot{B}}
+				  \Phi^{CD\dot{C}\dot{D}}$\\
+		&	&	& $= m_{2a} + m_{2b}$\\
+\texttt{M4a}	& Real	& $m_{4a}$ & $:= -\frac{1}{32} S^{ag} S^{ef} S^c{}_d 
+				  C_{ac}{}^{db} C_{befg}$ \\
+\texttt{M4b}	& Real	& $m_{4b}$ & $:= -\frac{1}{32} S^{ag} S^{ef} S^c{}_d 
+				  C^*_{ac}{}^{db} C^*_{befg}$ \\
+\texttt{M4}	& Real	& $m_4$ & $:=\Psi_{ABCD}
+				  \bar{\Psi}_{\dot{A}\dot{B}\dot{C}\dot{D}}
+				  \Phi^{AB\dot{C}\dot{E}}
+				  \Phi^{CE\dot{A}\dot{B}}
+				  \Phi^D{}_E{}^{\dot{D}}{}_{\dot{E}}$\\
+		&	&	& $= m_{4a} + m_{4b}$ \\
+\texttt{M5a}	& Real	& $m_{5a}$ & $:= \frac{1}{32} S^{cd} S^{ef} C^{aghb}
+				  C_{acdb} C_{gefh}$ \\
+\texttt{M5b}	& Real	& $m_{5b}$ & $:= \frac{1}{32} S^{cd} S^{ef} C^{aghb}
+				  C^*_{acdb} C^*_{gefh}$ \\
+\texttt{M5c}	& Real	& $m_{5c}$ & $:= \frac{1}{32} S^{cd} S^{ef} C^{*aghb} 
+				  C_{acdb} C_{gefh}$ \\
+\texttt{M5d}	& Real	& $m_{5d}$ & $:= \frac{1}{32} S^{cd} S^{ef} C^{*aghb}
+				  C^*_{acdb} C^*_{gefh}$ \\
+\texttt{M5}	& Complex & $m_5$ & $:= \Psi_{ABCD}\Psi^{CDEF}
+				  \bar{\Psi}^{\dot{A}\dot{B}\dot{E}\dot{F}}
+				  \Phi^{AB}{}_{\dot{A}\dot{B}}
+				  \Phi_{EF\dot{E}\dot{F}}$\\
+		&	&	& $= (m_{5a} + m_{5b}) + i(m_{5c} + m_{5d})$\\
+\texttt{M6}	& Complex & $m_6$ & $:=	\Psi_{ABCD} \Phi^{AB\dot{A}\dot{B}}
+				  \Phi^{CD\dot{C}\dot{D}}
+				  \Phi^{AB}{}_{\dot{A}\dot{B}}
+				  \Phi_{EF\dot{E}\dot{F}}$\\
+		&	&	& $= \frac{1}{32} S_a{}^e S_e{}^c S_b{}^f
+				  S_f{}^d (C^{ab}{}_{cd} + i C^{*ab}{}_{cd})$\\
+\texttt{W1R}, \texttt{W2R}, etc. & Real & &
+		Re($w_1$), Re($w_2$), Re($m_1$), etc. \\
+\texttt{W1I}, \texttt{W2I}, etc. & Real & &
+		Im($w_1$), Im($w_1$), Im($m_2$), etc. \\
+\texttt{invars}	& ---	& & \{\texttt{Ricciscalar, R1, R2, R3, W1, W2, M1, M2,
+			M3, M4, M5, M6}\} \\
+\texttt{Rinvars} & ---	& & \{ \texttt{Ricciscalar, R1, R2, R3} \} \\
+\texttt{Winvars} & ---	& & \{ \texttt{W1, W2} \} \\
+\texttt{Minvars} & ---	& & \{ \texttt{M1, M2, M3, M4, M5, M6} \} \\
+\texttt{CMinvars}& ---	& & \{\texttt{Ricciscalar, R1, R2, R3, W1, W2, M1,
+			M2, M3, M4, M5}\} \\
+\texttt{SSinvars}\footnote{In spherical symmetry (and its specializations to
+  plane symmetry, etc.), 
+  this subset of the invariants constitutes a complete set
+  \cite{musgrave:1996}.}
+                 & ---	& & \{\texttt{Ricciscalar, R1, R2, R3, W1R, M1R,
+			M2a, M5a} \} \\
+\hline
+\end{longtable}
+\renewcommand{\baselinestretch}{1}\normalsize
+%
+%------------------------------------------------------------------------------
+\subsection{Operators}
+%------------------------------------------------------------------------------
+%
+As discussed in Section \ref{sec:operators}, operators in GRTensorII are
+objects which require the specification of some additional information
+in order to be calculated. For instance, they can be tensors whose 
+definition involves other user-specifiable tensors, or derivative operators
+which act on a specifiable tensor.
+
+The standard library of GRTensorII
+defines a number of operators which can be divided into two classes: vector
+operators, which calculate tensors associated with vector fields, and
+derivative operators, which differentiate their argument. These are listed
+in the following tables.\\
+
+For concreteness, the tables use the names
+\begin{description}
+  \item[\texttt{f(x)}] to represent scalars,
+  \item[\texttt{v(up)}] to represent single-index objects, and
+  \item[\texttt{T(up,dn)}] to represent tensors with an arbitrary number
+    of indices.
+\end{description}
+These names do not have to be entered literally into the arguments of
+the operator, but rather any tensor of a similar type may be substituted.\\
+
+\renewcommand{\baselinestretch}{1.5}\normalsize
+\begin{center}
+\begin{tabular}{lp{.6\textwidth}}\hline\hline
+GRTensorII name & Definition\\ \hline
+& \\
+\texttt{LieD[v,T(up,dn)]}	& Lie derivative,\\
+			 	& $L_v T^a{}_b := v^c \nabla_c T^a{}_b
+				-T^c{}_b\nabla_c v^a + T^a{}_c\nabla_b v^a$ \\
+\texttt{Box[T(up,dn)]}		& d'Alembertian, 
+				$\Box T^a{}_b := \nabla^c \nabla_c T^a{}_b$\\
+\texttt{Dsq[f(x)]}		& $\partial_a f(x) \partial^a f(x)$\\
+\texttt{CDsq[f(x)]}		& $\nabla_a f(x) \nabla^a f(x)$\\
+\hline
+\end{tabular}
+\renewcommand{\baselinestretch}{1}\normalsize
+\end{center}
+
+\renewcommand{\baselinestretch}{1.5}\normalsize
+\begin{longtable}[c]{lp{.6\textwidth}}\hline\hline
+GRTensorII name & Definition \cite{ehlers:1993}\\ \hline
+& \\
+\texttt{vnorm[v]}	& vector norm, $v_a v^a$ \\
+\texttt{h[v](dn,dn)}	& projection tensor, 
+                        $h_{ab} := g_{ab} - (v_a v^a) v_a v_b$ \\
+\texttt{acc[v](up)}	& acceleration, $a^a := v^a \nabla_a v^b$ \\
+\texttt{expsc[v]}	& expansion scalar, $\Theta := \nabla_a v^a$ \\
+\texttt{shear[v](dn,dn)}& shear tensor, \\
+			& $\sigma_{ab} := \nabla_{(a} v_{b)}
+			  + a_{(a} v_{b)} - \frac{1}{3} \Theta h_{ab}$\\
+\texttt{shear[v]}	& shear scalar, $ \sigma 
+			:= (\sigma^a{}_b \sigma^b{}_a)^{1/2}$\\
+\texttt{vor[v](dn,dn)}	& vorticity tensor, \\
+			& $\omega_{ab} := a_{[a} v_{b]}- \nabla_{[a} v_{b]}$\\
+\texttt{vor[v](up)}	& vorticity vector,\\ & $\omega^a
+			:= \frac{1}{2}\epsilon^{abcd} v_b \omega_{cd}$\\
+\texttt{vor[v]}		& vorticity scalar, $\omega 
+			:= (\omega^a{}_b \omega^b{}_a)^{1/2}$\\
+\texttt{RayEqn[v]}	& Raychaudhuri's equation,\\
+			& $ -R_{ab} v^a v^b = v^a \nabla_a\Theta
+			- \nabla_a a^a + \Theta^2 + (\sigma^2 - \omega^2)$ \\
+\texttt{E[v](dn,dn)}	& electric part of the Weyl tensor, \\
+			& $E_{ab} := C_{acbd} v^c v^d$ \\
+\texttt{H[v](dn,dn)}	& magnetic part of the  Weyl tensor, \\
+			& $H_{ab} := C^*_{acbd} v^c v^d$ \\
+\texttt{KillingTest[v]}	& determines if $v^a$ is a Killing 
+			  vector (see also \texttt{?killing}).\\
+\hline
+\end{longtable}
+\renewcommand{\baselinestretch}{1}\normalsize
+%
+%------------------------------------------------------------------------------
+\vfill
+\bibliographystyle{unsrt}
+\bibliography{grtensor}
+%------------------------------------------------------------------------------
+\pagebreak
+\section*{Commands described in this booklet:}
+  \noindent
+    \grcmdline{grcalc ( \grarg{objectSeq} )}
+    \dotfill \pageref{spec:grcalc}\\
+
+  \noindent
+    \grcmdline{grcalcd ( \grarg{objectSeq} )}
+    \dotfill \pageref{spec:grcalcd}\\
+
+  \noindent
+  \grcmdline{grcalc1 ( \grarg{object}, \grarg{indexList} )}
+    \dotfill \pageref{spec:grcalc1}\\
+    
+  \noindent
+  \grcmdline{grclear ( \grarg{objectSeq} )}
+    \dotfill \pageref{spec:grclear}\\
+
+  \noindent
+  \grcmdline{grdisplay ( \grarg{objectSeq} )}
+    \dotfill \pageref{spec:grdisplay}\\
+
+  \noindent
+  \grcmdline{autoAlias ( \grarg{function} ) )}
+    \dotfill \pageref{spec:autoAlias}\\
+
+  \noindent
+  \grcmdline{diffAlias ( \grarg{varList}, \grarg{functionList} )}
+    \dotfill \pageref{spec:diffAlias}\\
+
+  \noindent
+  \grcmdline{grDalias ( \grarg{function}, \grarg{var1}, \grarg{str1}, 
+    \grarg{var2}, \grarg{str2}, $\ldots$ )}
+    \dotfill \pageref{spec:grDalias}\\
+
+  \noindent
+  \grcmdline{gralter ( \grarg{objectSeq}, [\grarg{function1}],
+   [\grarg{function2}],
+    $\ldots$ )}
+    \dotfill \pageref{spec:gralter}\\
+
+  \noindent
+  \grcmdline{grmap ( \grarg{objectSeq}, \grarg{function}, \grarg{fnArg1},
+    $\ldots$, 'x', $\ldots$, \grarg{fnArgN} )}
+    \dotfill \pageref{spec:grmap}\\
+
+  \noindent
+  \grcmdline{grcomponent ( \grarg{object}, \grarg{component} )}
+    \dotfill \pageref{spec:grcomponent}\\
+
+  \noindent
+   \grcmdline{grarray ( \grarg{object} )}
+   \dotfill \pageref{spec:grarray}\\
+
+%------------------------------------------------------------------------------
+\vfill
+\large
+\noindent The information contained in this booklet is also available from the
+following online help pages:\\ 
+
+\noindent\texttt{?grt\_objects},
+\texttt{?grt\_operators}, \texttt{grt\_invars}, \texttt{?groptions},
+\texttt{?grcalc}, \texttt{?grcalc1}, \texttt{?grclear},
+\texttt{?grdisplay}, \texttt{?diffAlias}, \texttt{?autoAlias},
+\texttt{?grDalias}, \texttt{?gralter} \texttt{?grmap},
+\texttt{?grcomponent}, \texttt{?grarray}, \texttt{?killing},
+\texttt{?grt\_basis}.  %
+%------------------------------------------------------------------------------
+\end{document}
+%==============================================================================

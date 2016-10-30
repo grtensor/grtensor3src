@@ -1,0 +1,583 @@
+%=================================================================-*-LaTeX-*-==
+% GRTensorII 1.50 Manual
+% Booklet E: Bases and tetrads
+%
+% Denis Pollney
+% July 1996
+%==============================================================================
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{maple2e}
+\usepackage{longtable}
+\usepackage{grtensor}
+\usepackage{grbooks}
+%------------------------------------------------------------------------------
+\begin{document}
+\grlabel{\grBasisLabel}
+\grtitle{\grBasisTitle}
+\grdate{July 1996}
+\grtitlepage
+%==============================================================================
+% Body.
+%==============================================================================
+\copyrightpage
+\noindent The classical method of describing a spacetime is through
+the use of a covariant tensor, $g_{ab}$, which specifies the inner
+product between a pair of vectors in the space. An alternative
+description is obtained when one specifies a set of coordinate axes
+(vectors) at each point of the spacetime, as well as their inner
+product. Together, these are called a basis (or frame, or tetrad in
+four dimensions).
+
+For the most part, GRTensorII calculations for a basis directly
+parallel those for a metric and the two formalisms have been described
+together wherever necessary in Booklets \textsl{A--D}. However, to
+this point most of the examples used in these documents
+have relied on calculations in metric coordinates. The goal
+of this booklet is to supplement the previous descriptions by
+emphasizing some of the unique features of symbolic calculations for
+spacetimes described by a basis in GRTensorII.
+%
+%------------------------------------------------------------------------------
+\section{Notation}
+%------------------------------------------------------------------------------
+%
+This section defines some notational conventions that are used to
+describe bases in this set of booklets. A concise summary of basis
+formalisms (using notation consistent with that described here) can be
+found in the first part of Chandrasekhar \cite{chandrasekhar:1983}.\\
+
+At each point of an $n$ dimensional space, define a set of $n$
+independent vectors,
+\[
+  e_{(1)}{}^a, e_{(2)}{}^a, \ldots, e_{(n)}{}{}^a.  
+\]
+Following convention, the vectors are labeled using bracketed
+indices, $(1), \ldots, (n)$, which we will call the `basis indices',
+to distinguish them from the `tensor indices' which are not bracketed.
+The basis indices are raised by considering $e_{(a)}{}^b$ to form an
+$n\times n$ matrix whose inverse is given by the matrix $e^{(a)}{}_b$.
+
+In addition to the basis vectors, define a symmetric $n\times n$
+matrix $\eta^{(a)(b)}$ whose components determine the `inner
+product' of basis vectors $(a)$ and $(b)$. The inner product and basis
+vectors together can be used to define a 2-index tensor via
+\begin{equation}
+  \eta^{(a)(b)} e_{(a)}{}^c e_{(b)}{}^d =: g^{cd}.
+  \label{eq:metric}
+\end{equation}
+This object, along with its matrix inverse, $g_{ab}$, is used to raise
+and lower the tensor indices of the basis vectors:
+\[
+  e_{(a)b} := e_{(a)}{}^c g_{cb}, \qquad e_{(a)}{}^b = e_{(a)c} g^{cb}.
+\]
+Then by defining $\eta_{(a)(b)}$ to be the matrix inverse of
+$\eta^{(a)(b)}$, some manipulation of the above relationships results
+in the formulae for the raising and lowering of the basis indices:
+\[
+  e_{(a)b} = \eta_{(a)(c)} e^{(c)}{}_b, \qquad e^{(a)}{}^b =
+  \eta^{(a)(c)} e_{(c)}{}^b
+\] 
+
+The collection of vectors, $e_{(a)}{}^b$, and inner product,
+$\eta_{(a)(b)}$, together form a `basis' which locally describes the
+spacetime geometry. The tensor $g_{ab}$ is the corresponding spacetime
+metric that is calculated from the basis via Eq. (\ref{eq:metric}).\\
+
+Tensors fields can be projected onto the basis field in order to
+obtain their basis components:
+\[
+  T_{(a)(b)} = T_{cd} e_{(a)}{}^c e_{(b)}{}^d, \qquad
+  T_{ab} = T_{(c)(d)} e^{(c)}{}_a e^{(d)}{}_b.
+\]
+The basis components of a tensor are raised and lowered
+using the basis inner product,
+\[
+  T^{(a)}{}_{(b)} := \eta^{(a)(c)} T_{(c)(b)}, \qquad T^{(a)(b)} :=
+  T^{(a)}{}_{(c)} \eta^{(c)(b)}.
+\]
+A computational advantage over tensor methods is offered here, since
+by choosing basis vectors correctly the inner product $\eta_{(a)(b)}$
+can be constructed so as to have a simple form, most often with
+constant coefficients.\footnote{In GRTensorII it is not necessary that
+$\eta_{(a)(b)}$ have constant coefficients. See the demonstration
+\texttt{mixmr.ms} available from the world-wide-web page
+\cite{www}.}\\
+
+The GRTensorII notation for the basis vectors $e_{(a)}{}^b$ is
+\texttt{e(bdn,up)}, following the convention that basis indices are
+labeled using \texttt{bdn} and \texttt{bup} to indicate covariant and
+contravariant components, respectively. The inner product,
+$\eta_{(a)(b)}$, is referenced using the object name
+\texttt{e(bdn,bdn)}. The creation of bases for GRTensorII is outlined
+in Booklet \grMakegRef.\\
+
+A particularly useful form of basis (for general relativity) is given
+by an inner product whose basis vectors are chosen to satisfy the inner
+product
+\[
+  \eta^{(a)(b)} = \eta_{(a)(b)} :=
+    \left[
+      \begin{array}{cccc}
+        0 & 1 & 0 & 0 \\
+        1 & 0 & 0 & 0 \\
+        0 & 0 & 0 &-1 \\
+        0 & 0 &-1 & 0
+      \end{array}
+    \right]
+\]
+In this case the vectors forming the basis are seen to be null. By
+convention, they are labeled
+\[
+  l^a := e_{(1)}{}^a, \qquad n^a := e_{(2)}{}^a, \qquad
+  m^a := e_{(3)}{}^a, \qquad \bar{m}^a := e_{(4)}{}^a.
+\]
+A formalism for studying the geometries specified by such null tetrads
+was developed by Newman and Penrose \cite{newman/penrose:1962}. As such,
+they are often called `NP tetrads'. The standard GRTensorII library
+incorporates the full range of objects defined for the Newman-Penrose
+formalism, as listed in Section \ref{sec:NP}.
+
+Null tetrads can be created using \grcmd{makeg} or automatically from
+a metric, $g_{ab}$, using the \grcmd{nptetrad} command. Rotations of
+a null tetrad can be performed using the command \grcmd{nprotate}.
+These commands are described in Booklet \grMakegRef.
+%
+%------------------------------------------------------------------------------
+\section{Calculation of basis components}
+%------------------------------------------------------------------------------
+%
+Calculations performed in a basis are carried out using the methods
+described in Booklet \grCalcRef. A difference between the
+calculation of basis components and tensor components of an object is
+the use of basis index labels \texttt{bup} and \texttt{bdn} (to
+indicate contravariant and covariant components, respectively) rather
+than the tensor labels \texttt{up} and \texttt{dn}. For instance,
+once a basis is loaded, the command\\
+
+\noindent\texttt{> grcalc ( R(bdn,bdn) ):}\\
+
+\noindent requests a calculation of the object $R_{(a)(b)}$, the
+components of the Ricci tensor projected onto the basis.
+
+Note that because the metric can be calculated from the basis via
+Eq. (\ref{eq:metric}), if the geometry is described by a basis, then
+either basis or tensor components of an object can be calculated. That
+is, having loaded a basis one could also request the calculation\\
+
+\noindent\texttt{> grcalc ( R(dn,dn) ):}\\
+
+\noindent of the ordinary tensor components of the Ricci tensor, 
+$R_{ab}$.\footnote{A word of caution should be noted when carrying out
+such tensor component calculations from a basis. It is often the case
+that a metric calculated from a basis via Eq. (\ref{eq:metric}) is
+not automatically expressed in the simplest possible from and could
+benefit from algebraic simplification.  Since later calculations
+strongly depend on the form of the metric, it is usually worthwhile
+to perform an explicit simplification of the components of
+\texttt{g(dn,dn)} using the \grcmd{gralter} command. See Booklet
+\grCalcRef, in particular the section on simplification strategies.}
+
+If the basis calculation is requested, the algorithm used by
+GRTensorII to calculate the basis components of curvature tensors are
+chosen so as to take maximal use of the basis formalism, ie. they
+avoid the use of the metric.\footnote{In the particular case of the Ricci
+tensor, the definition is in terms of the rotation coefficients:
+\[
+  R_{(a)(b)} := -\gamma_{(a)}{}^{(c)}{}_{(b),(c)}
+    + \gamma_{(a)}{}^{(c)}{}_{(c),(b)}
+    + \gamma^{(c)}{}_{(a)(d)}[ \gamma_{(b)}{}^{(d)}{}_{(c)}
+      - \gamma_{(b)}{}^{(c)}{}_{(b)}]
+    + \gamma_{(c)(a)(b)}\gamma^{(d)(c)}{}_{(d)}
+    - \gamma_{(c)(a)(d)}\gamma^{(d)(c)}{}_{(b)}
+\]
+See Section \ref{sec:lib} for a definition of $\gamma_{(a)(b)(c)}$.}
+%
+However, if the tensor components have
+already been calculated, the program will recognize this and simply
+perform the conversion
+\[
+  R_{(a)(b)} = R_{cd} e_{(a)}{}^c e_{(b)}{}^d.
+\]
+(The opposite conversion is used when the basis components are known
+and the tensor components are requested.)
+
+The indices \texttt{pbdn} and \texttt{cbdn} specify the calculation of
+the basis components of partial and covariant derivatives,
+respectively. As described in the Booklet \grCalcRef, the command\\
+
+\noindent\texttt{> grcalc ( R(bdn,bdn,pbdn) ):}\\
+
+\noindent requests the calculation of
+\[
+  R_{(a)(b),(c)} := \frac{\partial R_{(a)(b)}}{\partial x^d}
+    e_{(c)}{}^d,
+\]
+while the command\\
+
+\noindent\texttt{> grcalc ( R(bup,bdn,cbdn) ):}\\
+
+\noindent requests the calculation of the covariant derivative
+\[
+  R^{(a)}{}_{(b);(c)} := R_{(a)(b),(c)} + \gamma^{(a)}{}_{(b)(d)}
+  R^{(d)}{}_{(c)} - \gamma^{(d)}{}_{(b)(c)} R^{(a)}{}_{(d)},
+\]
+defined in terms of the rotation coefficients,
+\[
+  \gamma_{(c)(a)(b)} := e_{(c)}{}^d e_{(a)d;e} e_{(b)}{}^e.
+\]
+(See Section \ref{sec:NP} for an alternate definition of this tensor.)
+%
+%------------------------------------------------------------------------------
+\section{Bases in \grcmd{grdef}}\label{sec:def}
+%------------------------------------------------------------------------------
+%
+Tensors and scalars which are not contained in the standard library
+can be defined for a basis using the \grcmd{grdef} command, just as
+they would in a metric space. The practical difference is that for
+indexed objects the basis indices are enclosed in round braces,
+\texttt{()}. Thus the basis components of the Ricci tensor,
+$R_{(a)(b)}$, are referenced using the string
+\begin{center}
+  \texttt{R\{(a) (b)\}}\\
+\end{center}
+rather than
+\begin{center}
+  \texttt{R\{a b\}}\\
+\end{center}
+which refers to the tensor components, $R_{ab}$. Some other points are
+also worth noting to make the use of \grcmd{grdef} more convenient.\\
+
+In \textit{four dimensions} objects corresponding to each of the basis
+vectors are defined by default when the spacetime is loaded or
+created:
+\begin{itemize}
+  \item For contravariant null tetrads the objects \texttt{l(up)},
+    \texttt{n(up)}, \texttt{m(up)}, and \texttt{mbar(up)} are assigned
+    the values of $e_{(1)}{}^a \ldots e_{(4)}{}^a$ respectively. The
+    vectors can be displayed as a group using the object name
+    \texttt{nullt(up)}.  (For covariantly defined tetrads the \texttt{dn}
+    versions of these vectors are assigned.)
+  \item For general contravariant bases, the objects \texttt{e1(up)},
+    \texttt{e2(up)}, \texttt{e3(up)}, and \texttt{e4(up)} are assigned
+    the values of $e_{(1)}{}^a \ldots e_{(4)}{}^a$ respectively.  The
+    vectors can be displayed as a group using the object name
+    \texttt{basisv(up)}.
+  \item For general covariant bases, the objects \texttt{w1(dn)},
+    \texttt{w2(dn)}, \texttt{w3(dn)}, and \texttt{w4(dn)} are assigned
+    the values of $e_{(1)a} \ldots e_{(4)a}$ respectively. The
+    vectors can be displayed as a group using the object name
+    \texttt{basisv(dn)}.
+\end{itemize}
+
+While the information contained in these objects is redundant (in the
+sense that the components of the basis are already stored in the
+object \texttt{e(bdn,up)}), they are included to facilitate new object
+definitions in terms of these vectors. For instance, a
+`purely-electric' electromagnetic tensor, $F_{ab}$, is defined by
+\[
+  F_{ab} := 4 \lambda l_{[a} n_{b]},
+\]
+which can be defined for GRTensorII by using the command\\
+
+\noindent\texttt{> grdef ( `F\{[a b]\} := 4*lambda*l\{[a\}*n\{b]\}` ):}\\
+
+An important point is that the information contained in these
+accessory objects (the vectors of \texttt{l(up)}, \texttt{e1(up)},
+etc.) is copied from \texttt{e(bdn,up)} at the time the spacetime is
+loaded or created, but not afterwards. Thus, if the components of
+\texttt{e(bdn,up)} or \texttt{e(bdn,dn)} are modified (using
+\grcmd{gralter}, for example) the modification will not be reflected
+in the accessory objects. The opposite is also true: algebraic
+simplification of the \texttt{l(up)}$\ldots$ \texttt{mbar(up)}, for
+instance, will not be carried over to the corresponding components of
+\texttt{e(bdn,up)}.
+
+The GRTensorII algorithms for the calculation of curvature tensors
+rely on the versions of the basis components stored in the objects
+\texttt{e(bdn,up)} and \texttt{e(bdn,dn)}. Thus, regardless of the
+form of the accessory objects, for calculation purposes it should be
+ensured that the components of \texttt{e(bdn,up)} and
+\texttt{e(bdn,dn)} are in the simplest possible form.\\
+
+The above discussion applies only to four dimensional spacetimes,
+since the accessory basis vectors are not assigned automatically for any other
+number of dimensions. In such cases, the Kronecker delta,
+\texttt{kdelta}, can be used to isolate individual basis vectors.
+For instance, the command\\
+
+\noindent\texttt{> grdef (
+  `e3\{\^{}a\} := e\{(b) \^{}a\}*kdelta\{\^{}(b) \$3\}` ):}\\
+
+\noindent assigns the third vector in \texttt{e(bdn,up)} to the object
+\texttt{e3(up)}:
+\[
+  e3^a := e_{(b)}{}^a \delta^{(b)}_3.
+\]
+The use of \texttt{kdelta} to isolate components is described more
+fully in Booklet \grDefRef.
+
+The basis components of derivatives are specified in object
+definitions just as are the regular tensor derivatives. Thus, a comma,
+`\texttt{,}', indicates a partial derivative, while a semi-colon,
+`\texttt{;}', indicates a covariant derivative. Thus,
+\[
+  T_{(a)(b)(c)} := R_{(a)(b);(c)} + R_{(b)(c);(a)}
+\]
+could be defined using the command\\
+
+\noindent\texttt{> grdef (
+  `T\{(a)(b)(c)\} := R\{(a)(b);(c)\} + R\{(b)(c);(a)\}` ):}\\
+
+\noindent The form of the following index will indicate which 
+components (either basis or tensor) of the derivative are to be
+calculated. The operations specified by each type of derivative are
+listed in Booklet \grDefRef.\\
+
+Finally, note that for null tetrads, a set of derivatives operators
+are defined corresponding to partial derivatives along the basis
+vectors. The operators
+\[
+  D := l^a\partial_a, \qquad \Delta := n^a\partial_a, \qquad
+  \delta := m^a\partial_a, \qquad \delta^* := \bar{m}^a\partial_a,
+\]
+are defined by the GRTensorII operators
+\begin{center}
+  \texttt{Dl[]}, \qquad \texttt{Dn[]}, \qquad \texttt{Dm[]}, \qquad
+  \texttt{Dmbar[]},
+\end{center}
+respectively. The operators act on any GRTensorII object placed in
+the square braces.\footnote{GRTensorII operators are described in
+Booklet \grCalcRef.} For example, the right-hand side of the
+NP equation
+\[
+  \delta\tau - \Delta\sigma - (\mu\sigma + \lambda^*\rho)
+    - \tau (\tau+\beta-\alpha^*) + \sigma (3\gamma-\gamma^*)
+    + \kappa\nu^* - \Phi_{02} = 0,
+\]
+could be defined using the command\\
+
+\noindent\texttt{> grdef ( `NPeq1 := Dm[NPtau] - Dn[NPsigma]
+  - (NPmu*NPsigma + NPlambdabar*NPrho) \\
+  \indent - NPtau*(NPtau + NPbeta - NPalphabar)
+  + NPsigma*(3*NPgamma - NPgammabar) + \\
+  \indent NPkappa*NPnubar - Phi02` ):}\\
+
+\noindent (See Section \ref{sec:NP} for definitions of the objects
+\texttt{NPtau}, \texttt{NPsigma}, etc.)
+%
+%------------------------------------------------------------------------------
+\section{The standard library} \label{sec:lib}
+%------------------------------------------------------------------------------
+%
+The following sections list the objects contained within the standard
+GRTensorII library which are defined specifically for use with bases.
+They can be calculated using \grcmd{grcalc} once a basis has been
+created or loaded into the current session (see Booklet \grMakegRef).
+
+Objects not present in the following lists can be defined using the
+\grcmd{grdef} command, as described in the previous section. A further
+list of tensors calculable from a metric is given in Booklet
+\grCalcRef.
+%
+%------------------------------------------------------------------------------
+\subsection*{General bases}
+%------------------------------------------------------------------------------
+%
+Definitions listed in the following table are for objects which have
+not already been defined in the standard library list in Booklet
+\grCalcRef. Basis definitions of the objects given in that table
+can be accessed by choice of indices. For instance, the basis components
+of the Riemann tensor, $R^{(a)}{}_{(b)(c)(d)}$ are calculated using
+the command\\
+
+\noindent\texttt{> grcalc ( R(bup,bdn,bdn,bdn) ):}\\
+
+\renewcommand{\baselinestretch}{1.5}\normalsize
+\begin{longtable}[c]{lp{.6\textwidth}}\hline\hline
+GRTensorII name & Definition\\ \hline
+\texttt{e(bdn,up)}	& basis vectors, $e_{(a)}{}^b$ \\
+\texttt{eta(bdn,bdn)}	& basis inner product, $\eta_{(a)(b)}$ \\
+\texttt{basisv(up)}	& collection of basis vectors,
+			  $e_{(1)}{}^a \ldots e_{(4)}{}^a$ \\
+\texttt{lambda(bdn,bdn,bdn)} & $\lambda_{(a)(b)(c)} := 
+			  e_{(b)[i,j]} e_{(a)}{}^d e_{(c)}{}^e$ \\
+\texttt{rot(bdn,bdn,bdn)} & rotation coefficients, \\
+			& $\gamma_{(a)(b)(c)} := \frac{1}{2} \left(
+			  \lambda_{(a)(b)(c)}+\lambda_{(c)(a)(b)} - 
+			  \lambda_{(b)(c)(a)} \right)$ \\
+\texttt{str(bdn,bdn,bdn)} & structure constants, \\
+			& $C_{(a)(b)(c)} := \gamma_{(a)(c)(b)}
+			  - \gamma_{(a)(b)(c)}$ \\
+\hline
+\end{longtable}
+\renewcommand{\baselinestretch}{1}\normalsize
+
+Four dimensional spacetimes which are specified in the form of a set
+of \textit{contravariant} basis vectors additionally have the objects
+\texttt{e1(up)}, \texttt{e2(up)}, \texttt{e3(up)}, and \texttt{e4(up)}
+assigned, corresponding to the four basis vectors, $e_{(a)}{}^b$. If
+the spacetime was specified by a set of \textit{covariant} basis
+vectors, then the objects \texttt{w1(dn)}, \texttt{w2(dn)},
+\texttt{w3(dn)}, and \texttt{w4(dn)} are automatically assigned.
+For display purposes, the vectors can be accessed as a group using
+the object \texttt{basisv(up)}.
+See Section \ref{sec:def} for a description of these objects.
+%
+\pagebreak
+%------------------------------------------------------------------------------
+\subsection*{The Newman-Penrose formalism}\label{sec:NP}
+%------------------------------------------------------------------------------
+%
+In addition to the objects specified above, a number of special
+quantities can be calculated for geometries specified by a null
+tetrad. The following objects are defined in
+\cite{newman/penrose:1962}.\\
+
+\begin{longtable}[c]{p{.4\textwidth}p{.4\textwidth}}\hline\hline
+GRTensorII name & Definition\\ \hline
+& \\
+\texttt{l(up)}, \texttt{n(up)}, \texttt{m(up)}, \texttt{mbar(up)}
+				& basis vectors,\footnote{As explained
+				in Section \ref{sec:def}, the components
+				of these basis vectors are copied from
+				\texttt{e(bdn,up)} when the spacetime is
+				loaded.}\\
+				& $l^a, n^a, m^a, \bar{m}^a$. \\
+\texttt{nullt(up)}			& collection of basis vectors, \\
+				& $\{ l^a, n^a, m^a, \bar{m}^a \}$. \\
+\texttt{testNP(bdn,bdn)}	& confirms NP inner product, \\
+				& $testNP_{(a)(b)} := e_{(a)c}e_{(b)}{}^c$.\\
+& \\
+\texttt{NPkappa, NPsigma, NPlambda, NPnu} & spin coefficients, \\
+\texttt{NPrho, NPmu, NPtau, NPpi,} & $\kappa, \sigma, \ldots, \beta$\\
+\texttt{NPepsilon, NPgamma, NPalpha, NPbeta} & \\
+& \\
+\texttt{NPkappabar, NPsigmabar,} & spin coefficients\\
+\texttt{NPlambdabar, NPnubar, NPrhobar,} & (complex conjugates) \\
+\texttt{NPmubar, NPtaubar, NPpibar,} & $\bar{\kappa}, \bar{\sigma},
+				\ldots \bar{\beta}$ \\
+\texttt{NPepsilonbar, NPgammabar, NPalphabar, NPbetabar} & \\
+& \\
+\texttt{Phi00, Phi01, Phi02, Phi10,} & Ricci scalars, \\
+\texttt{Phi11, Phi12, Phi20, Phi21}  & $\Phi_{00}, \Phi_{01}, \ldots,
+				  \Phi_{22}, \Lambda$ \\
+\texttt{Phi22, Lambda} & \\
+& \\
+\texttt{Psi0, Psi1, Psi2, Psi3, Psi4} & Weyl scalars,
+				$\Psi_0, \ldots, \Psi_4$\\
+& \\
+\texttt{Petrov} 		& Petrov type \\
+& \\
+\texttt{NPspin}			& collection of spin coefficients,\\
+				& $\{\kappa,\ldots,\beta\}$ \\
+\texttt{NPspinbar}		& collection of spin coefficients\\
+				& $\{\bar{\kappa},\ldots,\bar{\beta}\}$ \\
+\texttt{RicciSc}		& collection of Ricci scalars, \\
+				& $\{\Phi_{00},\ldots,\Phi_{22},\Lambda\}$ \\
+\texttt{WeylSc}			& collection of Weyl scalars, \\
+				& $\{\Psi_0,\ldots,\Psi_4\}$\\
+\hline
+\end{longtable}
+
+A set of four derivative operators, corresponding to partial derivatives
+along the basis vectors, are also defined for the Newman-Penrose formalism.
+In the following example the argument `\grarg{object}' represents an
+arbitrary GRTensorII object on which the operator is to act.\\
+
+\renewcommand{\baselinestretch}{1.5}\normalsize
+\begin{longtable}[c]{ll}\hline\hline
+GRTensorII name & Definition\\ \hline
+\texttt{Dl[\grarg{object}]}	& 
+		$D  := l^c\partial_c$ \\
+\texttt{Dn[\grarg{object}]}	&
+		$\Delta := n^c\partial_c$\\
+\texttt{Dm[\grarg{object}]}	&
+		$\delta := m^c\partial_c$\\
+\texttt{Dmbar[\grarg{object}]}	&
+		$\delta^* := \bar{m}^c\partial_c$\\
+\hline
+\end{longtable}
+\renewcommand{\baselinestretch}{1}\normalsize
+%
+%------------------------------------------------------------------------------
+\subsection*{Alternate NP definitions}\label{sec:altNP}
+%------------------------------------------------------------------------------
+%
+An alternate set of definitions for the Newman-Penrose coefficients is
+provided by Allen, et al. \cite{allen/etal:1994}. The definitions
+aim to gain a computational advantage by avoiding the inversion of
+the basis vectors (that is, only the covariant components are needed).
+These algorithms have been incorporated into GRTensorII and tested
+with results presented in \cite{pmsl96}. It was found that no consistent
+computational advantage was gained through use of the alternative
+formulas, though in certain cases the covariant
+definitions do outperform the standard NP formulas. The alternate
+NP algorithms can be accessed by requesting the calculation of the
+objects listed in the table below. These names of these objects correspond
+to the NP names listed in the previous section prefixed by a `\texttt{C}'.
+Thus the command\\
+
+\noindent\texttt{> grcalc ( WeylSc ):}\\
+
+\noindent requests the calculation of the Weyl curvature coefficients using
+the formulas defined by Newman-Penrose, while the command\\
+
+\noindent\texttt{> grcalc ( CWeylSc ):}\\
+
+\noindent calculates the same objects using the alternate `covariant'
+formulas.\footnote{Note that if one of the above commands is executed
+in a given session, then GRTensorII will recognize the Weyl
+coefficients as having been calculated. Thus the use of the second
+command will return the previously calculated results. In order to
+compare the results of each command, they must be issued individually
+in separate GRTensorII sessions.}
+
+\begin{longtable}[c]{p{.4\textwidth}p{.4\textwidth}}\hline\hline
+GRTensorII name & Definition\\ \hline
+& \\
+\texttt{Ckappa, Csigma, Clambda, Cnu} & spin coefficients, \\
+\texttt{Crho, Cmu, Ctau, Cpi,} & $\kappa, \sigma, \ldots, \beta$\\
+\texttt{Cepsilon, Cgamma, Calpha, Cbeta} & \\
+& \\
+\texttt{Ckappabar, Csigmabar,} & spin coefficients\\
+\texttt{Clambdabar, Cnubar, Crhobar,} & (complex conjugates) \\
+\texttt{Cmubar, Ctaubar, Cpibar,} & $\bar{\kappa}, \bar{\sigma},
+				\ldots \bar{\beta}$ \\
+\texttt{Cepsilonbar, Cgammabar, Calphabar, Cbetabar} & \\
+& \\
+\texttt{CPhi00, CPhi01, CPhi02, CPhi10,} & Ricci scalars, \\
+\texttt{CPhi11, CPhi12, CPhi20, CPhi21}  & $\Phi_{00}, \Phi_{01}, \ldots,
+				  \Phi_{22}, \Lambda$ \\
+\texttt{CPhi22, CLambda} & \\
+& \\
+\texttt{CPsi0, CPsi1, CPsi2, CPsi3, CPsi4} & Weyl scalars,
+				$\Psi_0, \ldots, \Psi_4$\\
+& \\
+\texttt{Cspin}			& collection of spin coefficients,\\
+				& $\{\kappa,\ldots,\beta\}$ \\
+\texttt{Cspinbar}		& collection of spin coefficients\\
+				& $\{\bar{\kappa},\ldots,\bar{\beta}\}$ \\
+\texttt{CRicciSc}		& collection of Ricci scalars, \\
+				& $\{\Phi_{00},\ldots,\Phi_{22},\Lambda\}$ \\
+\texttt{CWeylSc}		& collection of Weyl scalars, \\
+				& $\{\Psi_0,\ldots,\Psi_4\}$\\
+\hline
+\end{longtable}
+%
+%------------------------------------------------------------------------------
+\bibliographystyle{unsrt}
+\bibliography{grtensor}
+%------------------------------------------------------------------------------
+\vspace*{\fill}
+\large
+\noindent The information contained in this booklet is also available from the
+following online help pages:\\
+
+\noindent\texttt{?grt\_basis}, \texttt{?grt\_objects},
+\texttt{?grt\_operators}, \texttt{?grcalc}, \texttt{?grdef}, \texttt{?petrov}.
+%
+%------------------------------------------------------------------------------
+\end{document}
+%==============================================================================

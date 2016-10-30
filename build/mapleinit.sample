@@ -1,0 +1,27 @@
+#
+#-- Maple script to initialise GRTensorII --
+#
+#  Copy the following script into the file .mapleinit in your home directory.
+#
+#  Replace <grii_dir>
+#      and <metric_dir>
+#  with appropriate values for your system.
+#
+#  You should then be able to initialise GRTensor using the command
+#    > grtw ();
+#  from the Maple prompt.
+#
+
+grtw := proc ()
+  global libname, grOptionMetricPath, grOptionqloadPath:
+
+  libname := <grii_dir>, libname:
+
+  readlib (grii):
+  grtensor():
+
+  grOptionqloadPath := <metric_dir>:
+
+end:
+
+

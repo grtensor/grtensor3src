@@ -1,0 +1,16 @@
+GRTensor TODO
+==============
+
+- groptions not initied
+- auto init on module load
+
+
+
+Notes:
+======
+
+Using module debug discovered the macros features in tensor definitions
+are not happening properly when these files are included in a module
+definition.
+
+Will need a python script to modify all these files...

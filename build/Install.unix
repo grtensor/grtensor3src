@@ -1,0 +1,40 @@
+#!/bin/sh
+#==============================================================================
+# The following script installs GRTensor in the directory specified by
+# the INSTALLDIR variable.
+#==============================================================================
+
+INSTALLDIR=/usr/local/grii
+
+#==============================================================================
+# You should not need to modify anything below this line.
+#==============================================================================
+
+GRIIFILES="License News Readme Version lib help metrics worksheets"
+
+if [ -f $INSTALLDIR ] ; then
+  echo ""
+  echo "Error: $INSTALLDIR exists but is not a directory."
+else
+  if [ ! -d $INSTALLDIR ] ; then
+    install -m 775 -d $INSTALLDIR
+  fi
+fi
+
+for griifile in $GRIIFILES ; do
+  if [ -d $griifile ] ; then
+    install -m 775 -d $griifile $INSTALLDIR/$griifile
+    install -m 664 $griifile/* $INSTALLDIR/$griifile
+  fi
+  if [ -f $griifile ] ; then install -m 664 $griifile $INSTALLDIR ; fi
+done
+
+sed 's|<grii_dir>|`'$INSTALLDIR'/lib`|;s|<metric_dir>|`'$INSTALLDIR'/metrics`|' mapleinit.sample > $INSTALLDIR/mapleinit.sample
+
+VERSION="`sed -n '/Version:/s/Version:[ ]*//p' Version`" 
+
+echo ""
+echo "GRTensorII $VERSION installed in $INSTALLDIR"
+echo "Copy the contents of $INSTALLDIR/mapleinit.sample into the file"
+echo "~/.mapleinit in your home directory."
+echo ""

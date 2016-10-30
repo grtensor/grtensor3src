@@ -1,0 +1,256 @@
+%=================================================================-*-LaTeX-*-==
+% GRTensorII 1.50 Manual style file
+%
+% Denis Pollney
+%
+%------------------------------------------------------------------------------
+% New commands:
+% \grlabel	- label of book (A, B, C, etc.)
+% \grtitle	- title of book
+% \grdate	- creation date
+% \grtitle	- create slick title page using the above information
+% \uc		- explicitly force uppercase (only needed in grtensor.bib)
+% \grcmd	- whenever a command is mentioned, this puts it in typewriter
+%		  font and with brackets after it, as in:
+%                 `Calculation of tensor components is carried out using the
+%		  \grcmd{grcalc} command.'
+% \grarg	- slanted fonts for arguments to command. Eg:
+%		  `The \grarg{metricName} argument specifies the metric name
+%		  to be loaded.'
+% \begin{cmdspec} ... \end{cmdspec} - an environment which creates a box
+%		  around command definitions in the text.
+% \grcmdline	- a typewriter faced line that describes the use of a command
+%		  (used as a header in the cmdspec environment).
+% \grexample	- a line giving an example of the use of a command
+%		  (for the end of the cmdspec enviroment).
+%
+% See the GRTensorII manual *.tex files for examples of the use of these 
+% commands.
+
+%==============================================================================
+\usepackage{fancyheadings}
+\usepackage{rotating}
+%------------------------------------------------------------------------------
+% load the giant font (80pt) for the vertical GRTensorII on the title page.
+%------------------------------------------------------------------------------
+\newfont{\fntest}{cmcsc10 at 80pt}
+%------------------------------------------------------------------------------
+% set the page size.
+%------------------------------------------------------------------------------
+\oddsidemargin  -10pt
+\evensidemargin -10pt
+\marginparwidth 50pt 
+\marginparsep 5pt
+\topmargin 0pt
+\textheight  7.9in
+\textwidth 5.85in
+\hoffset=0.65in
+%
+%------------------------------------------------------------------------------
+% Define the titlepage commands.
+%
+% \grtitle defines the title which will appear in the right
+%   hand column
+% \grdate is the date
+% \grlabel is the book number, A, B, C, etc..., which is used in the
+%   right hand column as well as for numbering pages.
+%
+% In the document, these could be used in the form:
+% 
+% \begin{document}
+% \grlabel{A}
+% \grtitle{Introduction and Overview}
+% \grdate{July 1996}
+%
+%------------------------------------------------------------------------------
+\newcommand{\grtitle}{\renewcommand\grtitle}
+\newcommand{\grdate}{\renewcommand\grdate}
+\newcommand{\grlabel}{\renewcommand\grlabel}
+
+\newlength{\grlabelwidth}
+\newlength{\grtitlewidth}
+%
+\setcounter{tocdepth}{1} % {\value{secnumdepth}}
+%
+\newcommand{\logobox} {
+  \begin{minipage}[t][.95\textheight][c]{.2\textwidth}
+    \begin{sideways}
+      \fntest
+      GRTensorII
+      \normalsize
+    \end{sideways}
+    \rule{1mm}{.95\textheight}
+  \end{minipage}
+}
+
+\newcommand{\titlebox} {
+  \begin{minipage}[t][.95\textheight][c]{.6\textwidth}
+    \settowidth{\grlabelwidth}{\grlabel.~}
+    \setlength{\grtitlewidth}{\textwidth}
+    \addtolength{\grtitlewidth}{-\grlabelwidth}
+    \Large
+    \textit{GRTensorII Release \grRelease}\\
+    \large
+    For MapleV Releases 3 and 4\\ [40mm]
+    \huge
+    \grlabel.~\parbox[t]{\grtitlewidth}{\raggedright\grtitle}\\ [20mm]
+    \large
+    Peter Musgrave\\
+    Denis Pollney\\ 
+    Kayll Lake\\[10mm]
+    %
+    \grdate\\ [10mm]
+    \rule{\textwidth}{.8pt}
+    \normalsize\vspace{-2\baselineskip}
+    \tableofcontents
+    \rule{\textwidth}{.8pt}
+    \vfill
+    \large
+    \textit{Queen's University at Kingston, Ontario}
+  \end{minipage}
+  \clearpage
+}
+%
+\newcommand{\grtitlepage}{
+  \thispagestyle{empty}
+  \logobox
+  \titlebox
+}
+%
+%------------------------------------------------------------------------------
+% Fix page numbering so that it uses \grlabel and create fancy page
+% headers with lines across the top and bottom.
+%------------------------------------------------------------------------------
+\renewcommand{\thepage}{\grlabel\arabic{page}}
+%
+\setlength{\footrulewidth}{\headrulewidth}
+\renewcommand{\leftmark}{\grlabel. \grtitle}
+\lhead{\fancyplain{}{\slshape \leftmark}}
+\chead{}
+\rhead{\thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\pagestyle{fancy}
+%
+%------------------------------------------------------------------------------
+% Copyright page (page 1 of all documents}
+%------------------------------------------------------------------------------
+\newcommand{\copyrightnotice}{%
+      GRTensorII software and documentation is copyright 1994--1996 by
+      the authors. GRTensorII software and documentation is provided
+      free of charge and without warranty. The authors retain any and
+      all rights to the software known as GRTensorII and its documentation.
+      GRTensorII development has been supported by the Natural Science
+      and Engineering Research Council of Canada and the Advisory
+      Research Committee of Queen's University. MapleV is a trademark
+      of Waterloo Maple Software.
+}
+\newcommand{\ps@copyrightfoot}{%
+  \renewcommand{\@oddfoot}{%
+    \begin{minipage}{\textwidth}\normalfont
+      \rule{\textwidth}{\footrulewidth}
+      \scriptsize
+      \copyrightnotice
+    \end{minipage}
+  }
+  \renewcommand{\@evenfoot}{\@oddfoot}
+}
+\newcommand{\copyrightpage}{\thispagestyle{copyrightfoot}}
+%
+%------------------------------------------------------------------------------
+% Define some new commands
+%------------------------------------------------------------------------------
+\newcommand{\uc}[1]{\uppercase{#1}}
+\newcommand{\grcmd}[1]{\mbox{\textnormal{\texttt{#1()}}}}
+\newcommand{\grarg}[1]{\mbox{\textnormal{\textsl{#1}}}}
+\newcommand{\grcmdline}[1]{\texttt{\large #1}}
+\newcommand{\grexample}[1]{\noindent Example:
+  \texttt{> \parbox[t]{\textwidth}{#1:}}}
+%
+%------------------------------------------------------------------------------
+% The following is taken directly from the boxedminipage.sty file. For
+% credits, see below. It is required for the boxes around command
+% command descriptions.
+%------------------------------------------------------------------------------
+%
+\def\boxedminipage{\@ifnextchar [{\@iboxedminipage}{\@iboxedminipage[c]}}
+
+\def\@iboxedminipage[#1]#2{\leavevmode \@pboxswfalse
+  \if #1b\vbox
+    \else \if #1t\vtop
+             \else \ifmmode \vcenter
+                       \else \@pboxswtrue $\vcenter
+                    \fi
+          \fi
+  \fi\bgroup % start of outermost vbox/vtop/vcenter
+    \hsize #2
+    \hrule\@height\fboxrule
+    \hbox\bgroup % inner hbox
+      \vrule\@width\fboxrule \hskip\fboxsep \vbox\bgroup % innermost vbox
+        \vskip\fboxsep
+        \advance\hsize -2\fboxrule \advance\hsize-2\fboxsep
+        \textwidth\hsize \columnwidth\hsize
+        \@parboxrestore
+        \def\@mpfn{mpfootnote}\def\thempfn{\thempfootnote}\c@mpfootnote\z@
+        \let\@footnotetext\@mpfootnotetext
+        \let\@listdepth\@mplistdepth \@mplistdepth\z@
+        \@minipagerestore\@minipagetrue
+        \everypar{\global\@minipagefalse\everypar{}}}
+
+\def\endboxedminipage{%
+        \par\vskip-\lastskip
+        \ifvoid\@mpfootins\else
+          \vskip\skip\@mpfootins\footnoterule\unvbox\@mpfootins\fi
+        \vskip\fboxsep
+      \egroup % ends the innermost \vbox
+      \hskip\fboxsep \vrule\@width\fboxrule
+    \egroup % ends the \hbox
+    \hrule\@height\fboxrule
+  \egroup% ends the vbox/vtop/vcenter
+  \if@pboxsw $\fi}
+%
+\newenvironment{cmdspec}{
+%  \renewcommand{\fboxsep}{.5\baselineskip}
+  \begin{boxedminipage}[t]{\textwidth}
+  \vspace{.5\baselineskip}
+}{
+  \end{boxedminipage}
+}
+\sloppypar
+%
+%%% ====================================================================
+%%%  @LaTeX-style-file{
+%%%     author          = "Mario Wolczko",
+%%%     version         = "2",
+%%%     date            = "21 May 1992",
+%%%     time            = "20:55:01 BST",
+%%%     filename        = "boxedminipage.sty",
+%%%     address         = "Dept of Computer Science
+%%%                        The University of Manchester
+%%%                        Oxford Road
+%%%                        Manchester M13 9PL
+%%%                        UK",
+%%%     telephone       = "+44-61-275-6146",
+%%%     FAX             = "+44-61-275-6236",
+%%%     checksum        = "04781 71 253 2587",
+%%%     email           = "mario@cs.man.ac.uk (Internet)",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "LaTeX, minipage, framebox",
+%%%     supported       = "yes",
+%%%     docstring       = "LaTeX document-style option which defines
+%%%     the boxedminipage environment -- just like minipage, but with
+%%%     a box around it.",
+%%%  }
+%%% ====================================================================
+%
+% The thickness of the rules around the box is controlled by
+% \fboxrule, and the distance between the rules and the edges of the
+% inner box is governed by \fboxsep.
+%
+% This code is based on Lamport's minipage code.
+%
+% Fixed, 7 Jun 89 by Jerry Leichter
+%       Leave \fboxsep worth of separation at top and bottom, not just at
+%       the sides!
+%==============================================================================

@@ -1,0 +1,321 @@
+
+(The following is an excerpt from an email that I sent back in 1996
+describing the source code as it was at that time. It is not entirely
+inaccurate ... dp)
+
+
+ Some notes on the GRTensorII source code
+
+ Denis Pollney
+ 28-10-1996
+
+==============================================================================
+Directories:
+==============================================================================
+
+  grii/	   -- contains the source code for grii.m
+	      Notable contents:
+		 symmetry.mpl - contains symmetry functions
+		 core.mpl - executes calculation of tensors (as
+		    outlined below)
+		 commands.mpl - front-end code for most grtensor
+		    commands
+
+  grii/tensors -- contains some definitions of standard curvature
+	      tensors
+	      Notable contents:
+		 tensors1.mpl - definitions of metric, Christoffel
+		    symbols, Riemann tensor, etc.
+		 basis.mpl - definitions of basis vectors and
+		    connection coefficients, etc., fundamental
+		    objects that need to exist before basislib.m
+		    is loaded.
+
+  basis/   -- contains object definitions for use with bases/NP-tetrads.
+
+  invar/   -- contains definitions of scalar invariants of the Riemann
+	      tensor.
+
+  dinvar/  -- contains a couple of differential invariants.
+
+  grtools/ -- some functions that can operate independently of grtensor.
+
+  trigsin/ -- a function for changing Maple's cos() bias to sin() [for
+	      trig simplification].
+
+==============================================================================
+Tensor calculations:
+==============================================================================
+
+The grcalc() function (described in more detail below) stores its
+results in arrays which are named according to the following
+convention:
+
+     grG_ + Tensor name + idx1type + idx2type + ... + _ [metric name, idx1,
+	idx2, ...]
+
+     eg.  grG_Rdndn_[schw,1,2]
+
+where
+
+     grG_ - just an identifier chosen so as not to conflict with
+	Maple internals.
+  
+     Tensor name - the name of the tensor specified by grC_rootStr or
+	grC_root [see `Tensor definitions', below]
+
+     idxNtype - the character of index N, eg. contravariant = `up',
+	covariant = `dn', covariant basis = `bdn', etc.
+
+     _ - an underscore is added at the end of the name (for reasons
+	that escape me ...)
+
+     metric name - the name of the metric to which the component
+	applies
+
+     idxN - the values of the indices specifying the particular
+	component.
+
+If you want to have access to the covariant [1,2] component of the
+Ricci tensor after they have been calculated for the `schw' metric,
+then you can use, for example,
+
+>  eval ( grG_Rdndn_[schw,1,2] );
+
+[this is effectively what the grcomponent() command does].
+
+==============================================================================
+Tensor definitions:
+==============================================================================
+
+Object definitions are stored in the grG_ObjDef[] array.
+
+This array is indexed by the name of the object, such as R(dn,dn),
+R(dn,up), R(bdn,bdn), etc.
+  eg. in Maple, type
+     > eval ( grG_ObjDef[R(dn,dn)] );
+
+For each object, a number of fields are defined:
+
+  grC_indexList - the number and type of indices, eg. [dn,dn]
+
+  grC_header - a string that will be displayed on output of the
+ 	   components via grdisplay(), eg. `Covariant Ricci`
+
+  grC_root - a name to be used when tensor components are stored,
+	   eg. Rdndn_  (see `Storing components' above)
+
+  grC_rootStr - a name to be used for constructing grC_root for
+	   alternate index configurations. For instance, if the
+	   calculation of R(up,dn) was requested, the definition
+	   of this tensor would be created automatically from
+	   R(dn,dn), and the results of the calculation stored
+	   in the automatically created name grG_Rupdn_
+	   [ie. grG_ + grC_rootStr + idx1 + idx2 + _]
+
+	   [Yes, this does make grC_root redundant, given grC_rootStr
+	   and grC_indexList ...]
+
+  grC_displayName - [optional] - a character or string which is the
+	   `kernal' of the tensor name, eg. R. This is used when 
+	   displaying tensor components. Indices are attached to 
+	   this string to give output like:
+
+			  R    = -cos(theta)*t/r^2
+			   t r
+
+	   [If this argument is not specified, as in most tensors,
+	   then grC_rootStr is used as the displayName. This argument
+	   was added mostly so that we could, for instance, display
+	   the Christoffel symbols as a Gamma but retain their
+	   internal representation as Chr since we didn't want to
+	   change all the references to Chr in the code.]
+
+  grC_calcFn - a function containing the calculation required to arrive
+	   at each tensor component.
+
+  grC_calcFnParms - parameters (in the form of a list [a,b,c]) can
+	   be passed to the calcFn, if needed. Usually this is
+	   left empty, ie. [].
+
+  grC_symmetry - the index symmetry of the object, in the form of a
+	   consisting of loops which calculate only the independent
+	   components of the object.
+
+  grC_depends - a set of tensors which must already have been calculated
+	   in order for the function specified by grC_calcFn to work.
+
+  grC_precalcFn - [optional] sometimes you might want to carry out some
+	   operation (ie. decide if an alternate calcFn should be
+	   used) before calculating the components of the tensor. This
+	   argument can specify the name of a function that will be
+	   executed first.
+
+  grC_attributes - I believe this has become defunct, but will ask
+	   Peter to make sure...
+
+
+Here is an example of a tensor definition, R(dn,dn), taken from the
+file tensors1.mpl. The `objects' directory (as well as the `basis' and
+`invars' directories) are full of these types of definitions:
+
+#----------------------------
+# R(dn,dn)
+#----------------------------
+macro( gr = grG_ObjDef[R(dn,dn)]):
+gr[grC_header] := `Covariant Ricci`:
+gr[grC_root] := Rdndn_:
+gr[grC_rootStr] := `R `:
+gr[grC_indexList] := [dn,dn]:
+gr[grC_calcFn] := grF_calc_RicciD:
+gr[grC_calcFnParms] := []:
+gr[grC_symmetry] := grF_sym_sym2:
+gr[grC_depends] := {Chr(dn,dn,up)}:
+gr[grC_attributes] := {use_diff_constraint_}:
+
+grF_calc_RicciD := proc(object,index)
+local a,b,s:
+ s := 0: 
+ for a to Ndim.grG_metricName do
+   if not a2_ = a then
+      s := s + diff(grG_Chrdndnup_[gname,a1_,a2_,a],grG_xup_[gname,a])
+	     - diff(grG_Chrdndnup_[gname,a,a1_,a],grG_xup_[gname,a2_]):
+   fi:
+   for b to Ndim.grG_metricName do
+      s := s + grG_Chrdndnup_[gname,a1_,a2_,b] * grG_Chrdndnup_[gname,a,b,a]
+	     - grG_Chrdndnup_[gname,a1_,a,b] * grG_Chrdndnup_[gname,b,a2_,a]:
+   od:
+ od:
+end:
+#--------------------------------
+
+
+==============================================================================
+How grcalc() works:
+==============================================================================
+
+The calculation (and display and simplification) of tensors is handled
+by the function grF_core() in core.mpl. The main jobs of grF_core()
+are listed below, since looking at the source code alone, you might not
+recognize that any of them are taking place at all. Core has undergone
+a long history of additions and modifications and deletions, so that
+we can't even remember the last time it looked like something we'd be
+proud to be associated with. Fortunately, there should be no reason
+to bother with this code for any of the additions we are thinking of,
+so I'm including this just as background.
+
+Here is how the command  grcalc ( T(up,dn,dn) )  would be processed
+(where T is some three index tensor):
+
+o) has the tensor already been calculated? If so, go no further.
+
+i) does a definition for T (in any index configuration) exist?
+
+   Yes: Use that definition.
+
+   No:  Is T in one of the `autoload' lists? [These are lists of
+	   tensors not in the standard libaries, but contained
+	   externally in, eg. the basis library.]
+
+	Yes: Load the required library, use the definition.
+
+	No:  The object isn't known to grt, can't go any further.
+
+
+ii) Does the index configuration have to be modified? If so,
+  automatically create a definition corresponding to the requested index
+  configuration from that canonical definition loaded in step (i).
+
+  -- This is done by contracting with the metric to raise/lower
+     indices, contracting with basis vectors to switch between
+     basis/coordinate components, or by taking the covariant
+     derivative of the tensor, if that was requested using the
+     `cdn' indices [or `pdn' or `pbdn' indices].
+
+
+iii) Check through the tensor's dependency list (a list of tensors
+     required to have been calculated in order to calculate
+     the requested tensor).
+
+  -- Recursively call grcalc() for each object in the list that has
+     not been calculated for the given metric, ie. go to
+     step (0) and start again for each object.
+
+
+iv) By this time all of the information needed to calculate the
+     tensor should be present, and the program can go on to do the
+     actual calculation.
+
+     From the object definition, the names of two functions are
+     obtained:
+	symmetry function - a set of loop structures corresponding
+	   to the object's symmetries.
+	calculation function - the actual object definition, including
+	   index summations, etc.
+
+     grcalc() calls the symmetry function which basically is a loop:
+
+	FOR (every independent index of T(^a b c)) DO
+	   grG_Tupdndn_[gname,a,b,d] := calculation function:
+	
+     The calculation function takes the metric name and index numbers
+     as an argument, carries out the computation required to arrive at
+     that particular component, and returns the result of the computation.
+
+
+Note that grdisplay() and gralter() follow exaclty that same path
+(through the symmetry function and calculation function), but in
+these cases flags are set instructing the symmetry function either to
+display or apply a simplification function, rather than calculate the
+components.
+
+Also, multiple functions can make use of the same symmetry function
+[eg. g(dn,dn) and R(dn,dn) both use grF_sym_sym2()].
+
+
+==============================================================================
+External libraries
+==============================================================================
+
+These contain new functions and object definitions that can be
+loaded into grtensor using the grlib() command. Examples are the
+invars.m and basislib.m libraries, whose source code are kept in the
+/invars and /basislib directories. An important point to note is that
+in these libraries the object definitions are not kept in the
+grG_ObjDef array (as described above) but rather in the grG_NewObj
+array. This is because when reading the file, the existing grG_ObjDef
+would be overwritten, trashing all of the fundamental tensor
+definitions.  Part of grlib()'s job is to add the grG_NewObj tensors
+to the grG_ObjDef array.
+
+Most of the NP tetrad definitions, the scalar curvature invariants,
+etc., are stored in what we call `autoload' libraries. That means that
+if a request is made to calculate any of these objects, then the given
+library will be automatically loaded. How does grtensor distinguish
+between such objects and objects which simply don't have a definition?
+Well, there is a set of global variables in the file grii/autoload.mpl
+which basically list all the objects in external libraries which have
+definitions which can be loaded. This is a very cheesy way of doing
+things, because it means every time we add something to the basis
+library, for instance, then grii.m should also be updated to include
+the new object name.
+
+==============================================================================
+Creating new versions of libraries
+==============================================================================
+
+In each directory there should be a `make' file,
+  eg. grii/grmake.mpl
+      invar/imake.mpl
+      basis/bmake.mpl
+which creates the particular library, grii.m, invar.m, basislib.m,
+respectively. Thus to create new versions of these libraries, modify
+the makefile to correspond to your local directory structure, and
+read them into maple.
+
+Also, there is a file grii/grtensor.mpl which contains version
+information for grii.m and should also be editted to keep track of
+which update you are working on.
+
+==============================================================================
+

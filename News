@@ -1,0 +1,67 @@
+
+==============================================================================
+Summary of changes since GRTensorII 1.74:
+==============================================================================
+
+Release 1.76 (3 November 1999)
+
+  * Fixes to raising indices for n>5
+  * Fixes to automatic determination of index symmetries when indices
+    are raised/lowered
+  * qload() switches to metric if it has already been loaded.
+  * Fixes to clearing of definitions via grundef()
+  * Added initzero(), setcmpt(), getsym(), setsym() undocumented hacks.
+  * Added expandsqrt(), expandtb() simplification routines.
+
+Release 1.75 (August 1999)
+
+  * Fixes a bug in index ordering in grdisplay() output. (Thanks to
+      Jan Gutowski for pointing this out.)
+  * Modified user-prompt for interactive functions (eg. makeg()).
+
+Release 1.74 (27 July 1999)
+
+  * Added check for name conflicts in autoAlias().
+  * Fixed grtransform() based on source contributed by Edward Huff.
+
+==============================================================================
+Changes prior to 1.74:
+==============================================================================
+173 [27 May 99] dp  Added feature to enter basis vectors as differentials
+                    in makeg()
+172b[10 Feb 99] dp  Fixed index ordering problem in dispStr3.
+                    Fixed support for >6 indices (grF_unassignLoopVars)
+                    Fixed grdef() index parser for cbdn, pbdn
+                    Fixed autoAlias for R5 & alias 0th order terms
+171 [19 Oct 98] dp  Fixed parse errors (for operators and tensors as
+                    arguments of functions) in grdef().
+                    Modified grsavedef() so save grdef() statements.
+170 [31 May 98] dp  Fixed indices on lhs of grdisplay output so that
+                    square brackets don't show up in R5 output.
+169 [ 6 May 98] dp  Added recognition of derivative and basis
+                    indices in grdef consistency checks.
+                    Replaced kdelta function with a standard object
+                    definition.
+168 [15 Mar 98] dp  Added version 5 specific extra arg to `&proc`
+167 [24 Feb 98] dp  Add index consistency check in grdef().
+                    Fix grundef() to clear assigned objects and all index
+                    combinations.
+                    Added CMB.
+166 [14 Feb 98] dp  Switch reference to `string' data-type to `name'
+                    for compatibility with R5.
+165 [05 Dec 97] dp  Added grOptionMessageLevel.
+164 [04 Nov 97] dp  Fix assignment of grG_metric name in automatic creation
+                    of the calc function by grdef().
+163 [18 Sep 97] dp  Fix 1-term line-element entry in makeg(), output of
+                    grsaveobj() in R3, added initFn.mpl.
+162 [16 Sep 97] dp  Comment out `For the xxx metric' in output of grsaveoj()
+                    Fix LieD[] operator.
+156 [13 Mar 97] dp  Fix greqn2set bug discovered by Jim McClune.
+
+1.38  Fix bWeylSq dependency
+1.37  Fix grdef symmetry bug
+1.36  Add grcalcd(), grOptionqloadPath and allow makeg to not save a metric
+1.35  Add grOptionMemory to grcalc and gralterGuts
+1.34  Fix C(dn,dn,dn,dn) dependancy
+
+==============================================================================

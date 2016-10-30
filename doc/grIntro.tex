@@ -1,0 +1,605 @@
+%=================================================================-*-LaTeX-*-==
+% GRTensorII 1.50 Manual
+% Booklet A: Introduction and overview
+%
+% Denis Pollney
+% July 1996
+%==============================================================================
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{maple2e}
+\usepackage{grtensor}
+\usepackage{grbooks}
+%------------------------------------------------------------------------------
+\begin{document}
+\grlabel{\grIntroLabel}
+\grtitle{\grIntroTitle}
+\grdate{July 1996}
+\grtitlepage
+%
+%==============================================================================
+% Body.
+%==============================================================================
+\copyrightpage
+\noindent GRTensorII is a package for the calculation and manipulation of
+components of tensors and related objects. Rather than focus upon a
+specific type or method of calculation, the program has been designed
+to operate efficiently for a wide range of applications and allows the
+use of a number of different mathematical formalisms.  Algorithms are
+optimized for the individual formalisms and transformations between
+formalisms has been made simple and intuitive. Additionally, the
+package allows for customization and expansion with the ability to
+define new objects, user-defined algorithms, and add-on libraries.
+
+Regardless of the algorithm or formalism used, it is often the case
+that only certain simplifications applied at a crucial stages can make
+some problems tractable. For this reason, GRTensorII has been designed
+to provide full control of the calculation path and of the
+simplifications to be performed at each stage. Once a calculation is
+completed, a variety of commands are available for the manipulation
+and simplification of results.
+
+In designing the package, emphasis has also been placed on the
+interface, allowing simple user input, as well as presenting readable
+output. Metrics and basis vectors are easily defined and can be saved
+for later use.  Calculations are specified in an intuitive manner
+using a minimal number of commands.\\
+
+This booklet introduces a number of characteristics and features of
+the GRTensorII computer algebra package, emphasizing its input and
+output facilities, the ability to define new tensor objects, and the
+ability to use and switch between a number of different formalisms
+(classical tensor methods, general bases, and null tetrads). This
+booklet itself is intended only as a brief overview. More detailed
+information regarding the commands introduced here can be found
+in Booklets \grMakegLabel--\grSetupLabel:
+\begin{center}
+  \begin{tabular}{rl}
+    \textsl{Booklet}
+    & \grMakegRef\\
+    & \grCalcRef\\
+    & \grDefRef\\
+    & \grBasisRef\\
+    & \grSetupRef
+  \end{tabular}
+\end{center}
+Together these articles are intended to serve as both a user's guide
+and command reference for the GRTensorII package. Unfortunately
+because of this dual purpose, there are some shortfalls in their
+ability to perform each task: Someone looking for tutorial information
+might find themselves buried in uninteresting technical points,
+while experienced users will find some sections overly pedagogic.
+
+It is not intended that the booklets be read linearly from start to
+finish. To begin, only the information from the first sections of the
+\textsl{\grMakegTitle} and \textsl{\grCalcTitle} booklets are needed
+to perform some sophisticated calculations. Once familiarity with the
+interface is gained, the ability to define new tensors and build
+customized libraries, described in Booklet \grDefRef, greatly increase
+the power of the package.  For the first time user, probably the best
+way to approach the package is to study and execute some of the
+demonstrations available online at the world-wide-web site \cite{www},
+at the same time referring to these booklets and the online help as
+necessary.\footnote{For MapleV.3 versions, the online help library for
+GRTensorII is loaded into MapleV by the command
+\texttt{readlib(griihelp)}. It is described with installation
+instructions in Booklet \grSetupRef. For MapleV.4 versions, the online
+help is automatically accessible.}\\
+
+\textbf{Release 1.50:} GRTensorII was developed from the foundations
+laid by the GRTensor package for MapleV.2 in 1991. The GRTensorII
+package was first released in September of 1994. Updates have been
+made intermittently since then, with a new set of release notes
+accompanying Version 1.1 in the summer of 1995. The current version,
+Release 1.50, marks an attempt to streamline and document the
+improvements to the package since its original appearance. Development
+has concentrated on improving users' ability to define new tensors by
+incorporating general index symmetries into automatically generated
+calculation programs. The new release also incorporates a number of
+internal changes, such as improved algorithms for the calculation of
+Newman-Penrose coefficients and scalar invariants. The online help
+library has been expanded and brought up to date and a new documentation
+set, of which this is the first booklet, has been written with an aim
+to provide a coherent description of the package as it stands in the
+summer of 1996.
+
+The version of GRTensorII described in these booklets runs within the
+MapleV environment.  It is supported for both Release 3 and 4 of
+MapleV. A Mathematica version of the GRTensorII software is also
+available.\footnote{The Mathematica port of GRTensorII, called
+GRTensorM, is available from the world-wide-web site \cite{www}. It
+differs from the MapleV version in both syntax and functionality. As
+such, these booklets should not be used as a reference for GRTensorM.}
+It is intended that additions and improvements will continue to be
+made to the package  and the individual `booklet' format of this
+documentation has been chosen to facilitate expansion and document
+supplements.  We encourage users to check back periodically for new
+versions of software, documentation, and demonstrations, at the
+GRTensorII world-wide-web site \cite{www}.\footnote{We note
+parenthetically that some other unaffiliated software sites
+re-distribute versions of GRTensorII.  We cannot assure the recency or
+integrity of such versions and recommend that GRTensorII software,
+updates, and documentation be downloaded from the home site.}
+%
+%------------------------------------------------------------------------------
+\section{Startup}
+%------------------------------------------------------------------------------
+The GRTensorII package is distributed as a set of MapleV libraries
+(`\texttt{.m}' files), the most significant of which is the file
+\texttt{grii.m}. This file contains the full library of GRTensorII
+commands to be described in this set of booklets, as well as a large
+standard library of calculable tensors and other
+objects.\footnote{Instructions for the installation of this library
+are given in Booklet \grSetupRef.}
+
+To start the GRTensorII package, in a new MapleV session type the
+commands:\\
+
+\noindent\texttt{> readlib ( grii ):\\
+> grtensor():}\\
+
+\noindent The first of these commands loads the GRTensorII library,
+while the second initializes the package in addition to printing out a
+title page giving current version information. (Optionally, MapleV.3
+users might also consider to execute the command \texttt{readlib(griihelp)}
+which loads the online help library, kept separate because of its
+size.)
+
+The examples described below are designed to be run in a single
+GRTensorII session.
+%------------------------------------------------------------------------------
+\section{Calculating components}
+%------------------------------------------------------------------------------
+Tensors are specified by their name and index configuration, using the
+abbreviations {\tt dn} and {\tt up} to indicate covariant and
+contravariant indices, respectively. For instance, the Ricci tensor
+could be referenced
+\[
+  \text{\tt R(dn,dn)}\quad (= R_{ab}),\qquad
+  \text{\tt R(up,dn)}\quad (= R^a_{\ b}), \qquad
+  \text{\tt R(bup,bdn)}\quad (= R^{(a)}_{\ \ (b)}),
+\]
+where the last example uses the labels {\tt bup} and {\tt bdn} to
+reference the components of the Ricci tensor in terms of a basis
+rather than metric coordinates.
+
+Three commands are used most frequently within a GRTensorII session:
+\begin{description}
+  \item[grcalc] calculates the components of tensors;
+  \item[grdisplay] displays the components;
+  \item[gralter] applies simplification routines to tensors;
+\end{description}
+Thus, to calculate the covariant Ricci tensor for the predefined Kerr metric,
+we might use the command sequence\\
+
+\noindent{\texttt{> qload ( kerr ):\\
+> grcalc ( R(dn,dn) ):\\
+\indent Calculating g(dn,dn,pdn) for kerr ... Done. \\
+\indent Calculating Chr(dn,dn,dn) for kerr ... Done. \\
+\indent Calculating detg for kerr ... Done. \\
+\indent Calculating g(up,up) for kerr ... Done. \\
+\indent Calculating Chr(dn,dn,up) for kerr ... Done. \\
+\indent Calculating R(dn,dn) for kerr ... Done. \\[\baselineskip]
+%
+> grdisplay ( R(dn,dn) ):}
+\begin{center}
+  \textit{For the kerr spacetime:}\\
+  \textit{Covariant Ricci}
+\end{center}
+\begin{eqnarray*}
+\lefteqn{{{\it R\:}_{{r}}}\,{{}_{{r}}}= - {a}^{2} \left( {\vrule 
+height0.44em width0em depth0.44em} \right. \! \! {r}^{2} - {r}^{2
+}\,{\rm sin}(\,{ \theta}\,)^{2} + 2\,{r}^{2}\,{\rm cos}(\,{ 
+\theta}\,)^{4} - 3\,{r}^{2}\,{\rm cos}(\,{ \theta}\,)^{2} + 2\,{r
+}^{2}\,{\rm sin}(\,{ \theta}\,)^{2}\,{\rm cos}(\,{ \theta}\,)^{2}
+ + {a}^{2}\,{\rm cos}(\,{ \theta}\,)^{4}} \\
+ & & \mbox{} - {a}^{2}\,{\rm cos}(\,{ \theta}\,)^{2} + {a}^{2}\,
+{\rm cos}(\,{ \theta}\,)^{2}\,{\rm sin}(\,{ \theta}\,)^{2} \! 
+\! \left. {\vrule height0.44em width0em depth0.44em} \right) 
+ \left/ {\vrule height0.44em width0em depth0.44em} \right. \! \! 
+ \left( \! \, \left( \! \, - 1 + {\rm cos}(\,{ \theta}\,)^{2}\,
+ \!  \right) \,(\,{r}^{2} - 2\,{m}\,{r} + {a}^{2}\,)\, \left( \! 
+\,{r}^{2} + {a}^{2}\,{\rm cos}(\,{ \theta}\,)^{2}\, \!  \right) 
+^{2}\, \!  \right)\\
+\lefteqn{R_{\theta\theta} = \ldots \text{etc.}} 
+\end{eqnarray*}
+At this point, since no simplifications of the results have 
+been applied, the components of $R_{ab}$ are not obviously zero
+as we would expect. The following commands are needed:\\
+
+\noindent\texttt{> gralter ( R(dn,dn), trig ):\\
+> grdisplay ( R(dn,dn) ):}\\
+\begin{center}
+  \textit{For the kerr spacetime:\\
+   Covariant Ricci\\
+   R(dn,dn) = All components are zero}
+\end{center}
+The first command applies trigonometric simplification to the
+components of \texttt{R(dn,dn)}. Upon using \grcmd{grdisplay}, we see
+that the the simplification has indeed reduced the components to zero.
+
+Note that for a more complicated metric, it may be the case that it is
+better to carry out the computation in stages. That is, we can first
+calculate the Christoffel symbols and apply simplifications, then the
+Ricci tensor, and finally, for instance, the Ricci scalar.
+
+A number of alternate simplification routines exist within
+\grcmd{gralter}, including trigonometric, radical, expansion and
+factorization techniques.  The command \grcmd{grmap} can also be used
+to apply \textit{any} Maple function to the components of a tensor.
+
+The commands listed in this Section are described in more detail in
+Booklet \grCalcRef. The calculation of objects in a coordinate basis
+is described in Booklet \grBasisRef.
+%
+%------------------------------------------------------------------------------
+\section{Input of spacetimes}
+%------------------------------------------------------------------------------
+Spacetimes are specified within GRTensorII through use of the
+\grcmd{makeg} facility. They can be entered in the following forms:
+\begin{description}
+  \item[Metric, $g_{ab}$] A $n\times n$ symmetric matrix;
+  \item[Line element] An equation of the standard form $ds^2 = \ldots$;
+  \item[Non-holonomic basis] A set of basis vectors (covariant or
+    contravariant) with an inner product;
+  \item[Null tetrad] As described by the Newman-Penrose formalism.
+\end{description}
+As an illustrative (but computationally trivial) example, we consider
+the twisting Einstein-Maxwell solution described on p. 135 of Kramer,
+et al.  \cite{krameretal},
+\begin{align*}
+  kds^2 & = -2\left( x^a du - \frac{dy}{(a+1)x}\right)
+    \left[ dt + a(t dx + dy)/x + f(t)\left( x^a du - \frac{dy}{(a+1)x}
+    \right)\right] \nonumber\\
+    & \qquad + (dx^2 + dy^2)(t^2+1)/2x^2,
+\end{align*}
+We can enter this metric directly in this form using \grcmd{makeg}, giving
+it the name `\texttt{sm}':\\
+
+\noindent\texttt{> makeg ( sm ):\\
+\indent\textsl{\small Makeg 2.0: GRTensorII metric/basis entry utility\\
+\indent To quit makeg, type 'exit' at any prompt.}}
+\begin{tabbing}
+\indent\texttt{\textsl{Do you wish to enter a }}
+  \= \texttt{\textsl{1) metric [g(dn,dn)],}}\\
+  \> \texttt{\textsl{2) line element [ds],}}\\
+  \> \texttt{\textsl{3) non-holonomic basis [e1...e4], or}}\\
+  \> \texttt{\textsl{4) null tetrad [l,n,m,mbar]?}}
+\end{tabbing}
+\texttt{> 2:\\
+\indent{\textsl{\small Enter coordinates as a LIST
+  (e.g. [r,theta,phi,t]):}}\\
+> [ t, x, y, u ]:}\\
+
+\texttt{\textsl{{\small Enter the line element using 'd[coord]' to indicate
+  differentials.\\
+\indent (for example,  r\^{}2*(d[theta]\^{}2 + sin(theta)\^{}2*d[phi]\^{}2)\\
+\indent $[$Type 'exit' to quit makeg$]$\\
+\indent  ds\^{}2 = }}}\\
+
+\noindent\texttt{> 1/k*(-2*(x\^{}a*d[u] - d[y]/((a+1)*x))*(d[t]
+  + a*(t*d[x] \\
+\indent + d[y])/x + f(t)*(x\^{}a*d[u]-d[y]/((a+1)*x))) + (d[x]\^{}2 +\\
+\indent d[y]\^{}2)*(t\^{}2+1)/(2*x\^{}2)):\\
+}
+
+\noindent Note that in the above expression the coordinate differentials
+are labeled using the variables {\tt d[}{\em coordinate}{\tt ]},
+allowing the line element to be entered in exactly the form that it is
+given in \cite{krameretal}. The output from {\tt makeg} is:
+\begin{align*}
+  ds^2 & = 2\frac{dt\ dy}{k(a+1)x} - 2\frac{x^a dt\ du}{k}
+    + \left(\frac{1}{2}\frac{t^2}{kx^2} + 
+    \frac{1}{2}\frac{1}{kx^2}\right) dx^2
+    + 2\frac{a\ t\ dx\ dy}{k(a+1)x^2}\\
+  & - 2\frac{x^a a\ t\ dx\ du}{kx} + \left( 2\frac{a}{k(a+1)x^2}
+    - 2\frac{f(t)}{k(a+1)^2 x^2} + \frac{1}{2}\frac{t^2}{kx^2} +
+    \frac{1}{2}\frac{1}{kx^2}\right)dy^2\\
+  & + 2\left(-\frac{x^a a}{kx} + 2\frac{x^a f(t)}{k(a+1)x}\right)dy\ du
+    - 2\frac{(x^a)^2 f(t) du^2}{k}
+\end{align*}
+\indent\texttt{\textsl{\small makeg completed.}}\\
+The parameter values can now be set for the particular Type-III case
+studied by Siklos and MacCallum \cite{maccallum/siklos:1981} (referred
+to in \cite{krameretal} on p. 135):\\
+
+\noindent\texttt{> a := 1/2: k := -32/(78*lambda):
+  f(t) := (13*t\^{}2+17)/32:}\\
+
+\noindent For this simple metric, it is not difficult to calculate the
+(rather uninteresting, in this case) components of the Ricci tensor:\\
+
+\noindent\texttt{> grcalc ( R(dn,dn) ):}\\
+\noindent\texttt{> grdisplay ( \_ ):}
+\begin{center}{\em For the sm metric:}\end{center}
+\[
+  R_{ab} = \left[
+    \begin{array}{cccc}
+      0 & 0 & -\frac{13}{8}\frac{1}{x} & \frac{39}{16}\sqrt{x} \\
+      0 & - \frac{39}{32}\frac{t^2+1}{x^2} & -\frac{13}{16}\frac{t}{x^2} &
+        \frac{39}{32}\frac{t}{\sqrt{x}} \\
+        -\frac{13}{8}\frac{1}{x} & -\frac{13}{16}\frac{t}{x^2} &
+      -\frac{65}{192}\frac{5+t^2}{x^2} & 
+        -\frac{13}{128}\frac{5+13t^2}{\sqrt{x}} \\
+      \frac{39}{16}\sqrt{x} & \frac{39}{32}\frac{t}{\sqrt{x}} &
+        -\frac{13}{128}\frac{5+13t^2}{\sqrt{x}} &
+        \frac{39}{256}x(13t^2+17)
+    \end{array}
+    \right]
+\]
+
+The specification of metrics and bases is described more fully in Booklet
+\grMakegRef. The \grcmd{grcalc}, \grcmd{gralter} and \grcmd{grdisplay}
+commands are the subject of Booklet \grCalcRef.
+%
+%------------------------------------------------------------------------------
+\section{The Newman-Penrose formalism}
+%------------------------------------------------------------------------------
+A more complicated problem is that of determining the Petrov type of
+this metric. In order to do this in GRTensorII, the metric must be
+cast in the form of a Newman-Penrose (NP) null tetrad. Since no tetrad
+obviously presents itself from the form of the metric given above, we
+can use the command \grcmd{nptetrad} to generate one. This command
+constructs a set of null basis vectors satisfying the properties of
+a basis for the Newman-Penrose formalism.\footnote{Since the -2 signature
+convention of the NP formalism conflicts with the +2 Landau-Lifschitz
+convention recommended for metrics in GRTensorII, the construction
+of the tetrad also involves a signature change. This is carried out
+automatically if requested.}  Naturally, this tetrad
+may not be optimal for further calculation, but is often a good start
+to which further simplifications can be applied.\\
+
+\noindent\texttt{> nptetrad():}\\
+\indent\texttt{The metric signature of the sm spacetime is +2.}\\
+\indent\texttt{In order to create an NP-tetrad, the signature of g(dn,dn)
+ will be changed}\\
+\indent\texttt{to -2.}\\
+\indent\texttt{Continue? (1=yes):}\\
+\noindent\texttt{> 1:}\\
+\indent\texttt{The signature of the sm spacetime is now -2.\\}
+
+\begin{maplelatex}
+\[
+{\it Null\:tetrad\:(covariant\:components)}
+\]
+\end{maplelatex}
+\begin{maplelatex}
+\[
+{{l}_{{a}}}= \left[
+{\begin{array}{cccc}
+ - \,{\displaystyle \frac {39}{16}}\,{ \lambda}\,\sqrt {{x}} & 
+ - \,{\displaystyle \frac {39}{32}}\,{\displaystyle \frac {{ 
+\lambda}\,{t}}{\sqrt {{x}}}} & {\displaystyle \frac {13}{256}}\,
+{\displaystyle \frac {{ \lambda}\,(\, - 7 + 13\,{t}^{2}\,)}{
+\sqrt {{x}}}} &  - \,{\displaystyle \frac {507}{512}}\,{ \lambda}
+\,{x}\,{t}^{2} - {\displaystyle \frac {663}{512}}\,{ \lambda}\,{x
+}
+\end{array}}
+\right] 
+\]
+\end{maplelatex}
+\begin{maplelatex}
+\[
+{{n}_{{a}}}= \left[
+{\begin{array}{rrcr}
+0 & 0 &  - \,{\displaystyle \frac {2}{3}}\,{\displaystyle \frac {
+1}{{x}^{3/2}}} & 1
+\end{array}}
+\right] 
+\]
+\end{maplelatex}
+\begin{maplelatex}
+\[
+{{m}_{{a}}}= \left[
+{\begin{array}{rccr}
+0 &  - \,{\displaystyle \frac {1}{8}}\,{\displaystyle \frac {{I}
+\,\sqrt {3}\,\sqrt {13}\,\sqrt {{ \lambda}}\,\sqrt {{t}^{2} + 1}
+}{{x}}} & {\displaystyle \frac {1}{8}}\,{\displaystyle \frac {
+\sqrt {3}\,\sqrt {13}\,\sqrt {{ \lambda}}\,\sqrt {{t}^{2} + 1}}{{
+x}}} & 0
+\end{array}}
+\right] 
+\]
+\end{maplelatex}
+\begin{maplelatex}
+\[
+{{\it mbar}_{{a}}}= \left[
+{\begin{array}{rccr}
+0 &  - \,{\displaystyle \frac {1}{8}}\,{\displaystyle \frac {{I}
+\,\sqrt {3}\,\sqrt {13}\,\sqrt {{ \lambda}}\,\sqrt {{t}^{2} + 1}
+}{{x}}} &  - \,{\displaystyle \frac {1}{8}}\,{\displaystyle 
+\frac {\sqrt {3}\,\sqrt {13}\,\sqrt {{ \lambda}}\,\sqrt {{t}^{2}
+ + 1}}{{x}}} & 0
+\end{array}}
+\right] 
+\]
+\end{maplelatex}
+
+\indent\texttt{The null tetrad has been stored as e(bdn,dn).}\\
+
+\noindent From this point we can proceed to determine the Petrov
+type of our example metric by first calculating the spin coefficients
+(\texttt{NPSpin} and their conjugates \texttt{NPSpinbar}) and the Weyl
+scalars (\texttt{WeylSc}) \cite{newman/penrose:1962}.\\
+
+\noindent\texttt{> grcalc ( NPSpin, NPSpinbar ):\\
+> grcalc ( WeylSc ):\\
+> gralter ( \_ , factor ):\\
+> grdisplay ( \_ ):}
+  \[ { \Psi 0}= - \,{\displaystyle \frac {5}{64}}\,{\displaystyle 
+    \frac {{I}\,{x}\,(\,13\,{t}^{2} + 10\,{I}\,{t} + 11\,)}{(\,{t} + 
+    {I}\,)\,(\, - {t} + {I}\,)^{2}}} \]
+  \[ { \Psi 1}={\displaystyle \frac {5}{52}}\,{\displaystyle \frac {
+    \sqrt {3}\,\sqrt {13}\,\sqrt {{x}}\,(\,{I}\,{t} - 1\,)}{\sqrt {{ 
+    \lambda}}\,(\,{t}^{2} + 1\,)^{3/2}}} \]
+  \[ { \Psi 2}=0 \]
+  \[ { \Psi 3}=0 \]
+  \[ { \Psi 4}=0 \]
+
+\noindent Note that the calculation of \texttt{NPSpin} and \texttt{NPSpinbar}
+did not need to be specified in a separate step, since this
+the calculation of these objects implicit in the calculation of
+\texttt{WeylSc}. However, in general a good rule of thumb is to calculate
+these quantities first and simplify them fully (not required in this
+case) before proceeding to the curvature scalars.\\
+
+\noindent\texttt{> grcalc ( Petrov ):\\
+> grdisplay ( \_ ):}
+\begin{center}\textit{For the sm spacetime:\\
+  Petrov Type = III (or simpler)}
+\end{center}
+\noindent Note the caveat `or simpler' in the final line of output. The
+calculation of the Petrov type involves determining whether a number of
+intermediate quantities can be evaluated to zero
+\cite{letniowski/mclenaghan:1988}.
+It is sometimes the case that complicated ways of expressing zero do not, in
+fact, reduce to zero within the computer algebra system. In such cases it will 
+return a Petrov type which is unnecessarily specialized. To determine the
+reliability of the computer's evaluation, the \grcmd{PetrovReport} command
+is provided, which details the intermediate calculations performed in
+the determination of the Petrov type.\\
+
+\noindent\texttt{> PetrovReport():}
+\begin{center}\textit{
+  The conclusion 'Petrov type = III (or simpler)' for the sm metric\\
+  was based on the following results:\\
+  Weyl scalar Psi0 could not be evaluated to zero.\\
+  Weyl scalar Psi1 could not be evaluated to zero.\\
+  Weyl scalar Psi2 = 0\\
+  Weyl scalar Psi3 = 0\\
+  Weyl scalar Psi4 = 0}\\
+
+\textit{-- -- -- $>$ Therefore the metric is Petrov III (or simpler).
+}
+\end{center}
+
+\noindent We see from the previous output that the indeed the calculations
+have been carried out correctly (all of the terms which the computer believes
+to be non-zero are actually non-zero).
+
+The use of null tetrads and general bases is treated in more detail in
+Booklet \grBasisRef.
+%
+%------------------------------------------------------------------------------
+\section{Defining new tensors}
+%------------------------------------------------------------------------------
+Finally, we describe a facility which exists within GRTensorII for defining
+tensors which are not part of the standard object libraries. Here we
+define the Bel-Robinson tensor, 
+\[
+  T_{cdef} := C_{acdb}C^a{}_{ef}{}^b+C^*_{acdb}C^{*a}{}_{ef}{}^b,\qquad
+\]
+as well as it's trace and its divergence using the command \grcmd{grdef}:\\
+
+\noindent\texttt{> grdef (`T\{(c d e f)\} := C\{a c d b\}*C\{\^{}a e f\^{}b\}+
+  Cstar\{a c d b\}\\
+  \indent *Cstar\{\^{}a e f\^{}b\}`):\\
+> grdef (`TT\{(c d)\} := T\{\^{}a a c d\}`):\\
+> grdef (`TC\{(b c d)\} := T\{\^{}a b c d ;a\}`):}\\
+
+\noindent In the strings defining these tensors, contravariant 
+indices are indicated by preceding them with a caret, `\texttt{\^{}}',
+while covariant differentiation is indicated as usual, with a
+semi-colon, `\texttt{;}'.  The braces on the left-hand side of the
+assignment in each command indicate that the newly defined tensors
+should be assumed to be symmetric under interchange of their indices.
+The calculation functions which are automatically generated by
+\grcmd{grdef} will take these symmetries into account to improve the
+efficiency of calculations.
+
+We now load the Kerr-Newman metric and calculate these objects:\\
+
+\noindent\texttt{> qload(newkn):}
+\begin{center}\textit{
+  Coordinates:\\
+  $x^a = [\ r\ u\ \phi\ t\ ]$\\
+  Line element}
+\end{center}
+\begin{align*}
+  ds^2 = & \frac{(r^2 + u^2)dr^2}{r^2 - 2mr + a^2 + Q^2}
+    + \frac{(r^2 + u^2)du^2}{a^2 - u^2}
+    + \frac{(a^2 - u^2)\left(r^2 + a^2 + \frac{(a^2 - u^2)
+      (2mr-Q^2)}{r^2 + u^2}\right)d\phi^2}{a^2}\\
+    & -\frac{(a^2-u^2)(2mr-Q^2)d\phi dt}{a(r^2+u^2)}
+    + \left( -1 + \frac{2mr - Q^2}{r^2 + u^2}\right) dt^2
+\end{align*}
+\begin{center}
+  \textit{Kerr--Newman Solution in Boyer--Lindquist coordinates 
+  ($u=a\ast \cos(\theta)$)}\\
+\end{center}
+
+\noindent\texttt{> grcalc ( T(dn,dn,dn,dn) ):}\\
+
+\noindent We display a component (e.g. $T_{rrrr}$):\\
+
+\noindent\texttt{> grcomponent ( T(dn,dn,dn,dn), [r,r,r,r] ):}
+\[
+  6\frac{m^2 r^2 - 2mrQ^2 + m^2 u^2 + Q^4}
+    {(r^2 + u^2)^2(r^2 - 2mr + a^2 + Q^2)^2}
+\]
+
+\noindent We now check that $T^a{}_{acd}=0$ and that 
+$\nabla_a T^a{}_{bcd}=0$ in vacuum:\\
+
+\noindent\texttt{> grcalc ( TT(dn,dn) ):}\\
+\texttt{> grdisplay( \_ ):}
+\begin{center}
+  \textit{TT(dn,dn) $=$ All components are zero}
+\end{center}
+\texttt{> Q:=0:}\\
+\texttt{> grcalc ( TC(dn,dn,dn) ):}\\
+\texttt{> grdisplay( \_ ):}
+\begin{center}
+  \textit{TC(dn,dn,dn) = All components are zero}
+\end{center}
+
+A more thorough discussion of the definition of tensors in GRTensorII is
+to be found in Booklet \grDefRef.
+%
+\pagebreak
+%------------------------------------------------------------------------------
+\section*{Conventions}
+%------------------------------------------------------------------------------
+GRTensorII can perform tensor calculations in any number of dimensions
+and for symmetric metrics of arbitrary signature. Tensor indices
+generally take values from $1\ldots n$ in an $n$-dimensional spacetime.
+
+In its definitions of curvature tensors, GRTensorII follows the
+Landau-Lifshitz spacelike conventions. That is, the curvature (Riemann)
+tensor is defined by
+\[
+  R^a{}_{bcd} := \frac{\partial\Gamma_{bd}^a}{\partial x^c}
+    - \frac{\partial\Gamma_{bc}^a}{\partial x^d}
+    + \Gamma_{ec}^a \Gamma_{bd}^e
+    - \Gamma_{ed}^a \Gamma_{bc}^e,
+\]
+the Ricci tensor by
+\[
+  R_{ab} := R^c{}_{acb},
+\]
+and the Einstein tensor by
+\[
+  G_{ab} := R_{ab} - \frac{1}{2} R g_{ab}.
+\]
+
+Although spacetimes of any signature can be defined, for four
+dimensional Lorentzian metrics the signature +2 is recommended.
+Most standard curvature calculations will be carried out correctly
+regardless of the signature convention. However, some tensors (in
+particular the vector operators of Booklet \grCalcRef) which depend on
+the normalization of timelike or spacelike vectors can be affected by
+the choice of signature. If a signature other than +2 is employed,
+users should carefully check tensor definitions for signature
+dependent terms.\\
+
+The only deviation from this standard signature is in the specification
+of the Newman-Penrose formalism, which follows the original definitions
+of \cite{newman/penrose:1962}, and thus requires a -2 signature for
+spacetimes.
+%
+%------------------------------------------------------------------------------
+\vfill
+\bibliographystyle{unsrt}
+\bibliography{grtensor}
+\end{document}
+%==============================================================================

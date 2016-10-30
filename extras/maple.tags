@@ -1,0 +1,8 @@
+#!/bin/sh
+#------------------------------------------------------------------------------
+# The following shell command will create a emacs-Tags file which
+# recognises maple procecures. It searches for *.mpl files in
+# subdirectories of the current directory. For more information, see
+#   info '(emacs)Tags'
+#------------------------------------------------------------------------------
+find . -name "*.mpl" -print | etags --regex='/[ \t]*[A-Za-z_]*[ \t]*:=*[ \t]*proc[ \t(]*[A-Za-z_ ,\t\n]*[)]/' -

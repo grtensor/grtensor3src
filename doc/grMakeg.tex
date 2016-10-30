@@ -1,0 +1,1076 @@
+%=================================================================-*-LaTeX-*-==
+% GRTensorII 1.50 Manual
+% Booklet B: Specifying spacetimes
+%
+% Denis Pollney
+% July 1996
+%==============================================================================
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{maple2e}
+\usepackage{grtensor}
+\usepackage{grbooks}
+%------------------------------------------------------------------------------
+\begin{document}
+\grlabel{\grMakegLabel}
+\grtitle{\grMakegTitle}
+\grdate{July 1996}
+\grtitlepage
+%==============================================================================
+% Body.
+%==============================================================================
+\copyrightpage
+\noindent The simplest way to specify a spacetime geometry in GRTensorII
+is to use the \grcmd{makeg} facility. This function aids input by
+prompting the user for the information required to specify a
+coordinate metric (a $n\times n$ dimensional 2-tensor) or basis (a set
+of $n$ linearly independent vectors related by a user-defined inner
+product).\footnote{Although GRTensorII allows specification of
+spacetimes as both metrics and bases, in these booklets we will often
+refer to both formats as simply \textit{metrics} with the
+understanding that we are referring also to bases created via
+\grcmd{makeg}.}
+
+In addition to using \grcmd{makeg}, new spacetimes can be constructed
+from previously defined spacetimes through the use of the commands:
+\begin{center}
+  \begin{tabular}{rl}
+    \grcmd{grtransform} & -- performs a coordinate transformation of a 
+      metric,\\
+    \grcmd{nptetrad} & -- constructs a null tetrad corresponding to a metric,\\
+    \grcmd{nprotate} & -- performs rotations of a null tetrad, and\\
+    \grcmd{grnewmetric} & -- creates a metric from a $2\times 2$ MapleV array.
+  \end{tabular}
+\end{center}
+These commands are described in Sections 
+\ref{sec:grtransform}--\ref{sec:grnewmetric} of this booklet.
+
+The metrics created for use in GRTensorII can be saved to an ASCII
+file directly using \grcmd{makeg} or the \grcmd{grsaveg}
+command. These files can be loaded into GRTensorII using either the
+\grcmd{qload} or \grcmd{grload} commands. A directory of commonly used
+metric/basis files is available from the GRTensor world-wide-web pages
+\cite{www}.
+
+%-----------------------------------------------------------------------------
+\section{Metrics and bases}
+%-----------------------------------------------------------------------------
+The \grcmd{makeg} can be used to enter all of the information needed
+to specify a spacetime, either as a metric or set of basis
+vectors. This section establishes some notation that will be used
+throughout these booklets.
+
+Metrics are $n$ dimensional 2-tensors which are assumed to
+be symmetric:
+\[
+  g_{ab} :=
+  \left[
+    \begin{array}{cccc}
+      g_{11} & g_{12} & \cdots & g_{1n} \\
+      g_{12} & g_{22} &        & \vdots \\
+      \vdots &        & \ddots &        \\
+      g_{1n} & \cdots &        & g_{nn}
+    \end{array}
+  \right]
+\]
+The components $g_{ij}$ are functions of the $n$ coordinates
+$\{ x_1, \ldots, x_n\}$.
+
+Bases are sets of $n$ independent vectors,
+\[
+  \left\{
+    e_{(1)}{}^a = [ e_{11}, \ldots, e_{1n} ], \quad \ldots \quad
+    e_{(n)}{}^a = [ e_{n1}, \ldots, e_{nn} ],
+  \right\}
+\]
+whose inner product is defined by the symmetric matrix
+\[
+  \eta^{(a)(b)} =
+    \left[
+      \begin{array}{cccc}
+      \eta_{11} & \eta_{12} & \cdots & \eta_{1n} \\
+      \eta_{12} & \eta_{22} &        & \vdots \\
+      \vdots    &           & \ddots &        \\
+      \eta_{1n} & \cdots    &        & \eta_{nn}
+    \end{array}
+  \right],
+\]
+via
+\[
+  \langle e_{(i)}{}^a, e_{(j)}{}^b\rangle 
+    = \eta^{(i)(j)} e_{(i)}{}^a e_{(j)}{}^b
+    = g^{ab}.  
+\] 
+(Note that here and throughout GRTensorII we use the convention that
+basis vectors are labeled with bracketed indices $\{ (a), (b), \ldots \}$.)
+%
+%-----------------------------------------------------------------------------
+\section{Using \grcmd{makeg}}\label{makeg}
+%-----------------------------------------------------------------------------
+%
+The syntax for the \grcmd{makeg} command is as follows:\\
+\begin{cmdspec}
+  \label{spec:makeg}
+  \grcmdline{makeg ( \grarg{metricName}, [\grarg{metricPath}] )}
+
+  \begin{description}
+
+  \item[\grarg{metricName}] -- the name to be given to the newly
+    created metric or basis. This name will also be used to create the
+    filename (with a \texttt{.mpl} extension) in which the metric
+    information will be saved.  
+
+\item[\grarg{metricPath}] -- \textit{(optional)} this argument can 
+    be used to specify a directory name in which the metric file is to
+    be placed. The argument is a string with directory levels
+    separated by forward slashes, `\texttt{/}'. If this argument is
+    not specified the directory stored in the global option variable
+    \texttt{grOptionMetricPath} is used instead.
+  \end{description}
+
+  \grexample{makeg ( bondi )}
+\end{cmdspec}
+
+Upon issuing the \grcmd{makeg} command, the user is prompted to
+enter all of the information necessary to specify the spacetime.
+The first of these prompts asks for the format in
+which the data is to be entered:\footnote{Note 
+that the first option refers to `\texttt{g(dn,dn)}'. This is the standard
+GRTensorII representation of the covariant metric. See Booklet \grCalcRef~
+for more details regarding this notation.}
+\begin{ttfamily}
+  \begin{tabbing}
+    Do you wish to enter a \= 1) metric [g(dn,dn)], \\
+                           \> 2) line element [ds], \\
+                           \> 3) non-holonomic basis [e1...e4], or \\
+                           \> 4) NP tetrad [l,n,m,mbar]
+  \end{tabbing}
+\end{ttfamily}
+The reply should be an integer from 1 to 4. Each option is described in turn
+below.
+%
+%------------------------------------------------------------------------------
+\subsection{The metric as a covariant 2-tensor} \label{sec:metricentry}
+%------------------------------------------------------------------------------
+%
+The user is prompted to enter the following information:
+\begin{description}
+  \item[Coordinates] These are entered as a MapleV list,
+    eg. \texttt{[r,theta,phi,t]}. The names which are used as coordinates
+    must be previously unassigned. Any number of coordinates may be entered,
+    and their number will determine the dimension of the spacetime.
+  \item[Signature] This is an integer, $s = n_+ - n_-$, where $n_+$ is
+    the number of positive components on the diagonal of the metric, and
+    $n_-$ is the number of negative components on the diagonal of the
+    metric in a locally orthonormal basis. If the global variable
+    \texttt{grOptionLLSC} is set to \texttt{true}, then this prompt does
+    not appear.\footnote{See the discription of the \texttt{grOptionLLSC}
+    in Booklet \grSetupRef~and the \texttt{?groptions} online help page.}
+  \item[Form of the metric] (diagonal or symmetric) This will reduce the
+    number of coordinates which the user is required to input. If the
+    `diagonal' option is chosen then off-diagonal components are automatically
+    set to zero. Components on the lower diagonal are automatically
+    set equivalent to those on the upper diagonal.  GRTensorII
+    does not currently handle non-symmetric metrics.
+  \item[Metric components] A prompt appears for each unknown component of
+    the covariant metric. Keep in mind that if a component involves functions
+    of the coordinates then the coordinate dependence must be stated
+    explicitly, as in \texttt{M(r,t)} for example.
+\end{description}
+%
+%------------------------------------------------------------------------------
+\subsection{The metric as a line-element}
+%------------------------------------------------------------------------------
+%
+It is often most convenient to enter a metric in the form that it is
+most commonly presented in journals and texts, ie. as a line element.
+This helps to minimize the risk of transcription errors between paper and
+the computer.
+
+Choosing the second option from the \grcmd{makeg} menu, the user is
+first prompted to enter the coordinate names. As above, this should
+take the form of a MapleV list of unassigned names,
+eg. \texttt{[r,theta,phi,t]}.
+
+The line element is then entered using the notation \texttt{d[x]} to 
+represent the coordinate differential $dx$. For example, the line element
+\[
+  dx^2 + (dy + dz)^2
+\]
+would be entered as
+\begin{center}
+  \begin{texttt}
+    d[x]\^{}2 + (d[y] + d[z])\^{}2:
+  \end{texttt}
+\end{center}
+Naturally, the line element must be a quadratic form in the coordinate
+differentials.
+
+Once the line element is entered, it is converted to a $n\times n$
+covariant 2-tensor (\texttt{g(dn,dn)} in GRTensorII's notation) which
+is displayed so that they can be checked for errors in the input.
+%
+%------------------------------------------------------------------------------
+\subsection{Non-holonomic bases}
+%------------------------------------------------------------------------------
+%
+Choosing Options 3 or 4 from the \grcmd{makeg} menu allows one to
+enter the components of a non-holonomic basis. The first of these
+options (option \texttt{3: non-holonomic basis [e1...e4]}) allows the
+user to also specify the inner product, $\eta^{(a)(b)}$, between
+individual basis vectors. The second (option \texttt{4: NP tetrad
+[l,n,m,mbar]}) assumes the inner product of a Newman-Penrose
+null tetrad,
+\begin{equation}
+  \eta^{(a)(b)} :=
+    \left[
+      \begin{array}{cccc}
+        0 & 1 & 0 & 0 \\
+        1 & 0 & 0 & 0 \\
+        0 & 0 & 0 &-1 \\
+        0 & 0 &-1 & 0
+      \end{array}
+    \right].
+  \label{eq:nullip}
+\end{equation}
+
+In both cases, the user is first prompted to input the coordinate names
+as a MapleV list, eg. \texttt{[r,theta,phi,t]}.\\
+
+The next prompt asks if covariant or contravariant components of the
+tetrad are to be entered.\footnote{The option to enter both forms of
+tetrad also exists, since in certain cases the inversion of the tetrad
+introduces complicated terms (especially radicals) which MapleV has
+difficulty simplifying. In such cases it is sometimes preferable to
+enter both forms of the vector if they are known in a simple form. The
+user must be careful that the forms are mutually consistent. (For
+NP-tetrads, the object \texttt{testNP(bdn,bdn)} can be calculated to ensure
+that at least the basis vectors satisfy an NP inner product.} The user
+is then asked to enter the basis vectors.  These should be specified
+in the form of a MapleV list, eg. \texttt{[1,0,0,0]}.  The number of
+vectors that are entered is determined by the number of coordinates
+making up the spacetime. For general bases, the vectors are labeled
+by the numbers $1, \ldots, n$. For null tetrads, the basis vectors are
+labeled \texttt{l}, \texttt{n}, \texttt{m}, \texttt{mbar}
+respectively.\\
+
+If the user has chosen to enter a general basis (Option 3 from the
+\grcmd{makeg} starting menu), the next prompts ask for the components
+of the inner product between the basis vectors. This is the
+contravariant two-tensor $\eta^{(a)(b)}$ whose $(a)(b)$ component is
+the value of the inner product of basis vectors $a$ and $b$.  In
+common applications, this tensor will have constant coefficients. The
+curvature tensors defined in the GRTensorII standard object libraries
+permit the use of inner products with non-constant coefficients,
+however it is required that the inner product be symmetric across the
+diagonal.
+
+If a null tetrad has been selected (Option 4 from the starting menu),
+then the inner product between the basis vectors is assumed to be of the
+form specified in Eq. (\ref{eq:nullip}).\\
+
+Once the inner product is selected (or chosen by default in the case
+of null tetrads) the basis vectors and inner product are both
+displayed so that they can be checked for errors in the input.
+%
+%------------------------------------------------------------------------------
+\subsection{Other options}
+%------------------------------------------------------------------------------
+%
+Once the data needed to specify the spacetime has been entered, a menu presents
+a number of additional options for correcting, saving, and supplementing the
+data. Typically the menu for metric entry looks like:
+\begin{ttfamily}
+  \begin{tabbing}
+    You may choose to \= 0) Use the metric without saving it, \\
+                      \> 1) Save the metric as it is, \\
+                      \> 2) Correct an element of the metric, \\ 
+                      \> 3) Re-enter the metric, \\
+                      \> 4) Add/change constraint equations, \\ 
+                      \> 5) Add a text description, or \\
+                      \> 6) Abandon this metric and return to Maple.
+  \end{tabbing}
+\end{ttfamily}
+The options in this menu have obvious analogues for the cases of basis or
+null-tetrad input. Each option is described briefly below:
+
+\begin{description}
+  \item[Use the metric without saving it:]
+    The metric is initialized in the current session as \texttt{g(dn,dn)},
+    and can thus be displayed via the command \texttt{grdisplay(g(dn,dn))}.
+    The components are not saved to a file, and so will be lost when the
+    MapleV session is ended. The components of the metric can be saved at
+    a later time using the \grcmd{grsaveg} command.
+%
+  \item[Save the metric as it is:]
+    Any information that has been entered in this invocation of \grcmd{makeg}
+    is saved to the file `\grarg{metricName}\texttt{.mpl}' 
+    (where \grarg{metricName} is the name specified
+    in the argument to \grcmd{makeg}) and in the directory given by the global
+    variable \texttt{grOptionMetricPath} or by the optional 
+    \grarg{metricPath} argument to \grcmd{makeg}.\footnote{For a description
+    of the \texttt{grOptionMetricPath} variable, see Booklet \grSetupRef~or
+    the online help page \texttt{?groptions}.}
+    The metric is initialized for the current session as in the previous
+    option.
+%
+  \item[Correct an element of the metric:]
+    The user is prompted to enter the index values of the metric component 
+    to be corrected. This should take the form of a two-component MapleV list
+    which contains coordinate names, eg. \texttt{[r,theta]}.
+%
+  \item[Re-enter the metric:]
+    The user is prompted to re-enter each component of the metric in
+    succession as described in Section \ref{sec:metricentry} above.
+%
+  \item[Add/change constraint equations:]
+    The user has the opportunity to add information taking the form of
+    constraint equations to the metric. For example, consider a
+    metric containing the function $m(r,t)$ which is required to satisfy the 
+    partial differential equations
+    \[
+      \frac{\partial}{\partial r}m(r,t) = r^2 m(r,t), \quad \text{and} \quad
+      \frac{\partial}{\partial t}m(r,t) = t^2 m(r,t)^2.
+    \]
+    Choosing this option, the user is prompted to enter these constraint
+    equations as a list:
+    \vspace{\baselineskip}\\
+      \texttt{
+        [ diff ( m(r,t), r ) = r\^{}2*m(r,t), 
+        diff ( m(r,t), t ) = t\^{}2*m(r,t)\^{}2 ]
+      }
+    \vspace{\baselineskip}\\
+    These constraints could then be applied to objects calculated from this
+    metric via \grcmd{grcalc} by using the appropriate options from \
+    \grcmd{gralter}.
+   (See Section \ref{sec:constraint} and Booklet \grCalcRef.)
+%
+  \item[Add a text description:]
+    A line of text describing the metric can be saved along with its components
+    so that it may be more easily identified later. Such a note might include
+    its full name, a journal reference, or some descriptive
+    adjectives.\footnote{
+    Inclusion of such descriptions is strongly recommended as it can make
+    large directories of metrics much more manageable. For instance, in Unix
+    systems, some idea of the contents of each file in a metrics directory
+    can be obtained using the command `\texttt{grep Info *.mpl}'.
+    This command will list the text descriptions of each metric file (see
+    Section \ref{sec:metricfiles}).}
+\end{description}
+
+The new metric created by \grcmd{makeg} automatically becomes the default
+metric to be used for subsequent calculations (see Section \ref{sec:default}).
+%
+%------------------------------------------------------------------------------
+\section{Loading spacetimes from a file} \label{qload}
+%------------------------------------------------------------------------------
+%
+Metrics and bases created by \grcmd{makeg} are saved automatically to
+metric files in the default directory specified by the
+\texttt{grOptionMetricPath} variable. These metric files can be loaded
+in future sessions using \grcmd{qload} or \grcmd{grload}. Each of
+these is described below.\\
+
+A directory of commonly used metric files is distributed with
+GRTensorII.  A collection is also kept online \cite{www}. The format
+of metric files is outlined in Section \ref{sec:metricfiles}.\\
+%
+\begin{cmdspec}
+  \label{spec:qload}
+  \grcmdline{qload ( \grarg{metricName} )}
+
+  \begin{description}
+    \item[\grarg{metricName}] -- the name of the metric to be loaded.
+  \end{description}
+
+  \grexample{qload ( schw )}
+\end{cmdspec}
+
+The \grcmd{qload} command searches the directories specified by the
+\texttt{grOptionqloadPath} global variable for the file
+\grarg{metricName}\texttt{.mpl}. If \texttt{grOptionqloadPath} is not
+assigned, or if the specified file is not found by one of the directories
+specified by \texttt{grOptionqloadPath}, then the directory specified
+by the global variable \texttt{grOptionMetricPath} is searched.\\
+%
+\begin{cmdspec}
+  \label{spec:grload}
+  \grcmdline{grload ( \grarg{metricName}, \grarg{metricFile} )}
+
+  \begin{description}
+    \item[\grarg{metricName}] -- the name by which the new metric is to be
+      referenced in the current session.
+    \item[\grarg{metricFile}] -- the complete file name (including directory
+      path and `\texttt{.mpl}' extension) of the metric file to be loaded.
+  \end{description}
+
+  \grexample{grload ( schwarzschild, `c:/mydir/metrics/schw.mpl` )}
+\end{cmdspec}
+
+The \grcmd{grload} command loads the file specified by the \grarg{metricFile}
+command. For the remainder of the current session, the metric is referenced
+by the \grarg{metricName} parameter, which (unlike \grcmd{qload}'s) need not
+be related to the name of the metric file.\\
+
+A spacetime loaded by \grcmd{qload} or \grcmd{grload} becomes the default
+metric to be used for subsequent calculations
+(see Section \ref{sec:default}).\\
+
+The following objects are initialized by the loading commands (as well
+as by \grcmd{makeg}), depending on the form of spacetime specified by
+the input file (ie. metric or basis):\footnote{In addition to the
+initialization of these objects, the following assumptions regarding
+the signature are made when loading a four-dimensional spacetime when
+the global \texttt{grOptionLLSC} variable is set \texttt{true}. If the
+spacetime is specified in the form of a metric, $g_{ab}$, or as a
+basis with a general inner product, then the signature is by default
+set to +2.  If the spacetime is specified as a null tetrad satisfying
+an NP inner product, Eq. (\ref{eq:nullip}), then the signature is set
+to -2. The assumed signature of the spacetime is stored in the
+\texttt{sig} object and can be viewed by using the command
+\texttt{grdisplay(sig)}.
+ In this version of GRTensorII, the value of the signature
+is only used in generating an NP tetrad via the \grcmd{nptetrad}
+command (see Section \ref{sec:nptetrad}, below). If the \texttt{grOptionLLSC}
+variable is set to \texttt{false}, then \texttt{sig} is not initialized
+unless the signature is explicitly given in the metric file.}
+\begin{center}
+  \begin{tabular}{rl}
+    metric: & \texttt{ds}, \texttt{g(dn,dn)} \\
+    general covariant basis: & \texttt{eta(up,up)}, \texttt{e(bdn,dn)},
+      \texttt{basis(dn)} \\
+    general contravariant basis: & \texttt{eta(up,up)}, \texttt{e(bdn,up)},
+      \texttt{basis(up)} \\
+    covariant null tetrad: & \texttt{eta(up,up)}, \texttt{e(bdn,dn)},
+      \texttt{nullt(dn)} \\
+    contravariant null tetrad: & \texttt{eta(up,up)}, \texttt{e(bdn,up)},
+      \texttt{nullt(up)} \\
+  \end{tabular}
+\end{center}
+Additionally, for all of the above types of spacetime the objects
+\begin{center}
+  \texttt{x(up)}, \texttt{dimension},
+\end{center}
+are also initialized, as well as
+\begin{center}
+  \texttt{Info}, \texttt{constraint}, \texttt{sig},
+\end{center}
+if applicable.\\
+
+See Booklet \grCalcRef~or the online help pages \texttt{?grt\_objects}
+and \texttt{?grt\_basis} for a description of these objects. The
+global variables \texttt{grOptionqloadPath} and
+\texttt{grOptionMetricPath} are described in Booklet \grSetupRef~and
+the \texttt{?groptions} online help page.
+
+Once a metric name has been used in a session, it can not be
+re-used. For instance, if the \texttt{schw} spacetime has already been
+loaded, attempts to use the commands \texttt{makeg(schw)} or
+\texttt{qload(schw)} will fail. Metrics can be cleared from a session
+using the \grcmd{grclear} command, described in Booklet \grCalcRef.
+%
+%------------------------------------------------------------------------------
+\subsection{The default spacetime} \label{sec:default}
+%------------------------------------------------------------------------------
+%
+A number of commands described in this booklet (\grcmd{makeg},
+\grcmd{qload}, \grcmd{grtransform}, etc.) create new metrics or bases
+which describe a background geometry for which tensors can be
+calculated. Generally, once these commands are issued, the spacetime
+which they specify becomes the \textit{default} spacetime (or
+background geometry) for future calculations. For instance, once the
+\mbox{\texttt{qload(schw)}} command is issued (the command to load
+the Schwarzschild metric), all subsequent calculations will assume
+this background metric until the default is changed.\\
+
+If a number of different metrics have been created or loaded in single
+GRTensorII section, one can switch between them by using the \grcmd{grmetric}
+command, which has the form:\\
+%
+\begin{cmdspec}
+  \label{spec:grmetric}
+  \grcmdline{grmetric ( \grarg{metricName} )}
+
+  \begin{description}
+    \item[\grarg{metricName}] -- the name of a metric (or basis) which has been
+      created or previously loaded in the current session.
+  \end{description}
+
+  \grexample{grmetric ( schw )}
+\end{cmdspec}
+
+This command makes the metric named in its argument the default metric
+for subsequent calculations.\\
+
+Alternatively, one can perform calculations using metrics other than
+the default metric by specifying the metric name as a parameter to the
+objects being calculated. The metric name is placed in square brackets
+following the name of the object. For instance,\\
+
+\noindent\texttt{> grcalc ( R[schw](dn,dn) ):}\\
+
+\noindent calculates the covariant Ricci tensor for the \texttt{schw}
+spacetime, even if that spacetime is not the current default. See the
+Booklet \grCalcRef~for details on the use of the \grcmd{grcalc}
+command.
+%
+%------------------------------------------------------------------------------
+\section{Coordinate transformations} \label{sec:grtransform}
+%------------------------------------------------------------------------------
+%
+The command \grcmd{grtransform} can be used to perform coordinate
+transformations of the metric tensor. It takes the following form:\\
+%
+\begin{cmdspec}
+  \label{spec:grtransform}
+  \grcmdline{grtransform ( \grarg{oldmetric}, \grarg{newmetric},
+    \grarg{xform}, [\grarg{newsig}] )}
+
+  \begin{description}
+    \item[\grarg{oldmetric}] -- the name of the metric to be transformed.  
+    \item[\grarg{newmetric}] -- the name of by which the transformed metric
+      is to be referenced in the future.
+    \item[\grarg{xform}] -- a list specifying the transformation.
+    \item[\grarg{newsig}] -- (\textit{optional}) an integer indicating
+      the signature of the transformed metric, if different from the
+      original signature.
+  \end{description}
+
+  \grexample{grtransform ( schw, kruskal, xform := [\\
+    u(r,t) = sqrt(r/(2*m)-1)*exp(r/(4*m))*cosh(t/(4*m)),\\ 
+    v(r,t) = sqrt(r/(2*m)-1)*exp(r/(4*m))*sinh(t/(4*m)),\\
+    Theta(theta) = theta, Phi(phi) = phi ] )}
+\end{cmdspec}
+
+The third argument, \grarg{xform}, is specified by a list of functions giving
+the old coordinates in terms of the new coordinates or vice versa. For
+instance if we are performing the transformation from coordinates
+$(t,x,y,z)$ to new coordinates $(\tau,u,v,w)$, 
+then we could specify \grarg{xform} as a set of functions of old in terms
+of new,\\
+
+\noindent\texttt{xform := [ t(tau,u,v,w)= $\ldots$, x(tau,u,v,w)= $\ldots$,
+  y(tau,u,v,w)= $\ldots$, z(tau,u,v,w) = $\ldots$ ]:}\\
+
+\noindent or new in terms of old,\\
+
+\noindent\texttt{xform := [ tau(t,x,y,z)= $\ldots$, u(t,x,y,z)= $\ldots$,
+  v(t,x,y,z)= $\ldots$, w(t,x,y,z)= $\ldots$ ]:}\\
+
+\noindent Note that for an $n$-dimensional spacetime, $n$ functions must be 
+specified.  Also, none of the new set of coordinates can be the same
+as any of the old coordinates. For instance, if both spacetimes are
+spherically symmetric, new coordinate names for the angles
+$( \theta, \phi )$ must be given for the new spacetime, such as
+$( \Theta, \Phi )$.
+
+The following set of commands performs the transformation of the Schwarzschild
+spacetime from spherical to Kruskal coordinates:\footnote{For a more complete
+presentation of this example see the demonstration file \texttt{kruskalo.ms},
+which can be downloaded from the GRTensorII world-wide-web pages \cite{www}.}
+
+\begin{ttfamily}
+  \begin{tabbing}
+    >  qload ( schw ):\vspace{\baselineskip}\\
+
+    >  xform := [ \= u(r,t) = sqrt(r/(2*m)-1)*exp(r/(4*m))*cosh(t/(4*m)),\\
+              \>  v(r,t) = sqrt(r/(2*m)-1)*exp(r/(4*m))*sinh(t/(4*m)),\\
+              \>  Theta(theta) = theta,\\
+              \>  Phi(phi) = phi ]:\\
+
+    >  grtransform ( schw, kruskal, xform ):
+  \end{tabbing}
+\end{ttfamily}
+
+It is not necessary that each of the transformation functions be specified 
+as a function of all $n$ variables, but each of the variables must be
+represented in at least one of the functions of the set. For instance,
+in the example above, at least one of the components of \texttt{xform}
+must be a function of $t$, at least one must be a function of $r$, etc.
+
+The transformed coordinates can be saved to a file using the
+\grcmd{grsaveg} command (see Section~\ref{sec:grsaveg}). The new metric
+created by the \grcmd{grtransform} command becomes the new default
+metric for subsequent calculations (see Section \ref{sec:default}).
+%
+%------------------------------------------------------------------------------
+\section{Constraint equations} \label{sec:constraint}
+%------------------------------------------------------------------------------
+%
+The \grcmd{makeg} command provides the ability to save constraint equations
+with metric files. These are auxiliary equations which must be satisfied
+by functions contained in the metric and can later be applied to objects
+calculated from the metric or basis.
+
+For example, in Kruskal's coordinates for the Schwarzschild spacetime,
+\[
+  ds^2 = 16 \frac{m^2(r-2m)}{r(u^2-v^2)}(du^2 - dv^2) + r^2 d\Omega^2,
+\]
+the function $r(u,v)$ is required to satisfy the differential relations
+\[
+  \frac{\partial r}{\partial u} = 4 \frac{m u (r-2m)}{r(u^2 - v^2)}, 
+    \qquad
+  \frac{\partial r}{\partial v} = -4\frac{m v (r-2m)}{r(u^2 - v^2)}.
+\]
+
+Constraint equations can be included when the metric is created using
+\grcmd{makeg}. Alternatively, the command \grcmd{grconstraint} allows you
+to add or modify the constraints equations associated with a given metric.
+It takes the following form:\\
+%
+\begin{cmdspec}
+  \label{spec:grconstraint}
+  \grcmdline{grconstraint ( \grarg{metricName} )}
+
+  \begin{description}
+    \item[\grarg{metricName}] -- the name of a previously loaded metric.
+  \end{description}
+
+  \grexample{grconstraint ( schw )}
+\end{cmdspec}
+
+Constraint equations may be added to a metric, removed or re-arranged 
+using this command. \grcmd{grconstraint} is menu driven and prompts for 
+addition/modification/deletion of constraint equations.
+
+The constraints are not invoked
+automatically during calculation of tensors, but must be applied explicitly
+using \grcmd{gralter} or \grcmd{grcalcalter} (see Booklet \grCalcRef). A
+command sequence which would calculate the Ricci tensor for a metric and
+then apply the metric constraint equations to the result is:\\
+
+\begin{ttfamily}
+  \noindent > grcalc ( R(dn,dn) ):\\
+  > gralter ( R(dn,dn), consr ):\\
+\end{ttfamily}
+
+Note that constraint equations modified using \grcmd{grconstraint} are
+not saved automatically in the metric file. The command \grcmd{grsaveg}
+(see Section \ref{sec:grsaveg})
+should be used if the modified constraints are to be associated with the
+metric in future GRTensorII sessions. They will then be loaded automatically
+when the metric is loaded using \grcmd{qload} or \grcmd{grload}.
+%
+%------------------------------------------------------------------------------
+\section{Creating a null tetrad from a metric}\label{sec:nptetrad}
+%------------------------------------------------------------------------------
+%
+The command \grcmd{nptetrad} can be used to create a null tetrad
+(whose basis vectors satisfy the inner product given by the
+$\eta_{(a)(b)}$ of Eq. (\ref{eq:nullip})) from a 4-dimensional
+metric, $g_{ab}$.  The format of the command is:\\
+%
+\begin{cmdspec}
+  \label{spec:nptetrad}
+  \grcmdline{nptetrad ( [\grarg{lnSpace}] )}
+
+  \begin{description}
+    \item[\grarg{lnSpace}] -- (\textit{optional}) a pair of coordinates
+      which describe a preferred timelike 2-space in which the $l$ and $n$
+      vectors are to reside.
+  \end{description}
+
+  \grexample{nptetrad ( [t,r] )}
+\end{cmdspec}
+
+The command finds a set of null 1-forms satisfying the NP inner
+product, Eq. (\ref{eq:nullip}), for a given metric, $g_{ab}$.
+The forms are saved as the object \texttt{e(bdn,dn)}.\\
+
+The algorithm for constructing the tetrad proceeds as follows. As a first
+step, a set of vectors corresponding to the columns of the covariant
+metric are used as a basis,
+\[
+  e_{(1)} := g_{1a}, \qquad e_{(2)} := g_{2a}, \qquad  e_{(3)} := g_{3a},
+  \qquad e_{(4)} := g_{4a}.
+\]
+If a pair of coordinates are listed as the optional \grarg{lnSpace}
+argument, then the corresponding vectors are used to construct the $l$
+and $n$ vectors. For instance, if the coordinates of the spacetime are
+given as $(t,r,\theta,\phi)$ and the argument is given as
+\texttt{[t,r]}, then the $l$ and $n$ vectors will be constructed as
+linear combinations of the vectors
+\begin{align*}
+  e_{(1)} & := [g_{t1}, g_{t2}, g_{t3}, g_{t4} ], \\
+  e_{(2)} & := [g_{r1}, g_{r2}, g_{r3}, g_{r4} ].
+\end{align*}
+The remaining pair are used to construct $m$ and $\bar{m}$. 
+
+If the argument is omitted, a valid null tetrad will still be created,
+though the construction might be somewhat less efficient if the
+computer is left to find appropriate vectors on its own.\footnote{In
+previous versions of GRTensorII, the \grcmd{nptetrad} command required
+the specification of a timelike vector as input. The new algorithm
+makes better use of the coordinates of the spacetime (especially null
+coordinates) in constructing the tetrad. Note that in versions of
+GRTensorII previous to 1.50, the output of \grcmd{nptetrad} was in the
+form of the contravariant vectors
+\texttt{e(bdn,up)}$=e_{(a)}{}^b$. The natural form of output for the
+new algorithm is the covariant 1-forms, and thus the revised
+\grcmd{nptetrad} has as its output the components of
+\texttt{e(bdn,dn)} $= e_{(a)b}$.}  It will first attempt to locate
+null vectors among the columns of the metric. If none exist, then it
+picks a pairs of non-null column vectors and attempts to carry out an
+orthonormalization procedure to construct a tetrad satifying the NP
+inner product. If the first attempt fails (usually because it has
+chosen two spacelike vectors to construct $l$ and $n$), it cycles
+through pairs of vectors until it is successful, or all unique
+combinations of columns of the metric have been exhausted, in which
+case a warning is issued.\\
+
+A problem arises because of the need to take square roots in the
+normalization process. Because of the unpredictable usage of the
+imaginary number $i=\sqrt{-1}$ by the MapleV \grcmd{sqrt} command
+acting on symbolic expressions, it is not always possible for the
+algorithm to determine when a null tetrad is of the NP form or
+not. Occasionally a tetrad can be constructed which satisfies the NP
+inner product, but for which $l$ and $n$ contain imaginary components,
+or for which the vector $\bar{m}$ is not actually the complex
+conjugate of $m$.  Since the algorithm can not reliably test these
+criteria, it is the user's responsibility to check that the objects
+\texttt{e(bdn,dn)} conform to these properties of a true NP
+tetrad.\footnote{It is the authors' experience that a true NP tetrad
+is always produced when the \grarg{lnSpace} argument is specified,
+or when the spacetime contains at least one null coordinate.}\\
+
+The appearance of large terms in the components of the basis,
+especially terms containing radicals, is a common difficulty with
+tetrads produced by the \grcmd{nptetrad} command. To ensure that
+future calculations are optimized, it is important to express the
+basis in as simple a form as possible. To do this, apply the relevant
+\grcmd{gralter} commands, especially \texttt{radical} and
+\texttt{radsimp} to the basis vectors, \texttt{e(bdn,up)} until they
+seem to be fully simplified. (Simplification using \grcmd{gralter} is
+described more fully in Booklet \grCalcRef).\\
+
+Note that the implementation of the Newman-Penrose formalism in
+GRTensorII follows that of the original specification of
+\cite{newman/penrose:1962}. As such, it requires that the spacetime
+has a -2 signature. This conflicts with the Landau-Lifshitz spacelike
+convention for which GRTensorII metrics are generally defined. If
+neccessary, the \grcmd{nptetrad} command will prompt the user, asking
+if the signature of the spacetime is to be reversed when constructing
+the tetrad. An affirmative response will cause the sign of the
+components of $g_{ab}$ and $g^{ab}$ to be reversed.\footnote{Only the
+signatures of these objects are reversed. Objects previously calculated
+from the metric will not be updated to the new spacetime
+signature. For this reason, it is safest to run \grcmd{nptetrad} near
+the beginning of a session before further calculations with the metric
+are carried out in order to avoid sign conflicts.} If the spacetime
+signature is anything other than +2 or -2, the \grcmd{nptetrad}
+command can not be used.\\
+
+Tetrads created using \grcmd{nptetrad} can be saved using \grcmd{grsaveg}
+For more information regarding GRTensorII calculations in a null
+tetrad, see Booklet \grBasisRef.  The components of the basis created
+by \grcmd{nptetrad} can be saved using the \grcmd{grsaveg} command
+(Section \ref{sec:grsaveg}).
+%
+%------------------------------------------------------------------------------
+\subsection{Tetrad rotations}
+%------------------------------------------------------------------------------
+%
+An alternative method of simplifying null tetrads is to perform a rotation
+of the basis vectors. Such rotations can be divided into three 
+classes \cite{newman/penrose:1962}:
+\begin{description}
+  \item[Class I:] -- leaves basis vector $l$ unchanged. This rotation is
+    specified by a single complex-valued parameter, $a$. The basis vectors
+    transform according to:
+    \begin{align*}
+      l & \longrightarrow l, \\
+      n & \longrightarrow n + a^\ast m + a \bar{m} + a a^\ast l, \\
+      m & \longrightarrow m + a l, \\
+      \bar{m} & \longrightarrow \bar{m} + a^\ast l.
+    \end{align*}
+%
+  \item[Class II:] -- leaves basis vector $n$ unchanged. This rotation is
+    specified by a single complex-valued parameter, $b$. The basis vectors
+    transform according to:
+    \begin{align*}
+      l & \longrightarrow l + b^\ast m + b \bar{m} + b b^\ast n,\\
+      n & \longrightarrow n, \\
+      m & \longrightarrow m + b n, \\
+      \bar{m} & \longrightarrow \bar{m} + b^\ast n.
+    \end{align*}
+%
+  \item[Class III:] -- This rotation is specified by two real-valued 
+    parameters: $\theta$ determines a rotation in the $(m,\bar{m})$ plane,
+    and $A$ determines a boost in the $n$ direction. The basis vectors
+    transform according to:
+    \begin{align*}
+      l & \longrightarrow A^{-1} l, \\
+      n & \longrightarrow A n, \\
+      m & \longrightarrow \exp (i\theta) m, \\
+      \bar{m} & \longrightarrow \exp (-i\theta) \bar{m}.
+    \end{align*}
+  \end{description}
+
+The \grcmd{nprotate} command takes the rotation class and its corresponding
+parameters as arguments, and performs the specified rotation on the basis
+vectors \texttt{e(bdn,up)}. The command has the form:\\
+%
+\begin{cmdspec}
+  \label{spec:nprotate}
+  \grcmdline{nprotate ( \grarg{class}, \grarg{parm1}, \grarg{parm2} )}
+
+  \begin{description} 
+    \item[\grarg{class}] -- the rotation class, as defined above. This
+      argument takes the value \texttt{I}, \texttt{II}, or \texttt{III},
+      depending on the desired rotation.
+
+    \item[\grarg{parm1}] -- the first rotation parameter,
+      $\text{Re}(a)$ for Class I rotations, $\text{Re}(b)$ for Class
+      II rotations, or $A$ for Class III rotations.
+
+    \item[\grarg{parm2}] -- the second rotation parameter,
+      $\text{Im}(a)$ for Class I rotations, $\text{Im}(b)$ for Class
+      II rotations, or $\theta$ for Class III rotations.
+  \end{description}
+
+  \grexample{nprotate ( III, sqrt(2)*sqrt(1-2*m/r), 0 )}
+\end{cmdspec}
+
+Note, in the current versions of GRTensorII, only rotations of the basis
+can be performed. The action of basis rotations on other curvature tensors
+has not yet been implemented. Thus, curvature tensors must be recalculated
+from the rotated basis.\\
+
+The newly created tetrad is initialized as the default for subsequent
+calculations (see Section \ref{sec:default}).
+The components of the rotated basis are not saved automatically, but can be
+saved for future used with the \grcmd{grsaveg} command (Section 
+\ref{sec:grsaveg}).
+%
+%------------------------------------------------------------------------------
+\section{Metrics from an array} \label{sec:grnewmetric}
+%------------------------------------------------------------------------------
+%
+The \grcmd{grnewmetric} command defines a new metric by copying the components
+of a covariant two-index tensor to a new metric tensor. The format of the 
+command is:\\
+%
+\begin{cmdspec}
+  \label{spec:grnewmetric}
+  \grcmdline{grnewmetric ( \grarg{newMetric}, \grarg{objectName},
+    [\grarg{coords}] )}
+
+  \begin{description}
+    \item[\grarg{newMetric}] -- the name to be assigned to the newly created
+      metric.
+    \item[\grarg{oldObject}] -- the name of a two-index covariant GRTensor
+      object.
+    \item[\grarg{coords}] -- \textit{(optional)} a list of coordinate names
+      for the new metric, if they are different from those of the object from
+      which it is created.
+  \end{description}
+
+  \grexample{grnewmetric ( confRW, confg(dn,dn) )}
+\end{cmdspec}
+
+The newly created metric becomes the default metric for the current
+session. It is not saved automatically to a metric file, but can be saved
+using the \grcmd{grsaveg} command.
+%
+%------------------------------------------------------------------------------
+\section{Saving modified spacetimes} \label{sec:grsaveg}
+%------------------------------------------------------------------------------
+%
+The \grcmd{grsaveg} command is used to save the information associated with
+a given metric or basis. The format of the command is:\\
+%
+\begin{cmdspec}
+  \label{spec:grsaveg}
+  \grcmdline{grsaveg ( \grarg{saveName}, [\grarg{metricPath}] )}
+
+  \begin{description}
+    \item[\grarg{saveName}] -- the name (without the `\texttt{.mpl}' extension)
+      of the file in which the metric (or basis) information is to be stored.
+    \item[\grarg{metricPath}] -- (\textit{optional}) the directory in which
+      the the metric file is to be placed. If this argument is not specified
+      the directory stored in the global option variable
+      \texttt{grOptionMetricPath} is used instead.
+  \end{description}
+
+  \grexample{grsaveg ( newSchw )}
+\end{cmdspec}
+
+The current default spacetime is saved to the file specified by
+\grarg{saveName}\texttt{.mpl} in the directory specified by the global
+\texttt{grOptionMetricPath} variable or the \grarg{metricPath}
+argument, if it is specified.  The information saved includes:
+\begin{center}
+  \begin{tabular}{ll}
+    coordinates, & \texttt{x(up)}, \\
+    metric components, & \texttt{g(dn,dn)} \textit{(if they are assigned for
+      the default spacetime)},\\
+    basis components, & \texttt{e(bdn,dn)} and/or \texttt{e(bdn,up)}
+      \textit{(if assigned)},\\
+    signature, & \texttt{sig} \textit{(if assigned)}, \\
+    constraint equations, & \texttt{constraint} \textit{(if assigned)}, \\
+    text description, &  \texttt{Info} \textit{(if assigned)}.\\
+  \end{tabular}
+\end{center}
+(See Booklet \grCalcRef~or the \texttt{?grt\_objects} and
+\texttt{?grt\_basis} online help pages for descriptions of these
+objects.)\\
+
+If both metric components (\texttt{g(dn,dn)}) and basis components
+(\texttt{e(bdn,dn)} and/or \texttt{e(bdn,up)}) have been assigned for
+the current default spacetime, then the user is prompted as to which
+types of information are to be saved.\\
+
+Note that MapleV \textit{can not check} for the existence of files before
+it performs the \texttt{write} operation. Thus if a metric file with the
+specified name already exists in the \texttt{grOptionMetricPath} directory,
+then \textit{it will be overwritten}.
+%
+%------------------------------------------------------------------------------
+\subsection{Metric files} \label{sec:metricfiles}
+%------------------------------------------------------------------------------
+%
+Metric files are simply ASCII files containing the coordinate
+components of the metric or basis. They can be modified (or created)
+with a text editor. By default, files are saved in
+the directory specified by the \texttt{grOptionMetricPath} variable
+with a file name of the form \grarg{metricName}\texttt{.mpl}.\\
+
+\begin{figure}
+  \begin{ttfamily}
+    \begin{tabbing}
+      Ndim\_ := 4:\\
+
+      x1\_ := r:\\
+      x2\_ := theta:\\
+      x3\_ := phi:\\
+      x4\_ := t:\\
+      sig\_ := 2:\\
+      g11\_ := diff ( R(r,t),r)\^{}2/(1+f(r) ):\\
+      g22\_ := R(r,t)\^{}2:\\
+      g33\_ := R(r,t)\^{}2*sin(theta)\^{}2:\\
+      g44\_ := -1:\\
+
+      constraint\_ :=\= [ \= diff(diff(R(r,t),r),t) = 
+        (2*diff(m(r),r)/R(r,t) \\
+        \> \> - 2*m(r)*diff(R(r,t),r)/R(r,t)\^{}2 \\
+        \> \> + diff(f(r),r))/(2*sqrt(2*m(r)/R(r,t)+f(r))),\\ 
+        \> \> diff(R(r,t),t) = sqrt(2*m(r)/R(r,t)+f(r)),\\
+        \> \> diff(diff(R(r,t),t),t) = -m(r)/R(r,t)\^{}2,\\
+        \> \> diff(diff(diff(R(r,t),t),r),t) = 
+          -diff(m(r),r)/R(r,t)\^{}2 + \\
+        \> \> 2*m(r)*diff(R(r,t),r)/R(r,t)\^{}3\\
+        \> ]:\\
+
+      Info\_:=
+        `The Tolman dust solution (Proc. Nat. Acad. Sci. 20, 169,1934)`:
+    \end{tabbing}
+  \end{ttfamily}
+  \caption{The metric file \texttt{dust1.mpl} from the standard metric
+    library.}
+  \label{fig:metricfile}
+\end{figure}
+Every metric or basis description file must contain a line 
+`\texttt{Ndim\_ := $n$:}'
+where \texttt{$n$} is a number giving the dimension of the spacetime.\\
+
+Every metric or basis file must contain a set of assignments to the
+variables \texttt{x1\_}, \texttt{x2\_}, $\ldots$,
+\texttt{x\textsl{n}\_}, giving the names of the coordinates of the
+spacetime.\\
+
+If the file describes a covariant metric, $g_{ab}$, it must contain a
+set of assignments to the variables \texttt{g11\_}, \texttt{g12\_},
+$\ldots$, \texttt{g\textsl{nn}\_}, giving the components of the
+metric. Only the upper diagonal of the metric needs to be
+specified. Any element of the upper diagonal that is not assigned is
+assumed to have the value zero.\\
+
+If the file describes a set of basis vectors, it must contain
+assignments to the variables \texttt{b11\_}, \texttt{b12\_}, $\ldots$,
+\texttt{b\textsl{nn}\_}, giving the components of contravariant basis
+vectors, or assignments to \texttt{bd11\_}, \texttt{bd12\_}, $\ldots$,
+\texttt{bd\textsl{nn}\_}, in the case of covariant basis vectors. The
+inner product must also be specified by assignments to the variables
+\texttt{eta11\_}, \texttt{eta12\_}, \ldots, \texttt{eta\textsl{nn}\_}.
+Variables which are not assigned are assumed to have value zero when
+the basis is loaded.\\
+
+If the signature of the spacetime has been assigned, it is assigned
+to the variable \texttt{sig\_} in the metric file. This variable
+is of the form of an integer $|s|\leq n$.\\
+
+If the metric or basis possesses constraint equations (see above),
+these are represented as a MapleV list assigned to the variable
+\texttt{constraint\_}.  Text descriptions can be included by assigning
+a string to the name \texttt{Info\_}.\\
+
+An example of a metric file which specifies a spacetime using a covariant
+metric is given in Fig.~(\ref{fig:metricfile}). Many examples can
+be found in the metrics directory which is provided with the GRTensorII
+installation, as well as from the GRTensorII world-wide-web pages
+\cite{www}.
+%
+%------------------------------------------------------------------------------
+\vfill
+\bibliographystyle{unsrt}
+\bibliography{grtensor}
+%------------------------------------------------------------------------------
+\pagebreak
+\section*{Commands described in this booklet:}
+  \noindent
+  \grcmdline{makeg ( \grarg{metricName}, [\grarg{metricPath}] )}
+    \dotfill \pageref{spec:makeg}\\
+
+  \noindent
+  \grcmdline{qload ( \grarg{metricName} )}
+    \dotfill \pageref{spec:qload}\\
+
+  \noindent
+  \grcmdline{grload ( \grarg{metricName}, \grarg{metricFile} )}
+    \dotfill \pageref{spec:grload}\\
+
+  \noindent
+  \grcmdline{grmetric ( \grarg{metricName} )}
+    \dotfill \pageref{spec:grmetric}\\
+
+  \noindent
+  \grcmdline{grtransform ( \grarg{oldmetric}, \grarg{newmetric},
+    \grarg{xform} )}
+    \dotfill \pageref{spec:grtransform}\\
+
+  \noindent
+  \grcmdline{grconstraint ( \grarg{metricName} )}
+    \dotfill \pageref{spec:grconstraint}\\
+
+  \noindent
+  \grcmdline{nptetrad ( \grarg{lnSpace} )}
+    \dotfill \pageref{spec:nptetrad}\\
+
+  \noindent
+  \grcmdline{nprotate ( \grarg{class}, \grarg{parm1}, \grarg{parm2} )}
+    \dotfill \pageref{spec:nprotate}\\
+
+  \noindent
+  \grcmdline{grnewmetric ( \grarg{newMetric}, \grarg{objectName},
+    [\grarg{coords}] )}
+    \dotfill \pageref{spec:grnewmetric}\\
+
+  \noindent
+  \grcmdline{grsaveg ( \grarg{saveName}, [\grarg{metricPath}] )}
+    \dotfill \pageref{spec:grsaveg}\\
+%------------------------------------------------------------------------------
+\vfill
+\large
+\noindent The information contained in this booklet is also available from the
+following online help pages:\\
+
+\noindent\texttt{?grt\_metrics}, \texttt{?grt\_objects}, \texttt{?grt\_basis},
+\texttt{?groptions}, \texttt{?makeg}, \texttt{?qload},
+\texttt{?grload}, \texttt{?grmetric}, \texttt{?grtransform},
+\texttt{?grconstraint}, \texttt{?nptetrad}, \texttt{?nprotate},
+\texttt{?grnewmetric}, \texttt{?grsaveg}.\\
+%
+%------------------------------------------------------------------------------
+\end{document}
+%==============================================================================
+%

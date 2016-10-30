@@ -1,0 +1,403 @@
+%=================================================================-*-LaTeX-*-==
+% GRTensorII 1.50 Manual
+% Booklet F: Setup and defaults
+%
+% Denis Pollney
+% July 1996
+%==============================================================================
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{maple2e}
+\usepackage{grtensor}
+\usepackage{grbooks}
+%\textheight 9in
+%------------------------------------------------------------------------------
+\begin{document}
+\grlabel{\grSetupLabel}
+\grtitle{\grSetupTitle}
+\grdate{July 1996}
+\grtitlepage
+%==============================================================================
+% Body.
+%==============================================================================
+\copyrightpage
+This booklet outlines the installation and configurable options
+of the GRTensorII package. 
+%
+%------------------------------------------------------------------------------
+\section{Installation} \label{sec:install}
+%------------------------------------------------------------------------------
+%
+The GRTensorII package is distributed as a set of MapleV library
+files, as follows:
+\begin{description}
+  \item[\texttt{grii.m}] -- contains the GRTensorII program itself
+    composed of the commands described in this series of booklets,
+    along with the standard tensor object library.
+
+  \item[\texttt{basislib.m}] -- contains definitions for objects defined
+    for bases and NP tetrads.
+
+  \item[\texttt{invar.m}] -- contains definitions for the scalar
+    invariants of the Riemann tensor.
+
+  \item[\texttt{dinvar.m}] -- contains definitions of some
+    differential invariants (see \texttt{?dinvar}).
+
+  \item[\texttt{grtools.m}] -- contains some extra commands (see
+    \texttt{?difftool}, \texttt{?grlimit}).
+\end{description}
+With the MapleV.3 version of GRTensorII, there is also included
+a library \texttt{griihelp.m} which contains the online help
+information. The corresponding file for the MapleV.4 version
+is called \texttt{maple.hdb}. (See Section \ref{sec:help}).\\
+
+In addition to these libraries, a directory of input spacetimes
+(a collection of \texttt{*.mpl} files) is also distributed
+with GRTensorII.\\
+
+The library files should be placed in a directory within the
+MapleV library path specified by the variable \texttt{libname}.
+To change the value of this variable so that it includes a
+particular directory, use the command\\
+
+\noindent\texttt{> libname := `c:/users/grtensor/lib/`, libname:}\\
+
+\noindent which in this case appends the directory 
+\texttt{c:/users/grtensor/lib} to the \texttt{libname} sequence. 
+On Unix machines, by adding this command to a file named
+\texttt{.mapleinit} in the user's home directory, it will be executed
+whenever MapleV is started, ensuring that the library directory is
+accessible\ (for MS-DOS/Windows based machines, the file
+\texttt{maple.ini} serves the same
+purpose).%\footnote{See also \texttt{?libname}.}\\
+%
+%\begin{figure}
+\begin{cmdspec}
+The installation procedure for GRTensorII is as follows:
+  \begin{enumerate}
+    %
+    \item Copy the GRTensorII library files into their own directory or
+      the standard MapleV library directory on the machine. (MapleV.4
+      users should be careful not to overwrite the standard \texttt{maple.hdb}
+      with GRTensorII's \texttt{maple.hdb} help file.)
+    %
+    \item Copy the GRTensorII metric files into their own directory.
+    %
+    \item Ensure that the directory in which the library files have been
+      stored (Step 1) is listed in the MapleV \texttt{libname} variable.
+      If not, then modify the \texttt{.mapleinit} file (on Unix platforms,
+      otherwise \texttt{maple.ini}), as described below.
+    %
+    \item Create a file called \texttt{grtensor.ini} in one of the
+      directories specified by the \texttt{libname} variable. To this
+      file, add a line which assigns the variable
+      \texttt{grOptionMetricPath} to the metric directory specified in
+      Step 2.\footnote{The \texttt{grOptionMetricPath} variable is
+      described in Section \ref{sec:groptions}. The
+      \texttt{grtensor.ini} file is described in Section
+      \ref{sec:init}.}
+  \end{enumerate}
+\end{cmdspec}
+%\end{figure}
+
+\noindent\textbf{Startup:} The command\\
+
+\noindent\texttt{> readlib ( grii ):}\\
+
+\noindent reads the GRTensorII library into MapleV. At this point
+all of the GRTensorII commands described in these booklets are
+available to the user. To initialize the program, run the command\\
+
+\noindent\texttt{> grtensor():}\\
+
+\noindent If a file called \texttt{grtensor.ini} exists in one of the
+directories specified by the \texttt{libname} variable, it is read
+and executed by the \grcmd{grtensor} command (see Section \ref{sec:init}).
+
+To check that GRTensorII is installed properly, start a new MapleV
+session and execute the following commands:\\
+
+\noindent\texttt{> readlib ( grii ):\\
+\noindent > grtensor():\\
+\noindent > qload ( npschw ):\\
+\noindent > grcalc ( RicciSc ):\\
+\noindent > grdisplay ( \_ ):}\\
+
+\noindent This set of commands checks that the \texttt{grii.m} library
+is readable, loads a spacetime from the directory specified by
+\texttt{grOptionMetricPath}, and carries out a simple calculation to
+ensure that the automatically loading libraries (\texttt{basislib.m}
+in this case) can be read properly.\\
+
+\noindent\textbf{Support libraries:} For the MapleV.4 version, online
+help will be read as it is requested from the \texttt{maple.hdb} file
+included with GRTensorII, provided it is in the library path.
+For the MapleV.3 version, however, the online help pages are
+not read by default when the GRTensorII library is loaded,
+but must be loaded separately using the command\\
+
+\noindent\texttt{> readlib ( griihelp ):}\\
+
+\noindent This command can also be added to the \texttt{grtensor.ini} file so
+that it will be executed automatically when the GRTensorII package is
+initialized by the \texttt{grtensor()} command.\\
+
+The only other library which needs to be loaded manually is the
+\texttt{grtools.m} library, which can be read at any time using
+\texttt{readlib}. The other libraries (\texttt{basislib.m},
+\texttt{invar.m}, \texttt{dinvar.m}) contain GRTensorII object
+definitions which will be automatically loaded when they are needed
+(by commands such as \grcmd{grcalc}%\footnote{See Booklet
+%\grCalcRef.}
+). They can also be loaded manually, however this should
+\textit{not} be done using \grcmd{readlib}. Instead, the command
+\grcmd{grlib} exists for the purpose of loading GRTensorII object
+libraries:\\
+\begin{cmdspec}
+  \label{spec:grlib}
+  \grcmdline{grlib ( \grarg{libName} )}
+
+  \begin{description}
+    \item[\grarg{libName}] -- The name of a GRTensorII object library
+      which is to be loaded.
+  \end{description}
+
+  \grexample{grlib ( basislib )}
+\end{cmdspec}
+%
+%------------------------------------------------------------------------------
+\section{Initialization} \label{sec:init}
+%------------------------------------------------------------------------------
+%
+The GRTensorII environment can be controlled by the creation of an
+initialization file. In addition to displaying version information,
+the command \grcmd{grtensor}\label{spec:grtensor} searches the MapleV
+library path\footnote{Specified by the \texttt{libname} variable (see
+\texttt{?libname}).} for the file \texttt{grtensor.ini}. This file can
+contain any number of MapleV commands, and in particular GRTensorII
+commands, to set up the environment in which GRTensorII is run. For
+instance, the \texttt{grtensor.ini} file commonly contains settings
+for the \texttt{grOption} variables (described in Section
+\ref{sec:groptions}), such as directories in which to locate metric
+files.
+
+For example, if metrics are to be loaded from the 
+\texttt{c:/users/grtensor/metrics} directory, the command\\
+
+\noindent\texttt{grOptionMetricPath := `c:/users/grtensor/metrics/`:}\\
+
+\noindent could be added to the \texttt{grtensor.ini} file. The
+\grcmd{grtensor} command reads and executes the commands in the
+initialization file, in this case setting the \texttt{grOptionMetricPath}
+variable to its desired default value.
+%
+%------------------------------------------------------------------------------
+\section{Online help} \label{sec:help}
+%------------------------------------------------------------------------------
+%
+Online help is provided for all of the GRTensorII commands described in
+these booklets. The method of providing the help differs slightly from
+MapleV.3 to MapleV.4.
+
+In the MapleV.3 version of GRTensorII, online help is available upon
+loading the library \texttt{griihelp.m}. (The help screens have been
+kept separate from the program library itself in order allow the user
+the option of not including the help screens in situations where
+memory usage is critical.) Online help can be loaded automatically
+when the \grcmd{grtensor} command is executed by adding the line\\
+
+\noindent\texttt{readlib ( griihelp ):}\\
+
+\noindent to the \texttt{grtensor.ini} file.\\
+
+For the MapleV.4 version, the online help is contained in the file
+\texttt{maple.hdb} provided with the GRTensorII package. This file
+should be located in a directory specified by the \texttt{libname}
+variable. It will be read as help is requested.\\
+
+Help pages exist for each of the GRTensorII commands described in
+these booklets. In addition, the following pages provide some additional
+summarized information:
+\begin{description}
+  \item[\texttt{?grt\_commands}] -- a summary of GRTensorII commands.
+  \item[\texttt{?grt\_objects}] -- a summary of objects in the standard
+    GRTensorII library. See Booklet \grCalcRef.  
+  \item[\texttt{?grt\_operators}] -- a list of GRTensorII operators
+    contained in the standard library. See Booklet \grCalcRef.
+  \item[\texttt{?grt\_basis}] -- a list of objects contained in the
+    standard libarary useful for calculations in spacetimes described
+    by a basis or null tetrad.
+\end{description}
+
+\noindent Additional information can be found at the GRTensorII world wide web
+site,
+\begin{center}
+  \texttt{http://astro.queensu.ca/\~{}grtensor/}
+\end{center}
+Inquiries and bug reports should be directed to
+\begin{center}
+  \makeatletter
+  \texttt{grtensor@astro.queensu.ca}
+  \makeatother
+\end{center}
+The authors welcome any and all feedback regarding the GRTensorII package
+and its use.
+%
+%------------------------------------------------------------------------------
+\section{Global option variables} \label{sec:groptions}
+%------------------------------------------------------------------------------
+%
+A number of global variables control the GRTensorII environment. Their
+values can be displayed using the command
+\grcmd{groptions}\label{spec:groptions}. The values of the
+\texttt{grOption} variables can be changed by re-assigning them. For
+example,\\
+
+\noindent\texttt{> grOptionCoordNames := false:}\\
+
+\noindent sets the value of the \texttt{grOptionCoordNames} variable.
+The following option variables can be set:
+
+\begin{description}
+  \item[\texttt{grOptionAlterSize}] (boolean, default=\texttt{false})
+    If this variable is set to \texttt{true}, the new size of each
+    component modified by \grcmd{gralter} is displayed as the command
+    executes.  Sizes are given in MapleV words.
+
+  \item[\texttt{grOptionCoordNames}] (boolean, default=\texttt{true})
+    This variable controls whether tensor indices are displayed as
+    names (eg. t, r, theta, phi) or numbers when their components
+    are output using \grcmd{grdisplay}.
+
+  \item[\texttt{grOptionDefaultSimp}] 
+    (integer or name, default=\texttt{normal})
+    This variable controls the type of simplification called during the
+    calculation of an object by the \grcmd{grcalc} command. The default
+    is to use the MapleV routine \grcmd{normal}. The
+    \texttt{grOptionDefaultSimp} variable can be set to any of:
+    \begin{center}
+      \texttt{simplify, trig, power, hypergeom, radical, expand, factor,
+      normal, sort, sqrt, trigsin, cons, consr}
+    \end{center}
+    The names correspond to the names used in the second argument
+    of the \grcmd{gralter} command (see Booklet \grCalcRef).
+
+    In general it is recommended that \grcmd{gralter} be used when
+    simplification becomes necessary rather than changing the global
+    simplification via this variable, as it is unlikely that any
+    particular choice will work well in general situations, and an
+    incorrect choice can greatly increase calculation times.
+
+  \item[\texttt{grOptionDisplayLimit}] (integer, default=5000) This
+    integer variable controls the size threshold beyond which a tensor
+    component will not be displayed. If the component exceeds this
+    limit only its size is displayed. The value is measured in words
+    as determined by the MapleV \grcmd{length} function.
+
+  \item[\texttt{grOptionLLSC}] (boolean, default=\texttt{true}) This
+    variable indicates whether the Landau-Lifshitz spacelike signature
+    convention is to be assumed on loading and defining new
+    spacetimes.  If set to \texttt{true}, then four dimensional
+    spacetimes specified by a metric, $g_{ab}$, or a general basis for
+    which the signature has not been explicitly given, are assumed to
+    have signature +2 (where signature is defined as the number of
+    positive metric components minus the number of negative metric
+    components in a locally orthonormal basis). Bases satisfying an NP
+    inner product are assumed to have signature -2. If the
+    \texttt{grOptionLLSC} variable is set to \texttt{false}, then the
+    \texttt{sig} object will not be assigned unless it is explicitly
+    given by the spacetime input file or specified in \grcmd{makeg}.
+
+  \item[\texttt{grOptionMetricPath}] (string, default=homedir) This
+    option variable is a MapleV string which specfies the default
+    directory from which metric files are to be loaded (by the
+    \grcmd{qload} command or to which they will be saved (by the
+    \grcmd{makeg} command).  The sub-directory names should be
+    separated using a forward slash, `\texttt{/}', even on MS-DOS/Windows
+    systems. On these systems directory names must also end with
+    a `\texttt{/}', as in
+    \begin{center}
+      \texttt{`c:/users/grtensor/metrics/`}
+    \end{center}
+
+  \item[\texttt{grOptionqloadPath}] (sequence, default=unassigned)
+    This variable can be used to specify a set of directories which
+    will be searched by \grcmd{qload} when loading metrics. Individual
+    directory names are listed as MapleV strings with sub-directories
+    separated by the forward slash character, `\texttt{/}'. Directores
+    are searched in the order in which they are listed. If this
+    variable is left unassigned, or if the metric file is not found in
+    any of the listed directories, then the directory specified by the
+    \grcmd{grOptionMetricPath} variable is searched.
+
+  \item[\texttt{grOptionTermSize}] (integer, default=100) This
+    variable effects the display of 1- and 2-index objects using the
+    \grcmd{grdisplay} command. If the size of individual components of
+    such objects are smaller than this value, then the object will
+    appear in the form of a matrix when displayed using
+    \grcmd{grdisplay}. If the components are larger than the value of
+    this variable, they are listed individually as they are for
+    tensors with three or more indices. By setting this variable to
+    some very high value the matrix form of display can be assured,
+    while setting this value to zero will prevent matrix-type display
+    of tensors. The size of object is measured in words as returned by
+    the MapleV \grcmd{length} command.
+
+  \item[\texttt{grOptionTrace}] (boolean, default=\texttt{true}) If
+    this variable is set to \texttt{true}, then the names of objects
+    calculated during the execution of a \grcmd{grcalc} or
+    \grcmd{grcalcalter} command will be displayed as they are
+    computed. Note, this option may not work for some MapleV windowed
+    interfaces for which the output for the \grcmd{printf} command
+    is not flushed until the calling procedure is completed.
+
+  \item[\texttt{grOptionWindows}] (boolean, default=\texttt{true}) If
+    this variable is set \texttt{true} the GRTensorII `windows'
+    display routines are used in the output of tensor components via
+    \grcmd{grdisplay}. These routines provide support for superscript
+    and subscript of indices in windowed versions of MapleV. However,
+    in text-based versions, they display a number of extraneous
+    characters than confuse the output. This option should be set to
+    \texttt{false} if text-based MapleV is being used to run
+    GRTensorII.
+
+  \item[\texttt{grOptionVerbose}] (boolean, default=\texttt{false})
+    When this variable is set \texttt{true} a notification message is
+    printed out as each component is calculated by \grcmd{grcalc} or
+    \grcmd{grcalcalter}.
+\end{description}
+%
+%------------------------------------------------------------------------------
+\vfill
+%\bibliographystyle{unsrt}
+%\bibliography{grtensor}
+%------------------------------------------------------------------------------
+\pagebreak
+\section*{Commands described in this booklet:}
+  \noindent
+  \grcmdline{grlib ( \grarg{libName} )}
+   \dotfill \pageref{spec:grlib}\\
+
+  \noindent
+  \grcmdline{grtensor()}
+   \dotfill \pageref{spec:grtensor}\\
+
+  \noindent
+  \grcmdline{groptions()}
+   \dotfill \pageref{spec:groptions}\\
+%
+%------------------------------------------------------------------------------
+\vfill
+\large
+\noindent The information contained in this booklet is also available from the
+following online help pages:\\
+
+\noindent\texttt{?grtensor}, \texttt{?groptions}, \texttt{?grlib},
+\texttt{?libname}, \texttt{?grt\_commands}, \texttt{?grt\_objects},
+\texttt{?grt\_basis}, \texttt{?grt\_operators}, \texttt{?grt\_invars}.
+%
+%------------------------------------------------------------------------------
+\end{document}
+%==============================================================================
