@@ -1,0 +1,72 @@
+GRTensor TODO
+==============
+
+- groptions not initied
+- auto init on module load
+
+
+
+Notes:
+======
+
+Using module debug discovered the macros features in tensor definitions
+are not happening properly when these files are included in a module
+definition.
+
+Will need a python script to modify all these files...
+
+g(dn,dn,pdn) values are not accesible to other calc functions
+- confusingly they do display correctly...
+
+
+Migration to gr_data to hold ALL component results:
+
+Next:
+=====
+
+Get nptetrad() example working. 
+Check makeg with basis functions
+
+Move grG_sig_ to gr_data[sig_]?
+
+Convert and test killing
+Convert nptetrad()
+Enter a basis function with makeg
+
+
+Issues:
+grload:
+  grG_ricciFlat||gname := false:
+  grG_weylFlat||gname := false:
+grG_kvector ?
+grdef having issues with kdelta() functions.
+
+
+
+Definition in grdefine may be the root of the problem.
+
+Tests
+=====
+> grdef("G2{a b} := R{a b} -(1/2) * Ricciscalar*g{a b} +lambda*g{a b}");
+- works
+
+Packaging
+=========
+- how to add metric path and libpath to .mapleinit
+
+
+
+BUGS
+====
+>grdef ( "v{^a} := kdelta( x{^a}, t)" ):
+kdelta does not evaluate
+This is an existing BUG
+
+find all path manipulations and use FileTools:-JoinPath()
+grcomponent has some issues and needs fixing
+create.mpl has old concat based junk in it. 
+nptetrad.mpl likewise
+objects/diffop.mpl
+objects/basis.mpl
+grC_ZERO will be broken - use $define?
+

@@ -7,8 +7,7 @@
 interface(verboseproc=3):
 
 # customize this line for your system
-#rootDir := "/home/grtensor/gitlab/GRTensorII/maple/grii/":
-rootDir := "/Users/peter/maple/gitlab/GRTensorII/maple/grii/":
+rootDir := "/home/grtensor/gitlab/GRTensorII/maple/grii/":
 
 # Set version and date information based on the contents of grii/Version:
 #   (The following assume that the command "sed' is available in your
@@ -60,7 +59,7 @@ readfile ( "objects/gcalc.mpl" ):
 readfile ( "objects/grvector.mpl" ):
 readfile ( "objects/killing.mpl" ):
 readfile ( "objects/ricci.mpl" ):
-readfile ( "objects/tensors.mpl" ):
+readfile ( "objects/tensors_nm.mpl" ):
 readfile ( "objects/Vectors.mpl" ):
 readfile ( "op_sup.mpl" ):
 readfile ( "parse.mpl" ):
