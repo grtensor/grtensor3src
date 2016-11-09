@@ -166,7 +166,7 @@ grOptionWindows := true:
 grOptionProfile := false:
 grOptionLLSC := true:
 grOptionMessageLevel := 1:
-grOptionMapletInput := false:
+grOptionMapletInput := true:
 
 # grG_rootSet
 # List of the root function name concatenated with the
