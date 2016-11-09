@@ -33,7 +33,7 @@ Still need to handle signature, basis, np stuff
 grtensor := module()
 option package;
 export
-    autoalias,
+    autoAlias,
 	gralter,
 	grdisplay,
 	grcalc, 
@@ -48,6 +48,7 @@ export
 	grsavedef,
 	grtransform,
 	kdelta,
+	KillingCoords,
 	makeg, 
 	nptetrad,
 	qload, 

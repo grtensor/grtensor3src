@@ -4,7 +4,14 @@ GRTensor TODO
 - groptions not initied
 - auto init on module load
 
+Open Beta Prep
+==============
+help library
+put metrics and worksheets in place
+vet the worksheets
+get code for sub-libraries
 
+Can grdef accept back ticks and convert to string?
 
 Notes:
 ======
@@ -58,9 +65,14 @@ Packaging
 
 BUGS
 ====
+1) kdelta
 >grdef ( "v{^a} := kdelta( x{^a}, t)" ):
 kdelta does not evaluate
 This is an existing BUG
+
+2) cktest worksheet
+- issue with direct assignment of vectors with grdef
+
 
 find all path manipulations and use FileTools:-JoinPath()
 grcomponent has some issues and needs fixing

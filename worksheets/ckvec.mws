@@ -1,0 +1,187 @@
+{VERSION 4 0 "Mac OS X" "4.0" }
+{USTYLETAB {PSTYLE "Heading 1" -1 3 1 {CSTYLE "" -1 -1 "Times" 1 18 0
+ 0 0 1 2 1 2 2 2 2 1 0 0 1 }1 1 0 0 8 4 2 0 2 0 2 2 -1 1 }{PSTYLE "War
+ning" -1 7 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 2 2 2 2 2 1 1 0
+ 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Left Justified Maple Outp
+ut" -1 12 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 
+}1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Fixed Width" -1 17 1 {CSTYLE "
+" -1 -1 "Courier" 1 10 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }3 1 0 0 0 0 2 0 2 
+0 2 2 -1 1 }{PSTYLE "Help" -1 10 1 {CSTYLE "" -1 -1 "Courier" 1 9 0 0 
+255 1 2 2 2 2 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Head
+ing 4" -1 20 1 {CSTYLE "" -1 -1 "Times" 1 10 0 0 0 1 1 1 2 2 2 2 1 0 0
+ 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Line Printed Output" -1 6 1
+ {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 2 2 2 2 2 1 1 0 0 1 }1 1 0 
+0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Heading 2" -1 4 1 {CSTYLE "" -1 -1 "T
+imes" 1 14 0 0 0 1 2 1 2 2 2 2 1 0 0 1 }1 1 0 0 8 2 2 0 2 0 2 2 -1 1 }
+{PSTYLE "Maple Output" -1 11 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2
+ 1 2 2 2 2 1 0 0 1 }3 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Heading 3" 
+-1 5 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 1 1 2 2 2 2 1 0 0 1 }1 1 
+0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Diagnostic" -1 9 1 {CSTYLE "" -1 -1
+ "Courier" 1 10 64 128 64 1 2 2 2 2 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2
+ 2 -1 1 }{PSTYLE "Ordered List 1" -1 200 1 {CSTYLE "" -1 -1 "Times" 1 
+12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 0 2 0 2 2 -1 1 }{PSTYLE 
+"Text Output" -1 2 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 2 2 2 2
+ 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Ordered List 2" 
+-1 201 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 
+1 0 0 3 3 2 36 2 0 2 2 -1 1 }{PSTYLE "Ordered List 3" -1 202 1 {CSTYLE
+ "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 72 2
+ 0 2 2 -1 1 }{PSTYLE "R3 Font 0" -1 203 1 {CSTYLE "" -1 -1 "Helvetica"
+ 1 10 255 0 0 1 2 1 2 2 2 2 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }
+{PSTYLE "Ordered List 4" -1 204 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 
+1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 108 2 0 2 2 -1 1 }{PSTYLE "Ordere
+d List 5" -1 205 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1
+ 0 0 1 }1 1 0 0 3 3 2 144 2 0 2 2 -1 1 }{PSTYLE "Annotation Title" -1 
+206 1 {CSTYLE "" -1 -1 "Times" 1 18 0 0 0 1 2 1 2 2 2 2 1 0 0 1 }3 1 0
+ 0 12 12 2 0 2 0 2 2 -1 1 }{PSTYLE "HyperlinkError" -1 207 1 {CSTYLE "
+" -1 -1 "Courier New" 1 12 255 0 255 1 2 2 1 2 2 1 1 0 0 1 }1 1 0 0 0 
+0 2 0 2 0 2 2 -1 1 }{PSTYLE "HyperlinkWarning" -1 208 1 {CSTYLE "" -1 
+-1 "Courier New" 1 12 0 0 255 1 2 2 1 2 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2
+ 0 2 2 -1 1 }{PSTYLE "Bullet Item" -1 15 1 {CSTYLE "" -1 -1 "Times" 1 
+12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 0 2 0 2 2 -1 1 }{PSTYLE 
+"Maple Plot" -1 13 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2
+ 1 0 0 1 }3 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "List Item" -1 14 1 
+{CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3
+ 2 0 2 0 2 2 -1 1 }{PSTYLE "Dash Item" -1 16 1 {CSTYLE "" -1 -1 "Times
+" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 0 2 0 2 2 -1 1 }
+{PSTYLE "Error" -1 8 1 {CSTYLE "" -1 -1 "Courier" 1 10 255 0 255 1 2 2
+ 2 2 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Title" -1 18 
+1 {CSTYLE "" -1 -1 "Times" 1 18 0 0 0 1 2 1 1 2 2 2 1 0 0 1 }3 1 0 0 
+12 12 2 0 2 0 2 2 -1 1 }{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "Time
+s" 1 12 0 0 0 1 2 1 2 2 2 2 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }
+{PSTYLE "R3 Font 2" -1 209 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 0 1 2
+ 2 2 2 2 2 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Author" -1 
+19 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }3 1 0 
+0 8 8 2 0 2 0 2 2 -1 1 }{CSTYLE "Help Variable" -1 25 "Courier" 1 12 0
+ 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Underlined Bold" -1 41 "Time
+s" 1 12 0 0 0 1 1 1 2 2 2 2 0 0 0 1 }{CSTYLE "Copyright" -1 34 "Times"
+ 1 10 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Maple Comment" -1 21 "Cour
+ier" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Popup" -1 31 "Times" 1
+ 12 0 128 128 1 1 2 1 2 2 2 0 0 0 1 }{CSTYLE "Atomic Variable" -1 200 
+"Times" 1 12 175 0 175 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "Dictionary Hype
+rlink" -1 45 "Times" 1 12 147 0 15 1 2 2 1 2 2 2 0 0 0 1 }{CSTYLE "Plo
+t Text" -1 28 "Times" 1 8 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D Inp
+ut" -1 19 "Times" 1 12 255 0 0 1 2 2 2 2 1 2 0 0 0 1 }{CSTYLE "Code" 
+-1 201 "Courier New" 1 12 255 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D M
+ath Italic" -1 3 "Times" 1 12 0 0 0 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D
+ Math Small" -1 7 "Times" 1 1 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D
+ Math Bold Small" -1 10 "Times" 1 1 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }
+{CSTYLE "Help Bold" -1 39 "Times" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }
+{CSTYLE "Help Menus" -1 36 "Times" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }
+{CSTYLE "Help Heading" -1 26 "Times" 1 14 0 0 0 1 2 1 2 2 2 2 0 0 0 1 
+}{CSTYLE "2D Output" -1 20 "Times" 1 12 0 0 255 1 2 2 2 2 2 2 0 0 0 1 
+}{CSTYLE "2D Inert Output" -1 202 "Times" 1 12 144 144 144 1 2 2 2 2 1
+ 2 0 0 0 1 }{CSTYLE "Help Normal" -1 30 "Times" 1 12 0 0 0 1 2 2 2 2 2
+ 2 0 0 0 1 }{CSTYLE "Maple Input" -1 0 "Courier" 1 12 255 0 0 1 2 1 2 
+2 1 2 0 0 0 1 }{CSTYLE "Page Number" -1 33 "Times" 1 12 0 0 0 1 2 2 2 
+2 2 2 0 0 0 1 }{CSTYLE "Header and Footer" -1 203 "Times" 1 10 0 0 0 1
+ 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Fixed" -1 23 "Courier" 1 10 0 0 0 
+1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Output Labels" -1 29 "Times" 1 8 0 0 0
+ 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Notes" -1 37 "Times" 1 12 0 0 0 
+1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Help Underlined" -1 44 "Times" 1 12 0 
+0 0 1 2 2 1 2 2 2 0 0 0 1 }{CSTYLE "2D Math Italic Small" -1 204 "Time
+s" 1 1 0 0 0 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D Math Symbol 2" -1 16 "
+Times" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D Math" -1 2 "Times
+" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Nonterminal" -1 24 "
+Courier" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Annotation Text" 
+-1 205 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Maple N
+ame" -1 35 "Times" 1 12 104 64 92 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Text
+" -1 206 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Plot Title
+" -1 27 "Times" 1 10 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Help Underl
+ined Italic" -1 43 "Times" 1 12 0 0 0 1 1 2 1 2 2 2 0 0 0 1 }{CSTYLE "
+Caption Reference" -1 207 "Times" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }
+{CSTYLE "Default" -1 38 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }
+{CSTYLE "Help Italic Bold" -1 40 "Times" 1 12 0 0 0 1 1 2 2 2 2 2 0 0 
+0 1 }{CSTYLE "Maple Input Placeholder" -1 208 "Courier New" 1 12 200 0
+ 200 1 2 1 2 2 1 2 0 0 0 1 }{CSTYLE "LaTeX" -1 32 "Times" 1 12 0 0 0 1
+ 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Emphasized" -1 22 "Times" 1 12 0 0
+ 0 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "Equation Label" -1 209 "Times" 1 12
+ 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "2D Comment" -1 18 "Times" 1 12 
+0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Italic" -1 42 "Times" 1 12 
+0 0 0 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "Prompt" -1 1 "Courier" 1 12 0 0 
+0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "2D Math Bold" -1 5 "Times" 1 12 0 0 
+0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Hyperlink" -1 17 "Times" 1 12 0 128 
+128 1 2 2 1 2 2 2 0 0 0 1 }{CSTYLE "Caption Text" -1 210 "Times" 1 12 
+0 0 0 1 2 1 2 2 2 2 0 0 0 1 }}
+{SECT 0 {EXCHG {PARA 0 "" 0 "" {TEXT 211 91 "Symmetries Demonstration
+ 1:  A metric in coordinates adapted to a conformal Killing vector." }
+}{PARA 0 "> " 0 "" {MPLTEXT 1 0 8 "restart:" }}}{EXCHG {PARA 0 "> " 0 
+"" {MPLTEXT 1 0 15 "with(grtensor);" }}{PARA 11 "" 1 "" {XPPMATH 20 "7
+7I.KillingCoordsG6\"I*autoAliasGF$I(gralterGF$I'grcalcGF$I,grcalcalter
+GF$I,grcomponentGF$I(grdebugGF$I&grdefGF$I*grdisplayGF$I'grinitGF$I'gr
+loadGF$I*grloaddefGF$I&grmapGF$I*groptionsGF$I*grsavedefGF$I,grtestinp
+utGF$I,grtransformGF$I'kdeltaGF$I&makegGF$I)nptetradGF$I&qloadGF$" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "qload(ckvec);" }}{PARA 6 "" 
+1 "" {TEXT 212 39 "Calculated ds for ckvec (0.000000 sec.)" }}{PARA 11
+ "" 1 "" {XPPMATH 20 "/I2Default~spacetimeG6\"I&ckvecGF$" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "I9For~the~ckvec~spacetime:G6\"" }}{PARA 11 "" 1 ""
+ {XPPMATH 20 "I,CoordinatesG6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "-I\"x
+G6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 "/)I#x~G6\"I\"aGF%=F%6#;
+\"\"\"\"\"%E\\[l%F*I\"rGF%\"\"#I&thetaGF%\"\"$I$phiGF%F+I\"tGF%" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "I-Line~elementG6\"" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "/*$I$~dsG6\"\"\"#,**(,&-I\"HGF%6#I\"rGF%\"\"\"-I\"GGF%6#I
+\"tGF%F.!\"#I#~dGF%F.)F-I#2~GF%F.F.**-I\"bGF%F1F.F)F3F4F.)I&thetaGF%F6
+F.F.*,F8F.-I$sinG6$%*protectedGI(_syslibGF%6#F;F&F)F3F4F.)I$phiGF%F6F.
+F.*(F)F3F4F.)F2F6F.!\"\"" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 16 
+"KillingCoords();" }}{PARA 6 "" 1 "" {TEXT 212 37 "Testing Killing coo
+rdinates for ckvec" }}{PARA 6 "" 1 "" {TEXT 212 39 "Created a definiti
+on for coord1(up,cdn)" }{TEXT 212 35 "\nCreated definition for coord1(
+dn) " }{TEXT 212 40 "\nCreated a definition for coord1(dn,cdn)" }{TEXT
+ 212 40 "\nCreated a definition for coord2(up,cdn)" }{TEXT 212 35 "\nC
+reated definition for coord2(dn) " }{TEXT 212 40 "\nCreated a definiti
+on for coord2(dn,cdn)" }{TEXT 212 40 "\nCreated a definition for coord
+3(up,cdn)" }{TEXT 212 35 "\nCreated definition for coord3(dn) " }{TEXT
+ 212 40 "\nCreated a definition for coord3(dn,cdn)" }{TEXT 212 40 "\nC
+reated a definition for coord4(up,cdn)" }{TEXT 212 35 "\nCreated defin
+ition for coord4(dn) " }{TEXT 212 40 "\nCreated a definition for coord
+4(dn,cdn)" }{TEXT 212 50 "\nCalculated g(dn,dn,pdn) for ckvec (0.00200
+0 sec.)" }{TEXT 212 51 "\nCalculated Chr(dn,dn,dn) for ckvec (0.000000
+ sec.)" }{TEXT 212 42 "\nCalculated detg for ckvec (0.001000 sec.)" }
+{TEXT 212 8 "\nprecalc" }{TEXT 212 46 "\nCalculated g(up,up) for ckvec
+ (0.002000 sec.)" }{TEXT 212 51 "\nCalculated Chr(dn,dn,up) for ckvec \+
+(0.002000 sec.)" }{TEXT 212 48 "\nCalculated coord1(up) for ckvec (0.0
+00000 sec.)" }{TEXT 212 52 "\nCalculated coord1(up,cdn) for ckvec (0.0
+01000 sec.)" }{TEXT 212 51 "\nCalculated expsc[coord1] for ckvec (0.00
+0000 sec.)" }{TEXT 212 50 "\nCalculated conf[coord1] for ckvec (0.0000
+00 sec.)" }{TEXT 212 48 "\nCalculated coord1(dn) for ckvec (0.000000 s
+ec.)" }{TEXT 212 52 "\nCalculated coord1(dn,cdn) for ckvec (0.001000 s
+ec.)" }{TEXT 212 64 "\nCalculated ktest(dn,dn) || `[coord1]` for ckvec
+ (0.000000 sec.)" }{TEXT 212 57 "\nCalculated KillingTest[coord1] for \+
+ckvec (0.000000 sec.)" }{TEXT 212 48 "\nCalculated coord2(up) for ckve
+c (0.000000 sec.)" }{TEXT 212 52 "\nCalculated coord2(up,cdn) for ckve
+c (0.001000 sec.)" }{TEXT 212 51 "\nCalculated expsc[coord2] for ckvec
+ (0.000000 sec.)" }{TEXT 212 50 "\nCalculated conf[coord2] for ckvec (
+0.000000 sec.)" }{TEXT 212 48 "\nCalculated coord2(dn) for ckvec (0.00
+0000 sec.)" }{TEXT 212 52 "\nCalculated coord2(dn,cdn) for ckvec (0.00
+1000 sec.)" }{TEXT 212 64 "\nCalculated ktest(dn,dn) || `[coord2]` for
+ ckvec (0.000000 sec.)" }{TEXT 212 57 "\nCalculated KillingTest[coord2
+] for ckvec (0.000000 sec.)" }{TEXT 212 48 "\nCalculated coord3(up) fo
+r ckvec (0.000000 sec.)" }{TEXT 212 52 "\nCalculated coord3(up,cdn) fo
+r ckvec (0.001000 sec.)" }{TEXT 212 51 "\nCalculated expsc[coord3] for
+ ckvec (0.000000 sec.)" }{TEXT 212 50 "\nCalculated conf[coord3] for c
+kvec (0.000000 sec.)" }{TEXT 212 48 "\nCalculated coord3(dn) for ckvec
+ (0.000000 sec.)" }{TEXT 212 52 "\nCalculated coord3(dn,cdn) for ckvec
+ (0.001000 sec.)" }{TEXT 212 64 "\nCalculated ktest(dn,dn) || `[coord3
+]` for ckvec (0.000000 sec.)" }{TEXT 212 57 "\nCalculated KillingTest[
+coord3] for ckvec (0.000000 sec.)" }{TEXT 212 48 "\nCalculated coord4(
+up) for ckvec (0.000000 sec.)" }{TEXT 212 52 "\nCalculated coord4(up,c
+dn) for ckvec (0.000000 sec.)" }{TEXT 212 51 "\nCalculated expsc[coord
+4] for ckvec (0.000000 sec.)" }{TEXT 212 50 "\nCalculated conf[coord4]
+ for ckvec (0.000000 sec.)" }{TEXT 212 48 "\nCalculated coord4(dn) for
+ ckvec (0.000000 sec.)" }{TEXT 212 52 "\nCalculated coord4(dn,cdn) for
+ ckvec (0.000000 sec.)" }{TEXT 212 64 "\nCalculated ktest(dn,dn) || `[
+coord4]` for ckvec (0.001000 sec.)" }{TEXT 212 57 "\nCalculated Killin
+gTest[coord4] for ckvec (0.000000 sec.)" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "/I*CPU~Time~G6\"$\"$S\"!\"$" }}{PARA 11 "" 1 "" {XPPMATH 20 "I@Kil
+ling~Coordinate~Test~ResultsG6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I3C
+oordinate~vector~G6\"7&I\"rGF$I&thetaGF$I$phiGF$I\"tGF$" }}{PARA 11 ""
+ 1 "" {XPPMATH 20 "6$/-I'coord1G6\"6#I#upGF&7&\"\"\"\"\"!F+F+/Ign~a~ho
+mothetic/conformal~Killing~vector~with~conformal~factorGF&,$*&,&-I\"HG
+F&6#I\"rGF&F*-I\"GGF&6#I\"tGF&F*!\"\"-I%diffG%*protectedG6$F1F4F*F9" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6$/-I'coord2G6\"6#I#upGF&7&\"\"!\"\"\"F
+*F*I7~not~a~Killing~vector.GF&" }}{PARA 11 "" 1 "" {XPPMATH 20 "6$/-I'
+coord3G6\"6#I#upGF&7&\"\"!F*\"\"\"F*I3~a~Killing~vector.GF&" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6$/-I'coord4G6\"6#I#upGF&7&\"\"!F*F*\"\"\"I7~n
+ot~a~Killing~vector.GF&" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 ""
+ }}}}
+{MARK "0 0 0" 0 }{VIEWOPTS 1 1 0 1 1 1803 1 1 1 1 }{PAGENUMBERS 0 1 2
+ 33 1 1 }
