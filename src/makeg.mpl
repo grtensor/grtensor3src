@@ -269,23 +269,25 @@ local	choice, choices, selection, vtype, ambiguity1, ambiguity2, s:
 	s := `Internal error`:
 
 	if G_gtype = grG_g or G_gtype = grG_ds then
-		s := sprintf ( `You may choose to 0) Use the metric WITHOUT saving it,\n` ):
-		s := cat(s, sprintf ( `                  1) Save the metric as it is,\n` )):
-		s := cat(s, sprintf ( `                  2) Correct an element of the metric,\n` )):
-		s := cat(s, sprintf ( `                  3) Re-enter the metric,\n` )):
-		s := cat(s, sprintf ( `                  4) Add/change constraint equations, \n` )):
-		s := cat(s, sprintf ( `                  5) Add a text description, or\n` )):
-		s := cat(s, sprintf ( `                  6) Abandon this metric and return to Maple.\n` )):
+		s := sprintf ( `You may choose to:\n`);
+		s := cat(s, sprintf ( `   0) Use the metric WITHOUT saving it,\n` )):
+		s := cat(s, sprintf ( `   1) Save the metric as it is,\n` )):
+		s := cat(s, sprintf ( `   2) Correct an element of the metric,\n` )):
+		s := cat(s, sprintf ( `   3) Re-enter the metric,\n` )):
+		s := cat(s, sprintf ( `   4) Add/change constraint equations, \n` )):
+		s := cat(s, sprintf ( `   5) Add a text description, or\n` )):
+		s := cat(s, sprintf ( `   6) Abandon this metric and return to Maple.\n` )):
 		choices := [ useEntry, saveEntry, correctmetric, newmetric, addconstraints, addtext, abandon ]:
 
 	elif G_gtype = grG_basis then
-		s := sprintf ( `You may choose to 0) Use the metric WITHOUT saving it,\n` ):
-		s := cat(s, sprintf ( `                  1) Save the metric as it is,\n` )):
-		s := cat(s, sprintf ( `                  2) Re-enter a basis vector,\n` )):
-		s := cat(s, sprintf ( `                  3) Re-enter the inner product,\n` )):
-		s := cat(s, sprintf ( `                  4) Add/change constraints,\n ` )):
-		s := cat(s, sprintf ( `                  5) Add a text description, or\n` )):
-		s := cat(s, sprintf ( `                  6) Abandon this metric and return to Maple.\n` )):
+		s := sprintf ( `You may choose to:\n`);
+		s := cat(s, sprintf ( `   0) Use the metric WITHOUT saving it,\n` )):
+		s := cat(s, sprintf ( `   1) Save the metric as it is,\n` )):
+		s := cat(s, sprintf ( `   2) Re-enter a basis vector,\n` )):
+		s := cat(s, sprintf ( `   3) Re-enter the inner product,\n` )):
+		s := cat(s, sprintf ( `   4) Add/change constraints,\n ` )):
+		s := cat(s, sprintf ( `   5) Add a text description, or\n` )):
+		s := cat(s, sprintf ( `   6) Abandon this metric and return to Maple.\n` )):
 		if G_basisu<>0 and G_basisd=0 then
 			choices := [ useEntry,saveEntry, correctbasisuv, newbasisip, addconstraints, addtext, abandon ]:
 		elif G_basisd<>0 and G_basisu=0 then
@@ -295,12 +297,13 @@ local	choice, choices, selection, vtype, ambiguity1, ambiguity2, s:
 		fi:
 	
 	elif G_gtype = grG_np then
-		s := sprintf ( `You may choose to 0) Use the metric WITHOUT saving it,\n` ):
-		s := cat(s, sprintf ( `                  1) Save the metric as it is,\n` )):
-		s := cat(s, sprintf ( `                  2) Re-enter a basis vector,\n` )):
-		s := cat(s, sprintf ( `                  3) Add/change constraints,\n` )):
-		s := cat(s, sprintf ( `                  4) Add a text description, or\n` )):
-		s := cat(s, sprintf ( `                  5) Abandon this metric and return to Maple.\n` )):
+		s := sprintf ( `You may choose to:\n`);
+		s := cat(s, sprintf ( `   0) Use the metric WITHOUT saving it,\n` )):
+		s := cat(s, sprintf ( `   1) Save the metric as it is,\n` )):
+		s := cat(s, sprintf ( `   2) Re-enter a basis vector,\n` )):
+		s := cat(s, sprintf ( `   3) Add/change constraints,\n` )):
+		s := cat(s, sprintf ( `   4) Add a text description, or\n` )):
+		s := cat(s, sprintf ( `   5) Abandon this metric and return to Maple.\n` )):
 		choices := [ useEntry, saveEntry, correctbasisv, addconstraints, addtext, abandon, nil ]:
 	fi:
 	choice := 'choice':
@@ -444,9 +447,10 @@ end:
 grF_promptbasisv := proc ( gdim, gtype, coord )
 local 	vtype, basisu, basisd, s:
 	while not assigned ( vtype ) do
-		s := sprintf ( `Would you like to enter 1) covariant components,\n` ):
-		s := cat(s, sprintf ( `                        2) contravariant components, or\n` )):
-		s := cat(s, sprintf ( `                        3) both.` )):
+		s := sprintf ( `Would you like to enter:\n`);
+		s := cat(s, sprintf ( ` 1) covariant components,\n` )):
+		s := cat(s, sprintf ( ` 2) contravariant components, or\n` )):
+		s := cat(s, sprintf ( ` 3) both.` )):
 		vtype := grF_makeg_input ( s, [] ):
 		if not member ( vtype, {1,2,3} ) then
 			printf ( `Invalid input. Please enter 1, 2, or 3.\n` ):
@@ -589,8 +593,10 @@ grF_getbasisip := proc ( gdim, gtype )
 local a, b, diag, metric:
 	metric := array ( 1..gdim, 1..gdim ):
 	while not assigned ( diag ) do
-		printf ( `Is the basis inner product  1) Diagonal, or\n` ):
-		diag := grF_makeg_input( `                            2) Symmetric?`, []):
+		s := sprintf ( `Is the basis inner product:\n`):
+		s := cat(s, sprintf(` 1) Diagonal\n` )):
+		s := cat(s, sprintf(` 2) Symmetric\n`)):
+		diag := grF_makeg_input( s, []):
 		if diag<1 or diag>2 then
 			printf ( `Invalid input. Please enter 1 or 2.\n` ):
 			diag := 'diag':

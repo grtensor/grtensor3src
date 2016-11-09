@@ -1,5 +1,21 @@
 #==============================================================================
-# Makefile for GRTensorII
+# Makefile for GRTensorIII
+#
+# This file is not required for normal operation, only for building
+# with code changes. See http://gitlab.com/grtensor/GRTensorIII/wikis/home
+# for setup instructions.
+#
+# make grtensor is functional but currently relies on a hard-code path in 
+#   build/griii.mpl
+#
+#
+# Update Nov 2016 for Module based grtensor package
+# - all file includes/savelib are now in griii.mpl
+# - assumes there is a lib/ directory with a Maple library 
+#   created from within Maple:
+# >march('create',"lib/grii.mla",100);
+# (assuming maple was started in top level dir)
+# TODO: Detect and automate this
 #
 # Denis Pollney <dp@maths.soton.ac.uk>
 # August 1999
@@ -15,6 +31,8 @@
 #
 # Individual GRTensor libraries can be built using the commands:
 #   make grii
+#
+# Following are not supported (I do not have the source)
 #   make basis
 #   make dinvar
 #   make invars
@@ -35,18 +53,11 @@
 #------------------------------------------------------------------------------
 # Required tools:
 #   make, rm, rmdir, cat, mv, cd
-#   MapleV Release 4 or 5
+#   MapleV Command line version via MAPLECMD (usually "maple")
 #
 # Optional tools: (required by `make distrib')
 #   sed         (Set version information)
 #   cvs2cl      (Create a changelog for CVS version)
-#   tar, gzip   (Package the release for distribution)
-# If the user does not wish to use the `make distrib' target, the variables
-# referencing these tools can be commented out.
-#
-# *** Note *** If sed is not available in the build environment, you will
-#              also have to make modifications to the build/grii.mpl script.
-#              See the Readme file and comments within build/grii.mpl.
 #==============================================================================
 
 # Maple version information:
@@ -102,17 +113,6 @@ GRIIVERSION = "`sed -n '/Version:/s/Version:[ ]*//p' Version`"
 
 INSTALLCMD = install
 
-# Packaging commands:
-# Indicate the tar and gzip commands which the `make distrib' target
-# is to use. Again, if these do not exist on the standard path,
-# specify a full pathname.
-#
-# These variables are only important if you intend to use the `make
-# distrib' target.
-
-TARCMD = tar
-GZIPCMD = gzip
-
 # ChangeLog script:
 # The following script specifies the cvs2cl command  which is run by
 # the `make distrib' target in order to generate a changelog.
@@ -144,7 +144,7 @@ prefix = .
 
 GRDIR = grii
 
-SRCDIR = maple
+SRCDIR = src
 BUILDDIR = build
 METRICDIR = metrics
 DISTRIBDIR = distrib
@@ -154,10 +154,11 @@ LIBDIR = lib
 
 MAPLEOPTS = -s
 
-GRIIDIR = $(SRCDIR)/grii
+GRIIDIR = $(SRCDIR)
 OBJECTDIR = $(GRIIDIR)/objects
 
-GRIIFILES = Version \
+
+GRIIFILES = \
 	$(GRIIDIR)/array.mpl \
 	$(GRIIDIR)/autoAlias.mpl \
 	$(GRIIDIR)/autoload.mpl \
@@ -192,12 +193,21 @@ GRIIFILES = Version \
 	$(GRIIDIR)/symfn.mpl \
 	$(GRIIDIR)/symmetry.mpl
 
-OBJECTFILES = $(OBJECTDIR)/basis.mpl $(OBJECTDIR)/cmdef.mpl \
-	$(OBJECTDIR)/diffop.mpl $(OBJECTDIR)/dual.mpl \
-	$(OBJECTDIR)/extras.mpl $(OBJECTDIR)/gcalc.mpl \
-	$(OBJECTDIR)/grvector.mpl $(OBJECTDIR)/killing.mpl \
-	$(OBJECTDIR)/ricci.mpl $(OBJECTDIR)/tensors.mpl \
+OBJECTFILES = \
+	$(OBJECTDIR)/basis.mpl \
+	$(OBJECTDIR)/cmdef.mpl \
+	$(OBJECTDIR)/diffop.mpl \
+	$(OBJECTDIR)/dual.mpl \
+	$(OBJECTDIR)/extras.mpl \
+	$(OBJECTDIR)/gcalc.mpl \
+	$(OBJECTDIR)/grvector.mpl \
+	$(OBJECTDIR)/killing.mpl \
+	$(OBJECTDIR)/ricci.mpl \
+	$(OBJECTDIR)/tensors.mpl \
 	$(OBJECTDIR)/Vectors.mpl
+
+
+# Source for these are not in GIT
 
 BASISDIR = $(SRCDIR)/basis
 
@@ -244,53 +254,55 @@ TRIGSINFILES = $(TRIGSINDIR)/Version.mpl \
 
 GRIILIBS = grii.m basislib.m dinvar.m grtools.m invar.m trigsin.m maple.hdb
 
-TARFILE-4 = "grii$(MAPLERELEASE)-$(GRIIVERSION).$(MAPLEBIN).tar"
-TARFILE-5 = "grii$(MAPLERELEASE)-$(GRIIVERSION).tar"
-
-TARFILE = $(TARFILE-$(MAPLERELEASE))
-
-TARLIBS = $(foreach file,$(GRIILIBS),$(GRDIR)/$(LIBDIR)/$(file))
 
 CHANGELOGFILE = ChangeLog
 NEWSFILE = News
 
-grtensor: grii basis dinvar grtools invars trigsin help
+#grtensor: grii basis dinvar grtools invars trigsin help
+grtensor: griii
 
-grii:     $(LIBDIR)/grii.m
-basis:    $(LIBDIR)/basislib.m
-dinvar:   $(LIBDIR)/dinvar.m
-grtools:  $(LIBDIR)/grtools.m
-invars:   $(LIBDIR)/invar.m
-trigsin:  $(LIBDIR)/trigsin.m
-help:     $(LIBDIR)/maple.hdb
+griii:     $(LIBDIR)/griii.m
 
-$(LIBDIR)/grii.m: $(GRIIFILES) $(OBJECTFILES) $(BUILDDIR)/grii.mpl
-	$(CATCMD) $(BUILDDIR)/grii.mpl | $(MAPLECMD) $(MAPLEOPTS)
-	$(MVCMD) grii.m $(LIBDIR)
+# grii:     $(LIBDIR)/grii.m
+# basis:    $(LIBDIR)/basislib.m
+# dinvar:   $(LIBDIR)/dinvar.m
+# grtools:  $(LIBDIR)/grtools.m
+# invars:   $(LIBDIR)/invar.m
+# trigsin:  $(LIBDIR)/trigsin.m
+# help:     $(LIBDIR)/maple.hdb
 
-$(LIBDIR)/basislib.m: $(BASISFILES) $(BUILDDIR)/basislib.mpl
-	$(CATCMD) $(BUILDDIR)/basislib.mpl | $(MAPLECMD) $(MAPLEOPTS)
-	$(MVCMD) basislib.m $(LIBDIR)
+# TODO: griii.m has a hard baked path in it!
 
-$(LIBDIR)/dinvar.m: $(DINVARFILES) $(BUILDDIR)/dinvar.mpl
-	$(CATCMD) $(BUILDDIR)/dinvar.mpl | $(MAPLECMD) $(MAPLEOPTS)
-	$(MVCMD) dinvar.m $(LIBDIR)
+$(LIBDIR)/griii.m: $(GRIIFILES) $(OBJECTFILES) $(BUILDDIR)/grii.mpl
+	$(CATCMD) $(BUILDDIR)/griii.mpl | $(MAPLECMD) $(MAPLEOPTS)
 
-$(LIBDIR)/grtools.m: $(GRTOOLSFILES) $(BUILDDIR)/grtools.mpl
-	$(CATCMD) $(BUILDDIR)/grtools.mpl | $(MAPLECMD) $(MAPLEOPTS)
-	$(MVCMD) grtools.m $(LIBDIR)
+# $(LIBDIR)/grii.m: $(GRIIFILES) $(OBJECTFILES) $(BUILDDIR)/grii.mpl
+# 	$(CATCMD) $(BUILDDIR)/grii.mpl | $(MAPLECMD) $(MAPLEOPTS)
+# 	$(MVCMD) grii.m $(LIBDIR)
 
-$(LIBDIR)/invar.m: $(INVARFILES) $(BUILDDIR)/invars.mpl
-	$(CATCMD) $(BUILDDIR)/invars.mpl | $(MAPLECMD) $(MAPLEOPTS)
-	$(MVCMD) invar.m $(LIBDIR)
+# $(LIBDIR)/basislib.m: $(BASISFILES) $(BUILDDIR)/basislib.mpl
+# 	$(CATCMD) $(BUILDDIR)/basislib.mpl | $(MAPLECMD) $(MAPLEOPTS)
+# 	$(MVCMD) basislib.m $(LIBDIR)
 
-$(LIBDIR)/trigsin.m: $(TRIGSINFILES) $(BUILDDIR)/trigsin.mpl
-	$(CATCMD) $(BUILDDIR)/trigsin.mpl | $(MAPLECMD) $(MAPLEOPTS)
-	$(MVCMD) trigsin.m $(LIBDIR)
+# $(LIBDIR)/dinvar.m: $(DINVARFILES) $(BUILDDIR)/dinvar.mpl
+# 	$(CATCMD) $(BUILDDIR)/dinvar.mpl | $(MAPLECMD) $(MAPLEOPTS)
+# 	$(MVCMD) dinvar.m $(LIBDIR)
 
-$(LIBDIR)/maple.hdb: $(BUILDDIR)/help4.mpl
-	$(CATCMD) $(BUILDDIR)/help4.mpl | $(MAPLECMD) $(MAPLEOPTS)
-	$(MVCMD) maple.hdb $(LIBDIR)
+# $(LIBDIR)/grtools.m: $(GRTOOLSFILES) $(BUILDDIR)/grtools.mpl
+# 	$(CATCMD) $(BUILDDIR)/grtools.mpl | $(MAPLECMD) $(MAPLEOPTS)
+# 	$(MVCMD) grtools.m $(LIBDIR)
+
+# $(LIBDIR)/invar.m: $(INVARFILES) $(BUILDDIR)/invars.mpl
+# 	$(CATCMD) $(BUILDDIR)/invars.mpl | $(MAPLECMD) $(MAPLEOPTS)
+# 	$(MVCMD) invar.m $(LIBDIR)
+
+# $(LIBDIR)/trigsin.m: $(TRIGSINFILES) $(BUILDDIR)/trigsin.mpl
+# 	$(CATCMD) $(BUILDDIR)/trigsin.mpl | $(MAPLECMD) $(MAPLEOPTS)
+# 	$(MVCMD) trigsin.m $(LIBDIR)
+
+# $(LIBDIR)/maple.hdb: $(BUILDDIR)/help4.mpl
+# 	$(CATCMD) $(BUILDDIR)/help4.mpl | $(MAPLECMD) $(MAPLEOPTS)
+# 	$(MVCMD) maple.hdb $(LIBDIR)
 
 .PHONY: ChangeLog
 ChangeLog:

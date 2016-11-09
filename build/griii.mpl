@@ -138,17 +138,17 @@ Wrap the object definitions in a procedure wrapper
 
 load_objects := proc()
 global grG_ObjDef:
-$include  "src/objects/basis_nm.mpl"
+$include  "src/objects/basis.mpl"
 $include  "src/objects/cmdef.mpl"
-$include  "src/objects/diffop_nm.mpl"
-$include  "src/objects/dual_nm.mpl"
+$include  "src/objects/diffop.mpl"
+$include  "src/objects/dual.mpl"
 $include  "src/objects/extras.mpl"
 $include  "src/objects/gcalc.mpl"
-$include  "src/objects/grvector_nm.mpl"
-$include  "src/objects/killing_nm.mpl"
-$include  "src/objects/ricci_nm.mpl"
-$include  "src/objects/tensors_nm.mpl"
-$include  "src/objects/Vectors_nm.mpl"
+$include  "src/objects/grvector.mpl"
+$include  "src/objects/killing.mpl"
+$include  "src/objects/ricci.mpl"
+$include  "src/objects/tensors.mpl"
+$include  "src/objects/Vectors.mpl"
 # autoload has aliases we need
 $include  "src/autoload.mpl"
 end proc:
@@ -180,4 +180,4 @@ savelib(grtensor);
 
 printf("Module grtensor saved into repo at %s\n", savelibname);
 
-
+quit;
