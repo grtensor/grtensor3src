@@ -139,7 +139,7 @@ Wrap the object definitions in a procedure wrapper
 *)
 
 load_objects := proc()
-global grG_ObjDef:
+global grG_ObjDef, grG_multipleDef:
 $include  "src/objects/basis.mpl"
 $include  "src/objects/cmdef.mpl"
 $include  "src/objects/diffop.mpl"
@@ -164,6 +164,19 @@ $include "src/objects/basis/NPSpin.mpl"
 $include "src/objects/basis/Petrov.mpl"
 $include "src/objects/basis/RicciSc.mpl"
 $include "src/objects/basis/WeylSc.mpl"
+
+# INVAR objects
+$include "src/objects/invar/m1.mpl"
+$include "src/objects/invar/m2.mpl"
+$include "src/objects/invar/m3.mpl"
+$include "src/objects/invar/m4.mpl"
+$include "src/objects/invar/m5.mpl"
+$include "src/objects/invar/m6.mpl"
+$include "src/objects/invar/r1.mpl"
+$include "src/objects/invar/r2.mpl"
+$include "src/objects/invar/r3.mpl"
+$include "src/objects/invar/w1.mpl"
+$include "src/objects/invar/w2.mpl"
 
 end proc:
 

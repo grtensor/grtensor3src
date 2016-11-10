@@ -22,11 +22,14 @@ definition.
 
 Will need a python script to modify all these files...
 
-g(dn,dn,pdn) values are not accesible to other calc functions
-- confusingly they do display correctly...
+autoload is not used. Now just load ALL object definitions into a single library.
 
+grG_multipleDefs: How does this work?
+- multiple definitions are put into grG_multipleDef in object definitions
+- these are checked in cmd_sup.mpl
+  * the field grC_useWhen is checked to see if the definition applies
+  * these relies on a grF_useWhen_tetrad or or grF_useWhen_SpinorInvar
 
-Migration to gr_data to hold ALL component results:
 
 Next:
 =====

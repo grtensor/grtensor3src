@@ -545,7 +545,7 @@ local a, b, i, x, actual, actual2, start, calced,
       compound, operands, item, dependSet, objectName, returnSeq,
       oldMetric, object, newMetric:
 
-global grG_metricName, grG_operands, grG_checkObjects_Cache:
+global grG_metricName, grG_operands, grG_checkObjects_Cache, grG_multipleDef:
 
   #
   # CHECK THE OBJECTS IN THE LIST

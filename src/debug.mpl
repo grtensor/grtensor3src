@@ -12,5 +12,7 @@ global grG_ObjDef;
 	print(grG_ObjDef[name][grC_symmetry]);
 	printf("CalcFn:\n");
 	print(grG_ObjDef[name][grC_calcFn]);
-	
+	printf("CalcFnParms:\n");
+	print(grG_ObjDef[name][grC_calcFnParms]);
+
 end proc:
