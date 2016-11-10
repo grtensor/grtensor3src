@@ -1,0 +1,15 @@
+Ndim_ := 4:
+x1_ := x:
+x2_ := y:
+x3_ := z:
+x4_ := t:
+complex_ := {}:
+eta12_ := 1:
+eta34_ := -1:
+b11_ := 1:
+b22_ := 1:
+b33_ := 1:
+b43_ := 1:
+constraint_ := []:
+Info_ := `testnp;`:
+Archive1_:=` `: 

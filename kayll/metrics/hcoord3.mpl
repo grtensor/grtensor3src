@@ -1,0 +1,16 @@
+Ndim_ := 6:
+x1_ := t:
+x2_ := w:
+x3_ := y:
+x4_ := h:
+x5_ := theta:
+x6_ := phi:
+sig_ := 6:
+complex_ := {}:
+g11_ := B(h):
+g22_ := A(h):
+g33_ := Cc(h):
+g44_ := 1/f(h)/S(h)^4:
+g55_ := 1/f(h)/S(h)^2:
+g66_ := 1/f(h)/S(h)^2*sin(theta)^2:
+constraint_ := [alpha^2+delta^2+epsilon^2+delta*epsilon+delta*alpha+alpha*epsilon-4=0]:

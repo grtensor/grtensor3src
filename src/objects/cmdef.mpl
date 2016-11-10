@@ -65,6 +65,7 @@ end:
 # when_SpinorInvar
 #----------------------------------------
 grF_when_SpinorInvar := proc()
+global grG_metricName; 
 
 # If it's not a null tetrad, then these definitions can't be used.
 if not grF_checkNullTetrad ( grG_metricName ) then

@@ -14,11 +14,11 @@ KillingCoords := proc()
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 
 local  a, gname, N, root, b, value, dispSeq, calcSeq:
-global gr_data:
+global gr_data, grG_metricName:
 
  printf(`Testing Killing coordinates for %a\n`,grG_default_metricName):
 
- gname := grG_default_metricName:
+ gname := grG_metricName:
  N := Ndim[gname]:
 
  #
@@ -32,7 +32,7 @@ global gr_data:
      if a = b then
        value := 1:
      fi:
-     grG_||root[gname,b] := value:
+     gr_data[root,gname,b] := value:
    od:
    calcSeq := calcSeq, KillingTest[ coord||a]:
  od:
@@ -44,8 +44,8 @@ global gr_data:
  print(`Killing Coordinate Test Results`):
  print(`Coordinate vector ` = [seq( gr_data[xup_,gname,b], b=1..N)]):
  for a to N do
-     print(coord||a(up) = [seq( grG_coord||a||up_[gname,b], b=1..N)],
-             grG_KillingTest_[gname, coord||a]);
+     print(coord||a(up) = [seq( gr_data[coord||a||up_,gname,b], b=1..N)],
+             gr_data[KillingTest_,gname, coord||a]);
  od:
 
 end:

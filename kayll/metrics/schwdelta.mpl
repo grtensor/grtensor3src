@@ -1,0 +1,13 @@
+Ndim_ :=    5  :
+x1_    :=    h   :
+x2_    :=    theta   :
+x3_    :=    phi   :
+x4_    :=    t   :
+x5_    :=    delta   :
+sig_:=3:
+g11_    :=    1/(f(h)*S(h)^4)  :
+g22_    :=    1/(f(h)*S(h)^2)   :
+g33_    :=    1/(f(h)*S(h)^2)*sin(theta)^2   :
+g44_    :=  T(h)   :
+g55_    :=    W(h):
+Info_:=`The Schwarzschild metric in curvature coordinates`:

@@ -1,0 +1,9 @@
+Ndim_ := 3:
+x1_ := R:
+x2_ := theta:
+x3_ := phi:
+sig_ := 1:
+complex_ := {}:
+g11_ := -tau(R):
+g22_ := R^2:
+g33_ := R^2*sin(theta)^2:

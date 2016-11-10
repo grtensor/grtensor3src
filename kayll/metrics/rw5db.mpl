@@ -1,0 +1,13 @@
+Ndim_:= 5:
+x1_:= r:
+x2_:= theta:
+x3_:= phi:
+x4_:= t:
+x5_:= y:
+sig_:=3:
+g11_:= exp(2*f(t,y))*a(t)^2/(1-k*r^2):
+g22_:= exp(2*f(t,y))*a(t)^2*r^2:
+g33_:= exp(2*f(t,y))*a(t)^2*r^2*sin(theta)^2:
+g44_:= -exp(2*f(t,y)):
+g55_:=h(t,y):
+Info_:=`Robertson-Walker Metric in 5 -D bulk`:

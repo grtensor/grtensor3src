@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := R:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+sig_ := 2:
+complex_ := {}:
+g11_ := (1+2*LambertW(2*R^2))^(3/2)/((1+2*LambertW(2*R^2))^(1/2)+2*exp(1/2)*R^2*Pi^(1/2)*2^(1/2)*erf(1/2*2^(1/2)*(1+2*LambertW(2*R^2))^(1/2))-2*R^2*_C1)/(1+LambertW(2*R^2))^2:
+g22_ := R^2:
+g33_ := R^2*sin(theta)^2:
+g44_ := -exp(LambertW(2*R^2)):

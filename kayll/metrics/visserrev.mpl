@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := r:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+g11_ := -1/exp(Phi(r))^2:
+g22_ := exp(Phi(r))^2*exp(psi(r))^4:
+g33_ := exp(Phi(r))^2*exp(psi(r))^4*r^2:
+g44_ := exp(Phi(r))^2*exp(psi(r))^4*r^2*sin(theta)^2:
+constraint_ := [diff(psi(r),r)=z(r)*r/(1-z(r)*r^2),diff(Phi(r),r)=sqrt(-r*diff(z(r),r))/(1-z(r)*r^2)]:

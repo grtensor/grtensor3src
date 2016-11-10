@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := eta:
+x2_ := xi:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+g11_ := -z(eta,xi)^(4/3):
+g22_ := z(eta,xi)^(2/3):
+g33_ := z(eta,xi)^(2/3)*xi^2:
+g44_ := z(eta,xi)^(2/3)*xi^2*sin(theta)^2:

@@ -1,0 +1,9 @@
+Ndim_ :=    4   :
+x1_    :=    chi  :
+x2_    :=    theta   :
+x3_    :=    phi   :
+x4_    :=    eta   :
+g11_    :=    a(eta)^2:
+g22_    :=    a(eta)^2*chi^2   :
+g33_    :=    a(eta)^2*chi^2*sin(theta)^2   :
+g44_    :=    -a(eta)^2   :

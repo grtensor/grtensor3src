@@ -1,0 +1,14 @@
+Ndim_ := 4:
+x1_ := x:
+x2_ := y:
+x3_ := z:
+x4_ := t:
+complex_ := {}:
+g11_ := -1-2*e^2*(m1(t)/r1(x,y,z,t)+m2(t)/r2(x,y,z,t)):
+g14_ := 4*e^3*(m1(t)*X1(t)/r1(x,y,z,t)+m2(t)*X2(t)/r2(x,y,z,t)):
+g22_ := -1-2*e^2*(m1(t)/r1(x,y,z,t)+m2(t)/r2(x,y,z,t)):
+g24_ := 4*e^3*(m1(t)*Y1(t)/r1(x,y,z,t)+m2(t)*Y2(t)/r2(x,y,z,t)):
+g33_ := -1-2*e^2*(m1(t)/r1(x,y,z,t)+m2(t)/r2(x,y,z,t)):
+g34_ := 4*e^3*(m1(t)*Z1(t)/r1(x,y,z,t)+m2(t)*Z2(t)/r2(x,y,z,t)):
+g44_ := 1-2*e^2*(m1(t)/r1(x,y,z,t)+m2(t)/r2(x,y,z,t)):
+Info_ := `Correct version of Jim's metric;`:

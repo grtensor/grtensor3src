@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := r:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+g11_ := exp(Phi*t+Sigma)^2*a(r)^2:
+g22_ := exp(Phi*t+Sigma)^2*r^2:
+g33_ := exp(Phi*t+Sigma)^2*r^2*sin(theta)^2:
+g44_ := -exp(Phi*t+Sigma)^2*b(r)^2:
+Info_:=`Conformally static metric with Phi and Sigma constant.`:
+complex_ := {}:

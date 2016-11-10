@@ -1,0 +1,24 @@
+
+===============================================================================
+HELP FOR: grloaddef
+===============================================================================
+
+CALLING SEQUENCE:  grloaddef( fileName )
+
+      PARAMETERS:  fileName - file name (string)
+
+-------------------------------------------------------------------------------
+SYNOPSIS:
+
+- Definitions of tensors that have been created with grdef() and saved 
+  with grsavedef() can be loaded into GRTensorII with this command.
+
+-------------------------------------------------------------------------------
+EXAMPLE:
+
+> grloaddef ( `myobject.mpl` ):
+
+-------------------------------------------------------------------------------
+SEE ALSO: grdef, grsavedef.
+===============================================================================
+

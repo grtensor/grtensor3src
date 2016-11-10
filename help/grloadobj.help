@@ -1,0 +1,72 @@
+
+===============================================================================
+HELP FOR: grloadobj
+===============================================================================
+
+CALLING SEQUENCE:  grloadobj ( metric, fileName )
+
+      PARAMETERS:  metric   - metric (or basis) name into which the components
+                              are to be loaded.
+                   fileName - file name (string)
+
+-------------------------------------------------------------------------------
+SYNOPSIS:
+
+- The components of a GRTensorII object which has been saved with grsaveobj()
+  can be loaded into MapleV with this command. Thus one can avoid carrying
+  out long calculations multiple times by saving their results to a file and
+  re-loading them in later sessions.
+
+- Components are saved in a spacetime independent form and can be loaded 
+  into any spacetime which is specified by the metric parameter. Subsequent
+  calculations will be carried out as if the loaded tensor had actually
+  been calculated for the given spacetime.
+
+  Note, this can cause nonsensical results if the objects which are loaded
+  do not correspond to those that would normally be calculated for the
+  particular metric.
+
+- The specified metric must have been previously loaded into GRTensorII using 
+  grload() or qload().
+
+-------------------------------------------------------------------------------
+EXAMPLE:
+
+> qload ( bondi ):
+> grcalc ( R(dn,dn), R(dn,dn,dn,dn) ):
+> grsaveobj ( R(dn,dn), R(dn,dn,dn,dn), `bondi.cmpnts` ):
+
+For the bondi metric
+Saved to bondi.cmpts
+
+> restart:
+> readlib ( grii ):
+> qload ( bondi ):
+> grloadobj ( bondi, `bondi.cmpnts` ):
+
+Object R(dn,dn) loaded.
+Object R(dn,dn,dn,dn) loaded.
+Done.
+
+> grdisplay ( R(dn,dn) ):
+
+    [long output omitted...]
+
+-------------------------------------------------------------------------------
+SEE ALSO: grsaveobj, grcalc, grsavedef, grdef.
+===============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

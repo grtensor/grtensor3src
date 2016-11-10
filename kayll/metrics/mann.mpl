@@ -1,0 +1,14 @@
+Ndim_ := 5:
+x1_ := t:
+x2_ := r:
+x3_ := theta:
+x4_ := phi:
+x5_ := psi:
+sig_ := 4:
+complex_ := {}:
+g11_ := -h(r):
+g22_ := 1/h(r)/g(r):
+g33_ := 1/4*r^2*sin(psi)^2+1/4*r^2*cos(psi)^2:
+g44_ := 1/4*r^2*sin(theta)^2*cos(psi)^2+1/4*r^2*sin(theta)^2*sin(psi)^2+1/4*r^2*g(r)*cos(theta)^2:
+g45_ := 1/4*r^2*g(r)*cos(theta):
+g55_ := 1/4*r^2*g(r):

@@ -1,0 +1,13 @@
+Ndim_ := 4:
+x1_ := T:
+x2_ := M:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := -1:
+g22_ := -(-2*R(T,M)^2*diff(S(M),M)*sin(phi)*diff(Q(M),M)*k(M)-2*R(T,M)^2*diff(S(M),M)*cos(phi)*diff(P(M),M)*cos(theta)^2+R(T,M)^2*diff(S(M),M)^2*sin(theta)+2*R(T,M)^2*diff(P(M),M)^2*k(M)*cos(theta)*sin(theta)-2*R(T,M)^2*diff(S(M),M)*sin(phi)*diff(Q(M),M)*cos(theta)^2+2*R(T,M)^2*diff(Q(M),M)^2*k(M)*cos(theta)*sin(theta)+2*R(T,M)^2*diff(S(M),M)*sin(phi)*diff(Q(M),M)*k(M)*cos(theta)^2-R(T,M)^2*diff(Q(M),M)^2*k(M)*sin(theta)*cos(theta)^2-R(T,M)^2*diff(P(M),M)^2*k(M)*sin(theta)*cos(theta)^2+2*R(T,M)^2*diff(S(M),M)*sin(phi)*diff(Q(M),M)*k(M)*cos(theta)-2*R(T,M)^2*diff(S(M),M)*sin(phi)*diff(Q(M),M)*k(M)*cos(theta)^3+R(T,M)^2*diff(P(M),M)^2*sin(theta)*cos(theta)^2-R(T,M)^2*diff(S(M),M)^2*sin(theta)*cos(theta)^2-2*R(T,M)^2*diff(S(M),M)*cos(phi)*diff(P(M),M)*k(M)-2*R(T,M)^2*diff(S(M),M)*cos(phi)*diff(P(M),M)*cos(theta)+2*R(T,M)^2*diff(S(M),M)*cos(phi)*diff(P(M),M)*k(M)*cos(theta)^2-2*R(T,M)^2*diff(S(M),M)*sin(phi)*diff(Q(M),M)*cos(theta)-R(T,M)^2*diff(S(M),M)^2*k(M)*sin(theta)+2*R(T,M)^2*diff(S(M),M)*sin(phi)*diff(Q(M),M)*cos(theta)^3+2*R(T,M)^2*diff(S(M),M)*cos(phi)*diff(P(M),M)*k(M)*cos(theta)+2*R(T,M)^2*diff(S(M),M)*cos(phi)*diff(P(M),M)*cos(theta)^3+R(T,M)^2*diff(Q(M),M)^2*sin(theta)*cos(theta)^2+R(T,M)^2*diff(S(M),M)^2*k(M)*sin(theta)*cos(theta)^2-2*R(T,M)^2*diff(S(M),M)*cos(phi)*diff(P(M),M)*k(M)*cos(theta)^3+2*R(T,M)^2*diff(S(M),M)*sin(phi)*diff(Q(M),M)+2*R(T,M)^2*diff(S(M),M)*cos(phi)*diff(P(M),M)-R(T,M)^2*diff(P(M),M)^2*k(M)*sin(theta)-R(T,M)^2*diff(Q(M),M)^2*k(M)*sin(theta)-2*R(T,M)^2*diff(P(M),M)^2*cos(theta)*sin(theta)-2*R(T,M)^2*diff(Q(M),M)^2*cos(theta)*sin(theta)+R(T,M)^2*diff(P(M),M)^2*sin(theta)+R(T,M)^2*diff(Q(M),M)^2*sin(theta)+diff(R(T,M),M)^2*S(M)^2*sin(theta))/sin(theta)/S(M)^2/(-1+k(M)):
+g23_ := (-1+cos(theta))*(cos(phi)*diff(P(M),M)+diff(S(M),M)*cot(1/2*theta)+sin(phi)*diff(Q(M),M))*R(T,M)^2/S(M):
+g24_ := cot(1/2*theta)*R(T,M)^2*(sin(phi)*diff(P(M),M)-cos(phi)*diff(Q(M),M))*(-2+2*cos(theta)+sin(theta)^2)/S(M):
+g33_ := R(T,M)^2:
+g44_ := R(T,M)^2*sin(theta)^2:

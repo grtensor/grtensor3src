@@ -1,0 +1,11 @@
+Ndim_ :=    4   :
+x1_    :=    r   :
+x2_    :=    theta   :
+x3_    :=    phi   :
+x4_    :=    t   :
+sig_:=2:
+g11_    :=    f(r)/((1-Lambda*r^2/3))   :
+g22_    :=   f(r)*r^2   :
+g33_    :=    f(r)*r^2*sin(theta)^2  :
+g44_    :=    f(r)*(-1+Lambda*r^2/3)   :
+Info_:=`trans desitter`:

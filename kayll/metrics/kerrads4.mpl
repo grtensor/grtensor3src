@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := r:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+g11_ := -F(r)/(r^2+a^2*cos(theta)^2)+Gt(theta)*sin(theta)^2/(r^2+a^2*cos(theta)^2)*a^2:
+g14_ := F(r)/(r^2+a^2*cos(theta)^2)*a*sin(theta)^2/chi-Gt(theta)*sin(theta)^2/(r^2+a^2*cos(theta)^2)*a/chi*r^2-Gt(theta)*sin(theta)^2/(r^2+a^2*cos(theta)^2)*a^3/chi:
+g22_ := 1/F(r)*r^2+1/F(r)*a^2*cos(theta)^2:
+g33_ := 1/Gt(theta)*r^2+1/Gt(theta)*a^2*cos(theta)^2:
+g44_ := -F(r)/(r^2+a^2*cos(theta)^2)*a^2*sin(theta)^4/chi^2+Gt(theta)*sin(theta)^2/(r^2+a^2*cos(theta)^2)/chi^2*r^4+2*Gt(theta)*sin(theta)^2/(r^2+a^2*cos(theta)^2)/chi^2*r^2*a^2+Gt(theta)*sin(theta)^2/(r^2+a^2*cos(theta)^2)/chi^2*a^4:

@@ -1,0 +1,14 @@
+Ndim_ := 5:
+x1_ := t:
+x2_ := w:
+x3_ := h:
+x4_ := theta:
+x5_ := phi:
+sig_ := 5:
+complex_ := {}:
+g11_ := B(h):
+g22_ := A(h):
+g33_ := 1/f(h)/S(h)^4:
+g44_ := 1/f(h)/S(h)^2:
+g55_ := 1/f(h)/S(h)^2*sin(theta)^2:
+constraint_ := [alpha^2+delta^2+epsilon^2+delta*epsilon+delta*alpha+alpha*epsilon-4=0]:

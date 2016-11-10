@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := alpha:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := -1+2/sin(alpha)*m/C:
+g22_ := sin(alpha)^3/(sin(alpha)-2*m/C)/tan(alpha)^2:
+g33_ := sin(alpha)^2:
+g44_ := sin(alpha)^2*sin(theta)^2:

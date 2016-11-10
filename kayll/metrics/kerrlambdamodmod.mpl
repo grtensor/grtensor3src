@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := r:
+x3_ := theta:
+x4_ := phi:
+complambdaex_ := {}:
+g11_ := -1:
+g22_ := exp(2*sqrt(lambda)*t):
+g33_ := 1/lambda:
+g44_ := sin(theta)^2/lambda:

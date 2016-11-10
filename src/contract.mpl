@@ -82,6 +82,7 @@ end:
 #
 grF_calc_sum0 := proc(object, iList)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
+global gr_data, Ndim, grG_metricName;
   RETURN(grG_ObjDef[object][grC_calcFnParms]):
 end:
 

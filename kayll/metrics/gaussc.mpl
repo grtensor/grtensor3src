@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := chi:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := -exp(nu(chi))^2*C^2:
+g22_ := f(chi)*C^2:
+g33_ := R(chi)^2:
+g44_ := R(chi)^2*sin(theta)^2:

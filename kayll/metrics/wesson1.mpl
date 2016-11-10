@@ -1,0 +1,12 @@
+Ndim_ := 5:
+x1_ := t:
+x2_ := x:
+x3_ := y:
+x4_ := z:
+x5_ := l:
+complex_ := {}:
+g11_ := -(L/l)^2:
+g22_ := (L/l)^2*exp(2*I*(omega*t+k[x]*x)):
+g33_ := (L/l)^2*exp(2*I*(omega*t+k[y]*y)):
+g44_ := (L/l)^2*exp(2*I*(omega*t+k[z]*z)):
+g55_ := -(L/l)^4:

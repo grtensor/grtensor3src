@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := m:
+x3_ := x:
+x4_ := y:
+sig_ := 2:
+complex_ := {}:
+g11_ := -1:
+g22_ := exp(alpha(t,m,x,y)):
+g33_ := R(t,m)^2/E(m,x,y)^2:
+g44_ := R(t,m)^2/E(m,x,y)^2:

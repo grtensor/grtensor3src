@@ -44,7 +44,10 @@
 grdef := proc ( )
 local a, defineStr, symSet, asymSet, subRanges, eqPos, tensorName, tensorDef,
 	symList, newTensor, newTensorDef, symFn, grdefArgs:
+
 # Check the command-line arguments:
+
+uses StringTools;
 
 if nargs < 1 then
     ERROR ( `grdef() requires at least one argument.` ):
@@ -88,7 +91,13 @@ for a from 2 to nargs do
   fi:
 od:
 
+# old style back-quote definitions convert to string
+if type( defineStr, symbol) then
+   defineStr := convert( defineStr, string): 
+fi:
+
 if type ( defineStr, string ) then
+    defineStr := StringTools:-DeleteSpace(defineStr);
     eqPos := searchtext ( `:=`, defineStr ):
     if eqPos > 0 then
         tensorName := substring ( defineStr, 1..eqPos-1 ):
@@ -131,7 +140,7 @@ end:
 grF_grdef := proc ( newTensor, newTensorDef, symSet, asymSet, subRanges, symfn,
   defineStr, grdefArgs)
 global	grG_parseAuxMetrics, grF_DIFF, grF_INT, grG_Object, grG_metricName,
-	grF_symFn_, grG_rootSet, grG_ObjDef, grG_usedNameSet:
+	grF_symFn_, grG_rootSet, grG_ObjDef, grG_usedNameSet, gr_data:
 local	b, i, newObject, indexList, newRoot, newObj, newISeq, subList,
 	freeIndexNbr, obj_lhs, obj_rhs, name_lhs, name_rhs:
 #  newTensor := op ( newTensorList ):
@@ -252,7 +261,7 @@ local	b, i, newObject, indexList, newRoot, newObj, newISeq, subList,
         ERROR(`Dimension of default metric and number of components are not equal`);
      fi:
      for b to nops(newTensorDef) do
-        gr_data[newRoot||newISeq||_,grG_default_metricName,b] := newTensorDef[b]:
+        gr_data[cat(newRoot,newISeq,_),grG_default_metricName,b] := newTensorDef[b]:
      od:
      grF_assignedFlag( newObj, set); # indicate this object has been calc'd
      printf(`Components assigned for metric: %a\n`,grG_metricName);

@@ -1,0 +1,13 @@
+Ndim_ := 5:
+x1_ := u:
+x2_ := w:
+x3_ := theta:
+x4_ := phi:
+x5_ := x:
+sig_ := 3:
+complex_ := {}:
+g11_ := 1/3*Lambda*w^2:
+g12_ := 1:
+g33_ := 1/3*(-3+u*w*Lambda)^2/Lambda:
+g44_ := 1/3*sin(theta)^2*(-3+u*w*Lambda)^2/Lambda:
+g55_ := (-6*u+u^2*w*Lambda+2*w*a*Lambda)^2:

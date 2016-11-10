@@ -4,7 +4,14 @@ GRTensor TODO
 - groptions not initied
 - auto init on module load
 
+Open Beta Prep
+==============
+help library
+put metrics and worksheets in place
+vet the worksheets
+get code for sub-libraries
 
+Can grdef accept back ticks and convert to string?
 
 Notes:
 ======
@@ -15,23 +22,21 @@ definition.
 
 Will need a python script to modify all these files...
 
-g(dn,dn,pdn) values are not accesible to other calc functions
-- confusingly they do display correctly...
+autoload is not used. Now just load ALL object definitions into a single library.
 
+grG_multipleDefs: How does this work?
+- multiple definitions are put into grG_multipleDef in object definitions
+- these are checked in cmd_sup.mpl
+  * the field grC_useWhen is checked to see if the definition applies
+  * these relies on a grF_useWhen_tetrad or or grF_useWhen_SpinorInvar
 
-Migration to gr_data to hold ALL component results:
 
 Next:
 =====
 
-Get nptetrad() example working. 
-Check makeg with basis functions
-
-Move grG_sig_ to gr_data[sig_]?
-
-Convert and test killing
-Convert nptetrad()
-Enter a basis function with makeg
+Convert sub-libraries
+Make sure name aliasing is ok. 
+Keep working through the worksheets...
 
 
 Issues:
@@ -58,9 +63,13 @@ Packaging
 
 BUGS
 ====
+1) kdelta
 >grdef ( "v{^a} := kdelta( x{^a}, t)" ):
 kdelta does not evaluate
 This is an existing BUG
+
+2) RicciSc
+- have issue with Lambda - no def (but in fact there are multiple defs)
 
 find all path manipulations and use FileTools:-JoinPath()
 grcomponent has some issues and needs fixing

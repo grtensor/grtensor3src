@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := x:
+x2_ := y:
+x3_ := u:
+x4_ := v:
+sig_ := 2:
+complex_ := {}:
+g11_ := L(u)^2:
+g22_ := L(u)^2:
+g34_ := -1/2:
+Info_ := `Equation 35.40, Misner-Thorne-Wheeler, Copyright GRTensor.org`:

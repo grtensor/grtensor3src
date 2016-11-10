@@ -400,7 +400,7 @@ grG_ObjDef[OpRayEqn][grC_indexList] := []:
 grG_ObjDef[OpRayEqn][grC_calcFn] := grF_calc_OpRayEqn:
 grG_ObjDef[OpRayEqn][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[OpRayEqn][grC_operandSeq] := grVector:
-grG_ObjDef[OpRayEqn][grC_depends] := { Opexpsc[grG_grVector], Opvor[grG_grvector],
+grG_ObjDef[OpRayEqn][grC_depends] := { Opexpsc[grG_grVector], Opvor[grG_grVector],
                      Opshear[grG_grVector] }:
 
 grF_calc_OpRayEqn := proc( object, list)

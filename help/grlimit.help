@@ -1,0 +1,70 @@
+
+===============================================================================
+HELP FOR: grlimit
+===============================================================================
+
+CALLING SEQUENCE:  readlib ( grtools ):
+                   grlimit ( expr, var, limit, fnList, valueList, LHlimit ):
+
+      PARAMETERS:  expr      - an expression
+                   var       - limiting variable
+                   limit     - limiting value of var
+                   fnList    - unspecified functions in expr
+                   valueList - values of functions and/or their derivitives
+                               w.r.t var at the limit point
+                   LHlimit   - (optional) limit to number of times L'Hopital's
+                               rule should be applied (default = 8)
+
+-------------------------------------------------------------------------------
+SYNOPSIS:
+
+- Evaluates expr at the limit point. If indeterminate forms arise then
+  L'Hopital's rule is applied (repeatedly) until the limit is resolved
+  or LH_limit is exceeded. If LH_limit is exceeded the indeterminate
+  portion is returned unevaluated.
+
+- grlimit() works by substitution. It does not determine how rapidly 
+  functions approach the limit point.
+
+- Elements of valueList must consist of equations. The left-hand side of the
+  equations must be a STRING containing the function at the limit point. 
+  Derivitives with respect to the limiting variable by a forward quote (').
+  See the example below for details.
+
+- grlimit() first expands the expression and then evaluates term by term.
+  divergent terms are then lumped together, factored into a single
+  expression and that is then evaluated. This way divergent terms can
+  cancel in some cases. If the final result diverges grlimit() returns
+  infinity (regardless of whether it's -infinity or not).
+
+- grlimit() is part of the grtools library. Load the library via
+  readlib ( grtools ):
+
+-------------------------------------------------------------------------------
+EXAMPLES:
+
+> qload ( static ):
+                           Default spacetime = static
+ 
+                           For the static spacetime:
+ 
+                                  Coordinates
+ 
+                             a
+                           x   = [ r, theta, phi, t ]
+ 
+                                  Line element
+ 
+                2
+        2    d r      2         2     2           2       2             2
+      ds  = ------ + r   d theta   + r  sin(theta)   d phi   - h(r)  d t
+             h(r)
+
+> grcalc ( Ricciscalar ):
+> Rsc := grcomponent ( Ricciscalar );
+
+> readlib ( grtools ):
+> grlimit ( Rsc, r, 0, [h(r)], [`h(0)`=1,`h(0)'`=0] );
+
+                                 -6 h(0)''
+===============================================================================

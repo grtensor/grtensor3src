@@ -1,0 +1,12 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := r:
+x3_ := z:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := -exp(U(r,z))^2:
+g14_ := -exp(U(r,z))^2*A(r,z):
+g22_ := 1/exp(U(r,z))^2*exp(k(r,z))^2:
+g33_ := 1/exp(U(r,z))^2*exp(k(r,z))^2:
+g44_ := -exp(U(r,z))^2*A(r,z)^2+1/exp(U(r,z))^2*r^2:

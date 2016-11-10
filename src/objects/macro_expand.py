@@ -13,6 +13,10 @@ def gr_data(line):
             nline = nline.replace(m.group(0), "gr_data[%s," % m.group(1))
       else:
          match = False
+         m = re.search("grG_\.(\w+)\[", nline)
+         if m:
+            nline = nline.replace(m.group(0), "gr_data[%s," % m.group(1))
+            match = True
    return nline
 
 with open(sys.argv[1]) as f:
@@ -37,9 +41,10 @@ with open(sys.argv[1]) as f:
       else:
          if macro in line:
             line = line.replace(macro, value)
-         line = line.replace("Ndim||grG_metricName", "Ndim[grG_metricName]")
-         if not "ObjDef" in line and  "multipleDef" not in line:
-            line = gr_data(line)
+         else:
+            line = line.replace("Ndim||grG_metricName", "Ndim[grG_metricName]")
+            if not "ObjDef" in line and  "multipleDef" not in line:
+               line = gr_data(line)
          print line.rstrip()
 
 

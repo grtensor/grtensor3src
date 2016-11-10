@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := x:
+x2_ := y:
+x3_ := r:
+x4_ := v:
+sig_ := 2:
+complex_ := {}:
+g11_ := r^2:
+g22_ := r^2:
+g34_ := epsilon:
+g44_ := 2*m(v)/r+1/3*Lambda*r^2:

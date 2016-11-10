@@ -1,0 +1,12 @@
+Ndim_ := 4:
+x1_ := xi:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+sig_ := -2:
+complex_ := {}:
+g11_ := R^2/(-2*alpha*exp(1)+exp(1)*alpha^2+4*exp((-1-xi^2+alpha)/(-2+alpha))*xi^2-2*exp((-1-xi^2+alpha)/(-2+alpha))*xi^2*alpha+exp(1/(2-alpha)*xi^2)*xi^2*alpha*Ei((-1+alpha)/(-2+alpha))-xi^2*exp(1/(2-alpha)*xi^2)*Ei((-2+alpha+xi^2)/(-2+alpha))*alpha)*alpha*(-2+alpha)*exp(1):
+g22_ := R^2*xi^2:
+g33_ := R^2*xi^2*sin(theta)^2:
+g44_ := -exp(1/(-2+alpha)*xi^2):
+Info_ := ` B. Kuchowicz, Report-Nuclear Energy Information Centre NEIC-RR-28 (1967)`:

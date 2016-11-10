@@ -33,7 +33,7 @@ Still need to handle signature, basis, np stuff
 grtensor := module()
 option package;
 export
-    autoalias,
+    autoAlias,
 	gralter,
 	grdisplay,
 	grcalc, 
@@ -48,6 +48,7 @@ export
 	grsavedef,
 	grtransform,
 	kdelta,
+	KillingCoords,
 	makeg, 
 	nptetrad,
 	qload, 
@@ -62,6 +63,7 @@ global
 	grG_rootSet,
 	grG_ObjDef, 
 	grG_sig_,
+	grG_symmetry,
 	grC_maxMetricsInDef,
 	grG_usedNameSet,
 	grOptionDisplayLimit,
@@ -137,7 +139,7 @@ Wrap the object definitions in a procedure wrapper
 *)
 
 load_objects := proc()
-global grG_ObjDef:
+global grG_ObjDef, grG_multipleDef:
 $include  "src/objects/basis.mpl"
 $include  "src/objects/cmdef.mpl"
 $include  "src/objects/diffop.mpl"
@@ -151,10 +153,36 @@ $include  "src/objects/tensors.mpl"
 $include  "src/objects/Vectors.mpl"
 # autoload has aliases we need
 $include  "src/autoload.mpl"
+
+$include "src/objects/dinvar.mpl"
+
+# NP basis objects
+$include "src/objects/basis/CCurve.mpl"
+$include "src/objects/basis/CSpinlib.mpl"
+$include "src/objects/basis/JMSpin.mpl"
+$include "src/objects/basis/NPSpin.mpl"
+$include "src/objects/basis/Petrov.mpl"
+$include "src/objects/basis/RicciSc.mpl"
+$include "src/objects/basis/WeylSc.mpl"
+
+# INVAR objects
+$include "src/objects/invar/m1.mpl"
+$include "src/objects/invar/m2.mpl"
+$include "src/objects/invar/m3.mpl"
+$include "src/objects/invar/m4.mpl"
+$include "src/objects/invar/m5.mpl"
+$include "src/objects/invar/m6.mpl"
+$include "src/objects/invar/r1.mpl"
+$include "src/objects/invar/r2.mpl"
+$include "src/objects/invar/r3.mpl"
+$include "src/objects/invar/w1.mpl"
+$include "src/objects/invar/w2.mpl"
+
 end proc:
 
 (*
 Useful debug routines
+- also included in the export list
 *)
 $include "src/debug.mpl"
 
@@ -180,4 +208,4 @@ savelib(grtensor);
 
 printf("Module grtensor saved into repo at %s\n", savelibname);
 
-quit;
+#quit;

@@ -1,0 +1,13 @@
+Ndim_ := 5:
+x1_ := u:
+x2_ := w:
+x3_ := theta:
+x4_ := phi:
+x5_ := x:
+sig_ := 3:
+complex_ := {}:
+g11_ := exp(f(x))*1/3*Lambda*w^2:
+g12_ := exp(f(x))*1:
+g33_ := exp(f(x))*1/3*(-3+u*w*Lambda)^2/Lambda:
+g44_ :=exp(f(x))*1/3*sin(theta)^2*(-3+u*w*Lambda)^2/Lambda:
+g55_ := 1:

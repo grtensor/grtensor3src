@@ -1,0 +1,14 @@
+Ndim_ := 4:
+x1_ := x:
+x2_ := y:
+x3_ := z:
+x4_ := t:
+complex_ := {}:
+g11_ := -1-2*e^2*m1(t)/r1(x,y,z,t)-2*e^2*m2(t)/r2(x,y,z,t):
+g14_ := 4*e^3*X1(t)/r1(x,y,z,t)+4*e^3*X2(t)/r(x,y,z,t):
+g22_ := -1-2*e^2*m1(t)/r1(x,y,z,t)-2*e^2*m2(t)/r2(x,y,z,t):
+g24_ := 4*e^3*Y1(t)/r1(x,y,z,t)+4*e^3*Y2(t)/r(x,y,z,t):
+g33_ := -1-2*e^2*m1(t)/r1(x,y,z,t)-2*e^2*m2(t)/r2(x,y,z,t):
+g34_ := 4*e^3*Z1(t)/r1(x,y,z,t)+4*e^3*Z2(t)/r(x,y,z,t):
+g44_ := 1-2*e^2*m1(t)/r1(x,y,z,t)-2*e^2*m2(t)/r2(x,y,z,t):
+Info_ := `Jim's Newtonian with the 2 masses entered separately.`:

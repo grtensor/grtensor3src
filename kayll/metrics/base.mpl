@@ -1,0 +1,12 @@
+Ndim_ := 4:
+x1_ := r:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+sig_ := 2:
+complex_ := {}:
+g11_ := f(r)/h(r):
+g22_ := f(r)*r^2:
+g33_ := f(r)*r^2*sin(theta)^2:
+g44_ := -f(r):
+constraint_:=[h(r) = (int(-2*f(r)/r/(diff(f(r),r)*r+f(r))*exp(int((-2*f(r)*diff(f(r),r)*r-3*diff(f(r),r)^2*r^2-2*f(r)^2+2*diff(f(r),`$`(r,2))*f(r)*r^2)/f(r)/r/(diff(f(r),r)*r+f(r)),r)),r)+_C1)*exp(int(-(-2*f(r)*diff(f(r),r)*r-3*diff(f(r),r)^2*r^2-2*f(r)^2+2*diff(f(r),`$`(r,2))*f(r)*r^2)/f(r)/r/(diff(f(r),r)*r+f(r)),r))]:

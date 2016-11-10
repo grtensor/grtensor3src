@@ -1,0 +1,13 @@
+Ndim_ := 4:
+x1_ := xi:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+sig_ := 2:
+complex_ := {}:
+g11_ := R^2*alpha/(alpha-2*xi^2):
+g22_ := R^2*xi^2:
+g33_ := R^2*xi^2*sin(theta)^2:
+g44_ := -1/9*(3*alpha^(1/2)*(alpha-2)^(1/2)-((alpha-2*xi^2)*alpha)^(1/2))^2/alpha/(alpha-2):
+constraint_:=[]:
+Info_:=`K. Schwarzschild, Preuss. Akad. Wiss., 424 (1916).`:

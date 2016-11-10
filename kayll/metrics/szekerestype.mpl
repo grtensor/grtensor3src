@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := r:
+x3_ := p:
+x4_ := q:
+complex_ := {}:
+g11_ := -F(r,p,q):
+g22_ := F(r,p,q):
+g33_ := E(r,p,q)^2:
+g44_ := E(r,p,q)^2:
+constraint_ := []:

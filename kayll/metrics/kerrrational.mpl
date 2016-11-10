@@ -1,0 +1,12 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := phi:
+x3_ := r:
+x4_ := chi:
+sig_ := 2:
+complex_ := {}:
+g11_ := -1+2*m*r/(r^2+a^2*chi^2):
+g12_ := -2*a*m*r/(r^2+a^2*chi^2)+2*a*m*r/(r^2+a^2*chi^2)*chi^2:
+g22_ := (a*chi+a)*(-a*chi+a)*(r^2*a^2*chi^2+r^4+a^2*r^2+a^4*chi^2-2*chi^2*m*a^2*r+2*m*a^2*r)/a^2/(r^2+a^2*chi^2):
+g33_ := 1/(r^2-2*m*r+a^2)*r^2+1/(r^2-2*m*r+a^2)*a^2*chi^2:
+g44_ := 1/(1-chi^2)*r^2+1/(1-chi^2)*a^2*chi^2:

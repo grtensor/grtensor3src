@@ -1,0 +1,13 @@
+Ndim_ := 4:
+x1_ := xi:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+sig_ := -2:
+complex_ := {}:
+g11_ := R^2/cos(arccos(f)-k+k*xi^2)^2:
+g22_ := R^2*xi^2/cos(arccos(f)-k+k*xi^2)^2:
+g33_ := R^2*xi^2*sin(theta)^2/cos(arccos(f)-k+k*xi^2)^2:
+g44_ := -1/cos(arccos(f)-k+k*xi^2)^2*cos(arccos(c)-2^(1/2)*k+2^(1/2)*k*xi^2)^2:
+constraint_ := []:
+Info_ := `Nariai IV (H. Nariai, Sci. Rep. Tohoku Univ. Ser. 1  34 no 3 160 (1950).  Also see Sci. Rep. Tohoku Univ. Ser. 1  35 62 (1951))`:

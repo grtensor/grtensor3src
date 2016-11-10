@@ -1,0 +1,540 @@
+{VERSION 4 0 "Mac OS X" "4.0" }
+{USTYLETAB {PSTYLE "Heading 1" -1 3 1 {CSTYLE "" -1 -1 "Times" 1 18 0
+ 0 0 1 2 1 2 2 2 2 1 0 0 1 }1 1 0 0 8 4 2 0 2 0 2 2 -1 1 }{PSTYLE "War
+ning" -1 7 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 2 2 2 2 2 1 1 0
+ 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Left Justified Maple Outp
+ut" -1 12 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 
+}1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Fixed Width" -1 17 1 {CSTYLE "
+" -1 -1 "Courier" 1 10 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }3 1 0 0 0 0 2 0 2 
+0 2 2 -1 1 }{PSTYLE "Help" -1 10 1 {CSTYLE "" -1 -1 "Courier" 1 9 0 0 
+255 1 2 2 2 2 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Head
+ing 4" -1 20 1 {CSTYLE "" -1 -1 "Times" 1 10 0 0 0 1 1 1 2 2 2 2 1 0 0
+ 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Line Printed Output" -1 6 1
+ {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 2 2 2 2 2 1 1 0 0 1 }1 1 0 
+0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Heading 2" -1 4 1 {CSTYLE "" -1 -1 "T
+imes" 1 14 0 0 0 1 2 1 2 2 2 2 1 0 0 1 }1 1 0 0 8 2 2 0 2 0 2 2 -1 1 }
+{PSTYLE "Maple Output" -1 11 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2
+ 1 2 2 2 2 1 0 0 1 }3 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Heading 3" 
+-1 5 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 1 1 2 2 2 2 1 0 0 1 }1 1 
+0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Diagnostic" -1 9 1 {CSTYLE "" -1 -1
+ "Courier" 1 10 64 128 64 1 2 2 2 2 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2
+ 2 -1 1 }{PSTYLE "Ordered List 1" -1 200 1 {CSTYLE "" -1 -1 "Times" 1 
+12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 0 2 0 2 2 -1 1 }{PSTYLE 
+"Text Output" -1 2 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 2 2 2 2
+ 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Ordered List 2" 
+-1 201 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 
+1 0 0 3 3 2 36 2 0 2 2 -1 1 }{PSTYLE "Ordered List 3" -1 202 1 {CSTYLE
+ "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 72 2
+ 0 2 2 -1 1 }{PSTYLE "R3 Font 0" -1 203 1 {CSTYLE "" -1 -1 "Helvetica"
+ 1 10 255 0 0 1 2 1 2 2 2 2 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }
+{PSTYLE "Ordered List 4" -1 204 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 
+1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 108 2 0 2 2 -1 1 }{PSTYLE "Ordere
+d List 5" -1 205 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1
+ 0 0 1 }1 1 0 0 3 3 2 144 2 0 2 2 -1 1 }{PSTYLE "Annotation Title" -1 
+206 1 {CSTYLE "" -1 -1 "Times" 1 18 0 0 0 1 2 1 2 2 2 2 1 0 0 1 }3 1 0
+ 0 12 12 2 0 2 0 2 2 -1 1 }{PSTYLE "HyperlinkError" -1 207 1 {CSTYLE "
+" -1 -1 "Courier New" 1 12 255 0 255 1 2 2 1 2 2 1 1 0 0 1 }1 1 0 0 0 
+0 2 0 2 0 2 2 -1 1 }{PSTYLE "HyperlinkWarning" -1 208 1 {CSTYLE "" -1 
+-1 "Courier New" 1 12 0 0 255 1 2 2 1 2 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2
+ 0 2 2 -1 1 }{PSTYLE "Bullet Item" -1 15 1 {CSTYLE "" -1 -1 "Times" 1 
+12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 0 2 0 2 2 -1 1 }{PSTYLE 
+"Maple Plot" -1 13 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2
+ 1 0 0 1 }3 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "List Item" -1 14 1 
+{CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3
+ 2 0 2 0 2 2 -1 1 }{PSTYLE "Dash Item" -1 16 1 {CSTYLE "" -1 -1 "Times
+" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }1 1 0 0 3 3 2 0 2 0 2 2 -1 1 }
+{PSTYLE "Error" -1 8 1 {CSTYLE "" -1 -1 "Courier" 1 10 255 0 255 1 2 2
+ 2 2 2 1 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Title" -1 18 
+1 {CSTYLE "" -1 -1 "Times" 1 18 0 0 0 1 2 1 1 2 2 2 1 0 0 1 }3 1 0 0 
+12 12 2 0 2 0 2 2 -1 1 }{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "Time
+s" 1 12 0 0 0 1 2 1 2 2 2 2 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }
+{PSTYLE "R3 Font 2" -1 209 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 0 1 2
+ 2 2 2 2 2 1 0 0 1 }1 1 0 0 0 0 2 0 2 0 2 2 -1 1 }{PSTYLE "Author" -1 
+19 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 0 0 1 }3 1 0 
+0 8 8 2 0 2 0 2 2 -1 1 }{CSTYLE "Help Variable" -1 25 "Courier" 1 12 0
+ 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Underlined Bold" -1 41 "Time
+s" 1 12 0 0 0 1 1 1 2 2 2 2 0 0 0 1 }{CSTYLE "Copyright" -1 34 "Times"
+ 1 10 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Maple Comment" -1 21 "Cour
+ier" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Popup" -1 31 "Times" 1
+ 12 0 128 128 1 1 2 1 2 2 2 0 0 0 1 }{CSTYLE "Atomic Variable" -1 200 
+"Times" 1 12 175 0 175 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "Dictionary Hype
+rlink" -1 45 "Times" 1 12 147 0 15 1 2 2 1 2 2 2 0 0 0 1 }{CSTYLE "Plo
+t Text" -1 28 "Times" 1 8 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D Inp
+ut" -1 19 "Times" 1 12 255 0 0 1 2 2 2 2 1 2 0 0 0 1 }{CSTYLE "Code" 
+-1 201 "Courier New" 1 12 255 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D M
+ath Italic" -1 3 "Times" 1 12 0 0 0 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D
+ Math Small" -1 7 "Times" 1 1 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D
+ Math Bold Small" -1 10 "Times" 1 1 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }
+{CSTYLE "Help Bold" -1 39 "Times" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }
+{CSTYLE "Help Menus" -1 36 "Times" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }
+{CSTYLE "Help Heading" -1 26 "Times" 1 14 0 0 0 1 2 1 2 2 2 2 0 0 0 1 
+}{CSTYLE "2D Output" -1 20 "Times" 1 12 0 0 255 1 2 2 2 2 2 2 0 0 0 1 
+}{CSTYLE "2D Inert Output" -1 202 "Times" 1 12 144 144 144 1 2 2 2 2 1
+ 2 0 0 0 1 }{CSTYLE "Help Normal" -1 30 "Times" 1 12 0 0 0 1 2 2 2 2 2
+ 2 0 0 0 1 }{CSTYLE "Maple Input" -1 0 "Courier" 1 12 255 0 0 1 2 1 2 
+2 1 2 0 0 0 1 }{CSTYLE "Page Number" -1 33 "Times" 1 12 0 0 0 1 2 2 2 
+2 2 2 0 0 0 1 }{CSTYLE "Header and Footer" -1 203 "Times" 1 10 0 0 0 1
+ 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Fixed" -1 23 "Courier" 1 10 0 0 0 
+1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Output Labels" -1 29 "Times" 1 8 0 0 0
+ 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Notes" -1 37 "Times" 1 12 0 0 0 
+1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Help Underlined" -1 44 "Times" 1 12 0 
+0 0 1 2 2 1 2 2 2 0 0 0 1 }{CSTYLE "2D Math Italic Small" -1 204 "Time
+s" 1 1 0 0 0 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D Math Symbol 2" -1 16 "
+Times" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "2D Math" -1 2 "Times
+" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Nonterminal" -1 24 "
+Courier" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Annotation Text" 
+-1 205 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Maple N
+ame" -1 35 "Times" 1 12 104 64 92 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Text
+" -1 206 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Plot Title
+" -1 27 "Times" 1 10 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Help Underl
+ined Italic" -1 43 "Times" 1 12 0 0 0 1 1 2 1 2 2 2 0 0 0 1 }{CSTYLE "
+Caption Reference" -1 207 "Times" 1 12 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }
+{CSTYLE "Default" -1 38 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 0 0 0 1 }
+{CSTYLE "Help Italic Bold" -1 40 "Times" 1 12 0 0 0 1 1 2 2 2 2 2 0 0 
+0 1 }{CSTYLE "Maple Input Placeholder" -1 208 "Courier New" 1 12 200 0
+ 200 1 2 1 2 2 1 2 0 0 0 1 }{CSTYLE "LaTeX" -1 32 "Times" 1 12 0 0 0 1
+ 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Emphasized" -1 22 "Times" 1 12 0 0
+ 0 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "Equation Label" -1 209 "Times" 1 12
+ 0 0 0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "2D Comment" -1 18 "Times" 1 12 
+0 0 0 1 2 2 2 2 2 2 0 0 0 1 }{CSTYLE "Help Italic" -1 42 "Times" 1 12 
+0 0 0 1 1 2 2 2 2 2 0 0 0 1 }{CSTYLE "Prompt" -1 1 "Courier" 1 12 0 0 
+0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "2D Math Bold" -1 5 "Times" 1 12 0 0 
+0 1 2 1 2 2 2 2 0 0 0 1 }{CSTYLE "Hyperlink" -1 17 "Times" 1 12 0 128 
+128 1 2 2 1 2 2 2 0 0 0 1 }{CSTYLE "Caption Text" -1 210 "Times" 1 12 
+0 0 0 1 2 1 2 2 2 2 0 0 0 1 }}
+{SECT 0 {EXCHG {PARA 0 "" 0 "" {TEXT 211 105 "Demonstration 2:(cktest
+) Conformal Killing Vectors in Conformally Flat Spacetime (Cartesian C
+oordisnates)" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 8 "restart:" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 15 "with(grtensor);" }}{PARA 11 "" 1 ""
+ {XPPMATH 20 "Q-GRTensor~III6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "QZCop
+yright~2016,~Peter~Musgrave,~Denis~Pollney,~Kayll~Lake6\"" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "Q-grtensor.org6\"" }}{PARA 11 "" 1 "" {XPPMATH 20
+ "76I*autoAliasG6\"I(gralterGF$I'grcalcGF$I,grcalcalterGF$I,grcomponen
+tGF$I(grdebugGF$I&grdefGF$I*grdisplayGF$I'grinitGF$I'grloadGF$I*grload
+defGF$I&grmapGF$I*groptionsGF$I*grsavedefGF$I,grtestinputGF$I,grtransf
+ormGF$I'kdeltaGF$I&makegGF$I)nptetradGF$I&qloadGF$" }}}{EXCHG {PARA 0 
+"> " 0 "" {MPLTEXT 1 0 16 "qload(confflat);" }}{PARA 6 "" 1 "" {TEXT 
+212 42 "Calculated ds for confflat (0.001000 sec.)" }}{PARA 11 "" 1 ""
+ {XPPMATH 20 "/I2Default~spacetimeG6\"I)confflatGF$" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "I<For~the~confflat~spacetime:G6\"" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "I,CoordinatesG6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "-I\"xG
+6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 "/)I#x~G6\"I\"aGF%=F%6#;
+\"\"\"\"\"%E\\[l%F*I\"xGF%\"\"#I\"yGF%\"\"$I\"zGF%F+I\"tGF%" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "I-Line~elementG6\"" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "/*$I$~dsG6\"\"\"#,**(-I\"CGF%6&I\"xGF%I\"yGF%I\"zGF%I\"tG
+F%\"\"\"I#~dGF%F0)F,I#2~GF%F0F0*(F)F0F1F0)F-F3F0F0*(F)F0F1F0)F.F3F0F0*
+(F)F0F1F0)F/F3F0!\"\"" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 27 "gr
+def(`Px\{^a\}:=[1,0,0,0]`):" }}{PARA 9 "" 1 "" {TEXT 213 124 "\{--> en
+ter grF_grdef, args = Tensor_(Px, [up], [a], 0), [1, 0, 0, 0], \{\}, \+
+\{\}, \{\}, \{\}, Px\{^a\}:=[1,0,0,0], [Px\{^a\}:=[1,0,0,0]]" }}{PARA 
+6 "" 1 "" {TEXT 212 40 "Components assigned for metric: confflat" }
+{TEXT 212 30 "\nCreated definition for Px(up)" }}{PARA 9 "" 1 "" {TEXT
+ 213 47 "<-- exit grF_grdef (now in grtensor:-grdef) = \}" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 27 "grdef(`Py\{^a\}:=[0,1,0,0]`):" }}
+{PARA 9 "" 1 "" {TEXT 213 124 "\{--> enter grF_grdef, args = Tensor_(P
+y, [up], [a], 0), [0, 1, 0, 0], \{\}, \{\}, \{\}, \{\}, Py\{^a\}:=[0,1
+,0,0], [Py\{^a\}:=[0,1,0,0]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "Componen
+ts assigned for metric: confflat" }{TEXT 212 30 "\nCreated definition \+
+for Py(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef (now in
+ grtensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 27 "g
+rdef(`Pz\{^a\}:=[0,0,1,0]`):" }}{PARA 9 "" 1 "" {TEXT 213 124 "\{--> e
+nter grF_grdef, args = Tensor_(Pz, [up], [a], 0), [0, 0, 1, 0], \{\}, \+
+\{\}, \{\}, \{\}, Pz\{^a\}:=[0,0,1,0], [Pz\{^a\}:=[0,0,1,0]]" }}{PARA 
+6 "" 1 "" {TEXT 212 40 "Components assigned for metric: confflat" }
+{TEXT 212 30 "\nCreated definition for Pz(up)" }}{PARA 9 "" 1 "" {TEXT
+ 213 47 "<-- exit grF_grdef (now in grtensor:-grdef) = \}" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 27 "grdef(`Pt\{^a\}:=[0,0,0,1]`):" }}
+{PARA 9 "" 1 "" {TEXT 213 124 "\{--> enter grF_grdef, args = Tensor_(P
+t, [up], [a], 0), [0, 0, 0, 1], \{\}, \{\}, \{\}, \{\}, Pt\{^a\}:=[0,0
+,0,1], [Pt\{^a\}:=[0,0,0,1]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "Componen
+ts assigned for metric: confflat" }{TEXT 212 30 "\nCreated definition \+
+for Pt(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef (now in
+ grtensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 29 "g
+rdef(`Mxy\{^a\}:=[-y,x,0,0]`):" }}{PARA 9 "" 1 "" {TEXT 213 130 "\{-->
+ enter grF_grdef, args = Tensor_(Mxy, [up], [a], 0), [-y, x, 0, 0], \{
+\}, \{\}, \{\}, \{\}, Mxy\{^a\}:=[-y,x,0,0], [Mxy\{^a\}:=[-y,x,0,0]]" 
+}}{PARA 6 "" 1 "" {TEXT 212 40 "Components assigned for metric: conffl
+at" }{TEXT 212 31 "\nCreated definition for Mxy(up)" }}{PARA 9 "" 1 ""
+ {TEXT 213 47 "<-- exit grF_grdef (now in grtensor:-grdef) = \}" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 29 "grdef(`Mxz\{^a\}:=[-z,0,x,0]
+`):" }}{PARA 9 "" 1 "" {TEXT 213 130 "\{--> enter grF_grdef, args = Te
+nsor_(Mxz, [up], [a], 0), [-z, 0, x, 0], \{\}, \{\}, \{\}, \{\}, Mxz\{
+^a\}:=[-z,0,x,0], [Mxz\{^a\}:=[-z,0,x,0]]" }}{PARA 6 "" 1 "" {TEXT 
+212 40 "Components assigned for metric: confflat" }{TEXT 212 31 "\nCre
+ated definition for Mxz(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit \+
+grF_grdef (now in grtensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 29 "grdef(`Myz\{^a\}:=[0,-z,y,0]`):" }}{PARA 9 "" 1 "" 
+{TEXT 213 130 "\{--> enter grF_grdef, args = Tensor_(Myz, [up], [a], 0
+), [0, -z, y, 0], \{\}, \{\}, \{\}, \{\}, Myz\{^a\}:=[0,-z,y,0], [Myz
+\{^a\}:=[0,-z,y,0]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "Components assign
+ed for metric: confflat" }{TEXT 212 31 "\nCreated definition for Myz(u
+p)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef (now in grtenso
+r:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 28 "grdef(`Mt
+x\{^a\}:=[t,0,0,x]`):" }}{PARA 9 "" 1 "" {TEXT 213 127 "\{--> enter gr
+F_grdef, args = Tensor_(Mtx, [up], [a], 0), [t, 0, 0, x], \{\}, \{\}, \+
+\{\}, \{\}, Mtx\{^a\}:=[t,0,0,x], [Mtx\{^a\}:=[t,0,0,x]]" }}{PARA 6 ""
+ 1 "" {TEXT 212 40 "Components assigned for metric: confflat" }{TEXT 
+212 31 "\nCreated definition for Mtx(up)" }}{PARA 9 "" 1 "" {TEXT 213 
+47 "<-- exit grF_grdef (now in grtensor:-grdef) = \}" }}}{EXCHG {PARA 
+0 "> " 0 "" {MPLTEXT 1 0 28 "grdef(`Mty\{^a\}:=[0,t,0,y]`):" }}{PARA 9
+ "" 1 "" {TEXT 213 127 "\{--> enter grF_grdef, args = Tensor_(Mty, [up
+], [a], 0), [0, t, 0, y], \{\}, \{\}, \{\}, \{\}, Mty\{^a\}:=[0,t,0,y]
+, [Mty\{^a\}:=[0,t,0,y]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "Components a
+ssigned for metric: confflat" }{TEXT 212 31 "\nCreated definition for \+
+Mty(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef (now in gr
+tensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 28 "grde
+f(`Mtz\{^a\}:=[0,0,t,z]`):" }}{PARA 9 "" 1 "" {TEXT 213 127 "\{--> ent
+er grF_grdef, args = Tensor_(Mtz, [up], [a], 0), [0, 0, t, z], \{\}, \+
+\{\}, \{\}, \{\}, Mtz\{^a\}:=[0,0,t,z], [Mtz\{^a\}:=[0,0,t,z]]" }}
+{PARA 6 "" 1 "" {TEXT 212 40 "Components assigned for metric: confflat
+" }{TEXT 212 31 "\nCreated definition for Mtz(up)" }}{PARA 9 "" 1 "" 
+{TEXT 213 47 "<-- exit grF_grdef (now in grtensor:-grdef) = \}" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 26 "grdef(`d\{^a\}:=[x,y,z,t]`):
+" }}{PARA 9 "" 1 "" {TEXT 213 121 "\{--> enter grF_grdef, args = Tenso
+r_(d, [up], [a], 0), [x, y, z, t], \{\}, \{\}, \{\}, \{\}, d\{^a\}:=[x
+,y,z,t], [d\{^a\}:=[x,y,z,t]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "Compone
+nts assigned for metric: confflat" }{TEXT 212 29 "\nCreated definition
+ for d(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef (now in
+ grtensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 53 "g
+rdef(`Kx\{^a\}:=[x^2-y^2-z^2+t^2,2*x*y,2*x*z,2*x*t]`):" }}{PARA 9 "" 1
+ "" {TEXT 213 202 "\{--> enter grF_grdef, args = Tensor_(Kx, [up], [a]
+, 0), [t^2+x^2-y^2-z^2, 2*x*y, 2*x*z, 2*x*t], \{\}, \{\}, \{\}, \{\}, \+
+Kx\{^a\}:=[x^2-y^2-z^2+t^2,2*x*y,2*x*z,2*x*t], [Kx\{^a\}:=[x^2-y^2-z^2
++t^2,2*x*y,2*x*z,2*x*t]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "Components a
+ssigned for metric: confflat" }{TEXT 212 30 "\nCreated definition for \+
+Kx(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef (now in grt
+ensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 54 "grdef
+(`Ky\{^a\}:=[2*y*x,-x^2+y^2-z^2+t^2,2*y*z,2*y*t]`):" }}{PARA 9 "" 1 ""
+ {TEXT 213 204 "\{--> enter grF_grdef, args = Tensor_(Ky, [up], [a], 0
+), [2*x*y, t^2-x^2+y^2-z^2, 2*y*z, 2*y*t], \{\}, \{\}, \{\}, \{\}, Ky
+\{^a\}:=[2*y*x,-x^2+y^2-z^2+t^2,2*y*z,2*y*t], [Ky\{^a\}:=[2*y*x,-x^2+y
+^2-z^2+t^2,2*y*z,2*y*t]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "Components a
+ssigned for metric: confflat" }{TEXT 212 30 "\nCreated definition for \+
+Ky(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef (now in grt
+ensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 54 "grdef
+(`Kz\{^a\}:=[2*z*x,2*z*y,-x^2-y^2+z^2+t^2,2*z*t]`):" }}{PARA 9 "" 1 ""
+ {TEXT 213 204 "\{--> enter grF_grdef, args = Tensor_(Kz, [up], [a], 0
+), [2*x*z, 2*y*z, t^2-x^2-y^2+z^2, 2*z*t], \{\}, \{\}, \{\}, \{\}, Kz
+\{^a\}:=[2*z*x,2*z*y,-x^2-y^2+z^2+t^2,2*z*t], [Kz\{^a\}:=[2*z*x,2*z*y,
+-x^2-y^2+z^2+t^2,2*z*t]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "Components a
+ssigned for metric: confflat" }{TEXT 212 30 "\nCreated definition for \+
+Kz(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef (now in grt
+ensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 57 "grdef
+(`Kt\{^a\}:=[-2*t*x,-2*t*y,-2*t*z,-x^2-y^2-z^2-t^2]`):" }}{PARA 9 "" 1
+ "" {TEXT 213 214 "\{--> enter grF_grdef, args = Tensor_(Kt, [up], [a]
+, 0), [-2*x*t, -2*y*t, -2*z*t, -t^2-x^2-y^2-z^2], \{\}, \{\}, \{\}, \{
+\}, Kt\{^a\}:=[-2*t*x,-2*t*y,-2*t*z,-x^2-y^2-z^2-t^2], [Kt\{^a\}:=[-2*
+t*x,-2*t*y,-2*t*z,-x^2-y^2-z^2-t^2]]" }}{PARA 6 "" 1 "" {TEXT 212 40 "
+Components assigned for metric: confflat" }{TEXT 212 30 "\nCreated def
+inition for Kt(up)" }}{PARA 9 "" 1 "" {TEXT 213 47 "<-- exit grF_grdef
+ (now in grtensor:-grdef) = \}" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
+1 0 253 "grcalc(KillingTest[Px],KillingTest[Py],KillingTest[Pz],Killin
+gTest[Pt],KillingTest[Mxy],KillingTest[Mxz],KillingTest[Myz],KillingTe
+st[Mtx],KillingTest[Mty],KillingTest[Mtz],KillingTest[d],KillingTest[K
+x],KillingTest[Ky],KillingTest[Kz],KillingTest[Kt]):" }}{PARA 6 "" 1 "
+" {TEXT 212 35 "Created a definition for Px(up,cdn)" }}{PARA 6 "" 1 ""
+ {TEXT 212 30 "Created definition for Px(dn) " }{TEXT 212 36 "\nCreate
+d a definition for Px(dn,cdn)" }{TEXT 212 36 "\nCreated a definition f
+or Py(up,cdn)" }{TEXT 212 31 "\nCreated definition for Py(dn) " }{TEXT
+ 212 36 "\nCreated a definition for Py(dn,cdn)" }{TEXT 212 36 "\nCreat
+ed a definition for Pz(up,cdn)" }{TEXT 212 31 "\nCreated definition fo
+r Pz(dn) " }{TEXT 212 36 "\nCreated a definition for Pz(dn,cdn)" }
+{TEXT 212 36 "\nCreated a definition for Pt(up,cdn)" }{TEXT 212 31 "\n
+Created definition for Pt(dn) " }{TEXT 212 36 "\nCreated a definition \+
+for Pt(dn,cdn)" }{TEXT 212 37 "\nCreated a definition for Mxy(up,cdn)"
+ }{TEXT 212 32 "\nCreated definition for Mxy(dn) " }{TEXT 212 37 "\nCr
+eated a definition for Mxy(dn,cdn)" }{TEXT 212 37 "\nCreated a definit
+ion for Mxz(up,cdn)" }{TEXT 212 32 "\nCreated definition for Mxz(dn) "
+ }{TEXT 212 37 "\nCreated a definition for Mxz(dn,cdn)" }{TEXT 212 37 
+"\nCreated a definition for Myz(up,cdn)" }{TEXT 212 32 "\nCreated defi
+nition for Myz(dn) " }{TEXT 212 37 "\nCreated a definition for Myz(dn,
+cdn)" }{TEXT 212 37 "\nCreated a definition for Mtx(up,cdn)" }{TEXT 
+212 32 "\nCreated definition for Mtx(dn) " }{TEXT 212 37 "\nCreated a \+
+definition for Mtx(dn,cdn)" }{TEXT 212 37 "\nCreated a definition for \+
+Mty(up,cdn)" }{TEXT 212 32 "\nCreated definition for Mty(dn) " }{TEXT 
+212 37 "\nCreated a definition for Mty(dn,cdn)" }{TEXT 212 37 "\nCreat
+ed a definition for Mtz(up,cdn)" }{TEXT 212 32 "\nCreated definition f
+or Mtz(dn) " }{TEXT 212 37 "\nCreated a definition for Mtz(dn,cdn)" }
+{TEXT 212 35 "\nCreated a definition for d(up,cdn)" }{TEXT 212 30 "\nC
+reated definition for d(dn) " }{TEXT 212 35 "\nCreated a definition fo
+r d(dn,cdn)" }{TEXT 212 36 "\nCreated a definition for Kx(up,cdn)" }
+{TEXT 212 31 "\nCreated definition for Kx(dn) " }{TEXT 212 36 "\nCreat
+ed a definition for Kx(dn,cdn)" }{TEXT 212 36 "\nCreated a definition \+
+for Ky(up,cdn)" }{TEXT 212 31 "\nCreated definition for Ky(dn) " }
+{TEXT 212 36 "\nCreated a definition for Ky(dn,cdn)" }{TEXT 212 36 "\n
+Created a definition for Kz(up,cdn)" }{TEXT 212 31 "\nCreated definiti
+on for Kz(dn) " }{TEXT 212 36 "\nCreated a definition for Kz(dn,cdn)" 
+}{TEXT 212 36 "\nCreated a definition for Kt(up,cdn)" }{TEXT 212 31 "
+\nCreated definition for Kt(dn) " }{TEXT 212 36 "\nCreated a definitio
+n for Kt(dn,cdn)" }{TEXT 212 53 "\nCalculated g(dn,dn,pdn) for conffla
+t (0.002000 sec.)" }{TEXT 212 54 "\nCalculated Chr(dn,dn,dn) for conff
+lat (0.001000 sec.)" }{TEXT 212 45 "\nCalculated detg for confflat (0.
+001000 sec.)" }{TEXT 212 8 "\nprecalc" }{TEXT 212 49 "\nCalculated g(u
+p,up) for confflat (0.002000 sec.)" }{TEXT 212 54 "\nCalculated Chr(dn
+,dn,up) for confflat (0.001000 sec.)" }{TEXT 212 51 "\nCalculated Px(u
+p,cdn) for confflat (0.001000 sec.)" }{TEXT 212 50 "\nCalculated expsc
+[Px] for confflat (0.000000 sec.)" }{TEXT 212 49 "\nCalculated conf[Px
+] for confflat (0.000000 sec.)" }{TEXT 212 47 "\nCalculated Px(dn) for
+ confflat (0.000000 sec.)" }{TEXT 212 51 "\nCalculated Px(dn,cdn) for \+
+confflat (0.000000 sec.)" }{TEXT 212 63 "\nCalculated ktest(dn,dn) || \+
+`[Px]` for confflat (0.001000 sec.)" }{TEXT 212 56 "\nCalculated Killi
+ngTest[Px] for confflat (0.000000 sec.)" }{TEXT 212 51 "\nCalculated P
+y(up,cdn) for confflat (0.000000 sec.)" }{TEXT 212 50 "\nCalculated ex
+psc[Py] for confflat (0.000000 sec.)" }{TEXT 212 49 "\nCalculated conf
+[Py] for confflat (0.000000 sec.)" }{TEXT 212 47 "\nCalculated Py(dn) \+
+for confflat (0.001000 sec.)" }{TEXT 212 51 "\nCalculated Py(dn,cdn) f
+or confflat (0.000000 sec.)" }{TEXT 212 63 "\nCalculated ktest(dn,dn) \+
+|| `[Py]` for confflat (0.000000 sec.)" }{TEXT 212 56 "\nCalculated Ki
+llingTest[Py] for confflat (0.000000 sec.)" }{TEXT 212 51 "\nCalculate
+d Pz(up,cdn) for confflat (0.000000 sec.)" }{TEXT 212 50 "\nCalculated
+ expsc[Pz] for confflat (0.000000 sec.)" }{TEXT 212 49 "\nCalculated c
+onf[Pz] for confflat (0.001000 sec.)" }{TEXT 212 47 "\nCalculated Pz(d
+n) for confflat (0.000000 sec.)" }{TEXT 212 51 "\nCalculated Pz(dn,cdn
+) for confflat (0.000000 sec.)" }{TEXT 212 63 "\nCalculated ktest(dn,d
+n) || `[Pz]` for confflat (0.001000 sec.)" }{TEXT 212 56 "\nCalculated
+ KillingTest[Pz] for confflat (0.000000 sec.)" }{TEXT 212 51 "\nCalcul
+ated Pt(up,cdn) for confflat (0.000000 sec.)" }{TEXT 212 50 "\nCalcula
+ted expsc[Pt] for confflat (0.000000 sec.)" }{TEXT 212 49 "\nCalculate
+d conf[Pt] for confflat (0.001000 sec.)" }{TEXT 212 47 "\nCalculated P
+t(dn) for confflat (0.000000 sec.)" }{TEXT 212 51 "\nCalculated Pt(dn,
+cdn) for confflat (0.000000 sec.)" }{TEXT 212 63 "\nCalculated ktest(d
+n,dn) || `[Pt]` for confflat (0.001000 sec.)" }{TEXT 212 56 "\nCalcula
+ted KillingTest[Pt] for confflat (0.000000 sec.)" }{TEXT 212 52 "\nCal
+culated Mxy(up,cdn) for confflat (0.001000 sec.)" }{TEXT 212 51 "\nCal
+culated expsc[Mxy] for confflat (0.000000 sec.)" }{TEXT 212 50 "\nCalc
+ulated conf[Mxy] for confflat (0.000000 sec.)" }{TEXT 212 48 "\nCalcul
+ated Mxy(dn) for confflat (0.000000 sec.)" }{TEXT 212 52 "\nCalculated
+ Mxy(dn,cdn) for confflat (0.001000 sec.)" }{TEXT 212 64 "\nCalculated
+ ktest(dn,dn) || `[Mxy]` for confflat (0.000000 sec.)" }{TEXT 212 57 "
+\nCalculated KillingTest[Mxy] for confflat (0.000000 sec.)" }{TEXT 
+212 52 "\nCalculated Mxz(up,cdn) for confflat (0.001000 sec.)" }{TEXT 
+212 51 "\nCalculated expsc[Mxz] for confflat (0.000000 sec.)" }{TEXT 
+212 50 "\nCalculated conf[Mxz] for confflat (0.000000 sec.)" }{TEXT 
+212 48 "\nCalculated Mxz(dn) for confflat (0.000000 sec.)" }{TEXT 212 
+52 "\nCalculated Mxz(dn,cdn) for confflat (0.001000 sec.)" }{TEXT 212 
+64 "\nCalculated ktest(dn,dn) || `[Mxz]` for confflat (0.000000 sec.)"
+ }{TEXT 212 57 "\nCalculated KillingTest[Mxz] for confflat (0.001000 s
+ec.)" }{TEXT 212 52 "\nCalculated Myz(up,cdn) for confflat (0.001000 s
+ec.)" }{TEXT 212 51 "\nCalculated expsc[Myz] for confflat (0.000000 se
+c.)" }{TEXT 212 50 "\nCalculated conf[Myz] for confflat (0.001000 sec.
+)" }{TEXT 212 48 "\nCalculated Myz(dn) for confflat (0.000000 sec.)" }
+{TEXT 212 52 "\nCalculated Myz(dn,cdn) for confflat (0.002000 sec.)" }
+{TEXT 212 64 "\nCalculated ktest(dn,dn) || `[Myz]` for confflat (0.000
+000 sec.)" }{TEXT 212 57 "\nCalculated KillingTest[Myz] for confflat (
+0.000000 sec.)" }{TEXT 212 52 "\nCalculated Mtx(up,cdn) for confflat (
+0.001000 sec.)" }{TEXT 212 51 "\nCalculated expsc[Mtx] for confflat (0
+.000000 sec.)" }{TEXT 212 50 "\nCalculated conf[Mtx] for confflat (0.0
+00000 sec.)" }{TEXT 212 48 "\nCalculated Mtx(dn) for confflat (0.00000
+0 sec.)" }{TEXT 212 52 "\nCalculated Mtx(dn,cdn) for confflat (0.00100
+0 sec.)" }{TEXT 212 64 "\nCalculated ktest(dn,dn) || `[Mtx]` for conff
+lat (0.000000 sec.)" }{TEXT 212 57 "\nCalculated KillingTest[Mtx] for \+
+confflat (0.000000 sec.)" }{TEXT 212 52 "\nCalculated Mty(up,cdn) for \+
+confflat (0.001000 sec.)" }{TEXT 212 51 "\nCalculated expsc[Mty] for c
+onfflat (0.000000 sec.)" }{TEXT 212 50 "\nCalculated conf[Mty] for con
+fflat (0.000000 sec.)" }{TEXT 212 48 "\nCalculated Mty(dn) for conffla
+t (0.001000 sec.)" }{TEXT 212 52 "\nCalculated Mty(dn,cdn) for conffla
+t (0.000000 sec.)" }{TEXT 212 64 "\nCalculated ktest(dn,dn) || `[Mty]`
+ for confflat (0.000000 sec.)" }{TEXT 212 57 "\nCalculated KillingTest
+[Mty] for confflat (0.000000 sec.)" }{TEXT 212 52 "\nCalculated Mtz(up
+,cdn) for confflat (0.001000 sec.)" }{TEXT 212 51 "\nCalculated expsc[
+Mtz] for confflat (0.001000 sec.)" }{TEXT 212 50 "\nCalculated conf[Mt
+z] for confflat (0.000000 sec.)" }{TEXT 212 48 "\nCalculated Mtz(dn) f
+or confflat (0.000000 sec.)" }{TEXT 212 52 "\nCalculated Mtz(dn,cdn) f
+or confflat (0.001000 sec.)" }{TEXT 212 64 "\nCalculated ktest(dn,dn) \+
+|| `[Mtz]` for confflat (0.000000 sec.)" }{TEXT 212 57 "\nCalculated K
+illingTest[Mtz] for confflat (0.000000 sec.)" }{TEXT 212 50 "\nCalcula
+ted d(up,cdn) for confflat (0.001000 sec.)" }{TEXT 212 49 "\nCalculate
+d expsc[d] for confflat (0.000000 sec.)" }{TEXT 212 48 "\nCalculated c
+onf[d] for confflat (0.000000 sec.)" }{TEXT 212 46 "\nCalculated d(dn)
+ for confflat (0.000000 sec.)" }{TEXT 212 50 "\nCalculated d(dn,cdn) f
+or confflat (0.001000 sec.)" }{TEXT 212 62 "\nCalculated ktest(dn,dn) \+
+|| `[d]` for confflat (0.001000 sec.)" }{TEXT 212 55 "\nCalculated Kil
+lingTest[d] for confflat (0.000000 sec.)" }{TEXT 212 51 "\nCalculated \+
+Kx(up,cdn) for confflat (0.001000 sec.)" }{TEXT 212 50 "\nCalculated e
+xpsc[Kx] for confflat (0.000000 sec.)" }{TEXT 212 49 "\nCalculated con
+f[Kx] for confflat (0.000000 sec.)" }{TEXT 212 47 "\nCalculated Kx(dn)
+ for confflat (0.001000 sec.)" }{TEXT 212 51 "\nCalculated Kx(dn,cdn) \+
+for confflat (0.001000 sec.)" }{TEXT 212 63 "\nCalculated ktest(dn,dn)
+ || `[Kx]` for confflat (0.000000 sec.)" }{TEXT 212 56 "\nCalculated K
+illingTest[Kx] for confflat (0.000000 sec.)" }{TEXT 212 51 "\nCalculat
+ed Ky(up,cdn) for confflat (0.001000 sec.)" }}{PARA 6 "" 1 "" {TEXT 
+212 49 "Calculated expsc[Ky] for confflat (0.000000 sec.)" }{TEXT 212 
+49 "\nCalculated conf[Ky] for confflat (0.000000 sec.)" }{TEXT 212 47 
+"\nCalculated Ky(dn) for confflat (0.000000 sec.)" }{TEXT 212 51 "\nCa
+lculated Ky(dn,cdn) for confflat (0.001000 sec.)" }{TEXT 212 63 "\nCal
+culated ktest(dn,dn) || `[Ky]` for confflat (0.001000 sec.)" }{TEXT 
+212 56 "\nCalculated KillingTest[Ky] for confflat (0.000000 sec.)" }
+{TEXT 212 51 "\nCalculated Kz(up,cdn) for confflat (0.001000 sec.)" }
+{TEXT 212 50 "\nCalculated expsc[Kz] for confflat (0.000000 sec.)" }
+{TEXT 212 49 "\nCalculated conf[Kz] for confflat (0.000000 sec.)" }
+{TEXT 212 47 "\nCalculated Kz(dn) for confflat (0.001000 sec.)" }{TEXT
+ 212 51 "\nCalculated Kz(dn,cdn) for confflat (0.002000 sec.)" }{TEXT 
+212 63 "\nCalculated ktest(dn,dn) || `[Kz]` for confflat (0.001000 sec
+.)" }{TEXT 212 56 "\nCalculated KillingTest[Kz] for confflat (0.000000
+ sec.)" }{TEXT 212 51 "\nCalculated Kt(up,cdn) for confflat (0.001000 \+
+sec.)" }{TEXT 212 50 "\nCalculated expsc[Kt] for confflat (0.000000 se
+c.)" }{TEXT 212 49 "\nCalculated conf[Kt] for confflat (0.000000 sec.)
+" }{TEXT 212 47 "\nCalculated Kt(dn) for confflat (0.000000 sec.)" }
+{TEXT 212 51 "\nCalculated Kt(dn,cdn) for confflat (0.002000 sec.)" }
+{TEXT 212 63 "\nCalculated ktest(dn,dn) || `[Kt]` for confflat (0.0000
+00 sec.)" }{TEXT 212 56 "\nCalculated KillingTest[Kt] for confflat (0.
+000000 sec.)" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I*CPU~Time~G6\"$\"$c#!
+\"$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 23 "grmap(_,autoAlias,`x
+`):" }}{PARA 6 "" 1 "" {TEXT 212 55 "Applying routine grtensor:-autoAl
+ias to KillingTest[Px]" }}{PARA 6 "" 1 "" {TEXT 212 127 "Warning: C co
+rresponds to a previously defined GRTensor object -- to avoid ambiguit
+ies, only its derivatives have been aliased." }{TEXT 212 56 "\nApplyin
+g routine grtensor:-autoAlias to KillingTest[Py]" }{TEXT 212 128 "\nWa
+rning: C corresponds to a previously defined GRTensor object -- to avo
+id ambiguities, only its derivatives have been aliased." }{TEXT 212 
+56 "\nApplying routine grtensor:-autoAlias to KillingTest[Pz]" }{TEXT 
+212 128 "\nWarning: C corresponds to a previously defined GRTensor obj
+ect -- to avoid ambiguities, only its derivatives have been aliased." 
+}{TEXT 212 56 "\nApplying routine grtensor:-autoAlias to KillingTest[P
+t]" }{TEXT 212 128 "\nWarning: C corresponds to a previously defined G
+RTensor object -- to avoid ambiguities, only its derivatives have been
+ aliased." }{TEXT 212 57 "\nApplying routine grtensor:-autoAlias to Ki
+llingTest[Mxy]" }{TEXT 212 128 "\nWarning: C corresponds to a previous
+ly defined GRTensor object -- to avoid ambiguities, only its derivativ
+es have been aliased." }{TEXT 212 57 "\nApplying routine grtensor:-aut
+oAlias to KillingTest[Mxz]" }{TEXT 212 128 "\nWarning: C corresponds t
+o a previously defined GRTensor object -- to avoid ambiguities, only i
+ts derivatives have been aliased." }{TEXT 212 57 "\nApplying routine g
+rtensor:-autoAlias to KillingTest[Myz]" }{TEXT 212 128 "\nWarning: C c
+orresponds to a previously defined GRTensor object -- to avoid ambigui
+ties, only its derivatives have been aliased." }{TEXT 212 57 "\nApplyi
+ng routine grtensor:-autoAlias to KillingTest[Mtx]" }{TEXT 212 128 "\n
+Warning: C corresponds to a previously defined GRTensor object -- to a
+void ambiguities, only its derivatives have been aliased." }{TEXT 212 
+57 "\nApplying routine grtensor:-autoAlias to KillingTest[Mty]" }{TEXT
+ 212 128 "\nWarning: C corresponds to a previously defined GRTensor ob
+ject -- to avoid ambiguities, only its derivatives have been aliased."
+ }{TEXT 212 57 "\nApplying routine grtensor:-autoAlias to KillingTest[
+Mtz]" }{TEXT 212 128 "\nWarning: C corresponds to a previously defined
+ GRTensor object -- to avoid ambiguities, only its derivatives have be
+en aliased." }{TEXT 212 55 "\nApplying routine grtensor:-autoAlias to \+
+KillingTest[d]" }{TEXT 212 128 "\nWarning: C corresponds to a previous
+ly defined GRTensor object -- to avoid ambiguities, only its derivativ
+es have been aliased." }{TEXT 212 56 "\nApplying routine grtensor:-aut
+oAlias to KillingTest[Kx]" }{TEXT 212 128 "\nWarning: C corresponds to
+ a previously defined GRTensor object -- to avoid ambiguities, only it
+s derivatives have been aliased." }{TEXT 212 56 "\nApplying routine gr
+tensor:-autoAlias to KillingTest[Ky]" }{TEXT 212 128 "\nWarning: C cor
+responds to a previously defined GRTensor object -- to avoid ambiguiti
+es, only its derivatives have been aliased." }{TEXT 212 56 "\nApplying
+ routine grtensor:-autoAlias to KillingTest[Kz]" }{TEXT 212 128 "\nWar
+ning: C corresponds to a previously defined GRTensor object -- to avoi
+d ambiguities, only its derivatives have been aliased." }{TEXT 212 56 
+"\nApplying routine grtensor:-autoAlias to KillingTest[Kt]" }{TEXT 
+212 128 "\nWarning: C corresponds to a previously defined GRTensor obj
+ect -- to avoid ambiguities, only its derivatives have been aliased." 
+}}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_);" }}{PARA 11
+ "" 1 "" {XPPMATH 20 "I<For~the~confflat~spacetime:G6\"" }}{PARA 11 ""
+ 1 "" {XPPMATH 20 "I5~Killing~Test~ResultG6\"" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "/I1Killing~Test[Px]G6\"/Ign~a~homothetic/conformal~Killin
+g~vector~with~conformal~factorGF$,$*&-I\"CGF$6&I\"xGF$I\"yGF$I\"zGF$I
+\"tGF$!\"\"&F*6#F,\"\"\"#F3\"\"#" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I1K
+illing~Test[Py]G6\"/Ign~a~homothetic/conformal~Killing~vector~with~con
+formal~factorGF$,$*&-I\"CGF$6&I\"xGF$I\"yGF$I\"zGF$I\"tGF$!\"\"&F*6#F-
+\"\"\"#F3\"\"#" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I1Killing~Test[Pz]G6
+\"/Ign~a~homothetic/conformal~Killing~vector~with~conformal~factorGF$,
+$*&-I\"CGF$6&I\"xGF$I\"yGF$I\"zGF$I\"tGF$!\"\"&F*6#F.\"\"\"#F3\"\"#" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "/I1Killing~Test[Pt]G6\"/Ign~a~homotheti
+c/conformal~Killing~vector~with~conformal~factorGF$,$*&-I\"CGF$6&I\"xG
+F$I\"yGF$I\"zGF$I\"tGF$!\"\"&F*6#F/\"\"\"#F3\"\"#" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "/I2Killing~Test[Mxy]G6\"/Ign~a~homothetic/conformal~Killi
+ng~vector~with~conformal~factorGF$,$*&,&*&I\"yGF$\"\"\"&I\"CGF$6#I\"xG
+F$F,F,*&F0F,&F.6#F+F,!\"\"F,-F.6&F0F+I\"zGF$I\"tGF$F4#F4\"\"#" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "/I2Killing~Test[Mxz]G6\"/Ign~a~homotheti
+c/conformal~Killing~vector~with~conformal~factorGF$,$*&,&*&I\"zGF$\"\"
+\"&I\"CGF$6#I\"xGF$F,F,*&F0F,&F.6#F+F,!\"\"F,-F.6&F0I\"yGF$F+I\"tGF$F4
+#F4\"\"#" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I2Killing~Test[Myz]G6\"/Ign
+~a~homothetic/conformal~Killing~vector~with~conformal~factorGF$,$*&,&*
+&I\"zGF$\"\"\"&I\"CGF$6#I\"yGF$F,F,*&F0F,&F.6#F+F,!\"\"F,-F.6&I\"xGF$F
+0F+I\"tGF$F4#F4\"\"#" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I2Killing~Test[
+Mtx]G6\"/Ign~a~homothetic/conformal~Killing~vector~with~conformal~fact
+orGF$,$*&,&*&I\"tGF$\"\"\"&I\"CGF$6#I\"xGF$F,F,*&F0F,&F.6#F+F,F,F,-F.6
+&F0I\"yGF$I\"zGF$F+!\"\"#F,\"\"#" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I2K
+illing~Test[Mty]G6\"/Ign~a~homothetic/conformal~Killing~vector~with~co
+nformal~factorGF$,$*&,&*&I\"tGF$\"\"\"&I\"CGF$6#I\"yGF$F,F,*&F0F,&F.6#
+F+F,F,F,-F.6&I\"xGF$F0I\"zGF$F+!\"\"#F,\"\"#" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "/I2Killing~Test[Mtz]G6\"/Ign~a~homothetic/conformal~Killi
+ng~vector~with~conformal~factorGF$,$*&,&*&I\"tGF$\"\"\"&I\"CGF$6#I\"zG
+F$F,F,*&F0F,&F.6#F+F,F,F,-F.6&I\"xGF$I\"yGF$F0F+!\"\"#F,\"\"#" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "/I0Killing~Test[d]G6\"/Ign~a~homothetic/
+conformal~Killing~vector~with~conformal~factorGF$,$*&,,*&I\"xGF$\"\"\"
+&I\"CGF$6#F+F,F,*&I\"yGF$F,&F.6#F1F,F,*&I\"zGF$F,&F.6#F5F,F,*&I\"tGF$F
+,&F.6#F9F,F,-F.6&F+F1F5F9\"\"#F,F<!\"\"#F,F>" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "/I1Killing~Test[Kx]G6\"/Ign~a~homothetic/conformal~Killin
+g~vector~with~conformal~factorGF$,$*&,2*&&I\"CGF$6#I\"xGF$\"\"\"I\"tGF
+$\"\"#F/*&F+F/F.F1F/*&F+F/I\"yGF$F1!\"\"*&F+F/I\"zGF$F1F5*(F.F/F4F/&F,
+6#F4F/F1*(F.F/F7F/&F,6#F7F/F1*(F.F/F0F/&F,6#F0F/F1*&-F,6&F.F4F7F0F/F.F
+/\"\"%F/FBF5#F/F1" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I1Killing~Test[Ky]
+G6\"/Ign~a~homothetic/conformal~Killing~vector~with~conformal~factorGF
+$,$*&,2*(I\"xGF$\"\"\"I\"yGF$F,&I\"CGF$6#F+F,\"\"#*&&F/6#F-F,I\"tGF$F1
+F,*&F3F,F+F1!\"\"*&F3F,F-F1F,*&F3F,I\"zGF$F1F7*(F-F,F:F,&F/6#F:F,F1*(F
+-F,F5F,&F/6#F5F,F1*&-F/6&F+F-F:F5F,F-F,\"\"%F,FBF7#F,F1" }}{PARA 11 ""
+ 1 "" {XPPMATH 20 "/I1Killing~Test[Kz]G6\"/Ign~a~homothetic/conformal~
+Killing~vector~with~conformal~factorGF$,$*&,2*(I\"xGF$\"\"\"I\"zGF$F,&
+I\"CGF$6#F+F,\"\"#*(I\"yGF$F,F-F,&F/6#F3F,F1*&&F/6#F-F,I\"tGF$F1F,*&F7
+F,F+F1!\"\"*&F7F,F3F1F;*&F7F,F-F1F,*(F-F,F9F,&F/6#F9F,F1*&-F/6&F+F3F-F
+9F,F-F,\"\"%F,FBF;#F,F1" }}{PARA 11 "" 1 "" {XPPMATH 20 "/I1Killing~Te
+st[Kt]G6\"/Ign~a~homothetic/conformal~Killing~vector~with~conformal~fa
+ctorGF$,$*&,2*(I\"xGF$\"\"\"I\"tGF$F,&I\"CGF$6#F+F,\"\"#*(I\"yGF$F,F-F
+,&F/6#F3F,F1*(I\"zGF$F,F-F,&F/6#F7F,F1*&&F/6#F-F,F-F1F,*&F;F,F+F1F,*&F
+;F,F3F1F,*&F;F,F7F1F,*&-F/6&F+F3F7F-F,F-F,\"\"%F,FA!\"\"#FDF1" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 121 "grdisplay(Px(up),Py(up),Pz(
+up),Pt(up),Mxy(up),Mxz(up),Myz(up),Mtx(up),Mty(up),Mtz(up),d(up),Kx(up
+),Ky(up),Kz(up),Kt(up));" }}{PARA 11 "" 1 "" {XPPMATH 20 "I<For~the~co
+nfflat~spacetime:G6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "I'Px(up)G6\"" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "-I#PxG6\"6#I#upGF$" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "/)I#PxG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*F*\"\"#\"\"!\"
+\"$F.F+F." }}{PARA 11 "" 1 "" {XPPMATH 20 "I'Py(up)G6\"" }}{PARA 11 ""
+ 1 "" {XPPMATH 20 "-I#PyG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 
+"/)I#PyG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*\"\"!\"\"#F*\"\"$F-F+F-" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "I'Pz(up)G6\"" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "-I#PzG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 "/)I#P
+zG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*\"\"!\"\"#F-\"\"$F*F+F-" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "I'Pt(up)G6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "
+-I#PtG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 "/)I#PtG6\"I\"aGF%=
+F%6#;\"\"\"\"\"%E\\[l%F*\"\"!\"\"#F-\"\"$F-F+F*" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "I(Mxy(up)G6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "-I$MxyG6\"
+6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 "/)I$MxyG6\"I\"aGF%=F%6#;\"
+\"\"\"\"%E\\[l%F*,$I\"yGF%!\"\"\"\"#I\"xGF%\"\"$\"\"!F+F3" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "I(Mxz(up)G6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "-I
+$MxzG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 "/)I$MxzG6\"I\"aGF%=
+F%6#;\"\"\"\"\"%E\\[l%F*,$I\"zGF%!\"\"\"\"#\"\"!\"\"$I\"xGF%F+F1" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "I(Myz(up)G6\"" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "-I$MyzG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 "/)I$
+MyzG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*\"\"!\"\"#,$I\"zGF%!\"\"\"\"$I
+\"yGF%F+F-" }}{PARA 11 "" 1 "" {XPPMATH 20 "I(Mtx(up)G6\"" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "-I$MtxG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "/)I$MtxG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*I\"tGF%\"\"#\"\"!\"\"$F
+/F+I\"xGF%" }}{PARA 11 "" 1 "" {XPPMATH 20 "I(Mty(up)G6\"" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "-I$MtyG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "/)I$MtyG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*\"\"!\"\"#I\"tGF%\"\"$F
+-F+I\"yGF%" }}{PARA 11 "" 1 "" {XPPMATH 20 "I(Mtz(up)G6\"" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "-I$MtzG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "/)I$MtzG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*\"\"!\"\"#F-\"\"$I\"tGF
+%F+I\"zGF%" }}{PARA 11 "" 1 "" {XPPMATH 20 "I&d(up)G6\"" }}{PARA 11 ""
+ 1 "" {XPPMATH 20 "-I\"dG6\"6#I#upGF$" }}{PARA 11 "" 1 "" {XPPMATH 20 
+"/)I\"dG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*I\"xGF%\"\"#I\"yGF%\"\"$I\"
+zGF%F+I\"tGF%" }}{PARA 11 "" 1 "" {XPPMATH 20 "I'Kx(up)G6\"" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "-I#KxG6\"6#I#upGF$" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "/)I#KxG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*,**$I\"tGF%\"\"
+#F**$I\"xGF%F0F**$I\"yGF%F0!\"\"*$I\"zGF%F0F5F0,$*&F2F*F4F*F0\"\"$,$*&
+F2F*F7F*F0F+,$*&F2F*F/F*F0" }}{PARA 11 "" 1 "" {XPPMATH 20 "I'Ky(up)G6
+\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "-I#KyG6\"6#I#upGF$" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "/)I#KyG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*,$*&I\"xGF
+%F*I\"yGF%F*\"\"#F1,**$I\"tGF%F1F**$F/F1!\"\"*$F0F1F**$I\"zGF%F1F6\"\"
+$,$*&F0F*F9F*F1F+,$*&F0F*F4F*F1" }}{PARA 11 "" 1 "" {XPPMATH 20 "I'Kz(
+up)G6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "-I#KzG6\"6#I#upGF$" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "/)I#KzG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%F*,$*&
+I\"xGF%F*I\"zGF%F*\"\"#F1,$*&I\"yGF%F*F0F*F1\"\"$,**$I\"tGF%F1F**$F/F1
+!\"\"*$F4F1F:*$F0F1F*F+,$*&F0F*F8F*F1" }}{PARA 11 "" 1 "" {XPPMATH 20 
+"I'Kt(up)G6\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "-I#KtG6\"6#I#upGF$" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "/)I#KtG6\"I\"aGF%=F%6#;\"\"\"\"\"%E\\[l%
+F*,$*&I\"xGF%F*I\"tGF%F*!\"#\"\"#,$*&I\"yGF%F*F0F*F1\"\"$,$*&I\"zGF%F*
+F0F*F1F+,**$F0F2!\"\"*$F/F2F<*$F5F2F<*$F9F2F<" }}}}
+{MARK "0 0 0" 0 }{VIEWOPTS 1 1 0 1 1 1803 1 1 1 1 }{PAGENUMBERS 0 1 2
+ 33 1 1 }

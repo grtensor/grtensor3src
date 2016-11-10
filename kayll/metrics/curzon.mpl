@@ -1,0 +1,10 @@
+Ndim_ :=    4   :
+x1_    :=    r   :
+x2_    :=    z   :
+x3_    :=    theta   :
+x4_    :=    t   :
+g11_    :=    exp(2*lambda(r,z)-2*Phi(r,z))  :
+g22_    :=    exp(2*lambda(r,z)-2*Phi(r,z))  :
+g33_    :=    r^2*exp(-2*Phi(r,z) ) :
+g44_    :=    -exp(2*Phi(r,z)) :
+Info_:=`The Curzon metric in cylindrical coordinates`:

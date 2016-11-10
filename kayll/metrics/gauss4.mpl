@@ -1,0 +1,12 @@
+Ndim_ := 4:
+x1_ := n:
+x2_ := t:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := 1:
+g12_ := 1/2*B(n,t):
+g22_ := A(n,t):
+g33_ := C(n,t):
+g44_ := C(n,t)*sin(theta)^2:

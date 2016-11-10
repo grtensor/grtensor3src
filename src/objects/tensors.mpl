@@ -437,7 +437,7 @@ grG_ObjDef[G(dn,dn)][grC_rootStr] := `G `:
 grG_ObjDef[G(dn,dn)][grC_indexList] := [dn,dn]:
 grG_ObjDef[G(dn,dn)][grC_calcFn] := grF_calc_sum0:
 grG_ObjDef[G(dn,dn)][grC_calcFnParms] := gr_data[Rdndn_,grG_metricName,a1_,a2_]
-	- 1/2*(gr_data[gdndn_,grG_metricName,a1_,a2_] * gr_data[scalarR, grG_metricName]):
+	- 1/2*(gr_data[gdndn_,grG_metricName,a1_,a2_] * gr_data[scalarR_, grG_metricName]):
 grG_ObjDef[G(dn,dn)][grC_symmetry] := grF_sym_sym2:
 grG_ObjDef[G(dn,dn)][grC_depends] := {g(dn,dn), tRicciscalar, R(dn,dn)}:
 
@@ -693,7 +693,7 @@ grG_ObjDef[S(dn,dn)][grC_indexList] := [dn,dn]:
 grG_ObjDef[S(dn,dn)][grC_calcFn] := grF_calc_sum0:
 grG_ObjDef[S(dn,dn)][grC_calcFnParms] :=
 	'gr_data[Rdndn_,grG_metricName,a1_,a2_]' -
-	(1/Ndim[grG_metricName])*'gr_data[gdndn_,grG_metricName,a1_,a2_] * gr_data[scalarR,grG_metricName]':
+	(1/Ndim[grG_metricName])*'gr_data[gdndn_,grG_metricName,a1_,a2_] * gr_data[scalarR_,grG_metricName]':
 grG_ObjDef[S(dn,dn)][grC_symmetry] := grF_sym_sym2:
 grG_ObjDef[S(dn,dn)][grC_depends] := {R(dn,dn), g(dn,dn), tRicciscalar}:
 

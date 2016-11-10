@@ -1,0 +1,21 @@
+Ndim_ :=   8  :
+x1_   := delta:
+x2_   := epsilon:
+x3_   := iota:
+x4_   := alpha:
+x5_   := beta:
+x6_  := gamma:
+x7_  := xi:
+x8_  := nu:
+complex_ := {}:
+sig_:=8:
+g11_   :=   1:
+g22_   :=   sin(delta)^2:
+g33_   :=   sin(delta)^2*sin(epsilon)^2:
+g44_   :=   sin(delta)^2*sin(epsilon)^2*sin(iota)^2:
+g55_   :=   sin(delta)^2*sin(epsilon)^2*sin(iota)^2*sin(alpha)^2:
+g66_   :=   sin(delta)^2*sin(epsilon)^2*sin(iota)^2*sin(alpha)^2*sin(beta)^2:
+g77_   :=   sin(delta)^2*sin(epsilon)^2*sin(iota)^2*sin(alpha)^2*sin(beta)^2*sin(gamma)^2:
+g88_   :=   sin(delta)^2*sin(epsilon)^2*sin(iota)^2*sin(alpha)^2*sin(beta)^2*sin(gamma)^2*sin(xi)^2:
+constraint_ :=   []   :
+

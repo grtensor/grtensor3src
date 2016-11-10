@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := theta:
+x3_ := mu:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := -F(theta,mu):
+g22_ := A(theta,mu):
+g33_ := B(theta,mu):
+g44_ := C(theta,mu):
