@@ -260,7 +260,6 @@ end:
 
 grF_screenArgs := proc(argParm, reqCalced, reqUncalced)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-
 global  grG_metricName, object, grG_lastObjectSeq, grG_checkObjects_Cache:
 
 #
@@ -712,7 +711,7 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 #
 # mode is either set or test
 #
-global grG_calcFlag:
+global grG_calcFlag, grG_metricName:
 local a, objOperands, objectName, iName, operandSeq, mode, fullName:
 
  objOperands := NULL:
@@ -898,20 +897,6 @@ global grG_metricName;
        grF_makeD (object);
      fi:
    else
-     #
-     # Check the autoload lists
-     #
-     for a in [indices(grG_autoLoad)] do
-       if member(objRoot, grG_autoLoad[op(a)]) then
-         grlib(op(a)):
-         grF_checkIfDefined (object, act);
-         RETURN(NULL):
-       elif member(baseObj, grG_autoLoad[op(a)]) then
-         grlib(op(a)):
-         grF_makeD( object);
-         RETURN(NULL):
-       fi:
-     od:
      ERROR (`No definition found for object` = object ):
    fi:
  fi:

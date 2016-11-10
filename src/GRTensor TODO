@@ -65,9 +65,8 @@ BUGS
 kdelta does not evaluate
 This is an existing BUG
 
-2) cktest worksheet
-- issue with direct assignment of vectors with grdef
-
+2) RicciSc
+- have issue with Lambda - no def (but in fact there are multiple defs)
 
 find all path manipulations and use FileTools:-JoinPath()
 grcomponent has some issues and needs fixing

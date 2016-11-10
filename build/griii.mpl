@@ -155,10 +155,21 @@ $include  "src/objects/Vectors.mpl"
 $include  "src/autoload.mpl"
 
 $include "src/objects/dinvar.mpl"
+
+# NP basis objects
+$include "src/objects/basis/CCurve.mpl"
+$include "src/objects/basis/CSpinlib.mpl"
+$include "src/objects/basis/JMSpin.mpl"
+$include "src/objects/basis/NPSpin.mpl"
+$include "src/objects/basis/Petrov.mpl"
+$include "src/objects/basis/RicciSc.mpl"
+$include "src/objects/basis/WeylSc.mpl"
+
 end proc:
 
 (*
 Useful debug routines
+- also included in the export list
 *)
 $include "src/debug.mpl"
 
