@@ -31,14 +31,9 @@ Migration to gr_data to hold ALL component results:
 Next:
 =====
 
-Get nptetrad() example working. 
-Check makeg with basis functions
-
-Move grG_sig_ to gr_data[sig_]?
-
-Convert and test killing
-Convert nptetrad()
-Enter a basis function with makeg
+Convert sub-libraries
+Make sure name aliasing is ok. 
+Keep working through the worksheets...
 
 
 Issues:

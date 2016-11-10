@@ -63,6 +63,7 @@ global
 	grG_rootSet,
 	grG_ObjDef, 
 	grG_sig_,
+	grG_symmetry,
 	grC_maxMetricsInDef,
 	grG_usedNameSet,
 	grOptionDisplayLimit,
@@ -152,6 +153,8 @@ $include  "src/objects/tensors.mpl"
 $include  "src/objects/Vectors.mpl"
 # autoload has aliases we need
 $include  "src/autoload.mpl"
+
+$include "src/objects/dinvar.mpl"
 end proc:
 
 (*
@@ -181,4 +184,4 @@ savelib(grtensor);
 
 printf("Module grtensor saved into repo at %s\n", savelibname);
 
-quit;
+#quit;
