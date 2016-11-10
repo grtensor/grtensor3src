@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := x:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+g11_ := -A(x):
+g22_ := B(x):
+g33_ := C(x):
+g44_ := C(x)*sin(theta)^2:

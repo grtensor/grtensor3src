@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := rho:
+x3_ := z:
+x4_ := phi:
+g11_ := -1:
+g14_ := -a*rho^2:
+g22_ := 1/exp(a*rho)^2:
+g33_ := 1/exp(a*rho)^2:
+g44_ := (-a^2*rho^4+rho^2):
+complex_ := {}:

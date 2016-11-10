@@ -1,0 +1,12 @@
+Ndim_ := 3:
+x1_ := r:
+x2_ := theta:
+x3_ := phi:
+complex_ := {}:
+eta11_ := 1:
+eta22_ := 1:
+eta33_ := 1:
+b11_ := 1/A:
+b22_ := B/r:
+b23_ := -xi*B*sin(theta)/r:
+b33_ := 1/r/B/sin(theta):

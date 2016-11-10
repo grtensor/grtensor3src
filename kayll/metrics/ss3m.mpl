@@ -1,0 +1,10 @@
+Ndim_ :=    4   :
+x1_   :=   v   :
+x2_   :=   r   :
+x3_   :=   theta   :
+x4_   :=   phi   :
+g11_   :=   -c(r/(r/w)^a/a)^2+2*c(r/(r/w)^a/a)^2*h(r/(r/w)^a/a)/r*(r/w)^a/a   :
+g12_   :=   c(r/(r/w)^a/a)   :
+g33_   :=   r^2   :
+g44_   :=   r^2   :
+Info_ := `    Self-similar metric "Bondi form"    `: 

@@ -1,0 +1,12 @@
+Ndim_ := 4:
+x1_ := m:
+x2_ := theta:
+x3_ := phi:
+x4_ := w:
+sig_ := 2:
+complex_ := {}:
+g11_ := diff(R(m,w),m)^2-diff(T(m),m)^2:
+g14_ := -diff(T(m),m):
+g22_ := R(m,w)^2:
+g33_ := R(m,w)^2*sin(theta)^2:
+g44_ := -1:

@@ -1,0 +1,14 @@
+Ndim_ :=    4   :
+x1_   :=   r   :
+x2_   :=   theta   :
+x3_   :=   phi   :
+x4_   :=   t   :
+eta11_   :=   -1   :
+eta22_   :=   -1   :
+eta33_   :=   -1   :
+eta44_   :=   1   :
+bd11_   :=   a(t)/(1-k*r^2)^(1/2)   :
+bd22_   :=   a(t)*r   :
+bd33_   :=   a(t)*r*sin(theta)   :
+bd44_   :=   1   :
+Info_:=`Robertson-Walker Metric`:

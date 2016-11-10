@@ -1,0 +1,15 @@
+Ndim_ := 6:
+x1_ := T:
+x2_ := R:
+x3_ := theta:
+x4_ := phi:
+x5_   := delta:
+x6_   := epsilon:
+sig_ := 4:
+complex_ := {}:
+g11_ := -1:
+g22_ := (C*T/R-3)^2/9/(C*T/R-1)^(2/3):
+g33_ := R^2*(C*T/R-1)^(4/3):
+g44_ := R^2*(C*T/R-1)^(4/3)*sin(theta)^2:
+g55_ := R^2*(C*T/R-1)^(4/3)*sin(theta)^2*sin(phi)^2:
+g66_ := -R^2*(C*T/R-1)^(4/3)*sin(theta)^2*sin(phi)^2*sin(delta)^2:

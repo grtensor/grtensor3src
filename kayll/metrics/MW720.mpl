@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := eta:
+x2_ := omega:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+g11_ := -exp(A*exp(1/(1-ao)*omega)*exp(1/(1-ao)*eta))*exp(3/2/(1-ao)*omega)*exp(3/2/(1-ao)*eta)/exp(1/(1-ao)*ao*omega)^2/exp(1/(1-ao)*ao*eta)^2*exp(1/(1-ao)*ao^2*omega)*exp(1/(1-ao)*ao^2*eta)/exp(eta)^2*exp(ao*eta)^2:
+g22_ := exp(A*exp(1/(1-ao)*omega)*exp(1/(1-ao)*eta))*exp(3/2/(1-ao)*omega)*exp(3/2/(1-ao)*eta)/exp(1/(1-ao)*ao*omega)^2/exp(1/(1-ao)*ao*eta)^2*exp(1/(1-ao)*ao^2*omega)*exp(1/(1-ao)*ao^2*eta)/exp(eta)^2*exp(ao*eta)^2:
+g33_ := exp(A*exp(1/(1-ao)*omega)*exp(1/(1-ao)*eta))*exp(3/2/(1-ao)*omega)*exp(3/2/(1-ao)*eta)/exp(1/(1-ao)*ao*omega)^2/exp(1/(1-ao)*ao*eta)^2*exp(1/(1-ao)*ao^2*omega)*exp(1/(1-ao)*ao^2*eta)/exp(eta)^2*exp(ao*eta)^2:
+g44_ := exp(A*exp(1/(1-ao)*omega)*exp(1/(1-ao)*eta))*exp(3/2/(1-ao)*omega)*exp(3/2/(1-ao)*eta)/exp(1/(1-ao)*ao*omega)^2/exp(1/(1-ao)*ao*eta)^2*exp(1/(1-ao)*ao^2*omega)*exp(1/(1-ao)*ao^2*eta)/exp(eta)^2*exp(ao*eta)^2*sin(theta)^2:

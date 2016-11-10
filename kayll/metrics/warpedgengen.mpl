@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := x1:
+x2_ := x2:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+g11_ := a(x1,x2,theta,phi):
+g12_ := b(x1,x2,theta,phi):
+g22_ := c(x1,x2,theta,phi):
+g33_ := w(x1,x2,theta,phi)^2:
+g44_ := w(x1,x2,theta,phi)^2:

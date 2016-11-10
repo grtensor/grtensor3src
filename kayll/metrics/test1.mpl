@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := chi:
+x2_ := theta:
+x3_ := phi:
+x4_ := eta:
+complex_ := {}:
+g11_ := 1:
+g22_ := sin(chi)^2:
+g33_ := sin(chi)^2*sin(theta)^2:
+g44_ := -1:

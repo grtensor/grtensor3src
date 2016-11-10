@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := R:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+sig_ := 2:
+complex_ := {}:
+g11_ := 12*(3*R^2*Lambda*beta+R^2*Lambda+3)/(6+3*R^2*Lambda*beta+R^2*Lambda)/(-R^2*Lambda+6+3*R^2*Lambda*beta):
+g22_ := R^2:
+g33_ := R^2*sin(theta)^2:
+g44_ := -1-1/2*R^2*Lambda*beta-1/6*R^2*Lambda:

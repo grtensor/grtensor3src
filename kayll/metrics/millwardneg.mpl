@@ -1,0 +1,13 @@
+Ndim_ := 5:
+x1_ := w:
+x2_ := t:
+x3_ := b:
+x4_ := theta:
+x5_ := phi:
+sig_ := 5:
+complex_ := {}:
+g11_ := A*gamma^2*exp(-b)^2:
+g22_ := -exp(-b)^2:
+g33_ := 9*M^2/exp(-b)^4/sinh(-3^(1/2)*b)^(4):
+g44_ := 3*M^2/exp(-b)^4/sinh(-3^(1/2)*b)^(2):
+g55_ := 3*M^2/exp(-b)^4/sinh(-3^(1/2)*b)^(2)*sin(theta)^2:

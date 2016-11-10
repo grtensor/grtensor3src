@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := R:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+complex_ := {}:
+g11_ := exp(Lambda^(1/2)*t)^2:
+g22_ := 1/(Lambda+a^2*2/(cos(2*theta)+1)):
+g33_ := 1/(Lambda+b^2)*sin(theta)^2:
+g44_ := -1:

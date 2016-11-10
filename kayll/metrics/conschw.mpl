@@ -1,0 +1,11 @@
+Ndim_ :=    4   :
+x1_    :=    r   :
+x2_    :=    theta   :
+x3_    :=    phi   :
+x4_    :=    t   :
+sig_:=2:
+g11_    :=    a(t)/((1-2*m/r))   :
+g22_    :=  a(t)*r^2   :
+g33_    :=    a(t)*r^2*sin(theta)^2  :
+g44_    :=    a(t)*(-1+2*m/r)   :
+Info_:=`The Schwarzschild metric in curvature coordinates`:

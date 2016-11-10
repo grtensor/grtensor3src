@@ -1,0 +1,12 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := r:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := H(r)-J(r)*r^2*sin(theta)^2*Omega(r)^2:
+g14_ := J(r)*r^2*sin(theta)^2*Omega(r):
+g22_ := -J(r):
+g33_ := -J(r)*r^2:
+g44_ := -J(r)*r^2*sin(theta)^2:

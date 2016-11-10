@@ -1,0 +1,15 @@
+Ndim_ :=    4   :
+x1_   :=   r   :
+x2_   :=   theta   :
+x3_   :=   phi   :
+x4_   :=   w   :
+eta11_   :=   -1   :
+eta22_   :=   -1   :
+eta33_   :=   -1   :
+eta44_   :=   1   :
+bd11_   :=   -1/(1-2*m(w)/r)^(1/2)   :
+bd22_   :=   r   :
+bd33_   :=   r*sin(theta)   :
+bd41_   :=   -1/(1-2*m(w)/r)^(1/2)   :
+bd44_   :=   (1-2*m(w)/r)^(1/2)   :
+Info_ := `    Vaidya metric in advanced time (w).    `: 

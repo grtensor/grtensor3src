@@ -1,0 +1,9 @@
+Ndim_ := 3:
+x1_ := t:
+x2_ := r:
+x3_ := z:
+sig_ := 1:
+complex_ := {}:
+g11_ := -exp(lambda(r,z))^2:
+g22_ := exp(nu(r,z))^2/exp(lambda(r,z))^2:
+g33_ := exp(nu(r,z))^2/exp(lambda(r,z))^2:

@@ -1,0 +1,9 @@
+Ndim_ := 3:
+x1_ := u:
+x2_ := theta:
+x3_ := phi:
+sig_ := 3:
+complex_ := {}:
+g11_ := f(u):
+g22_ := h(u):
+g33_ := h(u)*sin(theta)^2:

@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := v:
+x2_ := u:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g12_ := -2*F(v,u):
+g33_ := F(v,u)*sin(v-u)^2:
+g44_ := F(v,u)*sin(v-u)^2*sin(theta)^2:
+constraint_ :=   [diff(F(v,u),u)=diff(F(v,u),v)]:

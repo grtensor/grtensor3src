@@ -1,0 +1,12 @@
+Ndim_ := 4:
+x1_ := r:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+sig_ := 2:
+complex_ := {}:
+g11_ := a^2*cos(theta)^2/(r^2-1/3*r^4*lambda+a^2-1/3*a^2*lambda*r^2-2*m*r)+r^2/(r^2-1/3*r^4*lambda+a^2-1/3*a^2*lambda*r^2-2*m*r):
+g22_ := r^2/(1+1/3*lambda*a^2*cos(theta)^2)+a^2*cos(theta)^2/(1+1/3*lambda*a^2*cos(theta)^2):
+g33_ := 1/3*sin(theta)^2/(r^2+a^2*cos(theta)^2)*lambda*a^2*cos(theta)^2*r^4+2/(r^2+a^2*cos(theta)^2)*m*r*a^2*sin(theta)^4+2/3*sin(theta)^2/(r^2+a^2*cos(theta)^2)*lambda*a^4*cos(theta)^2*r^2+1/3*sin(theta)^2/(r^2+a^2*cos(theta)^2)*lambda*a^6*cos(theta)^2-1/(r^2+a^2*cos(theta)^2)*a^4*sin(theta)^4+2*sin(theta)^2/(r^2+a^2*cos(theta)^2)*r^2*a^2-1/(r^2+a^2*cos(theta)^2)*r^2*a^2*sin(theta)^4+1/3/(r^2+a^2*cos(theta)^2)*r^4*lambda*a^2*sin(theta)^4+sin(theta)^2/(r^2+a^2*cos(theta)^2)*a^4+sin(theta)^2/(r^2+a^2*cos(theta)^2)*r^4+1/3/(r^2+a^2*cos(theta)^2)*a^4*lambda*r^2*sin(theta)^4:
+g34_ := -1/3*sin(theta)^2/(r^2+a^2*cos(theta)^2)*lambda*a^5*cos(theta)^2-1/3*sin(theta)^2/(r^2+a^2*cos(theta)^2)*lambda*a^3*cos(theta)^2*r^2-1/3/(r^2+a^2*cos(theta)^2)*r^4*lambda*a*sin(theta)^2-1/3/(r^2+a^2*cos(theta)^2)*a^3*lambda*r^2*sin(theta)^2-2/(r^2+a^2*cos(theta)^2)*m*r*a*sin(theta)^2:
+g44_ := 2/(r^2+a^2*cos(theta)^2)*m*r+1/3/(r^2+a^2*cos(theta)^2)*r^4*lambda-1/(r^2+a^2*cos(theta)^2)*a^2-1/(r^2+a^2*cos(theta)^2)*r^2+1/3*sin(theta)^2/(r^2+a^2*cos(theta)^2)*lambda*a^4*cos(theta)^2+1/3/(r^2+a^2*cos(theta)^2)*a^2*lambda*r^2+sin(theta)^2/(r^2+a^2*cos(theta)^2)*a^2:

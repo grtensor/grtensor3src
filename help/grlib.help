@@ -1,0 +1,45 @@
+
+===============================================================================
+HELP FOR: grlib
+===============================================================================
+CALLING SEQUENCE:  grlib ( objectLib, [overwrite] ):
+
+PARAMETERS:  objectLib   - name of a GRTensorII object library
+             overwrite   - (optional) parameter indicating new library
+                           is permitted to redefine existing objects
+
+-------------------------------------------------------------------------------
+SYNOPSIS:
+
+- grlib() loads a GRTensorII object library. For Release 1.50, the
+  GRTensorII object libraries are:
+
+                basislib.m, invar.m, dinvar.m
+
+  All of these libraries currently are auto-loading. That is, if a
+  request is made to calculate any of the objects in these libraries,
+  they will be loaded automatically.
+
+  Note that older versions of GRTensorII had additional libraries,
+  diffop.m, grvector.m, and killing.m. These libraries have been
+  incorporated into the standard GRTensorII library, grii.m. The
+  old cmscalar.m has been incorporated into the invar.m library.
+
+- grlib() will not load the library if this causes an existing object to be 
+  re-defined unless the second parameter is present. For instance, if the
+  library defines a tensor R(dn,dn), the default action is not to load the
+  library.
+
+- For information on additional object libraries see ?grt_objects.
+
+-------------------------------------------------------------------------------
+EXAMPLES:
+
+> grlib( dinvar );
+Differential Invariants.
+Last Modified May 12, 1994.
+Done
+
+-------------------------------------------------------------------------------
+SEE ALSO:  grt_objects, grt_operators, grt_basis, grt_invars, grdef.
+===============================================================================

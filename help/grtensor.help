@@ -1,0 +1,77 @@
+
+===============================================================================
+HELP FOR: grtensor()
+===============================================================================
+
+- The grtensor() command displays the version of GRTensorII and
+  loads any grtensor.ini files found in the directories indicated
+  by MapleV's libname variable.
+
+- A grtensor.ini file consists of any number of GRTensorII or MapleV commands.
+  For instance, it can be used to automatically load particular libraries or 
+  set global defaults such as the groption() variables.
+
+
+MAPLEV.3:
+  Full online help for all GRTensorII commands is available by loading the
+  library griihelp. To load this library automatically, add the line
+
+                 readlib ( griihelp ):
+
+  to the grtensor.ini file. [To save memory, these help pages are not loaded 
+  by default with GRTensorII.] Ensure that the file griihelp.m is in the
+  path specified by the MapleV libname variable.
+
+MAPLEV.4
+  Online help is available by placing the file maple.hdb (provided with
+  the GRTensorII distribution) in the path specified by the libname
+  variable. Unfortunately, the new format of MapleV.4 help screens do not
+  allow ASCII files to be displayed in a fixed width font, although
+  existing MapleV.3 help pages are entirely in this format. The consequence
+  is that the alignment of columns will be distorted in tables
+  and also in the examples produced using ASCII versions of MapleV.
+  Since we do not have the resources to maintain multiple sets of
+  help screens and we do not wish to strand users of MapleV.3 or
+  non-windowed MapleV, this will remain a problem for versions of MapleV.4
+  that are not backward compatible with ASCII MapleV.3-style help screens.
+  The ASCII source for the GRTensorII help screens is available from
+  the World Wide Web page referenced below.
+
+-------------------------------------------------------------------------------
+About GRTensorII
+
+  GRTensorII is a package developed by Peter Musgrave, Denis Pollney and
+  Kayll Lake, of Queen's University at Kingston, Ontario, Canada.
+
+  The most recent version of the complete package is distributed free of charge
+  from the World Wide Web address
+
+                 http://astro.queensu.ca/~grtensor/
+
+  It is also available by anonymous ftp from
+
+                 astro.queensu.ca ( = 130.15.26.39 )
+
+  Complete documentation for the use of the program is also available
+  from the WWW and ftp sites.
+
+  If you run into problems using any part of the package, we encourage
+  you to write us at
+
+                 grtensor@astro.queensu.ca
+
+  We welcome any comments, criticism or suggestion for further improvement.
+
+  Though we distribute GRTensorII free of charge, if you make use of this
+  package in published work, we ask that you provide the citation:
+
+       Peter Musgrave, Denis Pollney and Kayll Lake (1996) 
+          GRTensorII software. Queen's University, Kingston, Ontario, Canada.
+
+  We are interested to know of any applications where this package may have
+  been useful and would be grateful if you e-mail us a message telling us of 
+  your citation.
+
+-------------------------------------------------------------------------------
+SEE ALSO:  grt_commands, grt_objects, groptions.
+===============================================================================

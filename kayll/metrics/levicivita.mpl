@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := rho:
+x3_ := z:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := -(rho^s)^4:
+g22_ := (rho^(s^2))^8/(rho^s)^4:
+g33_ := (rho^(s^2))^8/(rho^s)^4:
+g44_ := alpha^2*rho^2/(rho^s)^4:

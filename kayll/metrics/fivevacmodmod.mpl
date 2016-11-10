@@ -1,0 +1,13 @@
+Ndim_ := 5:
+x1_ := w:
+x2_ := t:
+x3_ := b:
+x4_ := theta:
+x5_ := phi:
+sig_ := 5:
+complex_ := {}:
+g11_ := h(b)^2*A:
+g22_ := -h(b)^2:
+g33_ := B^2*M^2/h(b)^2/diff(h(b),b)^2/S(b)^4:
+g44_ := M^2/h(b)^2/diff(h(b),b)^2/S(b)^2:
+g55_ := M^2/h(b)^2/diff(h(b),b)^2/S(b)^2*sin(theta)^2:

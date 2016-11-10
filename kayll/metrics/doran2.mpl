@@ -1,0 +1,14 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := theta:
+x3_ := phi:
+x4_ := r:
+sig_ := 2:
+complex_ := {}:
+g11_ := -1+2*m*r/(r^2+a^2*cos(theta)^2):
+g13_ := -2*m*r/(r^2+a^2*cos(theta)^2)*a*sin(theta)^2:
+g14_ := (1/(r^2+a^2)/(1-1/3*lambda*r^2)*r^2+1/(r^2+a^2)/(1-1/3*lambda*r^2)*a^2*cos(theta)^2)^(1/2)*2^(1/2)*(m*r/(r^2+a^2*cos(theta)^2))^(1/2):
+g22_ := 1/(1+1/3*lambda*a^2*cos(theta)^2)*r^2+1/(1+1/3*lambda*a^2*cos(theta)^2)*a^2*cos(theta)^2:
+g33_ := sin(theta)^2/(1+1/3*lambda*a^2*cos(theta)^2)*r^2+sin(theta)^2/(1+1/3*lambda*a^2*cos(theta)^2)*a^2+2*m*r/(r^2+a^2*cos(theta)^2)*a^2*sin(theta)^4:
+g34_ := -(1/(r^2+a^2)/(1-1/3*lambda*r^2)*r^2+1/(r^2+a^2)/(1-1/3*lambda*r^2)*a^2*cos(theta)^2)^(1/2)*2^(1/2)*(m*r/(r^2+a^2*cos(theta)^2))^(1/2)*a*sin(theta)^2:
+g44_ := 1/(r^2+a^2)/(1-1/3*lambda*r^2)*r^2+1/(r^2+a^2)/(1-1/3*lambda*r^2)*a^2*cos(theta)^2:

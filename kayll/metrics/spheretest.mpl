@@ -1,0 +1,12 @@
+Ndim_ := 3:
+x1_ := r:
+x2_ := theta:
+x3_ := phi:
+sig_ := 3:
+complex_ := {}:
+eta11_ := 1:
+eta22_ := 1:
+eta33_ := 1:
+bd11_ := 1:
+bd23_ := sin(theta):
+bd32_ := 1:

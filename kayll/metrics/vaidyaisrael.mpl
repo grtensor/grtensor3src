@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := u:
+x2_ := w:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g11_ := 4*diff(m(u),u)/U(u)+1/2*w^2/m(u)/(2*m(u)+U(u)*w):
+g12_ := 1:
+g33_ := 4*m(u)^2+4*m(u)*U(u)*w+U(u)^2*w^2:
+g44_ := 4*m(u)^2*sin(theta)^2+4*m(u)*U(u)*w*sin(theta)^2+U(u)^2*w^2*sin(theta)^2:

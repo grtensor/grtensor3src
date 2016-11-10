@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := U:
+x2_ := V:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g12_ := -1/2/cos(U)^2/cos(V)^2:
+g33_ := 1/4*(sin(V)*cos(U)-cos(V)*sin(U))^2/cos(U)^2/cos(V)^2:
+g44_ := 1/4*(sin(V)*cos(U)-cos(V)*sin(U))^2/cos(U)^2/cos(V)^2*sin(theta)^2:
+Info_ := `Equation H.12, Minkowski, Carroll, Copyright GRTensor.org`:

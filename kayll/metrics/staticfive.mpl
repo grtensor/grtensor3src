@@ -1,0 +1,13 @@
+Ndim_ := 5:
+x1_ := w:
+x2_ := t:
+x3_ := r:
+x4_ := theta:
+x5_ := phi:
+sig_ := 4:
+complex_ := {}:
+g11_ := f(r):
+g22_ := -h(r):
+g33_ := l(r):
+g44_ := r^2*l(r):
+g55_ := r^2*l(r)*sin(theta)^2:

@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := u:
+x2_ := v:
+x3_ := theta:
+x4_ := phi:
+sig_ := 2:
+complex_ := {}:
+g12_ := 6/Lambda/(1+u*v)^2:
+g33_ := 3/Lambda/(1+u*v)^2*(1-u*v)^2:
+g44_ := 3/Lambda/(1+u*v)^2*(1-u*v)^2*sin(theta)^2:

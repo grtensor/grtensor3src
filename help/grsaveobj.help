@@ -1,0 +1,35 @@
+
+===============================================================================
+HELP FOR: grsaveobj
+===============================================================================
+
+CALLING SEQUENCE:  grsaveobj ( object(s), fileName ):
+
+      PARAMETERS:  object(s) - GRTensorII object name (or sequence of names)
+                   fileName  - file name (string)
+
+-------------------------------------------------------------------------------
+SYNOPSIS:
+
+- This command saves the component values of GRTensorII objects which have 
+  been calculated via grcalc(). This allows the results of long calculations
+  to be saved so that they do not have to be re-run in later sessions.
+
+- If the object was defined with grdef(), the definition is also saved.
+
+- Files created by grsaveobj() can be loaded using grloadobj().
+
+-------------------------------------------------------------------------------
+EXAMPLES:
+
+> qload ( bondi ):
+> grcalc ( R(dn,dn), R(dn,dn,dn,dn) ):
+
+> grsaveobj ( R(dn,dn), R(dn,dn,dn,dn), `bondi.cmpnts` ):
+For the bondi metric 
+Saved to bondi.cmpnts
+
+-------------------------------------------------------------------------------
+SEE ALSO: grcalc, grloadobj, grsavedef.
+===============================================================================
+

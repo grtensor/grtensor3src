@@ -1,0 +1,14 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := theta:
+x3_ := phi:
+x4_ := r:
+sig_ := 2:
+complex_ := {}:
+g11_ := -(a^2*cos(theta)^2+r^2-2*r*m)/(r^2+a^2*cos(theta)^2):
+g13_ := -2*r*a*sin(theta)^2*m/(r^2+a^2*cos(theta)^2):
+g14_ := 2^(1/2)*(r*m*(r^2+a^2))^(1/2)/(r^2+a^2):
+g22_ := r^2+a^2*cos(theta)^2:
+g33_ := sin(theta)^2*(a^2*cos(theta)^2*r^2+a^4*cos(theta)^2-2*a^2*cos(theta)^2*m*r+r^4+r^2*a^2+2*m*r*a^2)/(r^2+a^2*cos(theta)^2):
+g34_ := -2^(1/2)*(r*m*(r^2+a^2))^(1/2)*a*sin(theta)^2/(r^2+a^2):
+g44_ := 1/(r^2+a^2)*r^2+1/(r^2+a^2)*a^2*cos(theta)^2:

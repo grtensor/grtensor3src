@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := rho:
+x2_ := z:
+x3_ := phi:
+x4_ := t:
+sig_ := 2:
+complex_ := {}:
+g11_ := 1:
+g22_ := f(rho):
+g33_ := g(rho):
+g44_ := -h(rho):

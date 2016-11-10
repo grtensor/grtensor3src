@@ -1,0 +1,15 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := x:
+x3_ := y:
+x4_ := z:
+sig_ := 2:
+complex_ := {}:
+g11_ := -f(t,x):
+g22_ := f(t,x):
+g33_ := t*x^2:
+g44_ := t:
+constraint_ := []:
+Info_ := `Ibanez and Verdaguer metric for a stiff fluid `:
+Ref_ := ["Ibanez, J., Verdaguer, E., apj, v306, p401, (1986)"]:
+Archive4_ := `(6.7.15) p229`:

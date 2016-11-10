@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := m:
+x2_ := theta:
+x3_ := phi:
+x4_ := t:
+sig_ := 2:
+complex_ := {}:
+g11_ := exp(alpha(m,t)):
+g22_ := R(m,t)^2:
+g33_ := R(m,t)^2*sin(theta)^2:
+g44_ := -1:

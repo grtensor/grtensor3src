@@ -1,0 +1,20 @@
+Ndim_ := 8:
+x1_   :=   l   :
+x2_   :=   x   :
+x3_   :=   y  :
+x4_   :=   z  :
+x5_   :=   u  :
+x6_   :=  v  :
+x7_   :=  w :
+x8_   :=  f :
+sig_:=8:
+g11_   :=   F(l,x)   :
+g22_   :=   G(x)  :
+g33_   :=   H(y,z)  :
+g44_   :=   J(z)  :
+g55_   :=   K(u,v)  :
+g66_   :=   L(v)  :
+g77_   :=   M(w,f)  :
+g88_   :=   N(f)  :
+Info_:=`Kerr metric in Boyer-Lindquist coordinates as a subspace.`:
+

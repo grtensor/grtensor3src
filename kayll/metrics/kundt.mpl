@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := u:
+x2_ := v:
+x3_ := xi:
+x4_ := xib:
+complex_ := {}:
+g11_ := 2*H(u,v,xi,xib):
+g12_ := 1:
+g13_ := W(u,v,xi,xib):
+g14_ := Wb(u,v,xi,xib):
+g34_ := -1/P(u,xi,xib)^2:

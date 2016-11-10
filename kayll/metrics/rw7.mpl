@@ -1,0 +1,17 @@
+Ndim_:= 7:
+x1_:= r:
+x2_:= theta:
+x3_:= phi:
+x4_   := delta:
+x5_   := epsilon:
+x6_   := iota:
+x7_:= t:
+sig_:=6:
+g11_:= a(t)^2/(1-k*r^2):
+g22_:= a(t)^2*r^2:
+g33_:= a(t)^2*r^2*sin(theta)^2:
+g44_:= a(t)^2*r^2*sin(theta)^2*sin(phi)^2:
+g55_:= a(t)^2*r^2*sin(theta)^2*sin(phi)^2*sin(delta)^2:
+g66_:= a(t)^2*r^2*sin(theta)^2*sin(phi)^2*sin(delta)^2*sin(epsilon)^2:
+g77_:= -1:
+Info_:=`Robertson-Walker Metric 7`:

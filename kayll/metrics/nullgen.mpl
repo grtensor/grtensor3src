@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := u:
+x2_ := v:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+sig_:=2:
+g12_ := -f(u,v):
+g33_ := r(u,v)^2*l(theta,phi):
+g44_ := r(u,v)^2*l(theta,phi):

@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := u:
+x2_ := r:
+x3_ := theta:
+x4_ := phi:
+g11_ := -(v(u,r,theta)*exp(2*b(u,r,theta))/r-w(u,r,theta)^2*r^2*exp(2*y(u,r,theta))):
+g12_ := -exp(2*b(u,r,theta)):
+g13_ := -w(u,r,theta)*r^2*exp(2*y(u,r,theta)):
+g33_ := r^2*exp(2*y(u,r,theta)):
+g44_ := r^2*sin(theta)^2*exp(-2*y(u,r,theta)):
+Info_:=`The Bondi Metric `:

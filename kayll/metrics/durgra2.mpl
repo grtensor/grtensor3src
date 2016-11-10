@@ -1,0 +1,11 @@
+Ndim_ := 4:
+x1_ := t:
+x2_ := r:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+g11_ := -alpha*cos(w[a]/2-w(r)/2+beta)^2:
+g22_ := 1/(1-2*delta*(x(r)-3*x(r)^2/5)):
+g33_ := r^2:
+g44_ := r^2*sin(theta)^2:
+constraint_ := []:

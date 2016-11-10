@@ -1,0 +1,10 @@
+Ndim_ := 4:
+x1_ := u:
+x2_ := w:
+x3_ := theta:
+x4_ := phi:
+complex_ := {}:
+g11_ := Lambda*w^2:
+g12_ := 1:
+g33_ := 1/Lambda:
+g44_ := sin(theta)^2/Lambda:

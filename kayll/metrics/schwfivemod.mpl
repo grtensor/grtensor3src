@@ -1,0 +1,14 @@
+Ndim_ :=   5   :
+x1_   :=   t   :
+x2_   :=   r  :
+x3_   :=   theta   :
+x4_   :=   phi   :
+x5_   := delta:
+complex_ := {}:
+sig_:=4:
+g11_   :=   -(1-2*m/r^2-Lambda*r^2/(4)) :
+g22_   :=   1/ (1-2*m/r^2-Lambda*r^2/(4)) :
+g33_   :=   r^2   :
+g44_   :=   r^2*sin(theta)^2   :
+g55_   :=   r^2*sin(theta)^2*sin(phi)^2:
+Info_:=`Schwarzschild-Tangherlini `:

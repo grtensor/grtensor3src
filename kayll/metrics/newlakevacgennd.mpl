@@ -1,0 +1,15 @@
+Ndim_ := 5:
+x1_ := w:
+x2_ := t:
+x3_ := h:
+x4_ := theta:
+x5_ := phi:
+sig_ := 5:
+complex_ := {}:
+g11_ := h^a:
+g22_ := -h^b:
+g12_:=1:
+g33_ := H(h):
+g44_ := h^2:
+g55_ := h^2*sin(theta)^2:
+constraint_ := []:

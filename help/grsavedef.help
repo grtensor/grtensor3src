@@ -1,0 +1,38 @@
+
+===============================================================================
+HELP FOR: grsavedef
+===============================================================================
+
+CALLING SEQUENCE:  grsavedef( objectSeq, fileName ):
+
+      PARAMETERS:  objectSeq - GRTensorII object name or sequence of names
+                   fileName  - file name (string)
+
+SYNOPSIS:
+
+- This command is used to save definitions of tensors which have been
+  created by the grdef() command.
+
+- Definitions saved using this command can be loaded using grloaddef().
+
+-------------------------------------------------------------------------------
+EXAMPLES:
+
+> grdef ( `G2{a b} := G{a b} + Lambda*g{a b}` ):
+> grdef ( `G2scalar := G2{^a a}` ):
+
+> grsavedef ( G2(dn,dn), `G2.def` ):
+
+Saved definition of G2(dn,dn)
+Done.
+
+> grsavedef ( G2(dn,dn), G2scalar, `G2tensors.def`):
+
+Saved definition of G2(dn,dn)
+Saved definition of G2scalar
+Done.
+
+-------------------------------------------------------------------------------
+SEE ALSO:  grdef, grloaddef, grsaveobj, grloadobj.
+===============================================================================
+

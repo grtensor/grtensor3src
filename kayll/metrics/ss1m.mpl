@@ -1,0 +1,10 @@
+Ndim_ :=    4   :
+x1_   :=   r   :
+x2_   :=   theta   :
+x3_   :=   phi   :
+x4_   :=   t   :
+g11_   :=   exp(lambda(r/(a*t)^(1/a)))   :
+g22_   :=   r^2   :
+g33_   :=   r^2*sin(theta)^2   :
+g44_   :=   -exp(nu(r/(a*t)^(1/a)))   :
+Info_ := `    Self-similar metric "curvature form"    `: 
