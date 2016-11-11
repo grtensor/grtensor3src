@@ -208,4 +208,4 @@ savelib(grtensor);
 
 printf("Module grtensor saved into repo at %s\n", savelibname);
 
-#quit;
+quit;
