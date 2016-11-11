@@ -890,6 +890,7 @@ local 	i, btype:
 	fi:
 
 	if assigned ( G_constraint ) then
+	    gr_data[constraint, grG_metricName] := grG_constraint[grG_metricName];
 		grG_constraint[grG_metricName] := [op(G_constraint)]:
 		grF_assignedFlag ( constraint, set, grG_metricName ):
 	fi:

@@ -3,7 +3,7 @@
 # GRTENSOR II MODULE: basis.mpl
 #
 # (C) 1992-94 Peter Musgrave, Kayll Lake and Denis Pollney
-#
+#da
 # File Created By: Denis Pollney
 #            Date: August 24 1994
 #
@@ -45,7 +45,7 @@ grG_multipleDef[Phi02] := [RPhi02, Phi02]:
 grG_multipleDef[Phi11] := [RPhi11, Phi11]:
 grG_multipleDef[Phi12] := [RPhi12, Phi12]:
 grG_multipleDef[Phi22] := [RPhi22, Phi22]:
-grG_multipleDef[Lambda]:= [RLambda, Lambda]:
+grG_multipleDef[Lambda]:= [RLambda, NPLambda]:
 
 #===========================================================
 #
@@ -452,7 +452,7 @@ end:
 
 grG_ObjDef[NPRicciscalar][grC_displayName] := Ricciscalar:
 grG_ObjDef[NPRicciscalar][grC_calcFn] := grF_calc_NPRsc:
-grG_ObjDef[NPRicciscalar][grC_depends] := {Lambda}:
+grG_ObjDef[NPRicciscalar][grC_depends] := {NPLambda}:
 grG_ObjDef[NPRicciscalar][grC_useWhen] := grF_when_NPRsc:
 
 grF_when_NPRsc := proc()

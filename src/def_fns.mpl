@@ -220,15 +220,12 @@ end proc:
 
 Sym := proc(a, b)
 global grG_symList;
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-
   grG_symList := [ op(grG_symList), a]:
   grF_symGuts(a, b, 0);
 
 end:
 
 Asym := proc(a, b)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 global grG_asymList;
 
   grG_asymList := [ op(grG_asymList), a]:
@@ -284,21 +281,5 @@ s/nops(iList)!;
 end:
 
 
-#--------------------------------------
-# `Tensor/print`
-#
-# Pretty printer for Tensor expressions
-# DANGEROUS because it messes up the index ordering
-# in expressions
-#
-#--------------------------------------
-
-#`print/Tensor_` := proc( root, iType, iList, gnum)
-# local object:
-
-# object := root( op(iType) ):
-# grF_dispStr3( object, iList, true);
-
-#end:
 
 

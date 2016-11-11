@@ -14,7 +14,7 @@
 grG_ObjDef[WeylSc][grC_alias] := Psi0, Psi1, Psi2, Psi3, Psi4:
 
 grG_ObjDef[RicciSc][grC_alias] := Phi00, Phi01, Phi02, Phi11, Phi12, Phi22,
-				 Lambda:
+				 NPLambda:
 
 grG_ObjDef[NPSpin][grC_alias] := NPkappa, NPsigma, NPlambda, NPnu, NPrho, 
                        NPmu, NPtau, NPpi, NPepsilon, NPgamma, NPalpha, NPbeta:

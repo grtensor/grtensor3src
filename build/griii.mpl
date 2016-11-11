@@ -37,8 +37,10 @@ export
 	gralter,
 	grdisplay,
 	grcalc, 
+	grcalcd,
 	grcalcalter,
 	grcomponent,
+	grconstraint,
 	grdef,
 	grload, 
 	grloaddef,
@@ -51,6 +53,7 @@ export
 	KillingCoords,
 	makeg, 
 	nptetrad,
+	PetrovReport,
 	qload, 
 	grtestinput,   # remove when shipping
 	grdebug;
@@ -139,7 +142,7 @@ Wrap the object definitions in a procedure wrapper
 *)
 
 load_objects := proc()
-global grG_ObjDef, grG_multipleDef:
+global grG_ObjDef, grG_multipleDef, PetrovReport:
 $include  "src/objects/basis.mpl"
 $include  "src/objects/cmdef.mpl"
 $include  "src/objects/diffop.mpl"
@@ -208,4 +211,8 @@ savelib(grtensor);
 
 printf("Module grtensor saved into repo at %s\n", savelibname);
 
-quit;
+# Hack to allow load and then debug in the same session when loaded manually. 
+if not assigned(noquit) then
+   quit;
+fi:
+

@@ -91,7 +91,7 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 
 local newEqn, s:
 
-global grG_constraint:
+global grG_constraint, gr_data:
 
  #
  #
@@ -109,6 +109,8 @@ global grG_constraint:
       grG_constraint[metric]  :=
             [op(grG_constraint[metric]),newEqn];
  else
+   # assign to reference
+   gr_data[constraint, metric] := grG_constraint[metric];
    grG_constraint[metric]  := [newEqn];
    grF_assignedFlag ( constraint, set ):
  fi:

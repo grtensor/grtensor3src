@@ -68,12 +68,18 @@ This is an existing BUG
 
 2) RicciSc
 - have issue with Lambda - no def (but in fact there are multiple defs)
+- seems to have become a RicciSc bug.. Some components that should be zero are not.
+
+3) PetrovReport is not shown
+
+4) Intro WS the C(bdn,bdn,bup,bup) symmetries on display are wrong (showing too many components)
+
+5) rnds1: nptetrad dialog is missing prompt.
 
 find all path manipulations and use FileTools:-JoinPath()
 grcomponent has some issues and needs fixing
 create.mpl has old concat based junk in it. 
-nptetrad.mpl likewise
-objects/diffop.mpl
-objects/basis.mpl
 grC_ZERO will be broken - use $define?
+schwbasis.mws also
+
 

@@ -159,8 +159,7 @@ end: # brktFind()
 #------------------------------------------
 
 grF_doSym := proc( inStr, indices, brktList, symFn)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
- local i,j,k, symList, symOver, sList, start, last,
+local i,j,k, symList, symOver, sList, start, last,
 	inBachBar, symType,
         openStr, closeStr, operatorType, tensorType, indexType,
         typeArray, openCnt, inOp, openList:
@@ -317,6 +316,7 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
       symOver := 0:
       inBachBar := false:
 
+      # i is a list indicating position where symmetry symbols are found
       for k from i[1]+1 to i[2]-1 do
 
         if indices[k] <> 0 and not inBachBar then
@@ -370,10 +370,10 @@ end:
 #------------------------------------------
 
 grF_indexFind := proc(inStr, brktList)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
- local i, j, Prime, Up, Tetrad, Spinor, CoD, Partial, indices, explicit,
+local i, j, Prime, Up, Tetrad, Spinor, CoD, Partial, indices, explicit,
 	iType, attribSet, upperCase, attrib_default, preChar:
 
+ uses StringTools;
 
  indices := array(1..inStr[0]):
  for i to inStr[0] do indices[i] := 0: od:
@@ -381,6 +381,10 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
  for i in brktList do
    attrib_default := {}:
    for j from i[1]+1 to i[2]-1 do
+     # PM2016 - now need to skip spaces explicitly. 
+     if StringTools:-IsSpace(inStr[j]) then
+        next
+     fi:
      #
      # if we encounter a ; or , then EVERY index from that point
      # is a cdn or pdn
@@ -591,6 +595,10 @@ local str, pos, idx, a:
   RETURN ( str ):
 end:
 
+(*
+Verify the definition indices in the tensor name
+are present in the tensor definition.
+*)
 grF_verifyDefIndices := proc ( tname, tdef )
 local idxn, idxd:
   idxn := grF_checkIndices ( tname ):
@@ -602,14 +610,19 @@ local idxn, idxd:
   elif convert (tdef, name) <> `nodef` then
     idxd := grF_checkIndices ( tdef ):
     if grF_compareIndices(idxn,idxd) <> NULL then
+      printf("Indices in name: %a\n", idxn);
+      printf("Indices in definition: %a\n", idxd);
       ERROR (`lhs/rhs index conflict.`):
     fi:
   fi:
 end:
 
+(*
+Maple normalizes '-' and '/' to '+' and '*'
+*)
+
 grF_checkIndices := proc ( t_expr )
 local expr, stdidx, a, idx, stdterm, idxl, idxr:
-
   expr := expand ( t_expr ):
 
   if type (expr, `+`) then
@@ -638,7 +651,7 @@ local expr, stdidx, a, idx, stdterm, idxl, idxr:
     idxl := grF_checkIndices (lhs(expr)):
     idxr := grF_checkIndices (rhs(expr)):
     if grF_compareIndices (idxl, idxr)<>NULL then
-      ERROR (`Index conflict between lhs and rhs.`):
+      ERROR (`Index conflict between lhs and rhs of equation.`):
     else
       idx := idxl:
     fi:
@@ -660,9 +673,8 @@ end:
 
 grF_checkTermIndices := proc ( expr )
 local a, idx, newidx, upset, dnset, dummyset:
-
   if type(expr,`*`) or 
-    (type(expr,function) and not member (op(0,expr), {Tensor_, Operator_}))
+    (type(expr,function) and not member (op(0,expr), {Tensor_, Operator_, Sym, Asym}))
       then
     idx := [[],[]]:
     for a in expr while idx<>-1 do
@@ -695,12 +707,21 @@ local a, idx, newidx, upset, dnset, dummyset:
   RETURN ( idx ):
 end:
 
-grF_getTermIndices := proc ( expr )
-local pos, idx, upidx, dnidx, a:
-
+grF_getTermIndices := proc ( expr_in )
+local pos, idx, upidx, dnidx, a, expr:
+  expr := expr_in;
   upidx := NULL:
   dnidx := NULL:
   if type (expr, function) then
+    # If there is a Asym/Sym wrapper, look at the tensor inside.
+    # Direct compare with Asym or Sym symbol does not work. No idea why.
+    if convert(op(0,expr),string) = "Asym" then
+        expr := op(2,expr);
+    fi:
+    if convert(op(0,expr),string) = "Sym" then
+        expr := op(2,expr);
+    fi:
+
     if op(0,expr)=Tensor_ then
       pos := op(2,expr):
       idx := op(3,expr):
@@ -754,8 +775,7 @@ end:
 #------------------------------------------
 
 grF_strToDef := proc( sdef, defLHS )
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
- global grG_symList, grG_asymList;
+global grG_symList, grG_asymList;
 
  local work, workStr, brktList, sqbrktList, indices,
 	i, retExpr, iTypeSeq, iListSeq, inTensor,

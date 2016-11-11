@@ -55,7 +55,6 @@ end:
 
 grF_extractSymmetries := proc ( tensorNameStr )
 local i, j, tensorName, newtensorName, newtensorNameStr:
-
 tensorName := grF_stringify ( tensorNameStr ):
 j := 1:
 for i to tensorName[0] do

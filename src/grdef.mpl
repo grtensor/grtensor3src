@@ -97,7 +97,7 @@ if type( defineStr, symbol) then
 fi:
 
 if type ( defineStr, string ) then
-    defineStr := StringTools:-DeleteSpace(defineStr);
+    defineStr := StringTools:-Squeeze(defineStr);
     eqPos := searchtext ( `:=`, defineStr ):
     if eqPos > 0 then
         tensorName := substring ( defineStr, 1..eqPos-1 ):
