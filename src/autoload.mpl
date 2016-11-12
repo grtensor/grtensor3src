@@ -1,10 +1,8 @@
 #==============================================================================
 # autoLoad
 #------------------------------------------------------------------------------
-# Aliases referring to objects contained in autoloaded libraries must be 
-# explictly added here (since autoLoading is carried out after function
-# arguments are processed using screenArgs, which is where 
-# aliases are expanded)
+# in griii there are no autoload libraries (all objects are in the main package)
+# Definitions of aliases are defined here.
 #==============================================================================
 
 #------------------------------------------------------------------------------
@@ -14,7 +12,7 @@
 grG_ObjDef[WeylSc][grC_alias] := Psi0, Psi1, Psi2, Psi3, Psi4:
 
 grG_ObjDef[RicciSc][grC_alias] := Phi00, Phi01, Phi02, Phi11, Phi12, Phi22,
-				 NPLambda:
+				 Lambda:
 
 grG_ObjDef[NPSpin][grC_alias] := NPkappa, NPsigma, NPlambda, NPnu, NPrho, 
                        NPmu, NPtau, NPpi, NPepsilon, NPgamma, NPalpha, NPbeta:

@@ -23,6 +23,9 @@
 
 #-----------------------------------------------------------
 # multipleDefs for the basis library:
+# The name of the multipleDef MUST also be the name of one of
+# the definitions - otherwise will get an error in dependency 
+# checking. 
 #-----------------------------------------------------------
 
 grG_multipleDef[Ricciscalar] := [NPRicciscalar, bRicciscalar, tRicciscalar]:
@@ -45,7 +48,7 @@ grG_multipleDef[Phi02] := [RPhi02, Phi02]:
 grG_multipleDef[Phi11] := [RPhi11, Phi11]:
 grG_multipleDef[Phi12] := [RPhi12, Phi12]:
 grG_multipleDef[Phi22] := [RPhi22, Phi22]:
-grG_multipleDef[Lambda]:= [RLambda, NPLambda]:
+grG_multipleDef[Lambda]:= [RLambda, Lambda]:
 
 #===========================================================
 #
@@ -452,7 +455,7 @@ end:
 
 grG_ObjDef[NPRicciscalar][grC_displayName] := Ricciscalar:
 grG_ObjDef[NPRicciscalar][grC_calcFn] := grF_calc_NPRsc:
-grG_ObjDef[NPRicciscalar][grC_depends] := {NPLambda}:
+grG_ObjDef[NPRicciscalar][grC_depends] := {Lambda}:
 grG_ObjDef[NPRicciscalar][grC_useWhen] := grF_when_NPRsc:
 
 grF_when_NPRsc := proc()
@@ -483,7 +486,7 @@ end:
 
 grF_calc_NPRsc := proc(object, index)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-  RETURN(24*gr_data[NPLambda_,grG_metricName]):
+  RETURN(24*gr_data[Lambda_,grG_metricName]):
 end:
 
 

@@ -75,8 +75,8 @@ local a, s:
            - sX*sbX + kbX*tX
            + kX*( 3*aX + bbX - pX ):
 	for a to Ndim[grG_metricName] do
-  	  s := s + gr_data[ebdnup_,gname,1,a]*diff(rX,gr_data[xup_,gname,a])
-                 - gr_data[ebdnup_,gname,4,a]*diff(kX,gr_data[xup_,gname,a]):
+  	  s := s + gr_data[ebdnup_,grG_metricName,1,a]*diff(rX,gr_data[xup_,grG_metricName,a])
+                 - gr_data[ebdnup_,grG_metricName,4,a]*diff(kX,gr_data[xup_,grG_metricName,a]):
 	od:
 	RETURN(s):
 end:
@@ -92,7 +92,7 @@ grG_ObjDef[RPhi00][grC_depends] := { R(bdn,bdn) }:
 grF_calc_RPhi00 := proc(object, index)
 global gr_data, grG_metricName, Ndim;
 local s:
-	s := (1/2)*gr_data[Rbdnbdn_,gname,1,1]:
+	s := (1/2)*gr_data[Rbdnbdn_,grG_metricName,1,1]:
 	RETURN(s):
 end:
 
@@ -119,8 +119,8 @@ local a, s:
            + ebX*( bX - pbX )
            - bbX*sX + kbX*lbX + kX*gbX - pbX*rbX:
 	for a to Ndim[grG_metricName] do
- 	  s := s + gr_data[ebdnup_,gname,1,a]*diff(abX,gr_data[xup_,gname,a])
-                 - gr_data[ebdnup_,gname,3,a]*diff(ebX,gr_data[xup_,gname,a]):
+ 	  s := s + gr_data[ebdnup_,grG_metricName,1,a]*diff(abX,gr_data[xup_,grG_metricName,a])
+                 - gr_data[ebdnup_,grG_metricName,3,a]*diff(ebX,gr_data[xup_,grG_metricName,a]):
 	od:
 	RETURN(s):
 end:
@@ -136,7 +136,7 @@ grG_ObjDef[RPhi01][grC_depends] := { R(bdn,bdn) }:
 grF_calc_RPhi01 := proc(object, index)
 global gr_data, grG_metricName, Ndim;
 local s:
-	s := (1/2)*gr_data[Rbdnbdn_,gname,1,3]:
+	s := (1/2)*gr_data[Rbdnbdn_,grG_metricName,1,3]:
 	RETURN(s):
 end:
 
@@ -162,8 +162,8 @@ local a, s:
  	   - pbX*( pbX + abX - bX )
            - sX*mbX + nbX*kX:
 	for a to Ndim[grG_metricName] do
-	  s := s + gr_data[ebdnup_,gname,1,a]*diff(lbX,gr_data[xup_,gname,a])
-	         - gr_data[ebdnup_,gname,3,a]*diff(pbX,gr_data[xup_,gname,a]):
+	  s := s + gr_data[ebdnup_,grG_metricName,1,a]*diff(lbX,gr_data[xup_,grG_metricName,a])
+	         - gr_data[ebdnup_,grG_metricName,3,a]*diff(pbX,gr_data[xup_,grG_metricName,a]):
 	od:
 	RETURN(s):
 end:
@@ -179,7 +179,7 @@ grG_ObjDef[RPhi02][grC_depends] := {R(bdn,bdn)}:
 grF_calc_RPhi02 := proc(object, index)
 global gr_data, grG_metricName, Ndim;
 local s:
-	s := (1/2)*gr_data[Rbdnbdn_,gname,3,3]:
+	s := (1/2)*gr_data[Rbdnbdn_,grG_metricName,3,3]:
 	RETURN(s):
 end:
 
@@ -221,10 +221,10 @@ local a, s:
 	   + eX*( gbX + mbX + 2*gX - mX )
 	   + gX*rbX - bX*tbX + gX*ebX - bX*bbX + lX*sX + nX*kX:
 	for a to Ndim[grG_metricName] do
-	  s := s + gr_data[ebdnup_,gname,1,a]*diff(gX,gr_data[xup_,gname,a])
-		 - gr_data[ebdnup_,gname,2,a]*diff(eX,gr_data[xup_,gname,a])
-		 + gr_data[ebdnup_,gname,3,a]*diff(aX,gr_data[xup_,gname,a])
-		 - gr_data[ebdnup_,gname,4,a]*diff(bX,gr_data[xup_,gname,a]):
+	  s := s + gr_data[ebdnup_,grG_metricName,1,a]*diff(gX,gr_data[xup_,grG_metricName,a])
+		 - gr_data[ebdnup_,grG_metricName,2,a]*diff(eX,gr_data[xup_,grG_metricName,a])
+		 + gr_data[ebdnup_,grG_metricName,3,a]*diff(aX,gr_data[xup_,grG_metricName,a])
+		 - gr_data[ebdnup_,grG_metricName,4,a]*diff(bX,gr_data[xup_,grG_metricName,a]):
 	od:
 	s := s/2:
 	RETURN(s):
@@ -242,7 +242,7 @@ grG_ObjDef[RPhi11][grC_depends] := { R(bdn,bdn) }:
 grF_calc_RPhi11 := proc(object, index)
 global gr_data, grG_metricName, Ndim;
 local s:
-	s := (1/4)*(gr_data[Rbdnbdn_,gname,1,2]+gr_data[Rbdnbdn_,gname,3,4]):
+	s := (1/4)*(gr_data[Rbdnbdn_,grG_metricName,1,2]+gr_data[Rbdnbdn_,grG_metricName,3,4]):
 	RETURN(s):
 end:
 
@@ -268,8 +268,8 @@ local a, s:
            + bX*( gX - gbX - mX )
            - mX*tX - aX*lbX + sX*nX + eX*nbX:
 	for a to Ndim[grG_metricName] do
-	  s := s + gr_data[ebdnup_,gname,3,a]*diff(gX,gr_data[xup_,gname,a])
-		 - gr_data[ebdnup_,gname,2,a]*diff(bX,gr_data[xup_,gname,a])
+	  s := s + gr_data[ebdnup_,grG_metricName,3,a]*diff(gX,gr_data[xup_,grG_metricName,a])
+		 - gr_data[ebdnup_,grG_metricName,2,a]*diff(bX,gr_data[xup_,grG_metricName,a])
 	od:
 	RETURN(s):
 end:
@@ -285,7 +285,7 @@ grG_ObjDef[RPhi12][grC_depends] := {R(bdn,bdn)}:
 grF_calc_RPhi12 := proc(object, index)
 global gr_data, grG_metricName, Ndim;
 local s:
-	s := (1/2)*gr_data[Rbdnbdn_,gname,2,3]:
+	s := (1/2)*gr_data[Rbdnbdn_,grG_metricName,2,3]:
 	RETURN(s):
 end:
 
@@ -337,8 +337,8 @@ local a, s:
            - mX*( mX + gX + gbX )
            - lX*lbX + nbX*pX:
 	for a to Ndim[grG_metricName] do
-	  s := s + gr_data[ebdnup_,gname,3,a]*diff(nX,gr_data[xup_,gname,a])
-	         - gr_data[ebdnup_,gname,2,a]*diff(mX,gr_data[xup_,gname,a])
+	  s := s + gr_data[ebdnup_,grG_metricName,3,a]*diff(nX,gr_data[xup_,grG_metricName,a])
+	         - gr_data[ebdnup_,grG_metricName,2,a]*diff(mX,gr_data[xup_,grG_metricName,a])
 	od:
 	RETURN(s):
 end:
@@ -354,26 +354,26 @@ grG_ObjDef[RPhi22][grC_depends] := {R(bdn,bdn)}:
 grF_calc_RPhi22 := proc(object, index)
 global gr_data, grG_metricName, Ndim;
 local s:
-	s := (1/2)*gr_data[Rbdnbdn_,gname,2,2]:
+	s := (1/2)*gr_data[Rbdnbdn_,grG_metricName,2,2]:
 	RETURN(s):
 end:
 
 #-----------------------------
 # NP Lambda
 #-----------------------------
-grG_ObjDef[NPLambda][grC_header] := `NPLambda := Ricci Scalar/24`:
-grG_ObjDef[NPLambda][grC_displayName] := NPLambda:
-grG_ObjDef[NPLambda][grC_root] := NPLambda_:
-grG_ObjDef[NPLambda][grC_rootStr] := `NPLambda`:
-grG_ObjDef[NPLambda][grC_indexList] := []:
-grG_ObjDef[NPLambda][grC_calcFn] := grF_calc_NPLambda:
-grG_ObjDef[NPLambda][grC_calcFnParms] := [NULL]:
-grG_ObjDef[NPLambda][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[NPLambda][grC_depends] := { e(bdn,up), NPepsilonbar, NPrho, NPrhobar, NPepsilon, NPgamma,
+grG_ObjDef[Lambda][grC_header] := `Lambda := Ricci Scalar/24`:
+grG_ObjDef[Lambda][grC_displayName] := Lambda:
+grG_ObjDef[Lambda][grC_root] := Lambda_:
+grG_ObjDef[Lambda][grC_rootStr] := `Lambda`:
+grG_ObjDef[Lambda][grC_indexList] := []:
+grG_ObjDef[Lambda][grC_calcFn] := grF_calc_NPLambda:
+grG_ObjDef[Lambda][grC_calcFnParms] := [NULL]:
+grG_ObjDef[Lambda][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[Lambda][grC_depends] := { e(bdn,up), NPepsilonbar, NPrho, NPrhobar, NPepsilon, NPgamma,
 	   	     NPbeta, NPtau, NPbetabar, NPpi, NPalpha, NPtaubar,
                      NPalphabar, NPnu, NPkappa, NPmubar, NPlambda, NPsigma,
 		     NPpibar, NPmu, NPgammabar }:
-grG_ObjDef[NPLambda][grC_attributes] := {use_diff_constraint_}:
+grG_ObjDef[Lambda][grC_attributes] := {use_diff_constraint_}:
 
 grF_calc_NPLambda := proc(object, index)
 global gr_data, grG_metricName, Ndim;
@@ -384,10 +384,10 @@ local a, s:
              - 2*rX*mbX + 2*rX*gbX:
 
 	for a to Ndim[grG_metricName] do
-	  s := s - gr_data[ebdnup_,gname,1,a]*diff(gX,gr_data[xup_,gname,a])
-		 - gr_data[ebdnup_,gname,2,a]*diff((2*rX-eX),gr_data[xup_,gname,a])
-		 + gr_data[ebdnup_,gname,3,a]*diff(aX,gr_data[xup_,gname,a])
-	         + gr_data[ebdnup_,gname,4,a]*diff((2*tX-bX),gr_data[xup_,gname,a]):
+	  s := s - gr_data[ebdnup_,grG_metricName,1,a]*diff(gX,gr_data[xup_,grG_metricName,a])
+		 - gr_data[ebdnup_,grG_metricName,2,a]*diff((2*rX-eX),gr_data[xup_,grG_metricName,a])
+		 + gr_data[ebdnup_,grG_metricName,3,a]*diff(aX,gr_data[xup_,grG_metricName,a])
+	         + gr_data[ebdnup_,grG_metricName,4,a]*diff((2*tX-bX),gr_data[xup_,grG_metricName,a]):
 	od:
 	s := s/6:
 	RETURN(s):
@@ -396,7 +396,7 @@ end:
 #-----------------------------
 # Ricci Lambda
 #-----------------------------
-grG_ObjDef[RLambda][grC_displayName] := NPLambda:
+grG_ObjDef[RLambda][grC_displayName] := Lambda:
 grG_ObjDef[RLambda][grC_calcFn] := grF_calc_RLambda:
 grG_ObjDef[RLambda][grC_useWhen] := grF_when_RPhi:
 grG_ObjDef[RLambda][grC_depends] := {R(bdn,bdn)}:
@@ -404,7 +404,7 @@ grG_ObjDef[RLambda][grC_depends] := {R(bdn,bdn)}:
 grF_calc_RLambda := proc(object, index)
 global gr_data, grG_metricName, Ndim;
 local s:
-	s := (1/12)*(gr_data[Rbdnbdn_,gname,1,2]-gr_data[Rbdnbdn_,gname,3,4]):
+	s := (1/12)*(gr_data[Rbdnbdn_,grG_metricName,1,2]-gr_data[Rbdnbdn_,grG_metricName,3,4]):
 	RETURN(-s):
 end:
 

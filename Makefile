@@ -19,6 +19,7 @@
 #
 # Update Nov 2016 for Module based grtensor package
 # - all file includes/savelib are now in griii.mpl
+# - no sub-libraries for invars etc. all objects now in griii
 # - assumes there is a lib/ directory with a Maple library 
 #   created from within Maple:
 # >march('create',"lib/grii.mla",100);
@@ -27,29 +28,10 @@
 #
 #
 #------------------------------------------------------------------------------
+# Orignal makefile by:
 # Denis Pollney <dp@maths.soton.ac.uk>
 # August 1999
-# This file provides the following targets:
 #
-#   make grtensor   (builds all of the GRTensor libraries)
-#   make install    (install the libraries and metrics)
-#   make clean      (remove built libraries)
-#   make uninstall  (remove installed libraries)
-#   make distrib    (build a package suitable for distribution)
-#
-# Individual GRTensor libraries can be built using the commands:
-#   make grii
-#
-# Following are not supported (I do not have the source)
-#   make basis
-#   make dinvar
-#   make invars
-#   make trigsin
-#   make help
-#
-# If the source code has been checked out of the CVS repository, a changelog
-# can be generated using the target:
-#   make ChangeLog
 #
 #------------------------------------------------------------------------------
 # This file works with GNU make (gmake). For Solaris systems, the
@@ -133,8 +115,11 @@ grtensor: griii
 
 griii:     $(LIBDIR)/griii.m
 
-# TODO: griii.m has a hard baked path in it!
-
+# TODO: griii.m has a hard baked path in it! Need to edit this
+# for your system (move to a command cat-ed into session)
+#
+# This plays the contents of griii.mpl into command line Maple
+# the result is a library saved into lib/. 
 $(LIBDIR)/griii.m: 
 	$(CATCMD) $(BUILDDIR)/griii.mpl | $(MAPLECMD) $(MAPLEOPTS)
 
@@ -148,14 +133,8 @@ install-help:
 # *** sun specific ***
 # distrib := INSTALLDIR = $(GRDIR)
 # *** gmake specific ***
-distrib: INSTALLDIR = $(GRDIR)
 distrib: 
 	$(CPCMD) $(LIBDIR)/* $(GRTGITLIB)/.
-	cp $(BUILDDIR)/mapleinit.sample $(GRDIR)
-	tar cf $(TARFILE) $(GRDIR) ; \
-	$(RMCMD) -rf $(GRDIR)
-	$(GZIPCMD) $(TARFILE); \
-	$(MVCMD) $(TARFILE).gz $(DISTRIBDIR)
 
 
 
