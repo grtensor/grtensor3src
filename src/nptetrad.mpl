@@ -49,8 +49,8 @@ if nargs > 0 then
 fi:
 
 if grF_checkIfAssigned ( e(bdn,dn) ) or grF_checkIfAssigned ( e(bdn,up) ) then
-  yorn := grF_readstat ( 
-    `Basis vectors already exist for this spacetime. Overwrite? (1=yes, other=no [default]):`, 0, `nptetrad` ):
+  yorn := grF_input ( 
+    `Basis vectors already exist for this spacetime.\n Overwrite? (1=yes, other=no [default]):`, 0, `nptetrad` ):
   if yorn = 1 or yorn = y or yorn = yes then
     if grF_checkIfAssigned ( e(bdn,dn) ) then
       grclear ( e(bdn,dn) ):
@@ -125,11 +125,12 @@ if not assigned ( grG_sig_[gname] ) then
 fi:
 
 if grG_sig_[gname] = 2 then
-  printf ( `The metric signature of the %s spacetime is +2.\n`, gname, 
+  s := sprintf ( `The metric signature of the %s spacetime is +2.\n`, gname, 
     grG_sig_[gname] ):
-  printf (
-    `In order to create an NP-tetrad, the signature of g(dn,dn) will be changed to -2.\n` ):
-  yorn := grF_readstat ( `Continue? (1=yes [default], other=no) :`, 1, nptetrad ):
+  s := cat( sprintf (
+    `In order to create an NP-tetrad, the signature of g(dn,dn) will be changed to -2.\n` )):
+  s := cat(s, sprintf(`Continue? (1=yes [default], other=no) :`)):
+  yorn := grF_input ( s, 1, nptetrad ):
   if yorn = 1 or yorn = y or yorn = yes then
     antisig ( gname ):
   else
