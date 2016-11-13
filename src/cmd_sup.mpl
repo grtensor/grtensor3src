@@ -538,12 +538,10 @@ end:
 #----------------------------------------------------------
 
 grF_checkObjects := proc( objList, reqCalced, reqUncalced)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-
 local a, b, i, x, actual, actual2, start, calced,
       subMe, indexStuff,
       compound, operands, item, dependSet, objectName, returnSeq,
-      oldMetric, object, newMetric:
+      oldMetric, object, newMetric, s:
 
 global grG_metricName, grG_operands, grG_checkObjects_Cache, grG_multipleDef:
 
@@ -636,12 +634,16 @@ global grG_metricName, grG_operands, grG_checkObjects_Cache, grG_multipleDef:
         # Multiple defintions for operators will not work!
         #
         if assigned(grG_multipleDef[objectName]) then
+          s := sprintf("Multiple definitions for %a: ", objectName);
           for b in grG_multipleDef[objectName] do
             if assigned(grG_ObjDef[b][grC_useWhen]) and
                grG_ObjDef[b][grC_useWhen]( [actual2,op(grG_checkObjects_Cache)]) then
+               s := cat(s, sprintf("Using definition %s for %a\n", b, objectName));
+               printf("%s", s);
               break;
             fi:
           od:
+          # will end up using last entry in list if none of the calcWhen functions match
           objectName := b:
           object := b:
         fi:
@@ -795,7 +797,6 @@ end:
 #----------------------------------------------------------
 
 grF_checkIfDefined := proc(objectParm, act)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 local  a, objRoot, i, baseObj, object, c, p, cb, pb;
 global grG_metricName;
  #

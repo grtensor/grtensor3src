@@ -1,4 +1,28 @@
 ==============================================================================
+GRTensorIII Source code, release notes and build procedure
+
+This repo holds the source code for GRTensorIII package for Maple
+
+For installation and usage see the Wiki tab on the GITLAB page
+==============================================================================
+
+The code has been restructured to reside in a single Maple module, grtensor.
+
+The Module is defined in build/griii.mpl
+
+The Makefile will run the build/griii.mpl using command line Maple provided
+that the Makefile has been edited to have the correct paths. 
+
+The use of a Module/Package in Maple required re-scoping of many of the internal
+variables used in GRTensor. Briefly:
+- all component info is now in gr_data[<root>, <metric>, etc.]
+- spacetime dimension is in Ndim[<metric>]
+- active metric is grG_metricName
+
+
+
+
+==============================================================================
 GRTensorII 1.xx: Source code release notes and build procedure
 
 August 1999

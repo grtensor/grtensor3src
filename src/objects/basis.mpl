@@ -3,7 +3,7 @@
 # GRTENSOR II MODULE: basis.mpl
 #
 # (C) 1992-94 Peter Musgrave, Kayll Lake and Denis Pollney
-#
+#da
 # File Created By: Denis Pollney
 #            Date: August 24 1994
 #
@@ -23,6 +23,9 @@
 
 #-----------------------------------------------------------
 # multipleDefs for the basis library:
+# The name of the multipleDef MUST also be the name of one of
+# the definitions - otherwise will get an error in dependency 
+# checking. 
 #-----------------------------------------------------------
 
 grG_multipleDef[Ricciscalar] := [NPRicciscalar, bRicciscalar, tRicciscalar]:
@@ -483,7 +486,7 @@ end:
 
 grF_calc_NPRsc := proc(object, index)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-  RETURN(24*gr_data[NPLambda_,grG_metricName]):
+  RETURN(24*gr_data[Lambda_,grG_metricName]):
 end:
 
 

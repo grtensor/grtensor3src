@@ -1,17 +1,20 @@
 GRTensor TODO
 ==============
 
-- groptions not initied
-- auto init on module load
+Packaging
+=========
+- how to add metric path and libpath to .mapleinit
+- add a make distro target - use it to copy stuff across from 
+  GRTensorIII into grtensor repo
+- check install instructions, help, some basic worksheets
+- create some info on table of contents in help?
 
 Open Beta Prep
 ==============
 help library
 put metrics and worksheets in place
 vet the worksheets
-get code for sub-libraries
 
-Can grdef accept back ticks and convert to string?
 
 Notes:
 ======
@@ -34,8 +37,6 @@ grG_multipleDefs: How does this work?
 Next:
 =====
 
-Convert sub-libraries
-Make sure name aliasing is ok. 
 Keep working through the worksheets...
 
 
@@ -55,9 +56,6 @@ Tests
 > grdef("G2{a b} := R{a b} -(1/2) * Ricciscalar*g{a b} +lambda*g{a b}");
 - works
 
-Packaging
-=========
-- how to add metric path and libpath to .mapleinit
 
 
 
@@ -70,12 +68,18 @@ This is an existing BUG
 
 2) RicciSc
 - have issue with Lambda - no def (but in fact there are multiple defs)
+- seems to have become a RicciSc bug.. Some components that should be zero are not.
+
+3) PetrovReport is not shown
+
+4) Intro WS the C(bdn,bdn,bup,bup) symmetries on display are wrong (showing too many components)
+
+5) rnds1: nptetrad dialog is missing prompt.
 
 find all path manipulations and use FileTools:-JoinPath()
 grcomponent has some issues and needs fixing
 create.mpl has old concat based junk in it. 
-nptetrad.mpl likewise
-objects/diffop.mpl
-objects/basis.mpl
 grC_ZERO will be broken - use $define?
+schwbasis.mws also
+
 

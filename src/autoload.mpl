@@ -1,10 +1,8 @@
 #==============================================================================
 # autoLoad
 #------------------------------------------------------------------------------
-# Aliases referring to objects contained in autoloaded libraries must be 
-# explictly added here (since autoLoading is carried out after function
-# arguments are processed using screenArgs, which is where 
-# aliases are expanded)
+# in griii there are no autoload libraries (all objects are in the main package)
+# Definitions of aliases are defined here.
 #==============================================================================
 
 #------------------------------------------------------------------------------
