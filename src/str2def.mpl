@@ -87,6 +87,10 @@
 #
 #******************************************
 
+# define used in debugging
+#$define DEBUG option trace;
+$define DEBUG 
+
 grG_defineOperators := {`CoD`, `LieD`}:
 
 defdebug := proc( s )
@@ -576,6 +580,10 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 
 end: # strstr()
 
+#-----------------------------------------------------------------
+# grF_tensor2string
+#-----------------------------------------------------------------
+
 grF_tensor2string := proc (tensor)
 local str, pos, idx, a:
   str := ``.(op(1,tensor)).`{`:
@@ -595,11 +603,14 @@ local str, pos, idx, a:
   RETURN ( str ):
 end:
 
-(*
-Verify the definition indices in the tensor name
-are present in the tensor definition.
-*)
+
+#-----------------------------------------------------------------
+# grF_verifyDefIndices
+# Verify the definition indices in the tensor name
+# are present in the tensor definition.
+#-----------------------------------------------------------------
 grF_verifyDefIndices := proc ( tname, tdef )
+DEBUG
 local idxn, idxd:
   idxn := grF_checkIndices ( tname ):
   if type (tdef, list) then
@@ -621,7 +632,12 @@ end:
 Maple normalizes '-' and '/' to '+' and '*'
 *)
 
+#-----------------------------------------------------------------
+# grF_checkIndices
+#-----------------------------------------------------------------
+
 grF_checkIndices := proc ( t_expr )
+DEBUG
 local expr, stdidx, a, idx, stdterm, idxl, idxr:
   expr := expand ( t_expr ):
 
@@ -671,17 +687,38 @@ grF_compareIndices := proc ( idx1, idx2 )
   RETURN ():
 end:
 
+#-----------------------------------------------------------------
+# grF_checkTermIndices
+# Descend through expressions and functions and accumulate the 
+# listing indices. 
+#
+# Returns: List of lists, with down index list and up index list
+# [[<down_list], [<up_list>]]
+#-----------------------------------------------------------------
+
 grF_checkTermIndices := proc ( expr )
+DEBUG
 local a, idx, newidx, upset, dnset, dummyset:
-  if type(expr,`*`) or 
-    (type(expr,function) and not member (op(0,expr), {Tensor_, Operator_, Sym, Asym}))
-      then
-    idx := [[],[]]:
+
+  idx := [[],[]]:
+
+  # if an terminal (index-bearing object) then get the indices for it
+  if type(expr,function) and member (op(0,expr), {Tensor_, Operator_, kdelta}) then
+    idx := grF_getTermIndices (expr):
+
+  elif type(expr,`*`) or type(expr,`+`) or type(expr,function) then
     for a in expr while idx<>-1 do
-      newidx := grF_getTermIndices (a):
+      # Sym and Asym function will have an argument list as the first entry, just skip
+      if type(a, list) then
+         next;
+      fi:
+      # why not recurse through each term in the expression ?!
+      newidx := grF_checkTermIndices (a):
       if newidx[1] = -1 then
         idx := newidx:
       else
+        # append the resulting indices into the up/down sets
+        # if there are new members
         if {op(op(1,idx))} intersect {op(op(1,newidx))} = {} and
            {op(op(2,idx))} intersect {op(op(2,newidx))} = {} then
           idx := [[op(op(1,idx)),op(op(1,newidx))],
@@ -692,10 +729,12 @@ local a, idx, newidx, upset, dnset, dummyset:
         fi:
       fi:
     od:
-  else
-    idx := grF_getTermIndices (expr):
   fi:
 
+  #
+  # indices that appear in both the up and down set
+  # are dummy/summation indices and are removed
+  #
   if idx[1]<>-1 then
     upset := {op(op(1,idx))}:
     dnset := {op(op(2,idx))}:
@@ -707,21 +746,19 @@ local a, idx, newidx, upset, dnset, dummyset:
   RETURN ( idx ):
 end:
 
+#-----------------------------------------------------------------
+# grF_getTermIndices
+# Get the listing indices for a terminating object (i.e. we are at
+# a leaf of a expression/function chain and we can just take the
+# indices)
+#-----------------------------------------------------------------
 grF_getTermIndices := proc ( expr_in )
+DEBUG
 local pos, idx, upidx, dnidx, a, expr:
   expr := expr_in;
   upidx := NULL:
   dnidx := NULL:
   if type (expr, function) then
-    # If there is a Asym/Sym wrapper, look at the tensor inside.
-    # Direct compare with Asym or Sym symbol does not work. No idea why.
-    if convert(op(0,expr),string) = "Asym" then
-        expr := op(2,expr);
-    fi:
-    if convert(op(0,expr),string) = "Sym" then
-        expr := op(2,expr);
-    fi:
-
     if op(0,expr)=Tensor_ then
       pos := op(2,expr):
       idx := op(3,expr):
@@ -761,7 +798,13 @@ local pos, idx, upidx, dnidx, a, expr:
     elif op(0,expr)=kdelta then
       upidx := op(op(3,op(1,expr))):
       dnidx := op(op(3,op(2,expr))):
+    else
+      printf("Unrecognized terminal object: %a\n", expr);
+      ERROR("Cannot get term indices for %a", op(0,expr));
     fi:
+  else 
+     printf("Unrecognized terminal object: %a\n", expr);
+     ERROR("Cannot get term indices for %a", op(0,expr));
   fi:
   RETURN ([[upidx],[dnidx]])
 end:
@@ -775,6 +818,7 @@ end:
 #------------------------------------------
 
 grF_strToDef := proc( sdef, defLHS )
+DEBUG
 global grG_symList, grG_asymList;
 
  local work, workStr, brktList, sqbrktList, indices,
@@ -1078,3 +1122,6 @@ grF_unstringify := proc ( inStr)
  od:
  RETURN( returnStr):
 end:
+
+$undef DEBUG
+

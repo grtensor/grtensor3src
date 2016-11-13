@@ -55,8 +55,10 @@ export
 	nptetrad,
 	PetrovReport,
 	qload, 
-	grtestinput,   # remove when shipping
-	grdebug;
+	grtestinput,   
+	grdebug, 
+	Asym, 
+	Sym;
 
 global
 	# internal details
