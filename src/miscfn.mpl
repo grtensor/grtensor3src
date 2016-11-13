@@ -53,6 +53,7 @@
 # (exported)
 #----------------------------------------------------------
 (*
+Use in grdef broken for now...
 kdelta := proc(i, j)
   if i = j then
      return 1;

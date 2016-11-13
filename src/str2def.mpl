@@ -88,8 +88,8 @@
 #******************************************
 
 # define used in debugging
-#$define DEBUG option trace;
-$define DEBUG 
+$define DEBUG option trace;
+#$define DEBUG 
 
 grG_defineOperators := {`CoD`, `LieD`}:
 
@@ -702,8 +702,8 @@ local a, idx, newidx, upset, dnset, dummyset:
 
   idx := [[],[]]:
 
-  # if an terminal (index-bearing object) then get the indices for it
-  if type(expr,function) and member (op(0,expr), {Tensor_, Operator_, kdelta}) then
+  # if a terminal (index-bearing object) then get the indices for it
+  if type(expr,function) and member (op(0,expr), {Tensor_, Operator_}) then
     idx := grF_getTermIndices (expr):
 
   elif type(expr,`*`) or type(expr,`+`) or type(expr,function) then
@@ -712,7 +712,7 @@ local a, idx, newidx, upset, dnset, dummyset:
       if type(a, list) then
          next;
       fi:
-      # why not recurse through each term in the expression ?!
+      # recurse through each term in the expression 
       newidx := grF_checkTermIndices (a):
       if newidx[1] = -1 then
         idx := newidx:
@@ -800,11 +800,11 @@ local pos, idx, upidx, dnidx, a, expr:
       dnidx := op(op(3,op(2,expr))):
     else
       printf("Unrecognized terminal object: %a\n", expr);
-      ERROR("Cannot get term indices for %a", op(0,expr));
+      #ERROR("Cannot get term indices for %a", op(0,expr));
     fi:
   else 
      printf("Unrecognized terminal object: %a\n", expr);
-     ERROR("Cannot get term indices for %a", op(0,expr));
+     #ERROR("Cannot get term indices for %a", op(0,expr));
   fi:
   RETURN ([[upidx],[dnidx]])
 end:
