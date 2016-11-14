@@ -3,11 +3,10 @@ GRTensor TODO
 
 Packaging
 =========
-- how to add metric path and libpath to .mapleinit
-- add a make distro target - use it to copy stuff across from 
-  GRTensorIII into grtensor repo
+
 - check install instructions, help, some basic worksheets
 - create some info on table of contents in help?
+- update the Latex files and regenerate (as PDF?)
 
 Open Beta Prep
 ==============

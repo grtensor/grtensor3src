@@ -134,6 +134,7 @@ $include  "src/rdependent.mpl"
 $include  "src/str2def.mpl"
 $include  "src/symfn.mpl"
 $include  "src/symmetry.mpl"
+$include "src/objects/basis/PetrovReport.mpl"
 
 (*
 In Module() restructuring require that the grG_ObjDef definitions
@@ -144,7 +145,8 @@ Wrap the object definitions in a procedure wrapper
 *)
 
 load_objects := proc()
-global grG_ObjDef, grG_multipleDef, PetrovReport:
+global grG_ObjDef, grG_multipleDef:
+
 $include  "src/objects/basis.mpl"
 $include  "src/objects/cmdef.mpl"
 $include  "src/objects/diffop.mpl"
@@ -192,6 +194,7 @@ Useful debug routines
 $include "src/debug.mpl"
 
 grinit := proc()
+option trace;
 global grG_metricSet, grG_ObjDef;
 
 	grG_metricSet := {}:
