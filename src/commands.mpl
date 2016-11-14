@@ -252,13 +252,13 @@ local i, yorn, new_args, mName, newMetricFlag:
     gname := grG_metricName:
     if not type (args[nargs], integer) then
       if member ( results, {args} ) then
-        yorn := grF_readstat ( 
+        yorn := grF_input ( 
           `Clear the results derived from the spacetime `||gname||`? (yes=1;)`, 0, `grclear`):
       elif member ( metric, {args} ) then
-        yorn := grF_readstat (
+        yorn := grF_input (
           `Clear the metric `||gname||` and all results? (yes=1;)`, 0, `grclear` ):
       elif member ( spacetime, {args} ) then
-        yorn := grF_readstat (
+        yorn := grF_input (
           `Clear the spacetime `||gname||` and all results? (yes=1;)`, 0, `grclear` ):
       fi:
     else
@@ -780,8 +780,8 @@ end:
 # grsaveg
 #-------------------------------------------------------------------
 grsaveg := proc ( )
-global gr_data, grOptionMetricPath;
-local 	a, b, G, req, metrictype, bupflag, bdnflag, gname, metricdir, savename:
+global gr_data, grOptionMetricPath, grG_complexSet_, grG_metricName;
+local 	a, b, G, req, metrictype, bupflag, bdnflag, gname, ndim, metricdir, savename, s:
 
         if nargs < 1 then
           ERROR ( `Missing metric name parameter.` ):
@@ -802,14 +802,15 @@ local 	a, b, G, req, metrictype, bupflag, bdnflag, gname, metricdir, savename:
         fi:
 	gname := grG_metricName:
 	G||gname := savename:
-	G||gdim := Ndim||gname:
+  ndim := Ndim[gname];
+	G||gdim := Ndim[gname]:
 	if assigned ( grG_constraint[gname] ) then
 		G||constraint := grG_constraint[gname]:
 	else
 		G||constraint := evaln ( G||constraint ):
 	fi:
-	if assigned ( grG_Info_[gname] )  then
-		G||info := grG_Info_[gname]:
+	if assigned ( gr_data[Text_,gname] )  then
+		G||info := gr_data[Text_,gname]:
 	else
  		G||info := evaln ( G||info ):
 	fi:
@@ -818,15 +819,17 @@ local 	a, b, G, req, metrictype, bupflag, bdnflag, gname, metricdir, savename:
         fi:
 
         G||coord := [gr_data[xup_,gname,1]]:
-	for a from 2 to G||gdim do
+	for a from 2 to ndim do
 		G||coord := [op(G||coord), gr_data[xup_,gname,a]]:
 	od:
 
 	if grF_checkIfAssigned ( g(dn,dn) ) and grF_checkIfAssigned (
 eta(bup,bup) ) then
 		while not assigned ( req ) do
-			printf ("Would you like to save 1) the metric [g(dn,dn)], or\n" ):
-			req := grF_readstat (`                       2) the basis vectors?`, [], `grsaveg` ):
+			s := sprintf ("Would you like to save:\n");
+      s := cat(s, sprintf("    1) the metric [g(dn,dn)], or\n" )):
+      s := cat(s, sprintf("    2) the basis vectors?")):
+			req := grF_input (s, [], `grsaveg` ):
  			if not member ( req, { 1, 2 } ) then
 				printf ("Invalid input. Please enter a 1 or 2.\n"):
 				req := 'req':
@@ -853,8 +856,8 @@ eta(bup,bup) ) then
 
 	if metrictype = grG_g then
 		G||metric := array ( 1.. G||gdim, 1.. G||gdim ):
-		for a to G||gdim do
-			for b to G||gdim do
+		for a to ndim do
+			for b to ndim do
 				G||metric[a,b] := gr_data[gdndn_,gname,a,b]:
 			od:
 		od:
@@ -865,9 +868,11 @@ eta(bup,bup) ) then
 grF_checkIfAssigned ( e(bdn,up) ) then
 			req := 'req':
 			while not assigned ( req ) do
-				printf ("Would you like to save the 1) covariant basis vectors,\n"):
-				printf ("                           2) contravariant basis vectors, or\n" ):
-				req := grF_readstat ( `                           3) both?`, [], `grsaveg` ):
+				s := sprintf ("Would you like to save:\n"):
+        s := cat(s, sprintf ("   1) covariant basis vectors,\n")):
+        s := cat(s, sprintf ("   2) contravariant basis vectorsn" )):
+        s := cat(s, sprintf ("   3) both?" )):
+				req := grF_input ( s, [], `grsaveg` ):
 				if not member ( req, { 1, 2, 3 } ) then
 					printf ("Invalid input. Please enter 1, 2, or 3.\n"):
 					req := 'req':
@@ -890,16 +895,16 @@ grF_checkIfAssigned ( e(bdn,up) ) then
 		fi:
 
 		G||metric := array ( 1.. G||gdim, 1.. G||gdim ):
-		for a to G||gdim do
-			for b to G||gdim do
+		for a to ndim do
+			for b to ndim do
 				G||metric[a,b] := grG_etabupbup_[gname,a,b]:
 			od:
 		od:
 
 		if bdnflag = true then
 			G||basisd := array ( 1.. G||gdim, 1.. G||gdim ):
-			for a to G||gdim do
-				for b to G||gdim do
+			for a to ndim do
+				for b to ndim do
 					G||basisd[a,b] := grG_ebdndn_[gname,a,b]:
 				od:
 			od:
@@ -909,8 +914,8 @@ grF_checkIfAssigned ( e(bdn,up) ) then
 
 		if bupflag = true then
 			G||basisu := array ( 1.. G||gdim, 1.. G||gdim ):
-			for a to G||gdim do
-				for b to G||gdim do
+			for a to ndim do
+				for b to ndim do
 					G||basisu[a,b] := grG_ebdnup_[gname,a,b]:
 				od:
 			od:
@@ -919,6 +924,17 @@ grF_checkIfAssigned ( e(bdn,up) ) then
 		fi:
 	fi:
 	G||gtype := metrictype:
-	grF_saveEntry ( G, metricdir ):
+  grF_saveEntry ( metricdir,
+            G_gdim, 
+          G_gname, 
+          G_gtype, 
+          G_coord,
+          G_constraint, 
+          G_complex,
+          G_info,
+          G_metric,
+          G_sig, 
+          G_basisd,
+          G_basisu):
 end:
 				

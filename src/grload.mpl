@@ -60,7 +60,7 @@
 grload := proc ( gname, gfile )
 # need Ndim_ global since can be read from metric file (typically will be)
 global  Ndim, Ndim_, constraint_, grG_constraint,
-  grG_metricName, Info_, grG_Info_, sig_, grG_sig_, grG_complexSet_, 
+  grG_metricName, Info_, sig_, grG_sig_, grG_complexSet_, 
   grG_metricSet, gr_data;
 local  a, b, i, j, ndim, gtype, ip, npip, g, bu, bd, bup, bdn, grinit, stsig, underscore:
   if member ( gname, grG_metricSet ) then
@@ -245,7 +245,8 @@ local  a, b, i, j, ndim, gtype, ip, npip, g, bu, bd, bup, bdn, grinit, stsig, un
 # initialize text information field, if it exists.
 #
   if assigned ( Info_ ) then
-    grG_Info_[gname] := Info_:
+    printf("Assigning info %a\n", Info_);
+    gr_data[Text_,gname] := Info_:
     grF_assignedFlag ( Info, set, gname ):
     Info_ := 'Info_':
   fi:
@@ -395,119 +396,6 @@ end:
 
 grF_testRead := proc( fileName) read fileName; end:
 
-#----------------------------------------------------------
-# grlib
-#
-# Load a non-standard object library
-# (need to regenerate the root set after loading new objects
-#  so that raising and lowering of indices works.)
-#
-#----------------------------------------------------------
-
-grlib := proc()
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-
- local newObjects, i, j, entries, entry, object, writeOver, libName,
-       oldObjects, trash, hold_metricName, hold_operands;
-
- global grG_newObj, grG_ObjDef, overwrite,
-        grG_object, grG_Mint, grG_Mext,grG_metricName, grG_operands:
-
-
-   hold_metricName := grG_metricName:
-   hold_operands := grG_operands:
-   libName := args[1]:
-   grF_unassignLoopVars():
-   grF_unassignMetricNames():
-   #
-   # need to ensure that any operator globals are
-   # unassigned before loading operator libraies
-   # For now do this explicitly.
-   #
-   grG_object := 'grG_object':
-   grG_Mint := 'grG_Mint':
-   grG_Mext := 'grG_Mext':
-
-   if libName <> grdebug then # allow libraries read directly to be tested
-### WARNING: persistent store makes one-argument readlib obsolete
-     readlib(libName):
-     forget(readlib):
-   fi:
-   #
-   # now check all new objects, see if they conflict
-   # with existing objects
-   #
-   newObjects := indices(grG_newObj):
-   oldObjects := indices(grG_ObjDef):
-   trash := {newObjects} intersect {oldObjects}:
-
-   writeOver := false:
-   if nargs = 2 then
-     if args[2] = overwrite then
-         writeOver := true:
-     fi:
-   fi:
-   #
-   # first check if the objects in the new library will
-   # disturb existing objects
-   #
-   if not writeOver and trash <> {} then
-     printf(`The following objects would be overwritten:\n`);
-     for i in trash do
-       print(op(i)):
-     od:
-     printf(`Library not loaded!\n`);
-     printf(`Use grlib(%a,overwrite): to load.\n`,libName):
-#     grG_newObj := array(1..1): # clear out grG_newObj
-     RETURN(NULL):
-
-   elif trash <> {} and writeOver then
-     printf(`The following objects have new definitions:\n`);
-     for i in trash do
-       print(op(i)):
-     od:
-   fi:
-   #
-   # a library with a grG_ObjDef in it will erase all existing
-   # grG_ObjDef's, so the non-default library object info is
-   # kept in grG_newObj and is copied across to grG_ObjDef once
-   # we've verified existing objects will not be overwritten
-   #
-   for i in newObjects do
-     #
-     # if we're overwriting make sure we clean out all the
-     # old stuff!
-     #
-     object := op(i): # elements from indices are in []
-     if member(i,trash) then
-       entries := indices(grG_ObjDef[object]):
-       for j in entries do
-         entry := op(j):
-         grG_ObjDef[object][entry] :=
-            parse(convert(cat(`'`,`grG_ObjDef`,
-                               convert(i,name),
-                               convert(j,name),`'`)
-                          ,name)):
-       od:
-     fi:
-     #
-     # now copy across new stuff
-     #
-     entries := indices( grG_newObj[object] ):
-     for j in entries do
-       entry := op(j):
-       grG_ObjDef[object][entry] := grG_newObj[object][entry]:
-     od:
-   od:
-   grF_gen_rootSet():
-   grF_gen_calcFnSet():
-   grG_newObj := array(1..1): # clear out grG_newObj
-   libName():
-   grG_metricName := hold_metricName :
-   grG_operands := hold_operands :
-   NULL:
-
-end:
 
 #----------------------------------------------------------
 # checkEtaComponents - check that the components of eta(bup,bup) are

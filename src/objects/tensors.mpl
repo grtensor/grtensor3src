@@ -55,7 +55,7 @@
 # Info - metric text descriptions.
 #----------------------------
 grG_ObjDef[Info][grC_header] := ``:
-grG_ObjDef[Info][grC_root] := Info_:
+grG_ObjDef[Info][grC_root] := Text_:
 grG_ObjDef[Info][grC_rootStr] := `Text description `:
 grG_ObjDef[Info][grC_indexList] := []:
 grG_ObjDef[Info][grC_calcFn] := grF_calc_Info:
@@ -65,8 +65,7 @@ grG_ObjDef[Info][grC_depends] := { }:
 grF_calc_Info := proc(object,iList)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 local	s:
-	lprint ( `Enter text information:` ):
-	s := readline():
+	s := grF_input ( "Enter text information:", 0, "Info>" ):
 RETURN(s):
 end:
 
