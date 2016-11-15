@@ -65,7 +65,7 @@ grG_ObjDef[Info][grC_depends] := { }:
 grF_calc_Info := proc(object,iList)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 local	s:
-	s := grF_input ( "Enter text information:", 0, "Info>" ):
+	s := grF_input ( "Enter text information (in quotes):", 0, "Info>" ):
 RETURN(s):
 end:
 

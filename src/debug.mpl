@@ -18,7 +18,7 @@ global grG_ObjDef;
 end proc:
 
 grdata := proc( list)
-global grG_ObjDef; 
+global grG_ObjDef, grG_calcFlag; 
 
 	if nops(list) = 0 then
 	   for a in indices(gr_data) do
@@ -27,5 +27,10 @@ global grG_ObjDef;
 	else
 		printf("gr_data%a = %a\n", list, gr_data[op(list)]):
 	fi:
+	for a in indices(grG_calcFlag) do
+	   for b in indices(grG_calcFlag[op(a)]) do
+	   		printf("grG_calcFlag%a%a = %a\n", a, b, grG_calcFlag[op(a)][op(b)]);
+	   od:
+	od:
 
 end proc:

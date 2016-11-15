@@ -964,7 +964,7 @@ global grG_metricName, grG_calcFlag, gr_data, Ndim:
     # Everything is now in gr_data, so need to find those entries which match
     # on object name and current metric name
     #
-    grG_calcFlag[grG_metricName][objectName] := false:
+    grG_calcFlag[grG_metricName][object] := false:
 (*
     objectName := grF_objectName(object): # get name (might be operator)
     entries := indices(gr_data[grG_ObjDef[objectName][grC_root]):

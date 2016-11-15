@@ -29,6 +29,19 @@ In the module-friendly refactor:
 Still need to handle signature, basis, np stuff
 
 *)
+(*)
+with(FileTools); 
+griiilib := FileTools:-JoinPath(["lib", "griii.mla"]);
+
+
+if FileTools:-Exists(griiilib) then
+   printf("Remove existing library %a\n", griiilib);
+   FileTools:-Remove(griiilib);
+fi:
+if not FileTools:-Exists(griiilib) then
+	march('create',griiilib,100);
+fi:
+*)
 
 grtensor := module()
 option package;
@@ -39,6 +52,7 @@ export
 	grcalc, 
 	grcalcd,
 	grcalcalter,
+	grclear,
 	grcomponent,
 	grconstraint,
 	grdef,
@@ -48,6 +62,7 @@ export
 	grmap,
 	groptions,
 	grsavedef,
+	grsaveg,
 	grtransform,
 	kdelta,
 	KillingCoords,
@@ -56,7 +71,8 @@ export
 	PetrovReport,
 	qload, 
 	grtestinput,   
-	grdebug, 
+	grdebug, # debug fn
+	grdata, # debug fn
 	Asym, 
 	Sym;
 
@@ -194,7 +210,6 @@ Useful debug routines
 $include "src/debug.mpl"
 
 grinit := proc()
-option trace;
 global grG_metricSet, grG_ObjDef;
 
 	grG_metricSet := {}:
