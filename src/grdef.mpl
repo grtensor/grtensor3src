@@ -101,7 +101,9 @@ if type ( defineStr, string ) then
     eqPos := searchtext ( `:=`, defineStr ):
     if eqPos > 0 then
         tensorName := substring ( defineStr, 1..eqPos-1 ):
+        tensorName := StringTools:-Trim(tensorName);
         tensorDef  := substring ( defineStr, eqPos+2..length(defineStr) ):
+        tensorDef := StringTools:-Trim(tensorDef):
     else 
         tensorName := defineStr:
     fi:

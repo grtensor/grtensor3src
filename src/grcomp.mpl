@@ -422,8 +422,9 @@ local displayList;
 	if assigned ( complexSet_ ) and complexSet_<>{} then
 		print ( `Complex quantities` = complexSet_ ):
 	fi:
-	if assigned ( grG_Info_[gname] ) then
-		print ( grG_Info_[gname] ):
+	if assigned ( gr_data[Text_,gname] ) then
+		print ( gr_data[Text_,gname]
+		 ):
 	fi:
 end:
 

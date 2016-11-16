@@ -29,6 +29,19 @@ In the module-friendly refactor:
 Still need to handle signature, basis, np stuff
 
 *)
+(*)
+with(FileTools); 
+griiilib := FileTools:-JoinPath(["lib", "griii.mla"]);
+
+
+if FileTools:-Exists(griiilib) then
+   printf("Remove existing library %a\n", griiilib);
+   FileTools:-Remove(griiilib);
+fi:
+if not FileTools:-Exists(griiilib) then
+	march('create',griiilib,100);
+fi:
+*)
 
 grtensor := module()
 option package;
@@ -39,6 +52,7 @@ export
 	grcalc, 
 	grcalcd,
 	grcalcalter,
+	grclear,
 	grcomponent,
 	grconstraint,
 	grdef,
@@ -48,6 +62,7 @@ export
 	grmap,
 	groptions,
 	grsavedef,
+	grsaveg,
 	grtransform,
 	kdelta,
 	KillingCoords,
@@ -56,7 +71,8 @@ export
 	PetrovReport,
 	qload, 
 	grtestinput,   
-	grdebug, 
+	grdebug, # debug fn
+	grdata, # debug fn
 	Asym, 
 	Sym;
 
@@ -134,6 +150,7 @@ $include  "src/rdependent.mpl"
 $include  "src/str2def.mpl"
 $include  "src/symfn.mpl"
 $include  "src/symmetry.mpl"
+$include "src/objects/basis/PetrovReport.mpl"
 
 (*
 In Module() restructuring require that the grG_ObjDef definitions
@@ -144,7 +161,8 @@ Wrap the object definitions in a procedure wrapper
 *)
 
 load_objects := proc()
-global grG_ObjDef, grG_multipleDef, PetrovReport:
+global grG_ObjDef, grG_multipleDef:
+
 $include  "src/objects/basis.mpl"
 $include  "src/objects/cmdef.mpl"
 $include  "src/objects/diffop.mpl"

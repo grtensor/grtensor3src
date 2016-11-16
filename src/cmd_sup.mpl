@@ -955,27 +955,28 @@ end:
 
 grF_clear := proc(object)
 local a,b, clearMe, operands, entries, root, opList, objectName;
-global grG_metricName, grG_calcFlag:
+global grG_metricName, grG_calcFlag, gr_data, Ndim:
 
   if member( object, grG_metricSet) then
     grG_metricName := object:
   else
     #
-    # legitimate object name
-    # start by getting a list of all indices of the
-    # root object, and then filter out only those with
-    # correct metric name. Then clear all of these
+    # Everything is now in gr_data, so need to find those entries which match
+    # on object name and current metric name
     #
+    grG_calcFlag[grG_metricName][object] := false:
+(*
     objectName := grF_objectName(object): # get name (might be operator)
-    entries := indices(grG_||(grG_ObjDef[objectName][grC_root])):
+    entries := indices(gr_data[grG_ObjDef[objectName][grC_root]):
+    # entries is a list with objectName, metric as the first two 
     for a in [entries] do
-      if a[1] = grG_metricName then
+      if a[1] = objectName and a[2] = grG_metricName then
          #
          # found an entry for this metric, but if it's an operator
          # we require more than just the metric name to match
          #
          clearMe := true:
-         if grF_isIndexed(object) then
+         if nops(a) > 2 then
             operands := [grF_objectOperands( grF_expandOperands(object))]:
             for b to nops(operands) do
               if operands[b] <> a[b+1] then
@@ -984,13 +985,11 @@ global grG_metricName, grG_calcFlag:
             od:
          fi:
          if clearMe then
-            root := grG_ObjDef[objectName][grC_root]:
-            grG_||root[op(a)] := parse(cat(`'`, `grG_`,convert(root,name),
-                                   convert(a,name), `'`)):
-            grG_calcFlag[grG_metricName][objectName] := false:
+            # how do we unassign array entry?
          fi:
       fi:
     od:
+*)
   fi:
 
 end:

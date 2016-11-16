@@ -806,7 +806,7 @@ global grOptionLLSC;
 	if type (G_sig, integer) and not grOptionLLSC then
 		fprintf ( fd, `sig_ := %a:\n`, G_sig ):
 	fi:
- 	if nops ( G_complex ) > 0 then
+ 	if type ( G_complex, set ) then
 		fprintf ( fd, `complex_ := %a:\n`, G_complex ):
 	fi:
 	if G_gtype = grG_g or G_gtype = grG_ds then
@@ -868,7 +868,7 @@ grF_usemetric := proc ( G_gdim,
 						G_sig, 
 						G_basisd,
 						G_basisu)
-global  Ndim, grG_constraint, grG_Ndim, grG_metricName, grG_default_metricName, grG_Info_, grG_sig_, grG_complexSet_, gr_data:
+global  Ndim, grG_constraint, grG_Ndim, grG_metricName, grG_default_metricName, grG_sig_, grG_complexSet_, gr_data:
 local 	i, btype:
 	Ndim[(G_gname)] := G_gdim:
 	grG_metricName := G_gname:
@@ -900,7 +900,7 @@ local 	i, btype:
 	fi:
 
 	if assigned ( G_info ) then
-		grG_Info_[grG_metricName] := G_info:
+		gr_data[Text_,gname] := G_info:
 		grF_assignedFlag ( info, set, grG_metricName ):
 	fi:
 

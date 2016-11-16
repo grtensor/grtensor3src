@@ -3,17 +3,18 @@ GRTensor TODO
 
 Packaging
 =========
-- how to add metric path and libpath to .mapleinit
-- add a make distro target - use it to copy stuff across from 
-  GRTensorIII into grtensor repo
+
 - check install instructions, help, some basic worksheets
 - create some info on table of contents in help?
+- update the Latex files and regenerate (as PDF?)
 
 Open Beta Prep
 ==============
-help library
-put metrics and worksheets in place
-vet the worksheets
+Work through the help pages (Info)
+- grsaveg:
+> grsaveg(junk);
+Save to: /Users/peter/maple/grtensor/grii/metrics/G_gname.mpl
+Error, (in grtensor:-grsaveg) final value in for loop must be numeric or character
 
 
 Notes:
@@ -30,7 +31,7 @@ autoload is not used. Now just load ALL object definitions into a single library
 grG_multipleDefs: How does this work?
 - multiple definitions are put into grG_multipleDef in object definitions
 - these are checked in cmd_sup.mpl
-  * the field grC_useWhen is checked to see if the definition applies
+  * the field grC_useWhen is checked to see if the definition appliesgrclear
   * these relies on a grF_useWhen_tetrad or or grF_useWhen_SpinorInvar
 
 
@@ -61,20 +62,13 @@ Tests
 
 BUGS
 ====
-1) kdelta
->grdef ( "v{^a} := kdelta( x{^a}, t)" ):
-kdelta does not evaluate
-This is an existing BUG
+grdisplay(Info) is busted..
+grsaveg is busted
+grclear(Info) does no allow re-entry
 
-2) RicciSc
-- have issue with Lambda - no def (but in fact there are multiple defs)
-- seems to have become a RicciSc bug.. Some components that should be zero are not.
 
-3) PetrovReport is not shown
 
-4) Intro WS the C(bdn,bdn,bup,bup) symmetries on display are wrong (showing too many components)
 
-5) rnds1: nptetrad dialog is missing prompt.
 
 find all path manipulations and use FileTools:-JoinPath()
 grcomponent has some issues and needs fixing
