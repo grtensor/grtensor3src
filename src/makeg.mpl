@@ -806,7 +806,7 @@ global grOptionLLSC;
 	if type (G_sig, integer) and not grOptionLLSC then
 		fprintf ( fd, `sig_ := %a:\n`, G_sig ):
 	fi:
- 	if nops ( G_complex ) > 0 then
+ 	if type ( G_complex, set ) then
 		fprintf ( fd, `complex_ := %a:\n`, G_complex ):
 	fi:
 	if G_gtype = grG_g or G_gtype = grG_ds then

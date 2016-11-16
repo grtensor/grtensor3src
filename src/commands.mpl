@@ -781,13 +781,15 @@ end:
 #-------------------------------------------------------------------
 grsaveg := proc ( )
 global gr_data, grOptionMetricPath, grG_complexSet_, grG_metricName;
-local 	a, b, G, req, metrictype, bupflag, bdnflag, gname, ndim, metricdir, savename, s:
+local 	a, b, G, req, metrictype, bupflag, bdnflag, gname, ndim, metricdir, savename, s,
+        G_gname, G_sig, G_constraint, G_info, G_complex, G_coord, G_metric,
+        G_basisu, G_basisd, G_gtype;
 
-        if nargs < 1 then
-          ERROR ( `Missing metric name parameter.` ):
-        else
-          savename := args[1]:
-        fi:
+  if nargs < 1 then
+    ERROR ( `Missing metric name parameter.` ):
+  else
+    savename := args[1]:
+  fi:
 
 	if not type ( savename, name ) then
 		ERROR ( `Metric name must be of type NAME.` ):
@@ -795,32 +797,34 @@ local 	a, b, G, req, metrictype, bupflag, bdnflag, gname, ndim, metricdir, saven
 
 	G := evaln ( G ):
 
-        if nargs = 2 then
-          metricdir := args[2]:
-        else
-          metricdir := grOptionMetricPath:
-        fi:
+  if nargs = 2 then
+    metricdir := args[2]:
+  else
+    metricdir := grOptionMetricPath:
+  fi:
 	gname := grG_metricName:
-	G||gname := savename:
+	G_gname := savename:
   ndim := Ndim[gname];
-	G||gdim := Ndim[gname]:
+	G_gdim := Ndim[gname]:
 	if assigned ( grG_constraint[gname] ) then
-		G||constraint := grG_constraint[gname]:
+		G_constraint := grG_constraint[gname]:
 	else
-		G||constraint := evaln ( G||constraint ):
+		G_constraint := evaln ( G_constraint ):
 	fi:
 	if assigned ( gr_data[Text_,gname] )  then
-		G||info := gr_data[Text_,gname]:
+		G_info := gr_data[Text_,gname]:
 	else
- 		G||info := evaln ( G||info ):
+ 		G_info := evaln ( G_info ):
 	fi:
-        if assigned ( grG_complexSet_[gname] ) then
-          G||complex := grG_complexSet_[gname]:
-        fi:
+  if assigned ( grG_complexSet_[gname] ) then
+    G_complex := grG_complexSet_[gname]:
+  else
+    G_complex := evaln ( G_complex ):
+  fi:
 
-        G||coord := [gr_data[xup_,gname,1]]:
+        G_coord := [gr_data[xup_,gname,1]]:
 	for a from 2 to ndim do
-		G||coord := [op(G||coord), gr_data[xup_,gname,a]]:
+		G_coord := [op(G_coord), gr_data[xup_,gname,a]]:
 	od:
 
 	if grF_checkIfAssigned ( g(dn,dn) ) and grF_checkIfAssigned (
@@ -849,16 +853,16 @@ eta(bup,bup) ) then
 	fi:
 
 	if assigned ( grG_sig_[gname] ) then
-		G||sig := grG_sig_[gname]:
+		G_sig := grG_sig_[gname]:
 	else
-		G||sig := evaln ( G||sig ):
+		G_sig := evaln ( G_sig ):
 	fi:
 
 	if metrictype = grG_g then
-		G||metric := array ( 1.. G||gdim, 1.. G||gdim ):
+		G_metric := array ( 1.. ndim, 1.. ndim ):
 		for a to ndim do
 			for b to ndim do
-				G||metric[a,b] := gr_data[gdndn_,gname,a,b]:
+				G_metric[a,b] := gr_data[gdndn_,gname,a,b]:
 			od:
 		od:
 	else
@@ -894,36 +898,36 @@ grF_checkIfAssigned ( e(bdn,up) ) then
 			ERROR ( `Unable to determine basis vectors.` ):
 		fi:
 
-		G||metric := array ( 1.. G||gdim, 1.. G||gdim ):
+		G_metric := array ( 1..ndim, 1..ndim ):
 		for a to ndim do
 			for b to ndim do
-				G||metric[a,b] := grG_etabupbup_[gname,a,b]:
+				G_metric[a,b] := grG_etabupbup_[gname,a,b]:
 			od:
 		od:
 
 		if bdnflag = true then
-			G||basisd := array ( 1.. G||gdim, 1.. G||gdim ):
+			G_basisd := array ( 1..ndim, 1..ndim ):
 			for a to ndim do
 				for b to ndim do
-					G||basisd[a,b] := grG_ebdndn_[gname,a,b]:
+					G_basisd[a,b] := grG_ebdndn_[gname,a,b]:
 				od:
 			od:
 		else
-			G||basisd := 0:
+			G_basisd := 0:
 		fi:
 
 		if bupflag = true then
-			G||basisu := array ( 1.. G||gdim, 1.. G||gdim ):
+			G_basisu := array ( 1..ndim, 1..ndim ):
 			for a to ndim do
 				for b to ndim do
-					G||basisu[a,b] := grG_ebdnup_[gname,a,b]:
+					G_basisu[a,b] := grG_ebdnup_[gname,a,b]:
 				od:
 			od:
 		else
-			G||basisu := 0:
+			G_basisu := 0:
 		fi:
 	fi:
-	G||gtype := metrictype:
+	G_gtype := metrictype:
   grF_saveEntry ( metricdir,
             G_gdim, 
           G_gname, 

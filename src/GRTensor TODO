@@ -10,9 +10,11 @@ Packaging
 
 Open Beta Prep
 ==============
-help library
-put metrics and worksheets in place
-vet the worksheets
+Work through the help pages (Info)
+- grsaveg:
+> grsaveg(junk);
+Save to: /Users/peter/maple/grtensor/grii/metrics/G_gname.mpl
+Error, (in grtensor:-grsaveg) final value in for loop must be numeric or character
 
 
 Notes:

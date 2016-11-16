@@ -88,8 +88,8 @@
 #******************************************
 
 # define used in debugging
-$define DEBUG option trace;
-#$define DEBUG 
+#$define DEBUG option trace;
+$define DEBUG 
 
 grG_defineOperators := {`CoD`, `LieD`}:
 
@@ -505,7 +505,6 @@ end:
 #------------------------------------------
 
 grF_stringify := proc( sdef )
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
  local outStr,  newName, leftover, charList, i;
 
  # BUILD A STRING ARRAY
@@ -824,7 +823,9 @@ global grG_symList, grG_asymList;
  local work, workStr, brktList, sqbrktList, indices,
 	i, retExpr, iTypeSeq, iListSeq, inTensor,
 	start, tName, gnum, gname, addToOperator,kdelta1, kdelta2,
-	foundscalar:
+	foundscalar, workTrim:
+
+  uses StringTools;
 
   grG_symList := []:
   grG_asymList := []:
@@ -838,10 +839,13 @@ global grG_symList, grG_asymList;
  # 
  # (We need this since grdef now calls this routine directly)
  #
+ #workTrim := StringTools:-Trim(workStr):
  if convert (workStr[1], name) = `[` then
      if traperror( parse( sdef)) <> lasterror then
        # parse ok, so it is Maple syntax
        RETURN( parse( sdef)):  # Exit here
+     else
+       ERROR("could not parse RHS");
      fi:
  fi:
 
