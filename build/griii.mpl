@@ -47,21 +47,28 @@ grtensor := module()
 option package;
 export
     autoAlias,
+    difftool,
 	gralter,
+	grapply,
+	grarray,
 	grdisplay,
 	grcalc, 
+	grcalc1,
 	grcalcd,
 	grcalcalter,
 	grclear,
 	grcomponent,
 	grconstraint,
+	grDalias,
 	grdef,
+	greqn2set,
 	grload, 
-	grloaddef,
 	grinit,
 	grmap,
+	grmetric,
+	grnormalize,
+	grnewmetric,
 	groptions,
-	grsavedef,
 	grsaveg,
 	grtransform,
 	kdelta,
@@ -73,6 +80,7 @@ export
 	grtestinput,   
 	grdebug, # debug fn
 	grdata, # debug fn
+	grdump, # debug fn
 	Asym, 
 	Sym;
 
@@ -152,6 +160,8 @@ $include  "src/symfn.mpl"
 $include  "src/symmetry.mpl"
 $include "src/objects/basis/PetrovReport.mpl"
 
+$include "src/tools/difftool.mpl"
+
 (*
 In Module() restructuring require that the grG_ObjDef definitions
 are established as the module loads. (GRII relied on the global
@@ -219,7 +229,8 @@ global grG_metricSet, grG_ObjDef;
 	grF_gen_calcFnSet():
 	print("GRTensor III"):
 	print("Copyright 2016, Peter Musgrave, Denis Pollney, Kayll Lake");
-	print("grtensor.org");
+	print("Latest version is at http://gitlab.com/grtensor/grtensor");
+	print("For help ?grtensor");
 	
 end proc:
 

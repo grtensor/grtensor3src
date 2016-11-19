@@ -44,7 +44,7 @@ EXAMPLES:
 > #   Windows-type displays.)
 
 
-> readlib ( grii ):
+> with(grtensor); 
 > qload ( bondi ):
                            Default spacetime = bondi
  

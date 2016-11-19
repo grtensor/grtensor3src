@@ -383,7 +383,6 @@ local	i, j, a:
       		if not grF_checkIfAssigned(detg) then
         		grF_core(detg,true):
       		fi:
-      		printf("precalc\n");
       		grF_invMetric(gupup_, gdndn_):
 		grF_assignedFlag ( g(up,up), set ):
 	else
@@ -659,7 +658,6 @@ gr_data[root1,grG_metricName,3,4,3,4]*gr_data[root2,grG_metricName,3,4,3,4]):
 
     else
     # use this for calcAlter or Ndim != 4
-        lprint(`Debug-using the long definition`):
 	s := 0;
 	for a to Ndim[grG_metricName] - 1 do
 	  for b from a+1 to Ndim[grG_metricName] do

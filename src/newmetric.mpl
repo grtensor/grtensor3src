@@ -89,7 +89,7 @@ for i to Ndim[obj_metric] do
   gr_data[xup_,newMetric,i] := newCoords[i]:
 od:
 grF_assignedFlag ( x(up), set ):
-Ndim||newMetric := Ndim[obj_metric]:
+Ndim[newMetric] := Ndim[obj_metric]:
  
 grF_initg ( Ndim[obj_metric], newG, newMetric ):
 grF_initMetric ( newMetric ):

@@ -3,8 +3,7 @@
 HELP FOR: difftool
 ===============================================================================
 
-CALLING SEQUENCE:  readlib ( grtools ):
-                   difftool ( function ):
+CALLING SEQUENCE:  difftool ( function ):
 
       PARAMETERS:  function - a function involving derivatives
 
@@ -16,15 +15,12 @@ SYNOPSIS:
   This allows the user to set first order derivatives to zero
   without affecting higher order derivatives.
 
-- difftool is part of the grtools library. Before this command can be
-  used, this library must be loaded via readlib(grtools).
-
-- To apply this to GRTensorII objects use grmap().
+- To apply this to GRTensorIII objects use grmap().
 
 -------------------------------------------------------------------------------
 EXAMPLE:
 
-> readlib ( grtools ):
+> with(grtensor):
 > diff ( R(r,t), r ) + diff ( diff( R(r,t), r ),t );
 
                                         /    2          \

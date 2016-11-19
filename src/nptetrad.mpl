@@ -587,7 +587,7 @@ end:
 
 grF_rotateI := proc ( gname, v1, aR, aI )
 
-global	grG_ebdnup_:
+global	gr_data:
 local	a, A, Ac, v2:
 
 A  := aR + I*aI:
@@ -600,15 +600,15 @@ else
 fi:
 
 for a to 4 do
-  gr_data[ebdnup_,name, v2, a] := gr_data[ebdnup_,name, v2, a] +
-    Ac*gr_data[ebdnup_,name,3,a] + A*gr_data[ebdnup_,name,4,a] +
-    A*Ac*gr_data[ebdnup_,name, v2, a]:
+  gr_data[ebdnup_,gname, v2, a] := gr_data[ebdnup_,gname, v2, a] +
+    Ac*gr_data[ebdnup_,gname,3,a] + A*gr_data[ebdnup_,gname,4,a] +
+    A*Ac*gr_data[ebdnup_,gname, v2, a]:
 
-  gr_data[ebdnup_,name, 3, a] := gr_data[ebdnup_,name, 3, a] +
-    A*gr_data[ebdnup_,name, v1, a]:
+  gr_data[ebdnup_,gname, 3, a] := gr_data[ebdnup_,gname, 3, a] +
+    A*gr_data[ebdnup_,gname, v1, a]:
 
-  gr_data[ebdnup_,name, 4, a] := gr_data[ebdnup_,name, 4, a] +
-    Ac*gr_data[ebdnup_,name, v1, a]:
+  gr_data[ebdnup_,gname, 4, a] := gr_data[ebdnup_,gname, 4, a] +
+    Ac*gr_data[ebdnup_,gname, v1, a]:
 od:
 
 end: 
@@ -621,17 +621,17 @@ end:
 
 grF_rotateIII := proc ( gname, A, theta )
 
-global	grG_ebdnup_:
+global	gr_data:
 local	a:
 
 for a to 4 do
-  gr_data[ebdnup_,name, 1, a] := gr_data[ebdnup_,name, 1, a]/A:
+  gr_data[ebdnup_,gname, 1, a] := gr_data[ebdnup_,gname, 1, a]/A:
 
-  gr_data[ebdnup_,name, 2, a] := gr_data[ebdnup_,name, 2, a]*A:
+  gr_data[ebdnup_,gname, 2, a] := gr_data[ebdnup_,gname, 2, a]*A:
 
-  gr_data[ebdnup_,name, 3, a] := gr_data[ebdnup_,name, 3, a]*exp( I*theta):
+  gr_data[ebdnup_,gname, 3, a] := gr_data[ebdnup_,gname, 3, a]*exp( I*theta):
 
-  gr_data[ebdnup_,name, 4, a] := gr_data[ebdnup_,name, 4, a]*exp(-I*theta):
+  gr_data[ebdnup_,gname, 4, a] := gr_data[ebdnup_,gname, 4, a]*exp(-I*theta):
 od:
 
 end: 

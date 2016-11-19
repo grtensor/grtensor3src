@@ -52,7 +52,7 @@ EXAMPLE:
 
 > qload ( schw ):
 
-> nptetrad ( [ 0, 0, 0, 1] ):
+> nptetrad ( [ t,r] ):
 
 > grsaveg ( npschw2 ):
 

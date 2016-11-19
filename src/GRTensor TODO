@@ -7,15 +7,13 @@ Packaging
 - check install instructions, help, some basic worksheets
 - create some info on table of contents in help?
 - update the Latex files and regenerate (as PDF?)
+- move HELP HTML onto gitlab public pages
+
 
 Open Beta Prep
 ==============
 Work through the help pages (Info)
-- grsaveg:
-> grsaveg(junk);
-Save to: /Users/peter/maple/grtensor/grii/metrics/G_gname.mpl
-Error, (in grtensor:-grsaveg) final value in for loop must be numeric or character
-
+- eta(bup,bup) display as array is crowded
 
 Notes:
 ======
@@ -62,12 +60,6 @@ Tests
 
 BUGS
 ====
-grdisplay(Info) is busted..
-grsaveg is busted
-grclear(Info) does no allow re-entry
-
-
-
 
 
 find all path manipulations and use FileTools:-JoinPath()

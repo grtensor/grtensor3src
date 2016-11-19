@@ -1,10 +1,10 @@
 
 ===============================================================================
-HELP FOR: GRTensorII commands
+HELP FOR: GRTensorIII commands
 ===============================================================================
 SYNOPSIS:
 
-The following is a list of GRTensorII commands. The individual help pages for
+The following is a list of GRTensorIII commands. The individual help pages for
 each command describe their use.
 
 Calculation:
@@ -36,9 +36,7 @@ Manipulation of output:
 
 Defining new objects:
 	grdef()		- define a new calculable object
-	grdefine()	- define a new object (superceded by grdef())
 	grundef()	- clear an object definition
-	grundefine()	- clear an object definition (identical to grundef())
 
 Initialization:
 	grtensor()	- print version number and load init file(s)
@@ -60,19 +58,12 @@ Saving/Loading:
 	grsaveg()	- save a metric or basis to a file
 	qload()		- load a metric from the default directory
 	grload()	- load a metric from file from a specified directory
-	grlib()		- load a GRTensorII library of additional objects
-	grsavedef()	- save an object definition
-	grloaddef()	- load an object definition
-	grsaveobj()	- save the value of an object
-	grloadobj()	- load an object from a file
 
 Miscellanea:
 	difftool()	- convert active form of diff() to passive form (*)
-	grlimit()	- evaluate the limit of a function at a point (*)
-        PetrovReport()  - describe the intermediate calculations in generating
-                          the Petrov type of a spacetime.
+    PetrovReport()  - describe the intermediate calculations in generating
+                      the Petrov type of a spacetime.
 
-(*)  requires the grtools library to be loaded, readlib(grtools).
 
 For lists of pre-defined objects see the help pages for
 		grt_objects, grt_basis, grt_invars, grt_operators

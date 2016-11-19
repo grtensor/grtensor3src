@@ -84,7 +84,7 @@ grtransform := proc ()
       npEta := array ( 1..4, 1..4, [[0,1,0,0],[1,0,0,0],[0,0,0,-1],[0,0,-1,0]] ):
       for a to 4 while gtype<>grG_basis do
         for b to 4 while gtype<>grG_basis do
-          if npEta[a,b] <> grG_etabupbup_[oldmetric,a,b] then
+          if npEta[a,b] <> grG[etabupbup_,oldmetric,a,b] then
             gtype := grG_basis:
           fi:
         od:

@@ -17,6 +17,12 @@ global grG_ObjDef;
 
 end proc:
 
+grdump := proc()
+	global grG_rootSet;
+
+   printf("grG_rootSet=%a\n", grG_rootSet);
+end proc:
+
 grdata := proc( list)
 global grG_ObjDef, grG_calcFlag; 
 
