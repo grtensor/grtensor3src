@@ -1,5 +1,5 @@
 %=================================================================-*-LaTeX-*-==
-% GRTensorII 1.50 Manual style file
+% GRTensorIII 1.50 Manual style file
 %
 % Denis Pollney
 %
@@ -24,14 +24,14 @@
 % \grexample	- a line giving an example of the use of a command
 %		  (for the end of the cmdspec enviroment).
 %
-% See the GRTensorII manual *.tex files for examples of the use of these 
+% See the GRTensorIII manual *.tex files for examples of the use of these 
 % commands.
 
 %==============================================================================
-\usepackage{fancyheadings}
+\usepackage{fancyhdr}
 \usepackage{rotating}
 %------------------------------------------------------------------------------
-% load the giant font (80pt) for the vertical GRTensorII on the title page.
+% load the giant font (80pt) for the vertical GRTensorIII on the title page.
 %------------------------------------------------------------------------------
 \newfont{\fntest}{cmcsc10 at 80pt}
 %------------------------------------------------------------------------------
@@ -60,7 +60,7 @@
 % \begin{document}
 % \grlabel{A}
 % \grtitle{Introduction and Overview}
-% \grdate{July 1996}
+% \grdate{Nov 2016}
 %
 %------------------------------------------------------------------------------
 \newcommand{\grtitle}{\renewcommand\grtitle}
@@ -76,7 +76,7 @@
   \begin{minipage}[t][.95\textheight][c]{.2\textwidth}
     \begin{sideways}
       \fntest
-      GRTensorII
+      GRTensorIII
       \normalsize
     \end{sideways}
     \rule{1mm}{.95\textheight}
@@ -89,9 +89,9 @@
     \setlength{\grtitlewidth}{\textwidth}
     \addtolength{\grtitlewidth}{-\grlabelwidth}
     \Large
-    \textit{GRTensorII Release \grRelease}\\
+    \textit{GRTensorIII Release \grRelease}\\
     \large
-    For MapleV Releases 3 and 4\\ [40mm]
+    For Maple 2016\\ [40mm]
     \huge
     \grlabel.~\parbox[t]{\grtitlewidth}{\raggedright\grtitle}\\ [20mm]
     \large
@@ -123,7 +123,7 @@
 %------------------------------------------------------------------------------
 \renewcommand{\thepage}{\grlabel\arabic{page}}
 %
-\setlength{\footrulewidth}{\headrulewidth}
+
 \renewcommand{\leftmark}{\grlabel. \grtitle}
 \lhead{\fancyplain{}{\slshape \leftmark}}
 \chead{}
@@ -137,11 +137,11 @@
 % Copyright page (page 1 of all documents}
 %------------------------------------------------------------------------------
 \newcommand{\copyrightnotice}{%
-      GRTensorII software and documentation is copyright 1994--1996 by
-      the authors. GRTensorII software and documentation is provided
+      GRTensorIII software and documentation is copyright 1994--2016 by
+      the authors. GRTensorIII software and documentation is provided
       free of charge and without warranty. The authors retain any and
-      all rights to the software known as GRTensorII and its documentation.
-      GRTensorII development has been supported by the Natural Science
+      all rights to the software known as GRTensorIII and its documentation.
+      GRTensorIII development has been supported by the Natural Science
       and Engineering Research Council of Canada and the Advisory
       Research Committee of Queen's University. MapleV is a trademark
       of Waterloo Maple Software.

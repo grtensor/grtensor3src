@@ -21,6 +21,16 @@ Do the caveats w.r.t I (sqrt(-1)) in the nptetrad help still apply?
 Work through the help pages (Info)
 - eta(bup,bup) display as array is crowded
 
+Intro book:
+- example assigns a := 1/2 and then R_a b shows as nummerical value when displaying. 
+- WeySc Psi 1/2 for NP example are close - but do not match the doc!!	
+ * if change to noparam or reverse param list, then get a different Petrov type. IS that a bug?
+ * need to try with the old grtensor
+ 
+
+
+TODO
+====
 Add geodesic equation as an operator on a vector
 - prompt for +/-1, 0 ?
 

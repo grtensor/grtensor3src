@@ -195,6 +195,7 @@ local a, b, idxnbr, found, localln:
 global gr_data:
 
 if lnspace <> [] and nops ( lnspace ) <> 2 then
+  printf("lnspace list=%a\n", lnspace);
   ERROR ( 
     `The l-n subspace must be specified as a 2-component list, eg. [t,r].`
   ):
@@ -220,8 +221,9 @@ if lnspace <> [] then
     not member ( localln[1], {1,2,3,4} )
     or not member ( localln[2], {1,2,3,4} )
     or localln[1] = localln[2] then
-    ERROR ( 
-    `The lnspace argument should be specified as a list of two coordinate names, eg. [t,r].` ):
+      printf("lnspace list=%a\n", lnspace);
+      ERROR ( 
+      `The lnspace argument should be specified as a list of two coordinate names, eg. [t,r].` ):
   fi:
 else
   localln := []:
