@@ -71,9 +71,11 @@ export
 	groptions,
 	grsaveg,
 	grtransform,
+	grundef,
 	kdelta,
 	KillingCoords,
 	makeg, 
+	nprotate,
 	nptetrad,
 	PetrovReport,
 	qload, 
@@ -142,7 +144,6 @@ $include  "src/expandsqrt.mpl"
 $include  "src/grcomp.mpl"
 $include  "src/grdef.mpl"
 $include  "src/grload.mpl"
-$include  "src/grtensor.mpl"
 $include  "src/grtransform.mpl"
 $include  "src/initFn.mpl"
 $include  "src/inputFn.mpl"):

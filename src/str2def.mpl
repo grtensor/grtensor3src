@@ -764,12 +764,14 @@ local pos, idx, upidx, dnidx, a, expr:
       for a to nops(pos) do
         if member(pos[a], {up,cup,bup,pup,cbup,pbup}) then
           if member(idx[a],{upidx}) then
+            # exiting on a repeated index in the same position - illegal
             RETURN ([-1,idx[a]]):
           else
             upidx := upidx, idx[a]:
           fi:
         elif member(pos[a], {dn,cdn,bdn,pdn,cbdn,pbdn}) then
           if member (idx[a], {dnidx}) then
+            # exiting on a repeated index in the same position - illegal
             RETURN ([-1,idx[a]]):
           else
             dnidx := dnidx, idx[a]:
@@ -779,6 +781,10 @@ local pos, idx, upidx, dnidx, a, expr:
     elif op(0,expr)=Operator_ then
       pos := op(3,expr):
       idx := op(4,expr):
+      #
+      # this is not working for LieD[u,R{a b}] => 
+      # Operator_(LieD, u, Tensor_(R, [dn, dn], [a, b], 0), [], [])
+      #
       for a to nops(pos) do
         if member(pos[a], {up,cup,bup,pup,cbdn,pbdn}) then
           if member(idx[a],{upidx}) then
@@ -802,8 +808,8 @@ local pos, idx, upidx, dnidx, a, expr:
       #ERROR("Cannot get term indices for %a", op(0,expr));
     fi:
   else 
-     printf("Unrecognized terminal object: %a\n", expr);
-     #ERROR("Cannot get term indices for %a", op(0,expr));
+     # this may be ok if defining a scalar
+     a := 0; # dummy assignment 
   fi:
   RETURN ([[upidx],[dnidx]])
 end:

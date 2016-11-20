@@ -211,7 +211,7 @@ local i, howSeq, lastObj, gname, new_args;
 	howSeq := args[i], howSeq:
      od:
      if grOptionMessageLevel > 0 then
-       printf("Component simplification of a GRTensorII object:\n\n"):
+       printf("Component simplification of a GRTensorIII object:\n\n"):
      fi:
 
      # set globals for the core

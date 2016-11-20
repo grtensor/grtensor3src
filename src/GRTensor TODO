@@ -12,8 +12,19 @@ Packaging
 
 Open Beta Prep
 ==============
+nprotate() example - not getting same tetrad to start with 
+(had to change nptetrad to [t,r])
+
+Do the caveats w.r.t I (sqrt(-1)) in the nptetrad help still apply?
+
+ 
 Work through the help pages (Info)
 - eta(bup,bup) display as array is crowded
+
+Add geodesic equation as an operator on a vector
+- prompt for +/-1, 0 ?
+
+Support email in ?grtensor ??
 
 Notes:
 ======

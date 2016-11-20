@@ -58,7 +58,7 @@ SYNOPSIS:
 Examples:
 
 > qload ( schw ):
-> grdef ( `v{^a} := kdelta( x{^a}, t)` ):
+> grdef ( `v{^a} := kdelta{^a $t}` ):
 Created definition for v(up)
 
 > grcalc ( KillingTest[v] ):
