@@ -95,7 +95,7 @@ local a,  t, toc, root, entry, objectName, objectNameString,
 # THINK BEFORE YOU MOVE STUFF AROUND!
 #
 
-#*** setup variables for the symmetry routine
+  #*** setup variables for the symmetry routine
   #
   # METRIC NAME ??
   #
@@ -212,17 +212,17 @@ local a,  t, toc, root, entry, objectName, objectNameString,
        grF_displayHeaders ( objectName ):
   fi:
 
- # IF A ONE OR TWO INDEX OBJECT IS BEING DISPLAYED, 
- # SEE IF IT CAN BE DISPLAYED AS AN ARRAY.
- # (if so, then grG_fnCode is set to grC_tmpNoDISP so that
- # no further action is taken on it this time through.
- # grG_fnCode is then reset at the end of core.
- #
+  # IF A ONE OR TWO INDEX OBJECT IS BEING DISPLAYED, 
+  # SEE IF IT CAN BE DISPLAYED AS AN ARRAY.
+  # (if so, then grG_fnCode is set to grC_tmpNoDISP so that
+  # no further action is taken on it this time through.
+  # grG_fnCode is then reset at the end of core.
+  #
   if grG_fnCode = grC_DISP
 	and type ( objectName, function )
 	and not assigned ( grG_ObjDef[objectName][grC_displayFn] )
 	and ( nops(objectName)=1 or nops(objectName)=2 ) then
-	grG_fnCode := grF_slickdisplay ( objectName ):
+	    grG_fnCode := grF_slickdisplay ( objectName ):
   fi:
 
   #

@@ -453,8 +453,14 @@ local	a, header, opset:
 #		print ( `with operands: `.opset ):
 #	fi:
 end:
+
 #-------------------------------------------------------------------
 # grF_slickdisplay.
+# If this 1 or 2 index object can be displayed as a vector or
+# matric, then do so.
+#
+# Then return a null fn code to core so it does not do per-component
+# display.
 #-------------------------------------------------------------------
 grF_slickdisplay := proc ( objectName )
 global	grG_fnCode, grG_displayZero:
@@ -589,7 +595,7 @@ end:
 #-------------------------------------------------------------------
 grF_symbTensorName := proc ( objectName )
 local	rootStr, indexType1, indexType2, idx1, idx2, pos1, pos2,
-	dispObj, idxnbr:
+	dispObj, idxnbr, a, b:
 	rootStr := grG_ObjDef[objectName][grC_rootStr]:
 	idxnbr := nops ( grG_ObjDef[objectName][grC_indexList] ):
 	indexType1 := grG_ObjDef[objectName][grC_indexList][1]:

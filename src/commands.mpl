@@ -402,7 +402,6 @@ end:
 #------------------------------------------------------------------------------
 
 grcalc1 := proc()
-option trace;
 local gname, object, iList, coordNum_seq, a, b, root, calcFn,
 	depends, operands, objectName, newArgs:
 global gr_data, grOptionDefaultSimp:
