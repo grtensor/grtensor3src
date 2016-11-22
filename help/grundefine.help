@@ -1,6 +1,6 @@
 
 ===============================================================================
-HELP FOR: grundefine
+HELP FOR: grundef
 ===============================================================================
 
 CALLING SEQUENCE:  grundefine ( objectSeq ):
@@ -17,10 +17,10 @@ SYNOPSIS:
 -------------------------------------------------------------------------------
 EXAMPLES:
 
->grundefine( T(dn,dn) );
+>grundef( T(dn,dn) );
 Removed definition for object T(dn,dn)
 
->grundefine( A(dn,dn), newScalar )
+>grundef( A(dn,dn), newScalar );
 Removed definition for object A(dn,dn)
 Removed definition for object newScalar
 

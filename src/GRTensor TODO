@@ -7,15 +7,44 @@ Packaging
 - check install instructions, help, some basic worksheets
 - create some info on table of contents in help?
 - update the Latex files and regenerate (as PDF?)
+- move HELP HTML onto gitlab public pages
+
 
 Open Beta Prep
 ==============
-Work through the help pages (Info)
-- grsaveg:
-> grsaveg(junk);
-Save to: /Users/peter/maple/grtensor/grii/metrics/G_gname.mpl
-Error, (in grtensor:-grsaveg) final value in for loop must be numeric or character
+nprotate() example - not getting same tetrad to start with 
+(had to change nptetrad to [t,r])
 
+Do the caveats w.r.t I (sqrt(-1)) in the nptetrad help still apply?
+
+ 
+Work through the help pages (Info)
+- eta(bup,bup) display as array is crowded
+
+Intro book:
+- WeySc Psi 1/2 for NP example are close - but do not match the doc!!	
+ * if change to noparam or reverse param list, then get a different Petrov type. IS that a bug?
+ * need to try with the old grtensor
+ 
+Calc book: ok
+
+Basis Book:
+	grdef("F{[a b]} := 4*lambda*l{[a}*n{b]}");
+    - definition should say NPl and NPn
+
+	grdef("my_e3{^a} := e{(b) ^a}*kdelta{^(b) $3}");
+	Created definition for grtensor:-kdelta(bup,dn) 
+	Error, (in grtensor:-grdef) Explicit coordinate 3 not found in metric schwb
+    * ALSO needed to change to my e3 - e3 was already defined
+
+
+
+TODO
+====
+Add geodesic equation as an operator on a vector
+- prompt for +/-1, 0 ?
+
+Support email address in ?grtensor ??
 
 Notes:
 ======
@@ -62,12 +91,6 @@ Tests
 
 BUGS
 ====
-grdisplay(Info) is busted..
-grsaveg is busted
-grclear(Info) does no allow re-entry
-
-
-
 
 
 find all path manipulations and use FileTools:-JoinPath()

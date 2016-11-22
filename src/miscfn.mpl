@@ -143,8 +143,8 @@ local a,b,c,cb,pb,p,objSeq, i:
            #
            # need to count the number of coD indices present
            #
-  	   c := 0:
-	   p := 0:
+  	       c := 0:
+	         p := 0:
            cb:= 0:
            pb:= 0:
            for i to nops(b) do

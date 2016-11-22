@@ -589,14 +589,14 @@ end:
 #----------------------------
 # testNP
 #----------------------------
-grG_ObjDef[testNP][grC_header] := `Test NP inner product`:
-grG_ObjDef[testNP][grC_root] := testNPbdnbdn_:
-grG_ObjDef[testNP][grC_rootStr] := `testNP`:
-grG_ObjDef[testNP][grC_indexList] := [bdn,bdn]:
-grG_ObjDef[testNP][grC_calcFn] := grF_calc_testNPbdnbdn:
-grG_ObjDef[testNP][grC_calcFnParms] := [NULL]:
-grG_ObjDef[testNP][grC_symmetry] := grF_sym_nosym2:
-grG_ObjDef[testNP][grC_depends] := { e(bdn,dn), e(bdn,up) }:
+grG_ObjDef[testNP(bdn,bdn)][grC_header] := `Test NP inner product`:
+grG_ObjDef[testNP(bdn,bdn)][grC_root] := testNPbdnbdn_:
+grG_ObjDef[testNP(bdn,bdn)][grC_rootStr] := `testNP`:
+grG_ObjDef[testNP(bdn,bdn)][grC_indexList] := [bdn,bdn]:
+grG_ObjDef[testNP(bdn,bdn)][grC_calcFn] := grF_calc_testNPbdnbdn:
+grG_ObjDef[testNP(bdn,bdn)][grC_calcFnParms] := [NULL]:
+grG_ObjDef[testNP(bdn,bdn)][grC_symmetry] := grF_sym_nosym2:
+grG_ObjDef[testNP(bdn,bdn)][grC_depends] := { e(bdn,dn), e(bdn,up) }:
 
 
 grF_calc_testNPbdnbdn := proc(object, index)

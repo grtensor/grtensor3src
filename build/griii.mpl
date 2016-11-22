@@ -47,32 +47,42 @@ grtensor := module()
 option package;
 export
     autoAlias,
+    difftool,
 	gralter,
+	grapply,
+	grarray,
 	grdisplay,
 	grcalc, 
+	grcalc1,
 	grcalcd,
 	grcalcalter,
 	grclear,
 	grcomponent,
 	grconstraint,
+	grDalias,
 	grdef,
+	greqn2set,
 	grload, 
-	grloaddef,
 	grinit,
 	grmap,
+	grmetric,
+	grnormalize,
+	grnewmetric,
 	groptions,
-	grsavedef,
 	grsaveg,
 	grtransform,
+	grundef,
 	kdelta,
 	KillingCoords,
 	makeg, 
+	nprotate,
 	nptetrad,
 	PetrovReport,
 	qload, 
 	grtestinput,   
 	grdebug, # debug fn
 	grdata, # debug fn
+	grdump, # debug fn
 	Asym, 
 	Sym;
 
@@ -134,7 +144,6 @@ $include  "src/expandsqrt.mpl"
 $include  "src/grcomp.mpl"
 $include  "src/grdef.mpl"
 $include  "src/grload.mpl"
-$include  "src/grtensor.mpl"
 $include  "src/grtransform.mpl"
 $include  "src/initFn.mpl"
 $include  "src/inputFn.mpl"):
@@ -151,6 +160,8 @@ $include  "src/str2def.mpl"
 $include  "src/symfn.mpl"
 $include  "src/symmetry.mpl"
 $include "src/objects/basis/PetrovReport.mpl"
+
+$include "src/tools/difftool.mpl"
 
 (*
 In Module() restructuring require that the grG_ObjDef definitions
@@ -219,7 +230,8 @@ global grG_metricSet, grG_ObjDef;
 	grF_gen_calcFnSet():
 	print("GRTensor III"):
 	print("Copyright 2016, Peter Musgrave, Denis Pollney, Kayll Lake");
-	print("grtensor.org");
+	print("Latest version is at http://gitlab.com/grtensor/grtensor");
+	print("For help ?grtensor");
 	
 end proc:
 

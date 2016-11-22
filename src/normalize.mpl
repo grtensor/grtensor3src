@@ -57,7 +57,7 @@ global	gr_data:
 
   if mag <> 0 then
     for a to Ndim[gname] do
-      localv[a] := grG_||vRoot[gname, a]/mag:
+      localv[a] := gr_data[vRoot, gname, a]/mag:
     od:
   else
     ERROR ( `Vector `||v||` is null.` ):
@@ -66,17 +66,12 @@ global	gr_data:
   for a to Ndim[gname] do
     print ( op(0,v)^gr_data[xup_,gname,a] = localv[a] ):
   od:
-  gr_data[vnorm_,gname,op(0,v)] := vnorm:
   
-  printf ("Do you wish to overwrite %a with the normalized vector? (1=yes)\n", v):
-  yorn := grF_readstat (``, [], `grnormalize`):
+  for a to Ndim[gname] do
+    gr_data[vRoot,gname,a] := localv[a]:
+  od:
+  printf ( "%a has been overwritten.\n", v):
 
-  if yorn = 1 then
-    for a to Ndim[gname] do
-      gr_data[vRoot,gname,a] := localv[a]:
-    od:
-    printf ( "%a has been overwritten.\n", v):
-  fi:
 end:
 
 #==============================================================================

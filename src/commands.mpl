@@ -21,7 +21,6 @@
 #
 # File contains the main user commands for GRTensorII
 #
-# grload
 # grclear
 # grcalc
 # grdisplay
@@ -168,9 +167,11 @@ local i, new_args, lastArg, fileName, funct, parmSeq, last, pStart,k,j;
   #
   # pretest the fileName (and clear it out) by a dummy write
   #
-  fd := fopen(fileName, WRITE):
-  fprintf (fd, "\n"):
-  fclose(fd):
+  if fileName != `terminal` then
+    fd := fopen(fileName, WRITE):
+    fprintf (fd, "\n"):
+    fclose(fd):
+  fi:
   #
   # get to work
   #
@@ -210,7 +211,7 @@ local i, howSeq, lastObj, gname, new_args;
 	howSeq := args[i], howSeq:
      od:
      if grOptionMessageLevel > 0 then
-       printf("Component simplification of a GRTensorII object:\n\n"):
+       printf("Component simplification of a GRTensorIII object:\n\n"):
      fi:
 
      # set globals for the core
@@ -901,7 +902,7 @@ grF_checkIfAssigned ( e(bdn,up) ) then
 		G_metric := array ( 1..ndim, 1..ndim ):
 		for a to ndim do
 			for b to ndim do
-				G_metric[a,b] := grG_etabupbup_[gname,a,b]:
+				G_metric[a,b] := gr_data[etabupbup_,gname,a,b]:
 			od:
 		od:
 
@@ -909,7 +910,7 @@ grF_checkIfAssigned ( e(bdn,up) ) then
 			G_basisd := array ( 1..ndim, 1..ndim ):
 			for a to ndim do
 				for b to ndim do
-					G_basisd[a,b] := grG_ebdndn_[gname,a,b]:
+					G_basisd[a,b] := gr_data[ebdndn_,gname,a,b]:
 				od:
 			od:
 		else
@@ -920,7 +921,7 @@ grF_checkIfAssigned ( e(bdn,up) ) then
 			G_basisu := array ( 1..ndim, 1..ndim ):
 			for a to ndim do
 				for b to ndim do
-					G_basisu[a,b] := grG_ebdnup_[gname,a,b]:
+					G_basisu[a,b] := gr_data[ebdnup_,gname,a,b]:
 				od:
 			od:
 		else

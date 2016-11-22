@@ -31,7 +31,7 @@ SYNOPSIS:
 EXAMPLES:
 
 # output for the following commands have been suppressed ...
-> readlib ( grii ):
+> with(grtensor): 
 > h(r,t) := diff ( f(r,t), r )/r;
 
                                          d

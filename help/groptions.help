@@ -62,6 +62,12 @@ grOptionLLSC (boolean, default = true)
   false, then the sig object will not be assigned unless it is
   explicitly given by the spacetime input file or specified in makeg().
 
+grOptionMapletInput (boolean, default = true)
+  Use dialog boxes (Maplets) for user input to a grtensor session. In 
+  graphical worksheets this is required. Users of command line Maple
+  may wish to set this to false for direct terminal input prompts 
+  (although Maplet input in e.g. command line Mac Maple works)
+
 grOptionMetricPath (string, default=homedir)
   This option variable is a MapleV string which specifies the default
   directory from which metric files are to be loaded or to which they will

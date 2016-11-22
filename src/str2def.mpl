@@ -764,12 +764,14 @@ local pos, idx, upidx, dnidx, a, expr:
       for a to nops(pos) do
         if member(pos[a], {up,cup,bup,pup,cbup,pbup}) then
           if member(idx[a],{upidx}) then
+            # exiting on a repeated index in the same position - illegal
             RETURN ([-1,idx[a]]):
           else
             upidx := upidx, idx[a]:
           fi:
         elif member(pos[a], {dn,cdn,bdn,pdn,cbdn,pbdn}) then
           if member (idx[a], {dnidx}) then
+            # exiting on a repeated index in the same position - illegal
             RETURN ([-1,idx[a]]):
           else
             dnidx := dnidx, idx[a]:
@@ -779,6 +781,10 @@ local pos, idx, upidx, dnidx, a, expr:
     elif op(0,expr)=Operator_ then
       pos := op(3,expr):
       idx := op(4,expr):
+      #
+      # this is not working for LieD[u,R{a b}] => 
+      # Operator_(LieD, u, Tensor_(R, [dn, dn], [a, b], 0), [], [])
+      #
       for a to nops(pos) do
         if member(pos[a], {up,cup,bup,pup,cbdn,pbdn}) then
           if member(idx[a],{upidx}) then
@@ -802,8 +808,8 @@ local pos, idx, upidx, dnidx, a, expr:
       #ERROR("Cannot get term indices for %a", op(0,expr));
     fi:
   else 
-     printf("Unrecognized terminal object: %a\n", expr);
-     #ERROR("Cannot get term indices for %a", op(0,expr));
+     # this may be ok if defining a scalar
+     a := 0; # dummy assignment 
   fi:
   RETURN ([[upidx],[dnidx]])
 end:
@@ -823,7 +829,7 @@ global grG_symList, grG_asymList;
  local work, workStr, brktList, sqbrktList, indices,
 	i, retExpr, iTypeSeq, iListSeq, inTensor,
 	start, tName, gnum, gname, addToOperator,kdelta1, kdelta2,
-	foundscalar, workTrim:
+	foundscalar, workTrim, newiList:
 
   uses StringTools;
 
@@ -935,49 +941,31 @@ global grG_symList, grG_asymList;
 	   tName := workStr[start-1]:
 	   gnum := 0:
 	 fi:
-         #
-         # handle kdelta as a special case
-         #
-#         if tName = kdelta then
-#            #
-#            # kdelta{a ^b} -> kdelta( Tensor_( x, [up], [a], 0),Tensor_(x,[up],[b],0) )
-#            # BUT - beware of explicit indices
-#            #
-#            if nops([iListSeq]) <> 2 then
-#               ERROR(`kdelta requires two indices`);
-#            fi:
-#            kdelta1 := op(1,iTypeSeq):
-#            kdelta2 := op(2,iTypeSeq):
-#            #
-#            # check for explicit indices
-#            #
-#            if type(op(1,[iTypeSeq]),indexed) then
-#               kdelta1 := explicit_[op(1,[iTypeSeq])]:
-#            fi:
-#            if type(op(2,[iTypeSeq]),indexed) then
-#               kdelta2 := explicit_[op(2,[iTypeSeq])]:
-#            fi:
-#            workStr[start-1] := convert( cat(`kdelta(`,
-#		 `Tensor_(x,[`, convert( kdelta1, name),`],[`,
-#                           convert(op(1,[iListSeq]),name),`],0),`,
-#		 `Tensor_(x,[`,convert( kdelta2, name),`],[`,
-#                            convert(op(2,[iListSeq]),name),`],0))`),name);
-#         else
 	    #
 	    # change e.g  `R`, `{`, `a`, `b`, `}` to
 	    #  `Tensor_( R, [dn,dn], [a,b])`
 	    #
+            # Note: This is converting the iList to names 
+            # (so explicit  3 -> `3`)  PM2016
+            newiList := []:
+            for index in iListSeq do
+                if type(index, integer) then
+                   newiList := [op(newiList), index]
+                else
+                   newiList := [op(newiList), convert(index, name)]
+                fi:
+            od:
+
 	    workStr[start-1] := convert( cat(`Tensor_(`, tName,`,`,
 		 convert( [iTypeSeq], name),`,`,
-		 convert( [iListSeq], name),`,`,gnum,`)`) ,name):
-#         fi:
-      else # add indices to the end of an Operator
+		 newiList,`,`,gnum,`)`) ,name):
+    else # add indices to the end of an Operator
          workStr[i] := convert( cat( convert( [iTypeSeq], name),`,`,
 		 convert( [iListSeq], name),`)`), name):
          addToOperator := false:
          inTensor := false:
 
-      fi:
+    fi:
 
    #
    # OPERATORS e.g.

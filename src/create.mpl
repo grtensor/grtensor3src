@@ -682,7 +682,7 @@ global grG_operands, gr_data:
       `&for`( s1, 1, 1, Ndim[grG_metricName], true,
         `&statseq`(
         `&:=`(s, s + 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],
-           gr_data[xup_,grG_metricName, s1] )*grG_ebdnup_[grG_metricName,a||n||_,s1] 
+           gr_data[xup_,grG_metricName, s1] )*gr_data[ebdnup_,grG_metricName,a||n||_,s1] 
          ))
        ),
        loopStmt ) ):

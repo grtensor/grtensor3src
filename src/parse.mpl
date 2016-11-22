@@ -50,7 +50,6 @@
 #----------------------------------------------------------
 
 grF_buildCalcFn := proc( expr, newObject, indexList, listingSub, subRanges)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 global  grG_ObjDef, 
         grG_firstTerm: # if true, then carry out init in grF_parse
 
@@ -151,7 +150,6 @@ local a,b,i, body, s, loopStmt, exStmt,
         #
 	# relabel the dummy indices s1_ .. sn_
 	# and verify they occur in both up and down lists
-	# (only for up/dn -> extend later)
 	#
 	dummySub := NULL:
         impliedSums := `intersect`(

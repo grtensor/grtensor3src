@@ -1,5 +1,5 @@
 %=================================================================-*-LaTeX-*-==
-% GRTensorII 1.50 Manual
+% GRTensorIII 1.50 Manual
 % Booklet A: Introduction and overview
 %
 % Denis Pollney
@@ -10,18 +10,20 @@
 \usepackage{maple2e}
 \usepackage{grtensor}
 \usepackage{grbooks}
+\usepackage{hyperref}
 %------------------------------------------------------------------------------
 \begin{document}
+\setlength{\footrulewidth}{\headrulewidth}
 \grlabel{\grIntroLabel}
 \grtitle{\grIntroTitle}
-\grdate{July 1996}
+\grdate{Nov 2016}
 \grtitlepage
 %
 %==============================================================================
 % Body.
 %==============================================================================
 \copyrightpage
-\noindent GRTensorII is a package for the calculation and manipulation of
+\noindent GRTensorIII is a package for the calculation and manipulation of
 components of tensors and related objects. Rather than focus upon a
 specific type or method of calculation, the program has been designed
 to operate efficiently for a wide range of applications and allows the
@@ -33,7 +35,7 @@ define new objects, user-defined algorithms, and add-on libraries.
 
 Regardless of the algorithm or formalism used, it is often the case
 that only certain simplifications applied at a crucial stages can make
-some problems tractable. For this reason, GRTensorII has been designed
+some problems tractable. For this reason, GRTensorIII has been designed
 to provide full control of the calculation path and of the
 simplifications to be performed at each stage. Once a calculation is
 completed, a variety of commands are available for the manipulation
@@ -46,7 +48,7 @@ for later use.  Calculations are specified in an intuitive manner
 using a minimal number of commands.\\
 
 This booklet introduces a number of characteristics and features of
-the GRTensorII computer algebra package, emphasizing its input and
+the GRTensorIII computer algebra package, emphasizing its input and
 output facilities, the ability to define new tensor objects, and the
 ability to use and switch between a number of different formalisms
 (classical tensor methods, general bases, and null tetrads). This
@@ -64,7 +66,7 @@ in Booklets \grMakegLabel--\grSetupLabel:
   \end{tabular}
 \end{center}
 Together these articles are intended to serve as both a user's guide
-and command reference for the GRTensorII package. Unfortunately
+and command reference for the GRTensorIII package. Unfortunately
 because of this dual purpose, there are some shortfalls in their
 ability to perform each task: Someone looking for tutorial information
 might find themselves buried in uninteresting technical points,
@@ -78,75 +80,53 @@ interface is gained, the ability to define new tensors and build
 customized libraries, described in Booklet \grDefRef, greatly increase
 the power of the package.  For the first time user, probably the best
 way to approach the package is to study and execute some of the
-demonstrations available online at the world-wide-web site \cite{www},
-at the same time referring to these booklets and the online help as
-necessary.\footnote{For MapleV.3 versions, the online help library for
-GRTensorII is loaded into MapleV by the command
-\texttt{readlib(griihelp)}. It is described with installation
-instructions in Booklet \grSetupRef. For MapleV.4 versions, the online
-help is automatically accessible.}\\
+demonstrations available in the worksheets directory provided with 
+the package, referring to these booklets and the online help as
+necessary.
 
-\textbf{Release 1.50:} GRTensorII was developed from the foundations
-laid by the GRTensor package for MapleV.2 in 1991. The GRTensorII
-package was first released in September of 1994. Updates have been
-made intermittently since then, with a new set of release notes
-accompanying Version 1.1 in the summer of 1995. The current version,
-Release 1.50, marks an attempt to streamline and document the
-improvements to the package since its original appearance. Development
-has concentrated on improving users' ability to define new tensors by
-incorporating general index symmetries into automatically generated
-calculation programs. The new release also incorporates a number of
-internal changes, such as improved algorithms for the calculation of
-Newman-Penrose coefficients and scalar invariants. The online help
-library has been expanded and brought up to date and a new documentation
-set, of which this is the first booklet, has been written with an aim
-to provide a coherent description of the package as it stands in the
-summer of 1996.
+\textbf{Release 1.00:} GRTensorIII is a adaptation of GRTensorII
+version 1.50 developed in 1994-1999. It is primarily a refactoring
+of internal data representation with some updates to the ''modern''
+Maple environment. \\
+\begin{itemize}
+  \item move all variables inside a scoped Maple package
+  \item include all extension objects from GRII (basic etc.) directly
+  in the main package
+  \item support Maple worksheet dialog based input
+  \item remove some seldom used commands (grloaddef, grsavedef, 
+  grloadobj, grsaveobj)
+  \item no changes have been made to the expressions used to define
+  the standard tensor objects
+\end{itemize}\\
 
-The version of GRTensorII described in these booklets runs within the
-MapleV environment.  It is supported for both Release 3 and 4 of
-MapleV. A Mathematica version of the GRTensorII software is also
-available.\footnote{The Mathematica port of GRTensorII, called
-GRTensorM, is available from the world-wide-web site \cite{www}. It
-differs from the MapleV version in both syntax and functionality. As
-such, these booklets should not be used as a reference for GRTensorM.}
-It is intended that additions and improvements will continue to be
-made to the package  and the individual `booklet' format of this
-documentation has been chosen to facilitate expansion and document
-supplements.  We encourage users to check back periodically for new
-versions of software, documentation, and demonstrations, at the
-GRTensorII world-wide-web site \cite{www}.\footnote{We note
-parenthetically that some other unaffiliated software sites
-re-distribute versions of GRTensorII.  We cannot assure the recency or
-integrity of such versions and recommend that GRTensorII software,
-updates, and documentation be downloaded from the home site.}
+The version of GRTensorIII described in these booklets runs within the
+Maple environment.  It is supported for both Release 3 and 4 of
+Maple. 
+We encourage users to check back periodically for new
+versions of software, documentation, and demonstrations, at \href{url}{http:/gitlab.com/grtensor/GRTensorIII}.
+This represents the "official" version. 
+
+A copy of the GRTensorIII source code is available online at 
+\href{url}{http:/gitlab.com/grtensor/GRTensorIII}. Merge requests
+will be considered. 
+
 %
 %------------------------------------------------------------------------------
 \section{Startup}
 %------------------------------------------------------------------------------
-The GRTensorII package is distributed as a set of MapleV libraries
-(`\texttt{.m}' files), the most significant of which is the file
-\texttt{grii.m}. This file contains the full library of GRTensorII
-commands to be described in this set of booklets, as well as a large
-standard library of calculable tensors and other
-objects.\footnote{Instructions for the installation of this library
-are given in Booklet \grSetupRef.}
+The GRTensorIII package is distributed as Maple package. 
+To start the GRTensorIII package, in a new Maple session ensure
+that the location of \text\tt{grtensor/lib} is in the Maple path. It can be added
+by:\\
 
-To start the GRTensorII package, in a new MapleV session type the
-commands:\\
+\noindent\text{\tt > libname := libname, ''path_to_grtensor_lib'';}\\
 
-\noindent\texttt{> readlib ( grii ):\\
-> grtensor():}\\
+The package is loaded in the standard manner:\\
 
-\noindent The first of these commands loads the GRTensorII library,
-while the second initializes the package in addition to printing out a
-title page giving current version information. (Optionally, MapleV.3
-users might also consider to execute the command \texttt{readlib(griihelp)}
-which loads the online help library, kept separate because of its
-size.)
+\noindent\text{\tt > with(grtensor);}\\
 
 The examples described below are designed to be run in a single
-GRTensorII session.
+GRTensorIII session.
 %------------------------------------------------------------------------------
 \section{Calculating components}
 %------------------------------------------------------------------------------
@@ -163,7 +143,7 @@ where the last example uses the labels {\tt bup} and {\tt bdn} to
 reference the components of the Ricci tensor in terms of a basis
 rather than metric coordinates.
 
-Three commands are used most frequently within a GRTensorII session:
+Three commands are used most frequently within a GRTensorIII session:
 \begin{description}
   \item[grcalc] calculates the components of tensors;
   \item[grdisplay] displays the components;
@@ -235,7 +215,7 @@ is described in Booklet \grBasisRef.
 %------------------------------------------------------------------------------
 \section{Input of spacetimes}
 %------------------------------------------------------------------------------
-Spacetimes are specified within GRTensorII through use of the
+Spacetimes are specified within GRTensorIII through use of the
 \grcmd{makeg} facility. They can be entered in the following forms:
 \begin{description}
   \item[Metric, $g_{ab}$] A $n\times n$ symmetric matrix;
@@ -256,8 +236,12 @@ et al.  \cite{krameretal},
 We can enter this metric directly in this form using \grcmd{makeg}, giving
 it the name `\texttt{sm}':\\
 
+\indent\em{In Maple worksheets the following prompts will appear
+in dialog boxes. In the example here we show the responses in 
+command-line mode.}\\
+
 \noindent\texttt{> makeg ( sm ):\\
-\indent\textsl{\small Makeg 2.0: GRTensorII metric/basis entry utility\\
+\indent\textsl{\small Makeg 2.0: GRTensorIII metric/basis entry utility\\
 \indent To quit makeg, type 'exit' at any prompt.}}
 \begin{tabbing}
 \indent\texttt{\textsl{Do you wish to enter a }}
@@ -306,7 +290,7 @@ to in \cite{krameretal} on p. 135):\\
 \noindent\texttt{> a := 1/2: k := -32/(78*lambda):
   f(t) := (13*t\^{}2+17)/32:}\\
 
-\noindent For this simple metric, it is not difficult to calculate the
+\noindent For this metric, we calculate the
 (rather uninteresting, in this case) components of the Ricci tensor:\\
 
 \noindent\texttt{> grcalc ( R(dn,dn) ):}\\
@@ -336,20 +320,20 @@ commands are the subject of Booklet \grCalcRef.
 \section{The Newman-Penrose formalism}
 %------------------------------------------------------------------------------
 A more complicated problem is that of determining the Petrov type of
-this metric. In order to do this in GRTensorII, the metric must be
+this metric. In order to do this in GRTensorIII, the metric must be
 cast in the form of a Newman-Penrose (NP) null tetrad. Since no tetrad
 obviously presents itself from the form of the metric given above, we
 can use the command \grcmd{nptetrad} to generate one. This command
 constructs a set of null basis vectors satisfying the properties of
 a basis for the Newman-Penrose formalism.\footnote{Since the -2 signature
 convention of the NP formalism conflicts with the +2 Landau-Lifschitz
-convention recommended for metrics in GRTensorII, the construction
+convention recommended for metrics in GRTensorIII, the construction
 of the tetrad also involves a signature change. This is carried out
 automatically if requested.}  Naturally, this tetrad
 may not be optimal for further calculation, but is often a good start
 to which further simplifications can be applied.\\
 
-\noindent\texttt{> nptetrad():}\\
+\noindent\texttt{> nptetrad([u,t]):}\\
 \indent\texttt{The metric signature of the sm spacetime is +2.}\\
 \indent\texttt{In order to create an NP-tetrad, the signature of g(dn,dn)
  will be changed}\\
@@ -483,7 +467,7 @@ Booklet \grBasisRef.
 %------------------------------------------------------------------------------
 \section{Defining new tensors}
 %------------------------------------------------------------------------------
-Finally, we describe a facility which exists within GRTensorII for defining
+Finally, we describe a facility which exists within GRTensorIII for defining
 tensors which are not part of the standard object libraries. Here we
 define the Bel-Robinson tensor, 
 \[
@@ -553,18 +537,18 @@ $\nabla_a T^a{}_{bcd}=0$ in vacuum:\\
   \textit{TC(dn,dn,dn) = All components are zero}
 \end{center}
 
-A more thorough discussion of the definition of tensors in GRTensorII is
+A more thorough discussion of the definition of tensors in GRTensorIII is
 to be found in Booklet \grDefRef.
 %
 \pagebreak
 %------------------------------------------------------------------------------
 \section*{Conventions}
 %------------------------------------------------------------------------------
-GRTensorII can perform tensor calculations in any number of dimensions
+GRTensorIII can perform tensor calculations in any number of dimensions
 and for symmetric metrics of arbitrary signature. Tensor indices
 generally take values from $1\ldots n$ in an $n$-dimensional spacetime.
 
-In its definitions of curvature tensors, GRTensorII follows the
+In its definitions of curvature tensors, GRTensorIII follows the
 Landau-Lifshitz spacelike conventions. That is, the curvature (Riemann)
 tensor is defined by
 \[

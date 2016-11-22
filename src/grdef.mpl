@@ -269,44 +269,45 @@ local	b, i, newObject, indexList, newRoot, newObj, newISeq, subList,
      printf(`Components assigned for metric: %a\n`,grG_metricName);
   
   elif type( newTensorDef, equation) then
-	#
-	# object is an equation. grdefine() the lhs and rhs seperatly
-	# (since they may involve different numbers of summations)
-	#
-	# can we get into trouble with out of order indices ??
-	# No, because subList refers to them by name.
-	#
+    	#
+    	# object is an equation. grdefine() the lhs and rhs seperatly
+    	# (since they may involve different numbers of summations)
+    	#
+    	# can we get into trouble with out of order indices ??
+    	# No, because subList refers to them by name.
+    	#
 
-        b := NULL:
-	b := seq( a||i||_, i=1..nops(indexList) );
+            b := NULL:
+    	b := seq( a||i||_, i=1..nops(indexList) );
 
-	obj_lhs := subs( newRoot = lhs_||newRoot, newTensor):
-	obj_rhs := subs( newRoot = rhs_||newRoot, newTensor):
+    	obj_lhs := subs( newRoot = lhs_||newRoot, newTensor):
+    	obj_rhs := subs( newRoot = rhs_||newRoot, newTensor):
 
-        name_lhs := subs( newRoot = lhs_||newRoot, newObject):
-        name_rhs := subs( newRoot = rhs_||newRoot, newObject):
-	
-  grF_grdef ( obj_lhs, lhs(newTensorDef), symSet, asymSet, subRanges, symfn );
-  grF_grdef ( obj_rhs, rhs(newTensorDef), symSet, asymSet, subRanges, symfn );
+      name_lhs := subs( newRoot = lhs_||newRoot, newObject):
+      name_rhs := subs( newRoot = rhs_||newRoot, newObject):
+    	
+      # last two params are hacked in - may break savedef/loaddef (does anyone use those?)
+      grF_grdef ( obj_lhs, lhs(newTensorDef), symSet, asymSet, subRanges, symfn, lhs(newTensorDef), [] );
+      grF_grdef ( obj_rhs, rhs(newTensorDef), symSet, asymSet, subRanges, symfn, rhs(newTensorDef), [] );
 
-	grG_ObjDef[newObj][grC_calcFn] := grF_calc_scalar:
-	grG_ObjDef[newObj][grC_calcFnParms] :=
-	   gr_data[(grG_ObjDef[name_lhs][grC_root]),grG_metricName,b]
-	   = gr_data[(grG_ObjDef[name_rhs][grC_root]),grG_metricName,b]:
-	grG_ObjDef[newObj][grC_depends] := {name_lhs, name_rhs}:
+    	grG_ObjDef[newObj][grC_calcFn] := grF_calc_scalar:
+    	grG_ObjDef[newObj][grC_calcFnParms] :=
+    	   gr_data[(grG_ObjDef[name_lhs][grC_root]),grG_metricName,b]
+    	   = gr_data[(grG_ObjDef[name_rhs][grC_root]),grG_metricName,b]:
+    	grG_ObjDef[newObj][grC_depends] := {name_lhs, name_rhs}:
 
   else
-	#+++++++++++++++++++++++++++++++++++++++++++++++++++++
-	#
-	# THE GUTS!
-	# have some expression we must build a procedure for. This
-	# next statement builds the required calcFn and adds the
-	# necessary terms to the depends list
-	#
-	#+++++++++++++++++++++++++++++++++++++++++++++++++++++
-	grF_calc_||newRoot||op(newISeq) :=
-	  grF_buildCalcFn(newTensorDef, newObj, indexList, subList, subRanges):
-	grG_ObjDef[newObj][grC_calcFn] := grF_calc_||newRoot||op(newISeq):
+    	#+++++++++++++++++++++++++++++++++++++++++++++++++++++
+    	#
+    	# THE GUTS!
+    	# have some expression we must build a procedure for. This
+    	# next statement builds the required calcFn and adds the
+    	# necessary terms to the depends list
+    	#
+    	#+++++++++++++++++++++++++++++++++++++++++++++++++++++
+    	grF_calc_||newRoot||op(newISeq) :=
+    	  grF_buildCalcFn(newTensorDef, newObj, indexList, subList, subRanges):
+    	grG_ObjDef[newObj][grC_calcFn] := grF_calc_||newRoot||op(newISeq):
   fi:
 
  if grG_parseAuxMetrics <> {} then
