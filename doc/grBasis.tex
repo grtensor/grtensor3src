@@ -281,7 +281,7 @@ definitions in terms of these vectors. For instance, a
 \]
 which can be defined for GRTensorII by using the command\\
 
-\noindent\texttt{> grdef ( `F\{[a b]\} := 4*lambda*l\{[a\}*n\{b]\}` ):}\\
+\noindent\texttt{> grdef ( `F\{[a b]\} := 4*lambda*NPl\{[a\}*NPn\{b]\}` ):}\\
 
 An important point is that the information contained in these
 accessory objects (the vectors of \texttt{l(up)}, \texttt{e1(up)},
@@ -308,10 +308,10 @@ number of dimensions. In such cases, the Kronecker delta,
 For instance, the command\\
 
 \noindent\texttt{> grdef (
-  `e3\{\^{}a\} := e\{(b) \^{}a\}*kdelta\{\^{}(b) \$3\}` ):}\\
+  `mye3\{\^{}a\} := e\{(b) \^{}a\}*kdelta\{\^{}(b) \$3\}` ):}\\
 
 \noindent assigns the third vector in \texttt{e(bdn,up)} to the object
-\texttt{e3(up)}:
+\texttt{mye3(up)}:
 \[
   e3^a := e_{(b)}{}^a \delta^{(b)}_3.
 \]

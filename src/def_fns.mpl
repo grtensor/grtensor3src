@@ -141,7 +141,6 @@ end:
 #--------------------------------------
 
 grF_checkExplicitIndex := proc(metric, coord)
-
 local num,a:
 global grG_metricName, gr_data:
 
@@ -158,6 +157,7 @@ global grG_metricName, gr_data:
     fi:
   od:
   if num = 0 then
+    printf("type=%a\n", whattype(coord));
     ERROR(`Explicit coordinate `||coord||` not found in metric `||metric);
   fi;
   num;

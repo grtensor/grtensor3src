@@ -28,6 +28,15 @@ Intro book:
  
 Calc book: ok
 
+Basis Book:
+	grdef("F{[a b]} := 4*lambda*l{[a}*n{b]}");
+    - definition should say NPl and NPn
+
+	grdef("my_e3{^a} := e{(b) ^a}*kdelta{^(b) $3}");
+	Created definition for grtensor:-kdelta(bup,dn) 
+	Error, (in grtensor:-grdef) Explicit coordinate 3 not found in metric schwb
+    * ALSO needed to change to my e3 - e3 was already defined
+
 
 
 TODO
