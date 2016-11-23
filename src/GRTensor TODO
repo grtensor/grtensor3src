@@ -29,15 +29,26 @@ Intro book:
 Calc book: ok
 
 Basis Book:
-	grdef("F{[a b]} := 4*lambda*l{[a}*n{b]}");
-    - definition should say NPl and NPn
+- made fixes (see commit)
 
-	grdef("my_e3{^a} := e{(b) ^a}*kdelta{^(b) $3}");
-	Created definition for grtensor:-kdelta(bup,dn) 
-	Error, (in grtensor:-grdef) Explicit coordinate 3 not found in metric schwb
-    * ALSO needed to change to my e3 - e3 was already defined
+grdef Book:
+- error in def with Box
+- better to just calc Box[T1(dn,dn)]
+	grdef("X := R{^a ^b}*Box[R{a b}]");
+	Indices in name: [[], []]
+	Indices in definition: [[a, b], []]
+	Error, (in grtensor:-grdef) lhs/rhs index conflict.
+	grdef("T{a b} := Box[T{a b}]");
+	Indices in name: [[], [a, b]]
+	Indices in definition: [[], []]
+	Error, (in grtensor:-grdef) lhs/rhs index conflict.
 
-
+BUG - def/assign B{[a b]}
+      clear and re-assign
+      lower diagonal will old values due to:
+      gr_data[root, grG_metricName, grG_operands, a2_, a1_] := -gr_data[root, grG_metricName, grG_operands, a1_, a2_]
+      with RHS still on old values. 
+      Can evaln() help here?
 
 TODO
 ====

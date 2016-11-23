@@ -954,8 +954,8 @@ end:
 #----------------------------------------------------------
 
 grF_clear := proc(object)
-local a,b, clearMe, operands, entries, root, opList, objectName;
-global grG_metricName, grG_calcFlag, gr_data, Ndim:
+local a,b, clearMe, operands, entries, root, opList, objectName, rootStr;
+global grG_metricName, grG_calcFlag, gr_data, grG_ObjDef, Ndim:
 
   if member( object, grG_metricSet) then
     grG_metricName := object:
@@ -965,12 +965,13 @@ global grG_metricName, grG_calcFlag, gr_data, Ndim:
     # on object name and current metric name
     #
     grG_calcFlag[grG_metricName][object] := false:
-(*
+
     objectName := grF_objectName(object): # get name (might be operator)
-    entries := indices(gr_data[grG_ObjDef[objectName][grC_root]):
+    entries := indices(gr_data):
+    rootStr := grG_ObjDef[object][grC_root];
     # entries is a list with objectName, metric as the first two 
-    for a in [entries] do
-      if a[1] = objectName and a[2] = grG_metricName then
+    for a in entries do
+      if a[1] = rootStr and a[2] = grG_metricName then
          #
          # found an entry for this metric, but if it's an operator
          # we require more than just the metric name to match
@@ -985,11 +986,11 @@ global grG_metricName, grG_calcFlag, gr_data, Ndim:
             od:
          fi:
          if clearMe then
-            # how do we unassign array entry?
+             gr_data[op(a)] := evaln(gr_data[op(a)]);
          fi:
       fi:
     od:
-*)
+
   fi:
 
 end:
