@@ -32,23 +32,12 @@ Basis Book:
 - made fixes (see commit)
 
 grdef Book:
-- error in def with Box
-- better to just calc Box[T1(dn,dn)]
-	grdef("X := R{^a ^b}*Box[R{a b}]");
-	Indices in name: [[], []]
-	Indices in definition: [[a, b], []]
-	Error, (in grtensor:-grdef) lhs/rhs index conflict.
-	grdef("T{a b} := Box[T{a b}]");
-	Indices in name: [[], [a, b]]
-	Indices in definition: [[], []]
-	Error, (in grtensor:-grdef) lhs/rhs index conflict.
+- restrict indices is now working
+(comment out of doc/help for now)
 
-BUG - def/assign B{[a b]}
-      clear and re-assign
-      lower diagonal will old values due to:
-      gr_data[root, grG_metricName, grG_operands, a2_, a1_] := -gr_data[root, grG_metricName, grG_operands, a1_, a2_]
-      with RHS still on old values. 
-      Can evaln() help here?
+Fix up help_griii.mpl and add to Makefile (do this as part of distrib)
+
+
 
 TODO
 ====
