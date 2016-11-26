@@ -1,5 +1,5 @@
 %=================================================================-*-LaTeX-*-==
-% GRTensorII 1.50 Manual
+% GRTensorIII 1.50 Manual
 % Booklet D: Defining new tensors
 %
 % Denis Pollney
@@ -8,7 +8,7 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{maple2e}
+%\usepackage{maple2e}
 \usepackage{longtable}
 \usepackage{grtensor}
 \usepackage{grbooks}
@@ -16,13 +16,13 @@
 \begin{document}
 \grlabel{\grDefLabel}
 \grtitle{\grDefTitle}
-\grdate{July 1996}
+\grdate{Nov 2016}
 \grtitlepage
 %==============================================================================
 % Body.
 %==============================================================================
 \copyrightpage
-\noindent The GRTensorII standard library contains the definitions of
+\noindent The GRTensorIII standard library contains the definitions of
 a number of tensors, scalars, and other indexed objects whose
 components can be calculated. The \grcmd{grdef} command is included to
 facilitate the specification of new tensors in a simple and natural
@@ -38,7 +38,7 @@ calculation.
 
 This booklet outlines the usage and various options available with the
 \grcmd{grdef} command.\footnote{The \grcmd{grdef} command replaces the
-\grcmd{grdefine} command which was the GRTensorII standard for
+\grcmd{grdefine} command which was the GRTensorIII standard for
 definitions of new tensors from Versions 1.00 to 1.21. The
 \grcmd{grdefine} command is still included for purposes of backwards
 compatibility. See \texttt{?grdefine} for details of its use.}
@@ -171,7 +171,7 @@ The \grarg{Name} is simply an unassigned MapleV name by which the
 object is referenced, such as \texttt{R} in the case of the Riemann
 tensor and its contractions, and \texttt{Chr} in the case of the
 Christoffel symbols.\footnote{See Booklet \grCalcRef~for a list of
-objects in the standard GRTensorII library.}\\
+objects in the standard GRTensorIII library.}\\
 
 The index list, \grarg{indices}, is always enclosed in curly braces,
 \{\}.  Individual indices take the form of alphabetic characters
@@ -294,7 +294,7 @@ command\\
   X := R^{ab}\Box R_{ab},
 \]
 A limitation on the use of operators, however, is that they can only
-be used on individual GRTensorII objects, not functions of objects.
+be used on individual GRTensorIII objects, not functions of objects.
 To define, for instance, the object
 \[
   T_{ab} := \Box (R_{acdb}R^{cd}),
@@ -439,7 +439,7 @@ token, the command\\
 algorithm which assumed the tensor is symmetric in its first two and
 last two indices,\footnote{A calculation function satisfying the
 required symmetries is created automatically if such a function does
-not already exist among the existing GRTensorII object definitions.}
+not already exist among the existing GRTensorIII object definitions.}
 \[
   A_{abcd} = A_{bacd} = A_{abdc} = A_{badc}.
 \]
@@ -699,6 +699,8 @@ the objects in its definition that are labeled with the index
 objects labeled by \texttt{<2>} would use components from the
 \texttt{schw} spacetime.
 %
+% DISABLE
+\iffalse
 %------------------------------------------------------------------------------
 \subsection*{Restricted summations}\label{sec:restrictedsum}
 %------------------------------------------------------------------------------
@@ -720,6 +722,8 @@ command creating such a definition is:\\
 ranges over which summations over dummy indices are to be performed.
 Any indices not listed in the set are assumed to be summed over their
 entire range.
+\fi
+% RE-ENABLE
 %
 %------------------------------------------------------------------------------
 \section{Examples}\label{sec:examples}
@@ -816,6 +820,8 @@ performs this task:\\
   \grexample{grundefine ( G(dn,dn) )}
 \end{cmdspec}
 %
+% DISABLE NEXT SECTIONS!
+\iffalse
 %------------------------------------------------------------------------------
 \section{Saving and loading definitions}
 %------------------------------------------------------------------------------
@@ -823,7 +829,7 @@ performs this task:\\
 Definitions created with \grcmd{grdef} can be saved to a file using the
 \grcmd{grsavedef} command, allowing them to be used in other sessions and
 applications. In this way, collections of objects not in the standard
-GRTensorII library can be maintained.\\
+GRTensorIII library can be maintained.\\
 \begin{cmdspec}
   \label{spec:grsavedef}
   \grcmdline{grsavedef ( \grarg{objectSeq}, \grarg{fileName} )}
@@ -853,7 +859,7 @@ already exists in the specified directory \textit{it will be
 overwritten}.
 
 Files created by the \grcmd{grsavedef} command can be read into a
-new GRTensorII session using the command \grcmd{grloaddef}:\\
+new GRTensorIII session using the command \grcmd{grloaddef}:\\
 \begin{cmdspec}
   \label{spec:grloaddef}
   \grcmdline{grloaddef ( \grarg{fileName} )}
@@ -865,9 +871,12 @@ new GRTensorII session using the command \grcmd{grloaddef}:\\
 
   \grexample{grloaddef ( `newdefs.mpl` )}
 \end{cmdspec}
+\fi
+% END OF DISABLE
 %
 %------------------------------------------------------------------------------
 %\vfill
+% No citations in this doc!
 %\bibliographystyle{unsrt}
 %\bibliography{grtensor}
 %------------------------------------------------------------------------------
@@ -882,13 +891,13 @@ new GRTensorII session using the command \grcmd{grloaddef}:\\
   \grcmdline{grundefine ( \grarg{objectName} )}
   \dotfill \pageref{spec:grundefine}\\
 
-  \noindent
-  \grcmdline{grsavedef ( \grarg{objectSeq}, \grarg{fileName} )}
-  \dotfill \pageref{spec:grsavedef}\\
-
-  \noindent
-  \grcmdline{grloaddef ( \grarg{fileName} )}
-  \dotfill \pageref{spec:grloaddef}
+%  \noindent
+ % \grcmdline{grsavedef ( \grarg{objectSeq}, \grarg{fileName} )}
+ %\dotfill \pageref{spec:grsavedef}\\
+%
+% \noindent
+% \grcmdline{grloaddef ( \grarg{fileName} )}
+%\dotfill \pageref{spec:grloaddef}
 %
 %------------------------------------------------------------------------------
 \vfill

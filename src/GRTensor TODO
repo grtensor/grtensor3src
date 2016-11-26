@@ -32,10 +32,19 @@ Basis Book:
 - made fixes (see commit)
 
 grdef Book:
-- restrict indices is now working
+- restrict indices is not working
 (comment out of doc/help for now)
 
 Fix up help_griii.mpl and add to Makefile (do this as part of distrib)
+
+LATEX HINTS:
+============
+Latex -> trash aux files
+run Latex
+run Bibtex
+run Latex
+run Latex
+and only then will references be ok. 
 
 
 

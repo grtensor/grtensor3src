@@ -7,15 +7,18 @@
 %==============================================================================
 \documentclass{article}
 \usepackage{amsmath}
-\usepackage{maple2e}
+% Maple package causes a failure of the title text to rotate
+% can just return through the missing maplelatex stmts while building
+% and document appears to be ok
+%\usepackage{maplestd2e}
 \usepackage{grtensor}
 \usepackage{grbooks}
 \usepackage{hyperref}
 %------------------------------------------------------------------------------
 \begin{document}
-\setlength{\footrulewidth}{\headrulewidth}
-\grlabel{\grIntroLabel}
+%\setlength{\footrulewidth}{\headrulewidth}
 \grtitle{\grIntroTitle}
+\grlabel{\grIntroLabel}
 \grdate{Nov 2016}
 \grtitlepage
 %
@@ -62,7 +65,6 @@ in Booklets \grMakegLabel--\grSetupLabel:
     & \grCalcRef\\
     & \grDefRef\\
     & \grBasisRef\\
-    & \grSetupRef
   \end{tabular}
 \end{center}
 Together these articles are intended to serve as both a user's guide
@@ -96,14 +98,14 @@ Maple environment. \\
   \item remove some seldom used commands (grloaddef, grsavedef, 
   grloadobj, grsaveobj)
   \item no changes have been made to the expressions used to define
-  the standard tensor objects
-\end{itemize}\\
+  the standard tensor objects\\
+\end{itemize}
 
 The version of GRTensorIII described in these booklets runs within the
-Maple environment.  It is supported for both Release 3 and 4 of
-Maple. 
+Maple environment. It has been tested with Maple 2016 in command line and
+worksheet mode. 
 We encourage users to check back periodically for new
-versions of software, documentation, and demonstrations, at \href{url}{http:/gitlab.com/grtensor/GRTensorIII}.
+versions of software, documentation, and demonstrations, at \href{url}{http:/gitlab.com/grtensor/grtensor}.
 This represents the "official" version. 
 
 A copy of the GRTensorIII source code is available online at 
@@ -119,11 +121,15 @@ To start the GRTensorIII package, in a new Maple session ensure
 that the location of \text\tt{grtensor/lib} is in the Maple path. It can be added
 by:\\
 
-\noindent\text{\tt > libname := libname, ''path_to_grtensor_lib'';}\\
+\noindent\texttt{libname := libname, "path";}
 
 The package is loaded in the standard manner:\\
 
-\noindent\text{\tt > with(grtensor);}\\
+\noindent\texttt{with(grtensor);}\\
+
+Build-in help pages can be viewed via:\\
+
+\noindent\texttt{?grtensor}\\
 
 The examples described below are designed to be run in a single
 GRTensorIII session.
@@ -579,7 +585,7 @@ dependent terms.\\
 The only deviation from this standard signature is in the specification
 of the Newman-Penrose formalism, which follows the original definitions
 of \cite{newman/penrose:1962}, and thus requires a -2 signature for
-spacetimes.
+spacetimes.\\
 %
 %------------------------------------------------------------------------------
 \vfill

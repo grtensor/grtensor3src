@@ -1,5 +1,5 @@
 %=================================================================-*-LaTeX-*-==
-% GRTensorII 1.50 Manual
+% GRTensorIII 1.50 Manual
 % Booklet B: Specifying spacetimes
 %
 % Denis Pollney
@@ -7,25 +7,25 @@
 %==============================================================================
 \documentclass{article}
 \usepackage{amsmath}
-\usepackage{maple2e}
+%\usepackage{maple2e}
 \usepackage{grtensor}
 \usepackage{grbooks}
 %------------------------------------------------------------------------------
 \begin{document}
 \grlabel{\grMakegLabel}
 \grtitle{\grMakegTitle}
-\grdate{July 1996}
+\grdate{Nov 2016}
 \grtitlepage
 %==============================================================================
 % Body.
 %==============================================================================
 \copyrightpage
-\noindent The simplest way to specify a spacetime geometry in GRTensorII
+\noindent The simplest way to specify a spacetime geometry in GRTensorIII
 is to use the \grcmd{makeg} facility. This function aids input by
 prompting the user for the information required to specify a
 coordinate metric (a $n\times n$ dimensional 2-tensor) or basis (a set
 of $n$ linearly independent vectors related by a user-defined inner
-product).\footnote{Although GRTensorII allows specification of
+product).\footnote{Although GRTensorIII allows specification of
 spacetimes as both metrics and bases, in these booklets we will often
 refer to both formats as simply \textit{metrics} with the
 understanding that we are referring also to bases created via
@@ -45,9 +45,9 @@ from previously defined spacetimes through the use of the commands:
 These commands are described in Sections 
 \ref{sec:grtransform}--\ref{sec:grnewmetric} of this booklet.
 
-The metrics created for use in GRTensorII can be saved to an ASCII
+The metrics created for use in GRTensorIII can be saved to an ASCII
 file directly using \grcmd{makeg} or the \grcmd{grsaveg}
-command. These files can be loaded into GRTensorII using either the
+command. These files can be loaded into GRTensorIII using either the
 \grcmd{qload} or \grcmd{grload} commands. A directory of commonly used
 metric/basis files is available from the GRTensor world-wide-web pages
 \cite{www}.
@@ -101,7 +101,7 @@ via
     = \eta^{(i)(j)} e_{(i)}{}^a e_{(j)}{}^b
     = g^{ab}.  
 \] 
-(Note that here and throughout GRTensorII we use the convention that
+(Note that here and throughout GRTensorIII we use the convention that
 basis vectors are labeled with bracketed indices $\{ (a), (b), \ldots \}$.)
 %
 %-----------------------------------------------------------------------------
@@ -136,7 +136,7 @@ enter all of the information necessary to specify the spacetime.
 The first of these prompts asks for the format in
 which the data is to be entered:\footnote{Note 
 that the first option refers to `\texttt{g(dn,dn)}'. This is the standard
-GRTensorII representation of the covariant metric. See Booklet \grCalcRef~
+GRTensorIII representation of the covariant metric. See Booklet \grCalcRef~
 for more details regarding this notation.}
 \begin{ttfamily}
   \begin{tabbing}
@@ -260,7 +260,7 @@ of the inner product between the basis vectors. This is the
 contravariant two-tensor $\eta^{(a)(b)}$ whose $(a)(b)$ component is
 the value of the inner product of basis vectors $a$ and $b$.  In
 common applications, this tensor will have constant coefficients. The
-curvature tensors defined in the GRTensorII standard object libraries
+curvature tensors defined in the GRTensorIII standard object libraries
 permit the use of inner products with non-constant coefficients,
 however it is required that the inner product be symmetric across the
 diagonal.
@@ -429,7 +429,7 @@ an NP inner product, Eq. (\ref{eq:nullip}), then the signature is set
 to -2. The assumed signature of the spacetime is stored in the
 \texttt{sig} object and can be viewed by using the command
 \texttt{grdisplay(sig)}.
- In this version of GRTensorII, the value of the signature
+ In this version of GRTensorIII, the value of the signature
 is only used in generating an NP tetrad via the \grcmd{nptetrad}
 command (see Section \ref{sec:nptetrad}, below). If the \texttt{grOptionLLSC}
 variable is set to \texttt{false}, then \texttt{sig} is not initialized
@@ -484,7 +484,7 @@ the Schwarzschild metric), all subsequent calculations will assume
 this background metric until the default is changed.\\
 
 If a number of different metrics have been created or loaded in single
-GRTensorII section, one can switch between them by using the \grcmd{grmetric}
+GRTensorIII section, one can switch between them by using the \grcmd{grmetric}
 command, which has the form:\\
 %
 \begin{cmdspec}
@@ -567,7 +567,7 @@ $( \Theta, \Phi )$.
 The following set of commands performs the transformation of the Schwarzschild
 spacetime from spherical to Kruskal coordinates:\footnote{For a more complete
 presentation of this example see the demonstration file \texttt{kruskalo.ms},
-which can be downloaded from the GRTensorII world-wide-web pages \cite{www}.}
+which can be downloaded from the GRTensorIII world-wide-web pages \cite{www}.}
 
 \begin{ttfamily}
   \begin{tabbing}
@@ -648,7 +648,7 @@ Note that constraint equations modified using \grcmd{grconstraint} are
 not saved automatically in the metric file. The command \grcmd{grsaveg}
 (see Section \ref{sec:grsaveg})
 should be used if the modified constraints are to be associated with the
-metric in future GRTensorII sessions. They will then be loaded automatically
+metric in future GRTensorIII sessions. They will then be loaded automatically
 when the metric is loaded using \grcmd{qload} or \grcmd{grload}.
 %
 %------------------------------------------------------------------------------
@@ -699,11 +699,11 @@ The remaining pair are used to construct $m$ and $\bar{m}$.
 If the argument is omitted, a valid null tetrad will still be created,
 though the construction might be somewhat less efficient if the
 computer is left to find appropriate vectors on its own.\footnote{In
-previous versions of GRTensorII, the \grcmd{nptetrad} command required
+previous versions of GRTensorIII, the \grcmd{nptetrad} command required
 the specification of a timelike vector as input. The new algorithm
 makes better use of the coordinates of the spacetime (especially null
 coordinates) in constructing the tetrad. Note that in versions of
-GRTensorII previous to 1.50, the output of \grcmd{nptetrad} was in the
+GRTensorIII previous to 1.50, the output of \grcmd{nptetrad} was in the
 form of the contravariant vectors
 \texttt{e(bdn,up)}$=e_{(a)}{}^b$. The natural form of output for the
 new algorithm is the covariant 1-forms, and thus the revised
@@ -744,10 +744,10 @@ seem to be fully simplified. (Simplification using \grcmd{gralter} is
 described more fully in Booklet \grCalcRef).\\
 
 Note that the implementation of the Newman-Penrose formalism in
-GRTensorII follows that of the original specification of
+GRTensorIII follows that of the original specification of
 \cite{newman/penrose:1962}. As such, it requires that the spacetime
 has a -2 signature. This conflicts with the Landau-Lifshitz spacelike
-convention for which GRTensorII metrics are generally defined. If
+convention for which GRTensorIII metrics are generally defined. If
 neccessary, the \grcmd{nptetrad} command will prompt the user, asking
 if the signature of the spacetime is to be reversed when constructing
 the tetrad. An affirmative response will cause the sign of the
@@ -761,7 +761,7 @@ signature is anything other than +2 or -2, the \grcmd{nptetrad}
 command can not be used.\\
 
 Tetrads created using \grcmd{nptetrad} can be saved using \grcmd{grsaveg}
-For more information regarding GRTensorII calculations in a null
+For more information regarding GRTensorIII calculations in a null
 tetrad, see Booklet \grBasisRef.  The components of the basis created
 by \grcmd{nptetrad} can be saved using the \grcmd{grsaveg} command
 (Section \ref{sec:grsaveg}).
@@ -831,7 +831,7 @@ vectors \texttt{e(bdn,up)}. The command has the form:\\
   \grexample{nprotate ( III, sqrt(2)*sqrt(1-2*m/r), 0 )}
 \end{cmdspec}
 
-Note, in the current versions of GRTensorII, only rotations of the basis
+Note, in the current versions of GRTensorIII, only rotations of the basis
 can be performed. The action of basis rotations on other curvature tensors
 has not yet been implemented. Thus, curvature tensors must be recalculated
 from the rotated basis.\\
@@ -1007,7 +1007,7 @@ a string to the name \texttt{Info\_}.\\
 An example of a metric file which specifies a spacetime using a covariant
 metric is given in Fig.~(\ref{fig:metricfile}). Many examples can
 be found in the metrics directory which is provided with the GRTensorII
-installation, as well as from the GRTensorII world-wide-web pages
+installation, as well as from the GRTensorIII world-wide-web pages
 \cite{www}.
 %
 %------------------------------------------------------------------------------

@@ -76,6 +76,7 @@ GRIIVERSION = "`sed -n '/Version:/s/Version:[ ]*//p' Version`"
 # Typically in a directory parallel to the GRTensorIII git
 # project.
 GRTGITLIB = "../grtensor/lib"
+GRTGITDOC = "../grtensor/doc"
 # Operating system commands:
 
 # Commands which the operating system uses for various file and
@@ -101,6 +102,7 @@ GRDIR = grii
 SRCDIR = src
 BUILDDIR = build
 METRICDIR = metrics
+DOCDIR = doc
 DISTRIBDIR = distrib
 HELPDIR = $(SRCDIR)/help
 WORKSHEETDIR = worksheets
@@ -135,6 +137,11 @@ install-help:
 # *** gmake specific ***
 distrib: 
 	$(CPCMD) $(LIBDIR)/* $(GRTGITLIB)/.
+	$(CPCMD) $(DOCDIR)/grIntro.pdf $(GRTGITDOC)/.
+	$(CPCMD) $(DOCDIR)/grMakeg.pdf $(GRTGITDOC)/.
+	$(CPCMD) $(DOCDIR)/grCalc.pdf $(GRTGITDOC)/.
+	$(CPCMD) $(DOCDIR)/grDef.pdf $(GRTGITDOC)/.
+	$(CPCMD) $(DOCDIR)/grBasis.pdf $(GRTGITDOC)/.
 
 
 
