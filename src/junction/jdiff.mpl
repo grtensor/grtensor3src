@@ -1,0 +1,79 @@
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#
+# GRTENSOR II MODULE: jdiff.MPL
+#
+# (C) 1992-1994 Peter Musgrave and Kayll Lake
+#
+# File Created By: Peter Musgrave
+#            Date: July 23, 1994
+#
+#
+# Purpose: Do some derivative tricks
+#
+# Revisions:
+#
+#
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+# jdiff(expr, diffBy)
+#
+# Convert to total derivatives where possible.
+#
+# e.g. if total derivative is w.r.t. tau:
+#
+# diff(r(t),t) -> diff(r(tau),tau)/diff(t(tau),tau)
+#
+# leave any others unaffected
+#
+# (This routine makes reference to the global variable
+#  grJ_totalVar which indicates that TOTAL derivatives
+#  are to be expressed w.r.t to this variable)
+#
+
+jdiff := proc(expr, diffBy)
+global grG_metricName, gr_data, grJ_totalVar;
+local newExpr, a, fun:
+
+  newExpr := diff(expr, diffBy):
+  if type(expr, function) and not grJ_totalVar = 0 then
+    #
+    # operand could be sin(x) or jdiff() even
+    # leave these alone
+    #
+    if not type(op(0,expr),procedure) and nops(expr) = 1 then
+      #
+      # check the variable list of the function, and
+      # see if we have a total. For now we only care
+      # about single argument functions
+      #
+      if op(1,expr) = diffBy then
+        if diffBy <> grJ_totalVar then
+	  #
+	  # change e.g. diff(R(t),t) -> diff(R(tau),tau)/ diff(T(tau),tau)
+	  # (where we use grxform to get t -> T(tau) )
+	  #
+	  # Find the coordinate number for diffBy
+	  #
+	  fun := diffBy(grJ_totalVar):
+	  for a to Ndim[grG_metricName] do
+	    if gr_data[xup_,grG_metricName, a] = diffBy then
+	       fun := gr_data[xformup_,grG_metricName,a]:
+	       break:
+	    fi:
+	  od:
+          #
+          # may have diff( f(u),u) (u a coordinate on Sigma)
+          # and expanding into tau's produces a division by
+          # zero - since u != u(tau). Catch this case
+          #
+          if diff(fun, grJ_totalVar) <> 0 then
+            newExpr := diff( op(0,expr)(grJ_totalVar), grJ_totalVar)/
+                       diff( fun, grJ_totalVar):
+          fi:
+        fi:
+      fi:
+    fi:
+  fi:
+  RETURN( newExpr):
+
+end:

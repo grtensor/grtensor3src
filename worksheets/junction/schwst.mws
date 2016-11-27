@@ -1,0 +1,338 @@
+{VERSION 2 3 "DEC ALPHA UNIX" "2.3" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 0 
+0 }{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 }
+{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "Times" 1 10 0 0 0 1 2 2 2 0 
+0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "Text Output" -1 
+2 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 0 0 0 0 0 1 3 0 0 }1 0 
+0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "" 2 6 1 {CSTYLE "" -1 -1 "" 0 1 
+0 0 0 0 0 0 0 0 0 0 2 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "M
+aple Output" 0 11 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+}3 3 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "Maple Plot" 0 13 1 {CSTYLE 
+"" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 }3 0 0 -1 -1 -1 0 0 0 0 0 0 
+-1 0 }{PSTYLE "R3 Font 0" -1 256 1 {CSTYLE "" -1 -1 "Helvetica" 1 10 
+255 0 0 1 2 1 2 0 0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE 
+"R3 Font 2" -1 257 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 0 1 2 2 2 0 
+0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }}
+{SECT 0 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 8 "restart:" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 7 "grtw();" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%>GRTensorII~Version~1.72b~(R4)G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%,10~Feb~1999G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%ZDev
+eloped~by~Peter~Musgrave,~Denis~Pollney~and~Kayll~LakeG" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#%DCopyright~1994-1999~by~the~authors.G" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%\\oLatest~version~available~from:~http://as
+tro.queensu.ca/|irgrtensor/G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%3/hom
+e/lake/MetricsG" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 16 "grlib(ju
+nction):" }}{PARA 6 "" 1 "" {TEXT -1 244 "The GRJunction Package Versi
+on 2.05 Release 4\nLast modified 16 Oct 1997\nDeveloped by Peter Musgr
+ave and Kayll Lake, (c) 1995-97\nLatest version available at:\n     ht
+tp://www.astro.queensu.ca/~grtensor/GRjunction.html\nHelp available vi
+a ?junction" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 22 "grOptionTerm
+Size := 0;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%1grOptionTermSizeG\"\"
+!" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 23 "grOptionTrace := false
+:" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 53 "grOptionMetricPath := \+
+`/home/lake/Junction4/Metrics`;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%3
+grOptionMetricPathG%=/home/lake/Junction4/MetricsG" }}}{EXCHG {PARA 0 
+"" 0 "" {TEXT -1 52 "(you may need to modify the following line to poi
+nt " }}{PARA 0 "" 0 "" {TEXT -1 59 "to the directory containg \{\\tt s
+taticF\} and \{\\tt staticf\}.)" }}{PARA 0 "" 0 "" {TEXT -1 46 "STATIC
+ SHELL AROUND A SCHWARZSCHILD BLACK HOLE" }}{PARA 0 "" 0 "" {TEXT -1 
+81 "This worksheet computes the stress-energy of a static shell about \+
+a Schwarzschild" }}{PARA 0 "" 0 "" {TEXT -1 90 "black hole. and then e
+xamines the equation of state for the shell. For a static shell this" 
+}}{PARA 0 "" 0 "" {TEXT -1 79 "equation of state is predetermined by t
+he radius at which the shell is located." }}{PARA 0 "" 0 "" {TEXT -1 
+0 "" }}{PARA 0 "" 0 "" {TEXT -1 74 "We begin by loading two copies of \+
+a static spherically symmetric metric\033 i" }}{PARA 0 "" 0 "" {TEXT 
+-1 84 "We then pecialize to the case where the interior space is Schw.
+ with  mass m and the" }}{PARA 0 "" 0 "" {TEXT -1 28 "exterior Schw. w
+ith  mass M." }}{PARA 0 "" 0 "" {TEXT -1 0 "" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 15 "qload(staticF);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%
+2Default~spacetimeG%(staticFG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%;For
+~the~staticF~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%,Coordina
+tesG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%\"xG6#%#upG" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6&/)%#x~G%\"1G%\"rG/)F%%\"2G%&thetaG/)F%%\"3G%$phiG/
+)F%%\"4G%\"tG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%-Line~elementG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/*$%$~dsG\"\"#,**(-%\"FG6#%\"rG!\"\"%#
+~dG\"\"\")F,%#2~GF/F/*(F,F&F.F/)%&thetaGF1F/F/**F,F&-%$sinG6#F4F&F.F/)
+%$phiGF1F/F/*(F)F/F.F/)%\"tGF1F/F-" }}}{EXCHG {PARA 0 "" 0 "" {TEXT 
+-1 71 "The command \{\\tt surf\} is used to declare a surface in $M^+$
+. The first" }}{PARA 0 "" 0 "" {TEXT -1 68 "parameter identifies \{\\t
+t staticF\} as $M^+$ and the second parameter" }}{PARA 0 "" 0 "" 
+{TEXT -1 72 "gives the name \{\\tt sout\} to $\\Sigma^+$. \{\\tt surf
+\} prompts the user for" }}{PARA 0 "" 0 "" {TEXT -1 25 "the required i
+nformation." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 19 "surf(staticF,sout);
+" }}{PARA 6 "" 1 "" {TEXT -1 108 "\n COORRDINATES: Enter the coordinat
+es of the surface as a list\n   e.g. [theta, phi, tau]; \n   Enter a l
+ist >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 16 "[theta,phi,tau];" 
+}}{PARA 6 "" 1 "" {TEXT -1 188 "\n SHELL PARAMETER:\n   For a one-para
+meter shell, enter the parameter name.\n   For a null shell indicate w
+hich coordinate is a null generator\n   Enter coordinate name or 0 (ze
+ro) for none >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 4 "tau;" }}
+{PARA 6 "" 1 "" {TEXT -1 161 "\n SURFACE: Please enter the coordinate \+
+definition of the surface\n   (the x\{^a\} = x(xi\{^b\})  ) as a LIST.
+ \n   e.g. [ r=R(tau), theta=theta, phi=phi, t=T(tau)]\n  >" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 38 "[r=R, theta=theta, phi=phi, \+
+t=T(tau)];" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"&!\"$
+" }}{PARA 6 "" 1 "" {TEXT -1 125 "\n NORMAL TYPE: Please indicate the \+
+nature of the snormal vector\n   (-1 = timelike, 0 = null, 1= spacelik
+e) Enter +1,0 or -1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;
+" }}{PARA 6 "" 1 "" {TEXT -1 75 "\n CONSTRAINT: Use  +/- 1 = u\{^a\} u
+\{a\} as a constraint ?    Enter 1 if yes >" }}}{EXCHG {PARA 0 "> " 0 
+"" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 1 "" {TEXT -1 29 "Created definiti
+on for u(dn) " }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#7!\"
+$" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%<The~constraint~equation~is:G" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6#/!\"\",$*&-%\"FG6#%\"rG\"\"\"-%%diffG
+6$-%\"TG6#%$tauGF2\"\"#F$" }}{PARA 6 "" 1 "" {TEXT -1 65 "Enter the te
+rm you wish to use the constraint to eliminate\nTerm >" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 17 "diff(T(tau),tau);" }}{PARA 6 "" 1 "
+" {TEXT -1 44 "Solve returned multiple solutions. They are:" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6$%$[1]G*$-%\"FG6#%\"rG#!\"\"\"\"#" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6$%$[2]G,$*$-%\"FG6#%\"rG#!\"\"\"\"#F+" }}
+{PARA 6 "" 1 "" {TEXT -1 41 "\nPlease select a solution.\nEnter choice
+ >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 1 "" 
+{TEXT -1 207 "Default metric is now staticF\n SURFACE: Enter the expre
+ssion for the surface.\n   The surface will be defined by setting the \+
+\n   expression you enter to zero.\n   To enter the normal explicitly,
+ enter 0 (zero)" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%(surfaceG" }}}
+{EXCHG {PARA 0 " >" 0 "" {MPLTEXT 1 0 4 "r-R;" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%*CPU~Time~G$\"#6!\"$" }}{PARA 6 "" 1 "" {TEXT -1 146 
+"\n NORMAL SIGN\n   The definition of the normal vector is +/- grad(su
+rface)\n   please enter +1 or -1 to indicate the CHOICE of sign\n   En
+ter +1,-1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"&!\"$" }}{PARA 6 "" 1 "" 
+{TEXT -1 26 "Default metric is now sout" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#/%*CPU~Time~G$\"#?!\"$" }}{PARA 6 "" 1 "" {TEXT -1 27 "ds has no
+t been calculated." }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%;For~the~static
+F~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%<The~Equation~of~the
+~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%)surface~G,&%\"rG\"\"\"
+%\"RG!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%;For~the~staticF~spacet
+ime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%GCoordinate~transforms~onto~
+the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%&xformG6#%#upG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"rG%\"RG" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#/)%'xform~G%&thetaGF&" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/)%'xform~G%$phiGF&" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#
+/)%'xform~G%\"tG-%\"TG6#%$tauG" }}{PARA 6 "" 1 "" {TEXT -1 149 "The in
+trinsic metric and normal vector have been calculated.\nYou may wish t
+o simplify them further before saving the surface\nor calculating K(dn
+,dn) " }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 0 "" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 15 "qload(staticg);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%
+2Default~spacetimeG%(staticgG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%;For
+~the~staticg~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%,Coordina
+tesG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%\"xG6#%#upG" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6&/)%#x~G%\"1G%\"rG/)F%%\"2G%&thetaG/)F%%\"3G%$phiG/
+)F%%\"4G%\"tG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%-Line~elementG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/*$%$~dsG\"\"#,**(-%\"fG6#%\"rG!\"\"%#
+~dG\"\"\")F,%#2~GF/F/*(F,F&F.F/)%&thetaGF1F/F/**F,F&-%$sinG6#F4F&F.F/)
+%$phiGF1F/F/*(F)F/F.F/)%\"tGF1F/F-" }}}{EXCHG {PARA 0 "" 0 "" {TEXT 
+-1 56 "Use \{\\tt surf\} again, labeling $\\Sigma^-$ as \{\\tt sint\}.
+" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 19 "surf(staticg,sint);" }}{PARA 6 
+"" 1 "" {TEXT -1 108 "\n COORRDINATES: Enter the coordinates of the su
+rface as a list\n   e.g. [theta, phi, tau]; \n   Enter a list >" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 16 "[theta,phi,tau];" }}{PARA 6 
+"" 1 "" {TEXT -1 188 "\n SHELL PARAMETER:\n   For a one-parameter shel
+l, enter the parameter name.\n   For a null shell indicate which coord
+inate is a null generator\n   Enter coordinate name or 0 (zero) for no
+ne >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 4 "tau;" }}{PARA 6 "" 
+1 "" {TEXT -1 161 "\n SURFACE: Please enter the coordinate definition \+
+of the surface\n   (the x\{^a\} = x(xi\{^b\})  ) as a LIST. \n   e.g. \+
+[ r=R(tau), theta=theta, phi=phi, t=T(tau)]\n  >" }}}{EXCHG {PARA 0 ">
+ " 0 "" {MPLTEXT 1 0 41 "[ r=R, theta= theta, phi=phi, t=T(tau) ];" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"&!\"$" }}{PARA 6 "" 
+1 "" {TEXT -1 125 "\n NORMAL TYPE: Please indicate the nature of the s
+normal vector\n   (-1 = timelike, 0 = null, 1= spacelike) Enter +1,0 o
+r -1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 
+1 "" {TEXT -1 75 "\n CONSTRAINT: Use  +/- 1 = u\{^a\} u\{a\} as a cons
+traint ?    Enter 1 if yes >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 
+0 2 "1;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"&!\"$" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%<The~constraint~equation~is:G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/!\"\",$*&-%\"fG6#%\"rG\"\"\"-%%diffG6
+$-%\"TG6#%$tauGF2\"\"#F$" }}{PARA 6 "" 1 "" {TEXT -1 65 "Enter the ter
+m you wish to use the constraint to eliminate\nTerm >" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 17 "diff(T(tau),tau);" }}{PARA 6 "" 1 "
+" {TEXT -1 44 "Solve returned multiple solutions. They are:" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6$%$[1]G*$-%\"fG6#%\"rG#!\"\"\"\"#" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6$%$[2]G,$*$-%\"fG6#%\"rG#!\"\"\"\"#F+" }}
+{PARA 6 "" 1 "" {TEXT -1 41 "\nPlease select a solution.\nEnter choice
+ >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 1 "" 
+{TEXT -1 207 "Default metric is now staticg\n SURFACE: Enter the expre
+ssion for the surface.\n   The surface will be defined by setting the \+
+\n   expression you enter to zero.\n   To enter the normal explicitly,
+ enter 0 (zero)" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%(surfaceG" }}}
+{EXCHG {PARA 0 " >" 0 "" {MPLTEXT 1 0 4 "r-R;" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%*CPU~Time~G$\"\"*!\"$" }}{PARA 6 "" 1 "" {TEXT -1 
+146 "\n NORMAL SIGN\n   The definition of the normal vector is +/- gra
+d(surface)\n   please enter +1 or -1 to indicate the CHOICE of sign\n \+
+  Enter +1,-1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"&!\"$" }}{PARA 6 "" 
+1 "" {TEXT -1 26 "Default metric is now sint" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%*CPU~Time~G$\"#7!\"$" }}{PARA 6 "" 1 "" {TEXT -1 27 "
+ds has not been calculated." }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%;For~t
+he~staticg~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%<The~Equati
+on~of~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%)surface~G,&%
+\"rG\"\"\"%\"RG!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%;For~the~stat
+icg~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%GCoordinate~transf
+orms~onto~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%&xformG6#%
+#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"rG%\"RG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%&thetaGF&" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#/)%'xform~G%$phiGF&" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#/)%'xform~G%\"tG-%\"TG6#%$tauG" }}{PARA 6 "" 1 "" {TEXT -1 149 "
+The intrinsic metric and normal vector have been calculated.\nYou may \+
+wish to simplify them further before saving the surface\nor calculatin
+g K(dn,dn) " }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 94 "Now join the space
+times using \{\\tt join\}.  $\\left[ g_\{ij\} \\right]$ is calculated \+
+and displayed" }}{PARA 0 "" 0 "" {TEXT -1 14 "automatically." }}{PARA 
+0 "" 0 "" {TEXT -1 50 "Once we have identified these spacetimes as joi
+ned" }}{PARA 0 "" 0 "" {TEXT -1 93 "we are free to calculate the equat
+ion for the evolution of the shell, which we proceed to do." }}{PARA 
+0 "" 0 "" {TEXT -1 0 "" }}{PARA 0 "" 0 "" {TEXT -1 55 "We now identify
+ these two surfaces by using \{\\tt join\}." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 16 "join(sout,sint);" }}{PARA 6 "" 1 "" {TEXT -1 120 "sou
+t and sint are now joined.\nThe default metric name is sout.\nThe exte
+rior metric is: sout\nThe interior metric is: sint" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"&!\"$" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#%8For~the~sout~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%@
+~Jump~from~defaultMetric~-~MintG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*
+&&%&Jump~G6#%\"aG\"\"\"&%!G6#%\"bGF)%8All~components~are~zeroG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%(staticFG" }}}{EXCHG {PARA 0 "" 0 "" 
+{TEXT -1 73 " We now calculate $S_i^j$ (the junction package object \{
+\\tt S3(dn,up)\}). " }}{PARA 0 "" 0 "" {TEXT -1 82 "Next we specialize
+ this to the case of a Schw. shell by specifying the appropriate" }}
+{PARA 0 "" 0 "" {TEXT -1 29 "values for $f(r)$ and $F(r)$." }}{PARA 0 
+"" 0 "" {TEXT -1 0 "" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 18 "grcalc(S3(d
+n,up));" }}{PARA 6 "" 1 "" {TEXT -1 32 "Created definition for K(dn,up
+) " }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"$\"G!\"$" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 34 "f := proc(r) RETURN(1-2*m/r)
+; end:" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 34 "F := proc(r) RETU
+RN(1-2*M/r); end:" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 33 "We now displ
+ay the stress-energy." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 41 "gralter(S3
+(dn,up), factor); grdisplay(_);" }}{PARA 6 "" 1 "" {TEXT -1 94 "Compon
+ent simplification of a GRTensorII object:\n \nApplying routine factor
+ to object S3(dn,up)" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$
+\"#I!\"$" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%8For~the~sout~spacetime:G
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%8Intrinsic~stress-energyG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#-%#S3G6$%#dnG%#upG" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#/*&&%#S~G6#%&thetaG\"\"\")%!GF(F),$*,,**&*&,&%\"RGF)%
+\"mG!\"#F)F2!\"\"#F)\"\"#F2F)F5*&F0F6%\"MGF)F)*&,$*&,&F2F5F9F7F)F2F5F5
+F6F2F)F)*&F;F6F3F)F5F)F2F4F;#F5F7F0F?%#PiGF5#F5\"\")" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6#/*&&%#S~G6#%$phiG\"\"\")%!GF(F),$*,,**&*&,&%\"RGF)%
+\"mG!\"#F)F2!\"\"#F)\"\"#F2F)F5*&F0F6%\"MGF)F)*&,$*&,&F2F5F9F7F)F2F5F5
+F6F2F)F)*&F;F6F3F)F5F)F2F4F;#F5F7F0F?%#PiGF5#F5\"\")" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6#/*&&%#S~G6#%$tauG\"\"\")%!GF(F),$*,,**&*&,&%\"RGF)%
+\"mG!\"#F)F2!\"\"#F)\"\"#F2F)F5*&F0F6%\"MGF)F7*&,$*&,&F2F5F9F7F)F2F5F5
+F6F2F)F)*&F;F6F3F)F4F)F2F4F;#F5F7F0F?%#PiGF5#F5\"\"%" }}}{EXCHG {PARA 
+0 "" 0 "" {TEXT -1 58 "The density and pressure are now calculated and
+ displayed." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 16 "grcalc(sigma,P);" }}
+{PARA 6 "" 1 "" {TEXT -1 30 "Created definition for u3(up) " }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#O!\"$" }}}{EXCHG {PARA 0 ">
+ " 0 "" {MPLTEXT 1 0 13 "grdisplay(_);" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#%8For~the~sout~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%'
+sigma~G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%'sigma~G,$*,,**&*&,&%\"RG
+\"\"\"%\"mG!\"#F,F+!\"\"#F,\"\"#F+F,F/*&F)F0%\"MGF,F1*&,$*&,&F+F/F3F1F
+,F+F/F/F0F+F,F,*&F5F0F-F,F.F,F+F.F5#F/F1F)F9%#PiGF/#F,\"\"%" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%#P~G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%#
+P~G,$*,,**&*&,&%\"RG\"\"\"%\"mG!\"#F,F+!\"\"#F,\"\"#F+F,F/*&F)F0%\"MGF
+,F,*&,$*&,&F+F/F3F1F,F+F/F/F0F+F,F,*&F5F0F-F,F/F,F+F.F5#F/F1F)F9%#PiGF
+/#F/\"\")" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 102 "Now we can examine \+
+the equation of state. We consider the ratio of density/pressure and a
+ssign this to" }}{PARA 0 "" 0 "" {TEXT -1 24 "the variable \{\\tt rat
+\}  " }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 41 "rat := grcomponent(sigma)/g
+rcomponent(P);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%$ratG,$*&,**&*&,&%
+\"RG\"\"\"%\"mG!\"#F,F+!\"\"#F,\"\"#F+F,F/*&F)F0%\"MGF,F1*&,$*&,&F+F/F
+3F1F,F+F/F/F0F+F,F,*&F5F0F-F,F.F,,*F(F/F2F,F4F,F8F/F/F." }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 100 "As the following plot shows there can be
+ no shell in the region $2m < R < 2M$ (since the shell would" }}{PARA 
+0 "" 0 "" {TEXT -1 97 "be spacelike on one side and timelike on the ot
+her). Despite the apparent complexity of the ratio" }}{PARA 0 "" 0 "" 
+{TEXT -1 104 "of density to pressure at large R they are linearly rela
+ted but near R=2M the linear relationship breaks" }}{PARA 0 "" 0 "" 
+{TEXT -1 108 "down.  (The equation of state for $R < 2m$ is not valid \+
+since the plot is for a timelike shell. However this" }}{PARA 0 "" 0 "
+" {TEXT -1 106 "worksheet can altered to describe a spacelike shell an
+d then the equation of state can be determined.     " }}{PARA 0 "> " 
+0 "" {MPLTEXT 1 0 90 "plot( \{ subs(m=1,M=2,rat)\}, R=1..20, title=`de
+nsity/pressure for Schw. shell (m=1, M=2)`);" }}{PARA 13 "" 1 "" 
+{INLPLOT "6&-%'CURVESG6$7P7$$\"\"\"\"\"!$!+%Q)*e`#!\"*7$$\"+Hf999F-$!+
+'[#Qh=F-7$$\"+)3#\\u<F-$!+>:GT6F-7$%%FAILGF97$$\"+cT!H;%F-$\"+kJ6_m!#5
+7$$\"3<+++HvzjV!#<$\"32<Lw?8Sz5FC7$$\"3s*****>!4pkXFC$\"3aTppNm7K9FC7$
+$\"32+++bz(z(\\FC$\"3>tdgvul'3#FC7$$\"3s*****zT,?M&FC$\"3%>ejFuFti#FC7
+$$\"3[+++<c!=v&FC$\"3\"\\7-rZEl@$FC7$$\"3&******>^#HjhFC$\"3)[n=2=_hz$
+FC7$$\"3I+++#QO)flFC$\"3T'ea)H`fZVFC7$$\"3.+++1i$*>pFC$\"3!eT>=8?U%[FC
+7$$\"3s*****\\sH\"[tFC$\"3U%[ntH&4JaFC7$$\"3\"******H!e'3r(FC$\"3dM.u=
+]$f#fFC7$$\"3W+++%49G8)FC$\"30+=*p\"f_*\\'FC7$$\"38*****z#)4j])FC$\"3
+\"eBnrnDe+(FC7$$\"3g+++WQ4;*)FC$\"3S&3AN.(4gvFC7$$\"3J+++K^I1$*FC$\"3n
+r0'QpKp3)FC7$$\"3w*****fn\\Mr*FC$\"3uLxR`E\"ej)FC7$$\"3.+++YNt35!#;$\"
+3^l]\\!>V#R\"*FC7$$\"3'*******z@1\\5Fiq$\"3%e7+#G&3<o*FC7$$\"3.+++'H_4
+4\"Fiq$\"372j['HmW-\"Fiq7$$\"3'******Rw<u7\"Fiq$\"3ah;]?^Vt5Fiq7$$\"30
++++q9!o;\"Fiq$\"3J@abE)*GE6Fiq7$$\"3++++\"p)[27Fiq$\"3O&*\\(Rfi3=\"Fiq
+7$$\"3,++++KHZ7Fiq$\"34d#>(=XAM7Fiq7$$\"31+++3h!eG\"Fiq$\"3Nlk(4oKeG\"
+Fiq7$$\"3&******p7o&G8Fiq$\"3L%zNU97JM\"Fiq7$$\"31+++.<*pO\"Fiq$\"32\"
+ztJGiXR\"Fiq7$$\"34+++rq,39Fiq$\"3.&z&)>bz%\\9Fiq7$$\"3\"******>:#>X9F
+iq$\"3o`.$eNH#*\\\"Fiq7$$\"3#******fLMe[\"Fiq$\"3$=D9X\"fg`:Fiq7$$\"3'
+******HYvS_\"Fiq$\"3_A8l\"peZg\"Fiq7$$\"3)*******e%[Sc\"Fiq$\"3<\\WL[u
+@e;Fiq7$$\"3$)******o$HJg\"Fiq$\"3o)HzBft/r\"Fiq7$$\"30+++hM/W;Fiq$\"3
+*)*H&R3<<l<Fiq7$$\"3/+++%f[Mo\"Fiq$\"3h`9[VV%y\"=Fiq7$$\"36+++LguB<Fiq
+$\"3VrW?[@qr=Fiq7$$\"30+++!z4Pw\"Fiq$\"3?uVaTq5D>Fiq7$$\"3-+++JBV+=Fiq
+$\"3TmBup\\<u>Fiq7$$\"3y*****z]?D%=Fiq$\"3W*fjHC1/.#Fiq7$$\"31+++wY;!)
+=Fiq$\"3x<doU]p!3#Fiq7$$\"39+++47I?>Fiq$\"3w\"Q\")eX3V8#Fiq7$$\"3<+++$
+*pre>Fiq$\"3H;ib)*)=c=#Fiq7$$\"#?F*$\"3JkS.#[a2C#Fiq-%'COLOURG6&%$RGBG
+$\"#5!\"\"F*F*-%&TITLEG6#%Ldensity/pressure~for~Schw.~shell~(m=1,~M=2)
+G-%+AXESLABELSG6$%\"RG%!G-%%VIEWG6$;F(Fey%(DEFAULTG" 2 241 241 241 2 
+0 1 0 2 9 0 4 2 1.000000 45.000000 45.000000 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 1 1 0 0 0 0 12536 0 0 0 0 0 0 }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 58 "Finally we ex
+amine the values of the density and pressure." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 82 "plot( \{ subs(m=1,M=2,grcomponent(P)), subs(m=1,M=2, \+
+grcomponent(sigma))\}, R=1..20," }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 57 "
+ title=`density and pressure of Schw. shell (m=1, M=2)`);" }}{PARA 13 
+"" 1 "" {INLPLOT "6'-%'CURVESG6$7S7$$\"+cT!H;%!\"*$\"+d$4u***!#77$$\"3
+p*******\\FJ@%!#<$\"3\"=07X_$GT%*!#?7$$\"3c*****H%3NjUF1$\"3)Hm;9\"z%4
+'*)F47$$\"3R+++(=uNJ%F1$\"30%[7Dqcm`)F47$$\"3<+++HvzjVF1$\"3a\"pILZ<h:
+)F47$$\"3*******f@WUY%F1$\"3O9+!R/'R&\\(F47$$\"3s*****>!4pkXF1$\"3J(Q/
+(\\lxNpF47$$\"3Q+++HWLrZF1$\"3I9S,-%R]+'F47$$\"32+++bz(z(\\F1$\"3$p%)*
+)\\&oxy_F47$$\"3Q+++(o*)*f^F1$\"3F?!\\8tZlv%F47$$\"3s*****zT,?M&F1$\"3
+u*e'>/46;VF47$$\"3q*****z^.pa&F1$\"3qO8#*H:*e*QF47$$\"3[+++<c!=v&F1$\"
+3ptU!G%ycQNF47$$\"3&******>^#HjhF1$\"3XBh)pk(QiHF47$$\"3I+++#QO)flF1$
+\"3F3Sckl,ODF47$$\"3.+++1i$*>pF1$\"37*y>/u&[EAF47$$\"3s*****\\sH\"[tF1
+$\"3n#*pR1M()G>F47$$\"3\"******H!e'3r(F1$\"3?.=yR1;A<F47$$\"3W+++%49G8
+)F1$\"3fs&y.1W<_\"F47$$\"38*****z#)4j])F1$\"3dx*fv(Rls8F47$$\"3g+++WQ4
+;*)F1$\"3w0oL2!GLB\"F47$$\"3J+++K^I1$*F1$\"3=kS!R%Qt>6F47$$\"3w*****fn
+\\Mr*F1$\"3y;KxzHN<5F47$$\"3.+++YNt35!#;$\"3DSsI`AZ`$*!#@7$$\"3'******
+*z@1\\5F[s$\"3HNJ46zOw&)F^s7$$\"3.+++'H_44\"F[s$\"3>H4:e;FoyF^s7$$\"3'
+******Rw<u7\"F[s$\"3w:EYY1Y@tF^s7$$\"30+++q9!o;\"F[s$\"3n^uC/3*Hz'F^s7
+$$\"3++++\"p)[27F[s$\"3'4$z)[)*>`I'F^s7$$\"3,++++KHZ7F[s$\"38nB5uZjxeF
+^s7$$\"31+++3h!eG\"F[s$\"3%*p\">*e7</bF^s7$$\"3&******p7o&G8F[s$\"3Fl`
+!\\JY*H^F^s7$$\"31+++.<*pO\"F[s$\"3D1a2)\\la#[F^s7$$\"34+++rq,39F[s$\"
+3qs(>8K#[HXF^s7$$\"3\"******>:#>X9F[s$\"3A$)>4r%yUG%F^s7$$\"3#******fL
+Me[\"F[s$\"3d'p.Js-%QSF^s7$$\"3'******HYvS_\"F[s$\"3HRW%)*H_f#QF^s7$$
+\"3)*******e%[Sc\"F[s$\"3a[g6+_P@OF^s7$$\"3$)******o$HJg\"F[s$\"3xE<EI
+j(oV$F^s7$$\"30+++hM/W;F[s$\"3Yd)*oarZeKF^s7$$\"3/+++%f[Mo\"F[s$\"3u2Y
+IG*4&*4$F^s7$$\"36+++LguB<F[s$\"3Y\"oP'[8r[HF^s7$$\"30+++!z4Pw\"F[s$\"
+34$)yRtC!)4GF^s7$$\"3-+++JBV+=F[s$\"3^$oyF`c1p#F^s7$$\"3y*****z]?D%=F[
+s$\"35)yR5#H@jDF^s7$$\"31+++wY;!)=F[s$\"3Bt]=z2wcCF^s7$$\"39+++47I?>F[
+s$\"37mZ%*[!>/N#F^s7$$\"3<+++$*pre>F[s$\"3u>EAYp)\\D#F^s7$$\"#?\"\"!$
+\"3!oU1v!>ye@F^s-%'COLOURG6&%$RGBG$\"#5!\"\"FjzFjz-F$6$7X7$F($\"+bA*G]
+\"!#67$$\"3S+++#**fa<%F1$\"3CZ?[U0&zT\"!#>7$$\"3;+++Ge,)=%F1$\"3U>%[1a
+b?M\"F`\\l7$$\"3$******Rmr0?%F1$\"3$yzS$*fePF\"F`\\l7$F/$\"3-nn6()\\\"
+>@\"F`\\l7$$\"36+++s\"R#QUF1$\"3&)\\JnMu3/6F`\\l7$F6$\"3t\"\\=FcnI,\"F
+`\\l7$F;$\"3\"Rf=*oA.u')F47$F@$\"3%f;6NC\\hb(F47$$\"37+++t3-9WF1$\"3\\
+DxjSJ4pmF47$FE$\"3jjxL_LCZfF47$$\"3&)******evY9XF1$\"3mm!\\&zp9[`F47$F
+J$\"3zKwE*4\"*H%[F47$FO$\"3%e3v)HN*zR$F47$FT$\"3G5!z(3kxHDF47$FY$\"3`/
+%oI#ft:?F47$Fhn$\"3*[(3yyfxU;F47$Fbo$\"3a6&Q-&37+6F47$Fgo$\"3Y@'))f#)e
+O!yF^s7$F\\p$\"3'R+cxoZJ$eF^s7$Fap$\"3=#fe.iphf%F^s7$Ffp$\"3&[\">5im`^
+NF^s7$F[q$\"3!H'>T?;91HF^s7$F`q$\"3&y*G5uaJTBF^s7$Feq$\"3([m&eVOIf>F^s
+7$Fjq$\"3gF#=VJl8j\"F^s7$F_r$\"3\")[W`)>@YQ\"F^s7$Fdr$\"3w4V()=G1y6F^s
+7$Fir$\"3&oXS#p0WB5F^s7$F`s$\"3N2jc/2Ke))!#A7$Fes$\"3%)32$Glh.o(F_bl7$
+Fjs$\"33PZu6)*e?oF_bl7$F_t$\"3&[uh%)3*HJgF_bl7$Fdt$\"3S!>(R5#)eR`F_bl7
+$Fit$\"3S8R)ps3Aw%F_bl7$F^u$\"3K$owx!zi!G%F_bl7$Fcu$\"3_mV2&\\Z%>QF_bl
+7$Fhu$\"3\\;Ciy2?gMF_bl7$F]v$\"3f)pt9`-\\7$F_bl7$Fbv$\"3$RPcN!QldGF_bl
+7$Fgv$\"3rL;NPRP*f#F_bl7$F\\w$\"3(Q]D@NHTQ#F_bl7$Faw$\"35Ak#3X'*Q=#F_b
+l7$Ffw$\"3-4)p0r7$4?F_bl7$F[x$\"3l;9-2J)f%=F_bl7$F`x$\"3Zw'zh$p/0<F_bl
+7$Fex$\"3<^Z_\")pTv:F_bl7$Fjx$\"3(4bC%)[c&f9F_bl7$F_y$\"3fNw'H3FHO\"F_
+bl7$Fdy$\"3dhlqHQTi7F_bl7$Fiy$\"3*y14&R/u!=\"F_bl7$F^z$\"3TzxsdbD,6F_b
+l7$Fcz$\"3RjNP+%Q<.\"F_bl7$Fhz$\"3>Ia'[AuTj*!#B-F^[l6&F`[lFjzFa[lFjz-%
+&TITLEG6#%Odensity~and~pressure~of~Schw.~shell~(m=1,~M=2)G-%+AXESLABEL
+SG6$%\"RG%!G-%%VIEWG6$;$\"\"\"FjzFhz%(DEFAULTG" 2 241 241 241 2 0 1 0 
+2 9 0 4 2 1.000000 45.000000 45.000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 1 1 0 0 0 0 2184 0 0 0 0 0 0 }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
+1 0 0 "" }}}}{MARK "39 0 0" 0 }{VIEWOPTS 1 1 0 1 1 1803 }

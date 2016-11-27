@@ -1,0 +1,272 @@
+{VERSION 2 3 "DEC ALPHA UNIX" "2.3" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 0 
+0 }{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 }
+{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "Times" 1 10 0 0 0 1 2 2 2 0 
+0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "Text Output" -1 
+2 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 0 0 0 0 0 1 3 0 0 }1 0 
+0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "" 2 6 1 {CSTYLE "" -1 -1 "" 0 1 
+0 0 0 0 0 0 0 0 0 0 2 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "M
+aple Output" 0 11 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+}3 3 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "R3 Font 0" -1 256 1 
+{CSTYLE "" -1 -1 "Helvetica" 1 10 255 0 0 1 2 1 2 0 0 0 0 0 0 }0 0 0 
+-1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "R3 Font 2" -1 257 1 {CSTYLE "" -1 
+-1 "Courier" 1 10 0 0 0 1 2 2 2 0 0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 
+0 -1 0 }}
+{SECT 0 {EXCHG {PARA 0 "" 0 "" {TEXT -1 10 "olivei1.ms" }}{PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 8 "restart:" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
+1 0 7 "grtw();" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%>GRTensorII~Version
+~1.72b~(R4)G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%,10~Feb~1999G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%ZDeveloped~by~Peter~Musgrave,~Denis~P
+ollney~and~Kayll~LakeG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%DCopyright~
+1994-1999~by~the~authors.G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%\\oLate
+st~version~available~from:~http://astro.queensu.ca/|irgrtensor/G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%3/home/lake/MetricsG" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 16 "grlib(junction):" }}{PARA 6 "" 1 "
+" {TEXT -1 244 "The GRJunction Package Version 2.05 Release 4\nLast mo
+dified 16 Oct 1997\nDeveloped by Peter Musgrave and Kayll Lake, (c) 19
+95-97\nLatest version available at:\n     http://www.astro.queensu.ca/
+~grtensor/GRjunction.html\nHelp available via ?junction" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 23 "grOptionTrace := false;" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#>%.grOptionTraceG%&falseG" }}}{EXCHG {PARA 
+0 "> " 0 "" {MPLTEXT 1 0 53 "grOptionMetricPath := `/home/lake/Junctio
+n4/Metrics`;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%3grOptionMetricPathG
+%=/home/lake/Junction4/MetricsG" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 0 
+"" }}{PARA 0 "" 0 "" {TEXT -1 27 "\{\\bf Black Hole Interior 1\}" }}
+{PARA 0 "" 0 "" {TEXT -1 62 "Verify equation (6)  of Oliveira and Sali
+m (CQG 1994 11:p2297)" }}{PARA 0 "" 0 "" {TEXT -1 0 "" }}{PARA 0 "" 0 
+"" {TEXT -1 48 "First specify the exterior (future) as deSitter." }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 47 "f(u,r) := 1 - r^2/a^2; psi(u,r) := \+
+0; xi := -1;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>-%\"fG6$%\"uG%\"rG,&
+\"\"\"F**&F(\"\"#%\"aG!\"#!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>-%
+$psiG6$%\"uG%\"rG\"\"!" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#xiG!\"\"
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 15 "qload(sph_v1); " }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%2Default~spacetimeG%'sph_v1G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%:For~the~sph_v1~spacetime:G" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%,CoordinatesG" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#-%\"xG6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%#x~G%\"aG-%'
+VECTORG6#7&%\"uG%\"rG%&thetaG%$phiG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6
+#%-Line~elementG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*$%$~dsG\"\"#,**(
+,&!\"\"\"\"\"*&%\"rGF&%\"aG!\"#F+F+%#~dGF+)%\"uG%#2~GF+F+**F0F+)F2%\"~
+GF+%#d~GF+)F-F6F+F&*(F-F&F0F+)%&thetaGF3F+F+**F-F&-%$sinG6#F;F&F0F+)%$
+phiGF3F+F+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 22 "surf( sph_v1,
+ snull1);" }}{PARA 6 "" 1 "" {TEXT -1 108 "\n COORRDINATES: Enter the \+
+coordinates of the surface as a list\n   e.g. [theta, phi, tau]; \n   \+
+Enter a list >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 14 "[u,theta,
+phi];" }}{PARA 6 "" 1 "" {TEXT -1 188 "\n SHELL PARAMETER:\n   For a o
+ne-parameter shell, enter the parameter name.\n   For a null shell ind
+icate which coordinate is a null generator\n   Enter coordinate name o
+r 0 (zero) for none >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "u;
+" }}{PARA 6 "" 1 "" {TEXT -1 161 "\n SURFACE: Please enter the coordin
+ate definition of the surface\n   (the x\{^a\} = x(xi\{^b\})  ) as a L
+IST. \n   e.g. [ r=R(tau), theta=theta, phi=phi, t=T(tau)]\n  >" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 38 "[ r=r_0, theta=theta, phi=ph
+i, u = u];" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"'!\"$
+" }}{PARA 6 "" 1 "" {TEXT -1 125 "\n NORMAL TYPE: Please indicate the \+
+nature of the snormal vector\n   (-1 = timelike, 0 = null, 1= spacelik
+e) Enter +1,0 or -1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "0;
+" }}{PARA 6 "" 1 "" {TEXT -1 75 "\n CONSTRAINT: Use  +/- 1 = u\{^a\} u
+\{a\} as a constraint ?    Enter 1 if yes >" }}}{EXCHG {PARA 0 "> " 0 
+"" {MPLTEXT 1 0 2 "0;" }}{PARA 6 "" 1 "" {TEXT -1 206 "Default metric \+
+is now sph_v1\n SURFACE: Enter the expression for the surface.\n   The
+ surface will be defined by setting the \n   expression you enter to z
+ero.\n   To enter the normal explicitly, enter 0 (zero)" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#%(surfaceG" }}}{EXCHG {PARA 0 " >" 0 "" 
+{MPLTEXT 1 0 2 "0;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"
+#5!\"$" }}{PARA 6 "" 1 "" {TEXT -1 176 "\n NORMAL VECTOR: Enter the co
+mponents of the normal vector\n   Do you wish to enter 1) covariant co
+mponents\n                        2) contravariant components\n   Ente
+r 1 or 2 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "2;" }}{PARA 6 
+"" 1 "" {TEXT -1 100 "\n   Enter the components of the vector as a lis
+t\n   in the order (u,r,theta,phi)\n   Component list >" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "[1, 0, 0, 0];" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#-%\"nG6#%#upG" }}{PARA 6 "" 1 "" {TEXT -1 146 "\n NORMA
+L SIGN\n   The definition of the normal vector is +/- grad(surface)\n \+
+  please enter +1 or -1 to indicate the CHOICE of sign\n   Enter +1,-1
+ >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 1 "" 
+{TEXT -1 188 "\n TRANSVERSE VECTOR\n   Enter the components of the tra
+nsverse vector N\n   Do you wish to enter 1) covariant components\n   \+
+                     2) contravariant components\n   Enter 1 or 2 >" }
+}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "2;" }}{PARA 6 "" 1 "" 
+{TEXT -1 100 "\n   Enter the components of the vector as a list\n   in
+ the order (u,r,theta,phi)\n   Component list >" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 26 "[0,xi*exp(-psi(u,r)),0,0];" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#-%\"NG6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*C
+PU~Time~G$\"\"%!\"$" }}{PARA 6 "" 1 "" {TEXT -1 28 "Default metric is \+
+now snull1" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#<!\"$" 
+}}{PARA 6 "" 1 "" {TEXT -1 180 "\n nullg(up,up): Calculate nullg(up,up
+) automatically?\n   (If N is orthogonal to those basis vectors on\n  \+
+  the surface which are *not* the null\n    generator of the surface)
+\n   y/n" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "y;" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#5!\"$" }}{PARA 6 "" 1 "" {TEXT 
+-1 45 " l\{^a\}: Enter the components for l\{^a\}\n   y/n" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "y;" }}{PARA 6 "" 1 "" {TEXT -1 117 "
+   Do you wish to enter 1) covariant components\n                     \+
+   2) contravariant components\n   Enter 1 or 2 >" }}}{EXCHG {PARA 0 "
+> " 0 "" {MPLTEXT 1 0 2 "2;" }}{PARA 6 "" 1 "" {TEXT -1 98 "\n   Enter
+ the components of the vector as a list\n   in the order (u,theta,phi)
+\n   Component list >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 9 "[xi
+,0,0];" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%\"lG6#%#upG" }}{PARA 6 "" 
+1 "" {TEXT -1 27 "ds has not been calculated." }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%:For~the~sph_v1~spacetime:G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%<The~Equation~of~the~surfaceG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%)surface~G\"\"!" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%:
+For~the~sph_v1~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%GCoordi
+nate~transforms~onto~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-
+%&xformG6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"aG-%'
+VECTORG6#7&%\"uG%$r_0G%&thetaG%$phiG" }}{PARA 6 "" 1 "" {TEXT -1 149 "
+The intrinsic metric and normal vector have been calculated.\nYou may \+
+wish to simplify them further before saving the surface\nor calculatin
+g K(dn,dn) " }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 22 "grcalc(ndotn
+[sph_v1]);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"$!\"$
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_);" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%:For~the~sph_v1~spacetime:G" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#%+n|fra|hr~n|fr^a|hrG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%'ndotn~G,$*&,&*$%\"aG\"\"#\"\"\"*$%\"rGF*!\"\"F+F)!\"
+#F." }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 22 "grcalc(NdotN[sph_v1]
+);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"%!\"$" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_);" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#%:For~the~sph_v1~spacetime:G" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#%+N|fra|hr~N|fr^a|hrG" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#/%'NdotN~G\"\"!" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 22 "gr
+calc(Ndotn[sph_v1]);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$
+\"\"#!\"$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_);
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%:For~the~sph_v1~spacetime:G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%+n|fra|hr~N|fr^a|hrG" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#/%'Ndotn~G!\"\"" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 37 "grcalc( nullK(dn,dn), nullK(dn,up)); " }}{PARA 6 "" 
+1 "" {TEXT -1 36 "Created definition for nullK(dn,up) " }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"$W\"!\"$" }}}{EXCHG {PARA 0 "" 0 "
+" {TEXT -1 71 "Load a second similar spacetime and define it to be Rei
+ssner-Nordstrom." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 55 "F(U,R) := 1 - 2
+*m/R + q^2/R^2; chi(U,R) := 0; Xi := xi;" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#>-%\"FG6$%\"UG%\"RG,(\"\"\"F**&%\"mGF*F(!\"\"!\"#*&%\"qG\"\"#F(F
+.F*" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>-%$chiG6$%\"UG%\"RG\"\"!" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#XiG!\"\"" }}}{EXCHG {PARA 0 "> " 0 
+"" {MPLTEXT 1 0 14 "qload(sph_v2);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#
+/%2Default~spacetimeG%'sph_v2G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%:Fo
+r~the~sph_v2~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%,Coordina
+tesG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%\"xG6#%#upG" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#/)%#x~G%\"aG-%'VECTORG6#7&%\"UG%\"RG%&thetaG%$phiG
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%-Line~elementG" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#/*$%$~dsG\"\"#,**(,(!\"\"\"\"\"*&%\"mGF+%\"RGF*F&*&%
+\"qGF&F.!\"#F*F+%#~dGF+)%\"UG%#2~GF+F+**F2F+)F4%\"~GF+%#d~GF+)F.F8F+F&
+*(F.F&F2F+)%&thetaGF5F+F+**F.F&-%$sinG6#F=F&F2F+)%$phiGF5F+F+" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 22 "surf( sph_v2, snull2);" }}
+{PARA 6 "" 1 "" {TEXT -1 108 "\n COORRDINATES: Enter the coordinates o
+f the surface as a list\n   e.g. [theta, phi, tau]; \n   Enter a list \+
+>" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 14 "[u,theta,phi];" }}
+{PARA 6 "" 1 "" {TEXT -1 188 "\n SHELL PARAMETER:\n   For a one-parame
+ter shell, enter the parameter name.\n   For a null shell indicate whi
+ch coordinate is a null generator\n   Enter coordinate name or 0 (zero
+) for none >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "u;" }}{PARA 
+6 "" 1 "" {TEXT -1 161 "\n SURFACE: Please enter the coordinate defini
+tion of the surface\n   (the x\{^a\} = x(xi\{^b\})  ) as a LIST. \n   \+
+e.g. [ r=R(tau), theta=theta, phi=phi, t=T(tau)]\n  >" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 38 "[ R=r_0, theta=theta, phi=phi, U = \+
+u];" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"%!\"$" }}
+{PARA 6 "" 1 "" {TEXT -1 125 "\n NORMAL TYPE: Please indicate the natu
+re of the snormal vector\n   (-1 = timelike, 0 = null, 1= spacelike) E
+nter +1,0 or -1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "0;" }}
+{PARA 6 "" 1 "" {TEXT -1 75 "\n CONSTRAINT: Use  +/- 1 = u\{^a\} u\{a
+\} as a constraint ?    Enter 1 if yes >" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 2 "0;" }}{PARA 6 "" 1 "" {TEXT -1 206 "Default metric is \+
+now sph_v2\n SURFACE: Enter the expression for the surface.\n   The su
+rface will be defined by setting the \n   expression you enter to zero
+.\n   To enter the normal explicitly, enter 0 (zero)" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6#%(surfaceG" }}}{EXCHG {PARA 0 " >" 0 "" {MPLTEXT 1 
+0 2 "0;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#6!\"$" }}
+{PARA 6 "" 1 "" {TEXT -1 176 "\n NORMAL VECTOR: Enter the components o
+f the normal vector\n   Do you wish to enter 1) covariant components\n
+                        2) contravariant components\n   Enter 1 or 2 >
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "2;" }}{PARA 6 "" 1 "" 
+{TEXT -1 100 "\n   Enter the components of the vector as a list\n   in
+ the order (U,R,theta,phi)\n   Component list >" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 10 "[1,0,0,0];" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#
+-%\"nG6#%#upG" }}{PARA 6 "" 1 "" {TEXT -1 146 "\n NORMAL SIGN\n   The \+
+definition of the normal vector is +/- grad(surface)\n   please enter \+
++1 or -1 to indicate the CHOICE of sign\n   Enter +1,-1 >" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 1 "" {TEXT -1 188 "
+\n TRANSVERSE VECTOR\n   Enter the components of the transverse vector
+ N\n   Do you wish to enter 1) covariant components\n                 \+
+       2) contravariant components\n   Enter 1 or 2 >" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "2;" }}{PARA 6 "" 1 "" {TEXT -1 100 "
+\n   Enter the components of the vector as a list\n   in the order (U,
+R,theta,phi)\n   Component list >" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 28 "[0,Xi*exp(-chi(U,R)), 0, 0];" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#-%\"NG6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU
+~Time~G$\"\"&!\"$" }}{PARA 6 "" 1 "" {TEXT -1 28 "Default metric is no
+w snull2" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#7!\"$" }}
+{PARA 6 "" 1 "" {TEXT -1 180 "\n nullg(up,up): Calculate nullg(up,up) \+
+automatically?\n   (If N is orthogonal to those basis vectors on\n    \+
+the surface which are *not* the null\n    generator of the surface)\n \+
+  y/n" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "y;" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"&!\"$" }}{PARA 6 "" 1 "" {TEXT 
+-1 45 " l\{^a\}: Enter the components for l\{^a\}\n   y/n" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "y;" }}{PARA 6 "" 1 "" {TEXT -1 117 "
+   Do you wish to enter 1) covariant components\n                     \+
+   2) contravariant components\n   Enter 1 or 2 >" }}}{EXCHG {PARA 0 "
+> " 0 "" {MPLTEXT 1 0 2 "2;" }}{PARA 6 "" 1 "" {TEXT -1 98 "\n   Enter
+ the components of the vector as a list\n   in the order (u,theta,phi)
+\n   Component list >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 9 "[Xi
+,0,0];" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%\"lG6#%#upG" }}{PARA 6 "" 
+1 "" {TEXT -1 27 "ds has not been calculated." }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%:For~the~sph_v2~spacetime:G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%<The~Equation~of~the~surfaceG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%)surface~G\"\"!" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%:
+For~the~sph_v2~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%GCoordi
+nate~transforms~onto~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-
+%&xformG6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"aG-%'
+VECTORG6#7&%\"uG%$r_0G%&thetaG%$phiG" }}{PARA 6 "" 1 "" {TEXT -1 149 "
+The intrinsic metric and normal vector have been calculated.\nYou may \+
+wish to simplify them further before saving the surface\nor calculatin
+g K(dn,dn) " }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 21 "join(snull1,
+ snull2);" }}{PARA 6 "" 1 "" {TEXT -1 130 "snull1 and snull2 are now j
+oined.\nThe default metric name is snull1.\nThe exterior metric is: sn
+ull1\nThe interior metric is: snull2" }}{PARA 11 "" 1 "" {XPPMATH 20 "
+6#/%*CPU~Time~G$\"\"&!\"$" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%:For~the
+~snull1~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%@~Jump~from~de
+faultMetric~-~MintG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%8Jump~[g(d
+n,dn),~snull2]G6#%\"uG\"\"\"&%!GF'F),$*(,(*$%$r_0G\"\"%!\"\"*(%\"aG\"
+\"#%\"mGF)F0F)F5*&F4F5%\"qGF5F2F)F4!\"#F0F9F2" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%'sph_v1G" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 23 
+"grcalc(nullS3(up,up) );" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Tim
+e~G$\"#t!\"$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 28 "gralter(_,e
+xpand,simplify); " }}{PARA 6 "" 1 "" {TEXT -1 148 "Component simplific
+ation of a GRTensorII object:\n \nApplying routine expand to object nu
+llS3(up,up)\nApplying routine simplify to object nullS3(up,up)" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#a!\"$" }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 22 "The results match (6) " }}{PARA 0 "> " 0 
+"" {MPLTEXT 1 0 41 "gralter(_,expand,simplify); grdisplay(_);" }}
+{PARA 6 "" 1 "" {TEXT -1 148 "Component simplification of a GRTensorII
+ object:\n \nApplying routine expand to object nullS3(up,up)\nApplying
+ routine simplify to object nullS3(up,up)" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%*CPU~Time~G$\"#9!\"$" }}{PARA 11 "" 1 "" {XPPMATH 20 
+"6#%:For~the~snull1~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%8I
+ntrinsic~stress-energyG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%'nullS3G6
+$%#upGF&" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&)%(nullS3~G%\"aG\"\"\")
+%!G%\"bGF(-%'MATRIXG6#7%7%\"\"!F1F17%F1,$**%$r_0G!\"&,(*$F5\"\"%F(*(F'
+\"\"#%\"mGF(F5F(F(*&F'F;%\"qGF;!\"\"F(F'!\"#%#PiGF?#F?\"\")F17%F1F1,$*
+,F7F(F5F6F'F@FAF?,&F?F(*$-%$cosG6#%&thetaGF;F(F?#F(FC" }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 40 "Compare these to the result given in (6)
+" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 24 "k0 := diff( f(u,r),r)/2;" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#k0G,$*&%\"rG\"\"\"%\"aG!\"#!\"\"" }
+}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 26 "K0 := diff( F(U,R), R)/2; \+
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#K0G,&*&%\"mG\"\"\"%\"RG!\"#F(*&
+%\"qG\"\"#F)!\"$!\"\"" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 51 "P \+
+:= factor( subs( r=r0, R=r0, 1/8/pi*(k0 - K0)) );" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#>%\"PG,$**,(*$%#r0G\"\"%\"\"\"*(%\"mGF+%\"aG\"\"#F)F+F+
+*&F.F/%\"qGF/!\"\"F+%#piGF2F.!\"#F)!\"$#F2\"\")" }}}{EXCHG {PARA 0 "" 
+0 "" {TEXT -1 69 "Which is the same as the pressure given by $S^i_ j$ \+
+as we now show.  " }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 22 "grcalc(nullS3(
+dn,up));" }}{PARA 6 "" 1 "" {TEXT -1 37 "Created definition for nullS3
+(dn,up) " }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#8!\"$" }}
+}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_);" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#%:For~the~snull1~spacetime:G" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#%.nullS3(dn,up)G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-
+%'nullS3G6$%#dnG%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)&%(nullS3~G
+6#%\"aG%\"bG-%'MATRIXG6#7%7%\"\"!F/F/7%F/,$**%$r_0G!\"$,(*$F3\"\"%\"\"
+\"*(F(\"\"#%\"mGF8F3F8F8*&F(F:%\"qGF:!\"\"F8F(!\"#%#PiGF>#F>\"\")F/7%F
+/F/,$*.F3F4-%$sinG6#%&thetaGF:F5F8F(F?F@F>,&F>F8*$-%$cosGFHF:F8F>#F8FB
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}}{MARK "57 0 0" 0 }
+{VIEWOPTS 1 1 0 1 1 1803 }

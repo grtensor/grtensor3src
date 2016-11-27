@@ -80,6 +80,9 @@ export
 	PetrovReport,
 	qload, 
 	grtestinput,   
+	# Junction functions
+	jsave,
+	surf,
 	grdebug, # debug fn
 	grdata, # debug fn
 	grdump, # debug fn
@@ -215,6 +218,30 @@ $include "src/objects/invar/w2.mpl"
 end proc:
 
 (*
+Contents of the junction package
+
+*)
+
+load_junc_objects := proc()
+global grG_ObjDef, grG_multipleDef, grF_pre_calc_ff1:
+#$include "src/junction/clawHist.mpl"
+$include "src/junction/objects.mpl"
+#$include "src/junction/elasticity.mpl"
+#$include "src/junction/e3_object.mpl"
+#$include "src/junction/null_objects.mpl"
+#$include "src/junction/newn.mpl"
+$include "src/junction/oper.mpl"
+#
+end proc:
+
+# Junction code
+$include "src/junction/chain.mpl"
+$include "src/junction/jdiff.mpl"
+$include "src/junction/jsave.mpl"
+$include "src/junction/junction.mpl"
+$include "src/junction/project.mpl"
+
+(*
 Useful debug routines
 - also included in the export list
 *)
@@ -226,6 +253,7 @@ global grG_metricSet, grG_ObjDef;
 	grG_metricSet := {}:
 	globals_init():
 	load_objects();
+	load_junc_objects();
 	grF_gen_rootSet():
 	grF_gen_calcFnSet():
 	print("GRTensor III"):

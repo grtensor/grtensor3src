@@ -1,0 +1,371 @@
+{VERSION 2 3 "DEC ALPHA UNIX" "2.3" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 0 
+0 }{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 }
+{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "Times" 1 10 0 0 0 1 2 2 2 0 
+0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "Text Output" -1 
+2 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 0 0 0 0 0 1 3 0 0 }1 0 
+0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "" 2 6 1 {CSTYLE "" -1 -1 "" 0 1 
+0 0 0 0 0 0 0 0 0 0 2 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "M
+aple Output" 0 11 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+}3 3 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "" 11 12 1 {CSTYLE "" -1 -1 
+"" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 }1 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }
+{PSTYLE "R3 Font 0" -1 256 1 {CSTYLE "" -1 -1 "Helvetica" 1 10 255 0 
+0 1 2 1 2 0 0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "R3 Fo
+nt 2" -1 257 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 0 1 2 2 2 0 0 0 0 
+0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }}
+{SECT 0 {EXCHG {PARA 0 "" 0 "" {TEXT -1 6 "oppsny" }}{PARA 0 "> " 0 "
+" {MPLTEXT 1 0 8 "restart:" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 
+8 " grtw();" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%>GRTensorII~Version~1.
+72b~(R4)G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%,10~Feb~1999G" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%ZDeveloped~by~Peter~Musgrave,~Denis~Pollney
+~and~Kayll~LakeG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%DCopyright~1994-1
+999~by~the~authors.G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%\\oLatest~ver
+sion~available~from:~http://astro.queensu.ca/|irgrtensor/G" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%3/home/lake/MetricsG" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 16 "grlib(junction);" }}{PARA 6 "" 1 "" {TEXT -1 
+244 "The GRJunction Package Version 2.05 Release 4\nLast modified 16 O
+ct 1997\nDeveloped by Peter Musgrave and Kayll Lake, (c) 1995-97\nLate
+st version available at:\n     http://www.astro.queensu.ca/~grtensor/G
+Rjunction.html\nHelp available via ?junction" }}}{EXCHG {PARA 0 "> " 
+0 "" {MPLTEXT 1 0 22 "grOptionTermSize := 0:" }}}{EXCHG {PARA 0 "> " 
+0 "" {MPLTEXT 1 0 53 "grOptionMetricPath := `/home/lake/Junction4/Metr
+ics`;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%3grOptionMetricPathG%=/home
+/lake/Junction4/MetricsG" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 68 "The f
+irst step is to load the Schwarzschild metric via \{\\tt qload\}. " }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 15 "qload(schw_os);" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#/%2Default~spacetimeG%(schw_osG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%;For~the~schw_os~spacetime:G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%,CoordinatesG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%\"x
+G6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6&/)%#x~G%\"1G%\"rG/)F%%\"2G
+&%&thetaG6#\"\"#/)F%%\"3G&%$phiGF-/)F%%\"4G&%\"tGF-" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#%-Line~elementG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*
+$%$~dsG\"\"#,**(,&\"\"\"F**&%\"mGF*%\"rG!\"\"!\"#F.%#~dGF*)F-%#2~GF*F*
+*(F-F&F0F*)&%&thetaG6#F&F2F*F***F-F&-%$sinG6#F5F&F0F*)&%$phiGF7F2F*F**
+(,&F.F*F+F&F*F0F*)&%\"tGF7F2F*F*" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 
+98 "Now we use the \{\\tt surf\} command to specify a surface. \{\\tt \+
+surf\} prompt the user for information" }}{PARA 0 "" 0 "" {TEXT -1 48 
+"which defines the surface and its normal vector." }}{PARA 0 "> " 0 "
+" {MPLTEXT 1 0 20 "surf(schw_os,ssurf);" }}{PARA 6 "" 1 "" {TEXT -1 
+108 "\n COORRDINATES: Enter the coordinates of the surface as a list\n
+   e.g. [theta, phi, tau]; \n   Enter a list >" }}}{EXCHG {PARA 0 "" 
+0 "" {TEXT -1 64 "First we are asked for the coordinates on the surfac
+e as a list." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 16 "[theta,phi,tau];" }
+}{PARA 6 "" 1 "" {TEXT -1 188 "\n SHELL PARAMETER:\n   For a one-param
+eter shell, enter the parameter name.\n   For a null shell indicate wh
+ich coordinate is a null generator\n   Enter coordinate name or 0 (zer
+o) for none >" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 92 "Next we are aske
+d to specify which of the $\\xi^i$ is the parameter for a one-paramete
+r shell" }}{PARA 0 "" 0 "" {TEXT -1 9 "(if any)." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 4 "tau;" }}{PARA 6 "" 1 "" {TEXT -1 161 "\n SURFACE: Plea
+se enter the coordinate definition of the surface\n   (the x\{^a\} = x
+(xi\{^b\})  ) as a LIST. \n   e.g. [ r=R(tau), theta=theta, phi=phi, t
+=T(tau)]\n  >" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 96 "Now we provide t
+he coordinate definition of $\\Sigma$. (Note that in Maple $\\left[~~
+\\right]$'s do" }}{PARA 0 "" 0 "" {TEXT -1 68 "double duty; they denot
+e lists and are used to indicate subscripts)." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 53 "[r=R(tau), theta[2]=theta, phi[2]=phi, t[2]=T(tau) ];
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"%!\"$" }}{PARA 
+6 "" 1 "" {TEXT -1 125 "\n NORMAL TYPE: Please indicate the nature of \+
+the snormal vector\n   (-1 = timelike, 0 = null, 1= spacelike) Enter +
+1,0 or -1 >" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 50 "The character of t
+he normal vector is now entered." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "
+1;" }}{PARA 6 "" 1 "" {TEXT -1 75 "\n CONSTRAINT: Use  +/- 1 = u\{^a\}
+ u\{a\} as a constraint ?    Enter 1 if yes >" }}}{EXCHG {PARA 0 "" 0 
+"" {TEXT -1 91 "Since we have provided a shell parameter  we are given
+ the option of employing the relation" }}{PARA 0 "" 0 "" {TEXT -1 82 "
+$u_\\alpha u^\\alpha = -1$ to eliminate the derivative of one of the q
+uantities used" }}{PARA 0 "" 0 "" {TEXT -1 68 "in the coordinate defin
+ition of the surface. We choose to eliminate " }}{PARA 0 "" 0 "" 
+{TEXT -1 82 "$\\partial T(\\tau)/ \\partial \\tau$ (in Maple parlance \+
+\{\\tt diff(T(tau),tau)\}). This" }}{PARA 0 "" 0 "" {TEXT -1 47 "choic
+e will produce $d\\tau^2 = -1$ on $\\Sigma$." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 1 "" {TEXT -1 29 "Created definition \+
+for u(dn) " }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#8!\"$" 
+}}{PARA 11 "" 1 "" {XPPMATH 20 "6#%<The~constraint~equation~is:G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/!\"\"*(,**&%\"rG\"\"#-%%diffG6$-%\"RG
+6#%$tauGF0F)F$*&-F+6$-%\"TGF/F0F)F(F)\"\"\"*(F2F)F(F6%\"mGF6!\"%*&F2F)
+F8F)\"\"%F6,&F(F$F8F)F$F(F$" }}{PARA 6 "" 1 "" {TEXT -1 65 "Enter the \+
+term you wish to use the constraint to eliminate\nTerm >" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 17 "diff(T(tau),tau);" }}{PARA 6 "" 1 "
+" {TEXT -1 44 "Solve returned multiple solutions. They are:" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6$%$[1]G*&,(*$%\"rG\"\"#\"\"\"*&F'F)%\"mGF)!\"
+#*&F'F(-%%diffG6$-%\"RG6#%$tauGF4F(F)#F)F(,&F'!\"\"F+F(F7" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "6$%$[2]G,$*&,(*$%\"rG\"\"#\"\"\"*&F(F*%\"mGF*!\"#
+*&F(F)-%%diffG6$-%\"RG6#%$tauGF5F)F*#F*F),&F(!\"\"F,F)F8F8" }}{PARA 6 
+"" 1 "" {TEXT -1 41 "\nPlease select a solution.\nEnter choice >" }}}
+{EXCHG {PARA 0 "" 0 "" {TEXT -1 92 "In solving for $\\partial T(\\tau)
+/ \\partial \\tau$ Maple determines that there are two choices" }}
+{PARA 0 "" 0 "" {TEXT -1 56 "(differing in sign). We are asked to choo
+se one of them." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 
+1 "" {TEXT -1 207 "Default metric is now schw_os\n SURFACE: Enter the \+
+expression for the surface.\n   The surface will be defined by setting
+ the \n   expression you enter to zero.\n   To enter the normal explic
+itly, enter 0 (zero)" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%(surfaceG" }}
+}{EXCHG {PARA 0 "" 0 "" {TEXT -1 54 "Now we enter the parametric defin
+ition of the surface." }}{PARA 0 "" 0 "" {TEXT -1 0 "" }}{PARA 0 " >" 
+0 "" {MPLTEXT 1 0 10 "r-R(t[2]);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%
+*CPU~Time~G$\"#6!\"$" }}{PARA 6 "" 1 "" {TEXT -1 146 "\n NORMAL SIGN\n
+   The definition of the normal vector is +/- grad(surface)\n   please
+ enter +1 or -1 to indicate the CHOICE of sign\n   Enter +1,-1 >" }}}
+{EXCHG {PARA 0 "" 0 "" {TEXT -1 67 "Finally, we are asked explicitly f
+or the sign of the normal vector." }}{PARA 0 "" 0 "" {TEXT -1 0 "" }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 11 "" 1 "" {XPPMATH 20 "
+6#/%*CPU~Time~G$\"#n!\"$" }}{PARA 6 "" 1 "" {TEXT -1 27 "Default metri
+c is now ssurf" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#G!
+\"$" }}{PARA 6 "" 1 "" {TEXT -1 27 "ds has not been calculated." }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%;For~the~schw_os~spacetime:G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%<The~Equation~of~the~surfaceG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%)surface~G,&%\"rG\"\"\"-%\"RG6#&%\"t
+G6#\"\"#!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%;For~the~schw_os~spa
+cetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%GCoordinate~transforms~on
+to~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%&xformG6#%#upG" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"rG-%\"RG6#%$tauG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G&%&thetaG6#\"\"#F'" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G&%$phiG6#\"\"#F'" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G&%\"tG6#\"\"#-%\"TG6#%$tauG" }}
+{PARA 6 "" 1 "" {TEXT -1 149 "The intrinsic metric and normal vector h
+ave been calculated.\nYou may wish to simplify them further before sav
+ing the surface\nor calculating K(dn,dn) " }}}{EXCHG {PARA 0 "" 0 "" 
+{TEXT -1 78 "This completes the specification of the surface in the Sc
+hwarzschild exterior." }}{PARA 0 "" 0 "" {TEXT -1 66 "Next we  load th
+e FRW metric (which we will take as the interior)." }}{PARA 0 "> " 0 "
+" {MPLTEXT 1 0 11 "qload(frw);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%2D
+efault~spacetimeG%$frwG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%7For~the~f
+rw~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%,CoordinatesG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#-%\"xG6#%#upG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6&/)%#x~G%\"1G%$chiG/)F%%\"2G&%&thetaG6#\"\"\"/)F%%\"3G&%
+$phiGF-/)F%%\"4G%\"tG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%-Line~elemen
+tG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*$%$~dsG\"\"#,**(-%\"aG6#%\"tGF
+&%#~dG\"\"\")%$chiG%#2~GF.F.**F)F&-%$sinG6#F0F&F-F.)&%&thetaG6#F.F1F.F
+.*,F)F&F3F&-F46#F7F&F-F.)&%$phiGF9F1F.F.*&F-F.)F,F1F.!\"\"" }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 99 "Before defining the surface in the FRW sp
+acetime we first calculate $G_\\alpha^\\beta$ for later use." }}{PARA 
+0 "> " 0 "" {MPLTEXT 1 0 17 "grcalc(G(dn,up));" }}{PARA 6 "" 1 "" 
+{TEXT -1 32 "Created definition for G(dn,up) " }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%*CPU~Time~G$\"$)>!\"$" }}}{EXCHG {PARA 0 "" 0 "" 
+{TEXT -1 95 "We specify the surface in $M^-$ in parametric from as $\\
+chi - X = 0$. The process is identical " }}{PARA 0 "" 0 "" {TEXT -1 
+98 "to that followed for the Schwarzschild case above (except we do no
+t use $u_\\alpha u^\\alpha = -1$)." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 
+17 "surf(frw, fsurf);" }}{PARA 6 "" 1 "" {TEXT -1 108 "\n COORRDINATES
+: Enter the coordinates of the surface as a list\n   e.g. [theta, phi,
+ tau]; \n   Enter a list >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 
+16 "[theta,phi,tau];" }}{PARA 6 "" 1 "" {TEXT -1 188 "\n SHELL PARAMET
+ER:\n   For a one-parameter shell, enter the parameter name.\n   For a
+ null shell indicate which coordinate is a null generator\n   Enter co
+ordinate name or 0 (zero) for none >" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 4 "tau;" }}{PARA 6 "" 1 "" {TEXT -1 161 "\n SURFACE: Plea
+se enter the coordinate definition of the surface\n   (the x\{^a\} = x
+(xi\{^b\})  ) as a LIST. \n   e.g. [ r=R(tau), theta=theta, phi=phi, t
+=T(tau)]\n  >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 46 "[ chi = X,
+ theta[1]=theta, phi[1]=phi, t=tau];" }}{PARA 11 "" 1 "" {XPPMATH 20 "
+6#/%*CPU~Time~G$\"\"&!\"$" }}{PARA 6 "" 1 "" {TEXT -1 125 "\n NORMAL T
+YPE: Please indicate the nature of the snormal vector\n   (-1 = timeli
+ke, 0 = null, 1= spacelike) Enter +1,0 or -1 >" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 1 "" {TEXT -1 75 "\n CONSTRAIN
+T: Use  +/- 1 = u\{^a\} u\{a\} as a constraint ?    Enter 1 if yes >" 
+}}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "0;" }}{PARA 6 "" 1 "" 
+{TEXT -1 203 "Default metric is now frw\n SURFACE: Enter the expressio
+n for the surface.\n   The surface will be defined by setting the \n  \+
+ expression you enter to zero.\n   To enter the normal explicitly, ent
+er 0 (zero)" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%(surfaceG" }}}{EXCHG 
+{PARA 0 " >" 0 "" {MPLTEXT 1 0 6 "chi-X;" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#/%*CPU~Time~G$\"\"$!\"$" }}{PARA 6 "" 1 "" {TEXT -1 146 "\n NORM
+AL SIGN\n   The definition of the normal vector is +/- grad(surface)\n
+   please enter +1 or -1 to indicate the CHOICE of sign\n   Enter +1,-
+1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"(!\"$" }}{PARA 6 "" 1 "" {TEXT -1 
+27 "Default metric is now fsurf" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*
+CPU~Time~G$\"#6!\"$" }}{PARA 6 "" 1 "" {TEXT -1 27 "ds has not been ca
+lculated." }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%7For~the~frw~spacetime:G
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%<The~Equation~of~the~surfaceG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%)surface~G,&%$chiG\"\"\"%\"XG!\"\"" 
+}}{PARA 11 "" 1 "" {XPPMATH 20 "6#%7For~the~frw~spacetime:G" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%GCoordinate~transforms~onto~the~surfaceG" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%&xformG6#%#upG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/)%'xform~G%$chiG%\"XG" }}{PARA 11 "" 1 "" {XPPMATH 20 
+"6#/)%'xform~G&%&thetaG6#\"\"\"F'" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/
+)%'xform~G&%$phiG6#\"\"\"F'" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xfo
+rm~G%\"tG%$tauG" }}{PARA 6 "" 1 "" {TEXT -1 149 "The intrinsic metric \+
+and normal vector have been calculated.\nYou may wish to simplify them
+ further before saving the surface\nor calculating K(dn,dn) " }}}
+{EXCHG {PARA 0 "" 0 "" {TEXT -1 90 "Now we can identify the two surfac
+es we have specified by means of the command \{\\tt join\}." }}{PARA 
+0 "" 0 "" {TEXT -1 100 "By convention the first surface name inthe \{
+\\tt join\} command  is taken as $M^+$ for the purposes of" }}{PARA 0 
+"" 0 "" {TEXT -1 40 "evaluating e.g. $\\left[ g_\{ij\} \\right]$." }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 18 "join(ssurf,fsurf);" }}{PARA 6 "" 1 
+"" {TEXT -1 125 "ssurf and fsurf are now joined.\nThe default metric n
+ame is ssurf.\nThe exterior metric is: ssurf\nThe interior metric is: \+
+fsurf" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"&!\"$" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%9For~the~ssurf~spacetime:G" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%@~Jump~from~defaultMetric~-~MintG" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#/*&&%7Jump~[g(dn,dn),~fsurf]G6#%&thetaG\"\"
+\"&%!GF'F),&*$-%\"RG6#%$tauG\"\"#F)*&-%\"aGF0F2-%$sinG6#%\"XGF2!\"\"" 
+}}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%7Jump~[g(dn,dn),~fsurf]G6#%$phi
+G\"\"\"&%!GF'F),&*&-%\"RG6#%$tauG\"\"#-%$sinG6#%&thetaGF2F)*(-%\"aGF0F
+2-F46#%\"XGF2F3F2!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%(schw_osG" 
+}}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 90 "To obtain $\\left[ g_\{ij\} \\r
+ight] = 0$ we require a particular value for $R(\\tau)$. We use " }}
+{PARA 0 "" 0 "" {TEXT -1 91 "a GRTensor command \{\\tt grcomponent\} t
+o extract $\\left[ g_\{11\} \\right]$ (which we assign to" }}{PARA 0 "
+" 0 "" {TEXT -1 84 "\{\\tt jump\\_g11\}). We then set \{\\tt jump\\_g1
+1\} equal to zero and solve for $R(\\tau)$." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 47 "jump_g11 := grcomponent(Jump[g(dn,dn)], [1,1]);" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#>%)jump_g11G,&*$-%\"RG6#%$tauG\"\"#\"
+\"\"*&-%\"aGF)F+-%$sinG6#%\"XGF+!\"\"" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 36 "sol := [solve(jump_g11 = 0,R(tau))];" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#>%$solG7$*&-%\"aG6#%$tauG\"\"\"-%$sinG6#%\"XGF+,$F
+&!\"\"" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 107 "We now substitute the \+
+positive solution back in to verify $\\left[ g_\{ij\} \\right] = 0$. T
+his is accomplished" }}{PARA 0 "" 0 "" {TEXT -1 90 "by using the routi
+ne \{\\tt grmap\} to map the Maple substitution command \{\\tt subs\} \+
+over the" }}{PARA 0 "" 0 "" {TEXT -1 93 "components of \\verb|Jump[g(d
+n,dn)]|. (The \\verb|'x'| is a placeholder indicating which of the" }}
+{PARA 0 "" 0 "" {TEXT -1 67 "arguments to \{\\tt subs\} is to be fille
+d in by the component value.)" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 50 "gr
+map(Jump[g(dn,dn)], subs, R(tau) = sol[1], 'x');" }}{PARA 6 "" 1 "" 
+{TEXT -1 45 "Applying routine subs to Jump[g(dn,dn),fsurf]" }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 86 "(Here we use a GRTensor short-cut. The \\
+_ refers to the last mentioned object. In this" }}{PARA 0 "" 0 "" 
+{TEXT -1 60 "case \\verb|Jump[g(dn,dn)]| allowing us to save some typi
+ng)." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_);" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#%9For~the~ssurf~spacetime:G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%@~Jump~from~defaultMetric~-~MintG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/*&&%&Jump~G6#%\"aG\"\"\"&%!G6#%\"bGF)%8All~components~
+are~zeroG" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 80 "To establish a Schwa
+rzschild-Dust boundry surface we next need to establish that" }}{PARA 
+0 "" 0 "" {TEXT -1 85 "$\\left[ K_\{ij\} \\right] = 0$. We begin by ca
+lculating \\verb|Jump[K(dn,up)]|. We prefer" }}{PARA 0 "" 0 "" {TEXT 
+-1 81 "the mixed form $K_i^j$ so that we can make later use of  $G_\\a
+lpha^\\beta$ and the" }}{PARA 0 "" 0 "" {TEXT -1 30 "phenomenolgy of t
+he FRW space." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 23 "grcalc(Jump[K(dn,u
+p)]);" }}{PARA 6 "" 1 "" {TEXT -1 32 "Created definition for K(dn,up) \+
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"$h\"!\"$" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_);" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#%9For~the~ssurf~spacetime:G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%@~Jump~from~defaultMetric~-~MintG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/*&&%7Jump~[K(dn,up),~fsurf]G6#%&thetaG\"\"\")%!GF(F),$
+**,&*(,(*$-%\"RG6#%$tauG\"\"#F)*&F2F)%\"mGF)!\"#*&F2F6-%%diffG6$F2F5F6
+F)#F)F6-%\"aGF4F)-%$sinG6#%\"XGF)F)*&-%$cosGFCF)F2F6F)F)F2F9F?!\"\"FAF
+HFH" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%7Jump~[K(dn,up),~fsurf]G6#
+%$phiG\"\"\")%!GF(F),$**,&*(,(*$-%\"RG6#%$tauG\"\"#F)*&F2F)%\"mGF)!\"#
+*&F2F6-%%diffG6$F2F5F6F)#F)F6-%\"aGF4F)-%$sinG6#%\"XGF)F)*&-%$cosGFCF)
+F2F6F)F)F2F9F?!\"\"FAFHFH" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%7Jum
+p~[K(dn,up),~fsurf]G6#%$tauG\"\"\")%!GF(F),$*(,&%\"mGF)*&-%\"RGF'\"\"#
+-%%diffG6$-F56$F1F(F(F)F)F)F1!\"\",(*$F1F3F)*&F1F)F/F)!\"#*&F1F3F7F3F)
+#F9F3F9" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 96 "Setting   $\\left[ K_
+\\tau^\\tau \\right] = 0$ gives a value for the Schwarzschild mass $m$
+ in terms" }}{PARA 0 "" 0 "" {TEXT -1 97 "of $R(\\tau)$ and we substit
+ute in this value. This leaves only the angular jump in $K$ to contend
+" }}{PARA 0 "" 0 "" {TEXT -1 5 "with." }}{PARA 0 "> " 0 "" {MPLTEXT 1 
+0 56 "grmap(_, subs, m = -R(tau)^2*diff(R(tau),tau,tau), 'x');" }}
+{PARA 6 "" 1 "" {TEXT -1 45 "Applying routine subs to Jump[K(dn,up),fs
+urf]" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 100 "Once again we make use o
+f the value of $R(\\tau)$ which was required for $\\left[ g_\{ij\} \\r
+ight] = 0$." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 37 "grmap(_,subs, R(tau)
+ = sol[1],  'x');" }}{PARA 6 "" 1 "" {TEXT -1 45 "Applying routine sub
+s to Jump[K(dn,up),fsurf]" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 
+18 "gralter(_,factor);" }}{PARA 6 "" 1 "" {TEXT -1 105 "Component simp
+lification of a GRTensorII object:\n \nApplying routine factor to obje
+ct Jump[K(dn,up),fsurf]" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time
+~G$\"#L!\"$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_)
+;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%9For~the~ssurf~spacetime:G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%@~Jump~from~defaultMetric~-~MintG" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%7Jump~[K(dn,up),~fsurf]G6#%&theta
+G\"\"\")%!GF(F),$*(-%\"aG6#%$tauG!\"#-%$sinG6#%\"XGF2,&*$*(F.\"\"#F3F:
+,(F)F)*(F.F)F3F:-%%diffG6$-F>6$F.F1F1F)F:*&F3F:F@F:F)F)#F)F:F)*(F.F)F3
+F)-%$cosGF5F)F)F)!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%7Jump~[
+K(dn,up),~fsurf]G6#%$phiG\"\"\")%!GF(F),$*(-%\"aG6#%$tauG!\"#-%$sinG6#
+%\"XGF2,&*$*(F.\"\"#F3F:,(F)F)*(F.F)F3F:-%%diffG6$-F>6$F.F1F1F)F:*&F3F
+:F@F:F)F)#F)F:F)*(F.F)F3F)-%$cosGF5F)F)F)!\"\"" }}}{EXCHG {PARA 0 "" 
+0 "" {TEXT -1 93 "At this point we need to make reference to the Einst
+ein tensor for the FRW spacetime. To this" }}{PARA 0 "" 0 "" {TEXT -1 
+90 "point we have not imposed the restriction that the interior be dus
+t. We do this by setting" }}{PARA 0 "" 0 "" {TEXT -1 89 "$G_\\theta^\\
+theta = 0$ and solving for $\\partial^2 a(t) / \\partial t^2$. This is
+ then used" }}{PARA 0 "" 0 "" {TEXT -1 90 "in \\verb|Jump[K(dn,up)]| (
+using  $t = \\tau$ on the surface). Recall that by default object" }}
+{PARA 0 "" 0 "" {TEXT -1 86 "names refer to the \{\\tt ssurf\} spaceti
+me (i.e $\\Sigma^+$). The use of a metric name in" }}{PARA 0 "" 0 "" 
+{TEXT -1 92 "square brackets after the tensor name below indicates whi
+ch metric the object is to be taken" }}{PARA 0 "" 0 "" {TEXT -1 5 "fro
+m." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 25 "grdisplay(G[frw](dn,up));" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%7For~the~frw~spacetime:G" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "6#%)G(dn,up)G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#
+-%\"GG6$%#dnG%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%#G~G6#%$chi
+G\"\"\")%!GF(F)*(-%\"aG6#%\"tG!\"#,**&-%$sinGF'\"\"#-%%diffG6$F-F0F6!
+\"\"*(F-F)F4F6-F86$F7F0F)F1F:F)*$-%$cosGF'F6F)F)F4F1" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6#/*&&%#G~G6#&%&thetaG6#\"\"\"F+)%!GF(F+,$*&,(F+F+*$-%
+%diffG6$-%\"aG6#%\"tGF8\"\"#F+*&F5F+-F36$F2F8F+F9F+F5!\"#!\"\"" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%#G~G6#&%$phiG6#\"\"\"F+)%!GF(F+,$
+*&,(F+F+*$-%%diffG6$-%\"aG6#%\"tGF8\"\"#F+*&F5F+-F36$F2F8F+F9F+F5!\"#!
+\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%#G~G6#%\"tG\"\"\")%!GF(F)
+*(,**$-%$sinG6#%$chiG\"\"#!\"#*&F/F3-%%diffG6$-%\"aGF'F(F3!\"$!\"\"F)*
+$-%$cosGF1F3F)F)F9F4F/F4" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 80 "To ma
+ke use of the condition $p=0$ we will extract the $G_\{\\theta_1\}^\{
+\\theta_1\}$" }}{PARA 0 "" 0 "" {TEXT -1 78 "component (using \{\\tt g
+rcomponent\}) and set it equal to zero and then  isolate" }}{PARA 0 "
+" 0 "" {TEXT -1 98 "the $\\partial^2 a(t)/\\partial t^2$ term. We will
+ then substitute this into $\\left[ K_i^j \\right]$." }}{PARA 0 "" 0 "
+" {TEXT -1 62 "(We need the Maple \{\\tt isolate\} library which we we
+ now load)" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 17 "readlib(isolate):" }}
+}{EXCHG {PARA 0 "" 0 "" {TEXT -1 111 "The $\\partial^2 a(t) / \\partia
+l t^2$ term is isolated and we change $t$ to $\\tau$ (via the \{\\tt s
+ubs\} command)." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 84 "da := subs( t=ta
+u, isolate( grcomponent(G[frw](dn,up),[2,2]) = 0, diff(a(t),t$2) ));" 
+}}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#daG/,$*&,(\"\"\"F)*$-%%diffG6$-%
+\"aG6#%$tauGF1\"\"#F)*&F.F)-F,6$F+F1F)F2F)F.!\"#!\"\"\"\"!" }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 117 "The resulting equation \{\\tt da\} is su
+bstituted into $\\left[ K_i^j \\right]$ and some simplification is the
+n performed." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 38 "grmap( Jump[K(dn,up
+)], subs, da, 'x');" }}{PARA 6 "" 1 "" {TEXT -1 45 "Applying routine s
+ubs to Jump[K(dn,up),fsurf]" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 
+23 "gralter(_,expand,trig);" }}{PARA 6 "" 1 "" {TEXT -1 170 "Component
+ simplification of a GRTensorII object:\n \nApplying routine expand to
+ object Jump[K(dn,up),fsurf]\nApplying routine `simplify[trig]` to obj
+ect Jump[K(dn,up),fsurf]" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Tim
+e~G$\"#Z!\"$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(_
+);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%9For~the~ssurf~spacetime:G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%@~Jump~from~defaultMetric~-~MintG" }}
+{PARA 12 "" 1 "" {XPPMATH 20 "6#/*&&%7Jump~[K(dn,up),~fsurf]G6#%&theta
+G\"\"\")%!GF(F)*(,&*$,2*$-%\"aG6#%$tauG\"\"#F)*&F1F5-%$cosG6#%\"XGF5!
+\"\"*&F1\"\"$-%%diffG6$-F?6$F1F4F4F)F5*(F1F=F>F)F7F5!\"%*(F1F=F>F)F7\"
+\"%F5*&F1F5FAF5F)*(F1F5FAF5F7F5!\"#*(F1F5FAF5F7FFF)#F)F5F)*(F1F)-%$sin
+GF9F)F7F)F)F)F1FI,&F;F)*$F7F5F)F;" }}{PARA 12 "" 1 "" {XPPMATH 20 "6#/
+*&&%7Jump~[K(dn,up),~fsurf]G6#%$phiG\"\"\")%!GF(F)*(,&*$,2*$-%\"aG6#%$
+tauG\"\"#F)*&F1F5-%$cosG6#%\"XGF5!\"\"*&F1\"\"$-%%diffG6$-F?6$F1F4F4F)
+F5*(F1F=F>F)F7F5!\"%*(F1F=F>F)F7\"\"%F5*&F1F5FAF5F)*(F1F5FAF5F7F5!\"#*
+(F1F5FAF5F7FFF)#F)F5F)*(F1F)-%$sinGF9F)F7F)F)F)F1FI,&F;F)*$F7F5F)F;" }
+}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 90 "We're nearly there, but Maple wi
+ll not collapse e.g. $\\sqrt\{x^2\}$ to $x$ unless it is sure" }}
+{PARA 0 "" 0 "" {TEXT -1 85 "$x$ is real, or explicitly told to do so.
+ We tell it to go ahead by using the routine" }}{PARA 0 "" 0 "" {TEXT 
+-1 31 "\\verb|simplify[sqrt,symbolic]|." }}{PARA 0 "> " 0 "" {MPLTEXT 
+1 0 16 "gralter(_,sqrt);" }}{PARA 6 "" 1 "" {TEXT -1 115 "Component si
+mplification of a GRTensorII object:\n \nApplying routine `simplify[sq
+rt]` to object Jump[K(dn,up),fsurf]" }}{PARA 11 "" 1 "" {XPPMATH 20 "6
+#/%*CPU~Time~G$\"#^!\"$" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 68 "So if \+
+we take the FRW solution to be dust then we can establish that" }}
+{PARA 0 "" 0 "" {TEXT -1 73 "$\\left[ g_\{ij\} \\right] = 0$ and $\\le
+ft[ K_i^j \\right] = 0$ completing the" }}{PARA 0 "" 0 "" {TEXT -1 33 
+"junction of Schwarzschild to FRW." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 
+13 "grdisplay(_);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%9For~the~ssurf~s
+pacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%@~Jump~from~defaultMetr
+ic~-~MintG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%7Jump~[K(dn,up),~fs
+urf]G6#%&thetaG\"\"\")%!GF(F)**-%\"aG6#%$tauG!\"\"-%$sinG6#%\"XGF),&*$
+,,*(F-F)-%%diffG6$-F;6$F-F0F0F)-%$cosGF4\"\"#!\"#*&F=FAF?FAF1*&F-F)F:F
+)FAF)F)*$F=FAF)#F)FAF)F?F)F),&F1F)*$F?FAF)F1" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/*&&%7Jump~[K(dn,up),~fsurf]G6#%$phiG\"\"\")%!GF(F)**-%
+\"aG6#%$tauG!\"\"-%$sinG6#%\"XGF),&*$,,*(F-F)-%%diffG6$-F;6$F-F0F0F)-%
+$cosGF4\"\"#!\"#*&F=FAF?FAF1*&F-F)F:F)FAF)F)*$F=FAF)#F)FAF)F?F)F),&F1F
+)*$F?FAF)F1" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 77 "So if we take the \+
+FRW solution to be uniform dust then we can establish that " }}{PARA 
+0 "" 0 "" {TEXT -1 86 "$\\left[ g_\{ij\} \\right] = 0$ and $\\left[ K_
+i^j \\right] = 0$ and hence a boundry surface" }}{PARA 0 "" 0 "" 
+{TEXT -1 78 "exists provided we take $p=0$ in the FRW space and $R(\\t
+au) = a(\\tau) \\sin\{X\}$" }}{PARA 0 "" 0 "" {TEXT -1 72 "and $m = - \+
+R(\\tau)^2 \\partial^2 R(\\tau)/ \\partial r^2$ in Schwarzschild." }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}}{MARK "45 4 0" 0 }{VIEWOPTS 1 
+1 0 1 1 1803 }

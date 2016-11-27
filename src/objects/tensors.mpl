@@ -308,7 +308,7 @@ grG_ObjDef[g(dn,dn)][grC_depends] := {}:
 
 grF_precalcgdd := proc(object)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-global	grG_partner_, gr_data, Ndim, grG_metricName:
+global	gr_data, Ndim, grG_metricName:
 local	i, j, a:
 	if grF_checkIfAssigned ( e(bdn,dn) ) then
 		if not grF_checkIfAssigned ( e(bup,dn) ) then
@@ -336,7 +336,7 @@ local	i, j, a:
       		fi:
       		grF_invMetric(gdndn_, gupup_):
 		grF_assignedFlag ( g(dn,dn), set ):
-	elif assigned(grG_partner_[grG_metricName]) and Ndim[grG_metricName] = 3 then
+	elif assigned(gr_data[partner_,grG_metricName]) and Ndim[grG_metricName] = 3 then
 		# this is the intrinsic metric of a surface
 		grF_pre_calc_ff1()
 	else

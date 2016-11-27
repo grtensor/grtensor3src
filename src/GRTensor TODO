@@ -1,13 +1,12 @@
 GRTensor TODO
 ==============
 
+Junction
+========
+uup has no total var -> should be in M not Sigma.
+
 Packaging
 =========
-
-- check install instructions, help, some basic worksheets
-- create some info on table of contents in help?
-- update the Latex files and regenerate (as PDF?)
-- move HELP HTML onto gitlab public pages
 
 
 Open Beta Prep
@@ -97,14 +96,8 @@ Tests
 
 
 
-
 BUGS
 ====
-
-
-find all path manipulations and use FileTools:-JoinPath()
-grcomponent has some issues and needs fixing
-create.mpl has old concat based junk in it. 
 grC_ZERO will be broken - use $define?
 schwbasis.mws also
 
