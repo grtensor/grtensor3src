@@ -21,7 +21,8 @@
 # calc_scalar: Returns the value of a scalar (used to be named calc_sum0)
 #------------------------------------------------------------------------------
 grF_calc_scalar := proc(object, iList)
-option `Copyright 1999 Denis Pollney`:
+global grG_ObjDef:
+#option `Copyright 1999 Denis Pollney`:
   RETURN(grG_ObjDef[object][grC_calcFnParms]):
 end:
 
@@ -82,7 +83,7 @@ end:
 #
 grF_calc_sum0 := proc(object, iList)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-global gr_data, Ndim, grG_metricName;
+global gr_data, Ndim, grG_metricName, grG_ObjDef;
   RETURN(grG_ObjDef[object][grC_calcFnParms]):
 end:
 

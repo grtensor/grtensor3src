@@ -15,6 +15,7 @@
 # PeterM Mac
 savelibname := "/Users/peter/maple/gitlab/GRTensorIII/lib":
 
+#$define junction
 (*
 In GRTensorII global variables were heavily used and
 created on the fly with name concatentation. 
@@ -29,7 +30,7 @@ In the module-friendly refactor:
 Still need to handle signature, basis, np stuff
 
 *)
-(*)
+(*
 with(FileTools); 
 griiilib := FileTools:-JoinPath(["lib", "griii.mla"]);
 
@@ -80,9 +81,12 @@ export
 	PetrovReport,
 	qload, 
 	grtestinput,   
+$ifdef junction
 	# Junction functions
 	jsave,
-	surf,
+	grsurface,
+$endif
+	# debug
 	grdebug, # debug fn
 	grdata, # debug fn
 	grdump, # debug fn
@@ -175,7 +179,7 @@ Wrap the object definitions in a procedure wrapper
 *)
 
 load_objects := proc()
-global grG_ObjDef, grG_multipleDef:
+global grG_ObjDef, grG_multipleDef, grF_calc_ds:
 
 $include  "src/objects/basis.mpl"
 $include  "src/objects/cmdef.mpl"
@@ -221,6 +225,7 @@ end proc:
 Contents of the junction package
 
 *)
+$ifdef junction
 
 load_junc_objects := proc()
 global grG_ObjDef, grG_multipleDef, grF_pre_calc_ff1:
@@ -241,6 +246,8 @@ $include "src/junction/jsave.mpl"
 $include "src/junction/junction.mpl"
 $include "src/junction/project.mpl"
 
+$endif
+
 (*
 Useful debug routines
 - also included in the export list
@@ -253,7 +260,9 @@ global grG_metricSet, grG_ObjDef;
 	grG_metricSet := {}:
 	globals_init():
 	load_objects();
+$ifdef junction
 	load_junc_objects();
+$endif
 	grF_gen_rootSet():
 	grF_gen_calcFnSet():
 	print("GRTensor III"):

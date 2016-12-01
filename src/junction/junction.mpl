@@ -36,13 +36,49 @@
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-#////////////////////////////
-#////////////////////////////
-#
-# Functions
-#
-#////////////////////////////
-#////////////////////////////
+#************************************************
+# Input validators
+#************************************************
+
+jfields := {coord, xform};
+
+jvalidate[coord] := proc(coords)
+  local errorStr;
+
+  if not type(coords,list) then
+    errorStr := "Please enter co-ords as a list (in [])\n":
+  elif Ndim[sName] != Ndim[metricName]-1 then
+    errorStr := sprintf("Number of co-ords is not %d\n", Ndim[metricName]-1);
+  else
+    errorStr := "ok"; 
+  fi:
+  RETURN(errorStr):
+
+end proc:
+
+jvalidate[xform] := proc(xform)
+  local errorStr, eqn; 
+
+  errorStr := "ok"; 
+  if not type(coords,list) then
+    errorStr := "Please enter xforms as a list (in [])\n":
+  elif Ndim[sName] != Ndim[metricName]-1 then
+    errorStr := sprintf("Number of xform entries is not %d\n", Ndim[metricName]-1);
+  else
+    for eqn in xform do
+      if not type(eqn, equation) then 
+        errorStr := "Entries in xform must be equations coord = f(surface co-ordinates)";
+        break;
+      fi:
+      # TODO: check LHS is a coord in space
+    od:
+  fi:
+  RETURN(errorStr):
+
+end proc:
+
+
+
 
 #************************************************
 # surf( metric, grG_metricName, surface)
@@ -58,17 +94,41 @@
 #
 #************************************************
 
-surf := proc( metricName, sName)
-option trace;
+grsurface := proc()
+#option trace;
 local a, b, c, s, defList, useC, object, affine, c_rhs,
       c_eqn, elim, mate, response, sCoords, traceValue,
-      reply, Ncompts, lapse, errString, inputOk;
+      reply, Ncompts, lapse, errString, inputOk, metricName, sName;
 
 global grG_metricSet, grG_metricName, grG_ObjDef,
        Ndim, gr_data, grG_constraint,
-       grOptionTrace;
+       grOptionTrace, jfields;
 
   readlib(freeze): # used in project
+
+  metricName := args[1];
+  sName := args[2];
+(*
+  # if nargs = 2 then run Maplet to gather info
+
+  # screen all the input attributes
+  for i from 3 to nargs do:
+    if not type(args[i], equation) then
+      printf("arg=%a\n", args[1]);
+      ERROR("Arguments must be equations. See ?grsurface")
+    elif not member(rhs(args[i], jfields) then
+      printf("attribute %a\n", args[i]);
+      ERROR("Unknown attribute");
+    else
+      errString := jvalidate(args[1]);
+      if errString != "" then
+         ERROR(errString);
+      fi:
+    fi: 
+  od:
+*)
+  # verify that a minimal set of input attributes has been provided
+
 
   grG_metricName := metricName:
 
@@ -123,8 +183,8 @@ global grG_metricSet, grG_metricName, grG_ObjDef,
   od:
   Ndim[sName] := nops(sCoords):
 
+  # assign coordinates
   for a to Ndim[sName] do
-    gr_data[coordStr,sName, a] := sCoords[a]:
     gr_data[xup_,sName,a] := sCoords[a]:
   od:
   grG_metricName := sName:
@@ -144,11 +204,6 @@ global grG_metricSet, grG_metricName, grG_ObjDef,
   od:
   grJ_totalVar := gr_data[totalVar_,grG_metricName]: # used by jdiff and various definitions
 
-  # assign coordinates
-
-  for a to Ndim[grG_metricName] do
-    gr_data[xup_,grG_metricName,a] := gr_data[xup_,metricName,a]:
-  od:
 
   #
   # COORDINATE RELATIONS
@@ -272,7 +327,12 @@ global grG_metricSet, grG_metricName, grG_ObjDef,
   # precalc for gdndn has special code to use ff1 if there is a partner
   # spacetime
   grcalc( g(dn,dn)): 
-
+  #
+  # naughty, but explicitly calc ds (since if goes through normal
+  # it gets messy and this is best work around)
+  #
+  gr_data[ds_,sName] := grF_calc_ds(ds,[]):
+  grF_assignedFlag(ds, set);
   #
   # ask if we can calculate g(up,up) for a null shell by inverting
   # the two metric
@@ -299,12 +359,8 @@ global grG_metricSet, grG_metricName, grG_ObjDef,
   #
   # now display the result
   #
-  # naughty, but explicitly calc ds (since if goes through normal
-  # it gets messy and this is best work around)
-  #
   grG_metricName := sName:
-  gr_data[ds_,sName] := grF_calc_ds(ds,[]):
-  grdisplay(surface[grG_metricName],xform[grG_metricName](up),ds);
+  grdisplay(surface[metricName],xform[metricName](up),ds);
 
   grOptionTrace := traceValue:
 

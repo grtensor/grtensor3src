@@ -209,7 +209,6 @@ global grG_constraint:
  while not okay do
    s := sprintf(`Enter the term you wish to use the constraint to eliminate\n`):
    elim := eval(grF_input(s, [], `grconstraint`)):
-   printf("elim=%a ceqn=%a\n", elim, ceqn);
    newEqn := solve( ceqn, elim):
    #
    # did we get a NULL solution, or multiple solutions ??

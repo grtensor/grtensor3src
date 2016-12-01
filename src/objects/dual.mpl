@@ -146,6 +146,8 @@ grG_ObjDef[LevC(bup,bup,bup)][grC_depends] := { }:
 
 #------------------------------------------------------------------------------
 # preCalc_LevCS4
+# PM2016 - This is vebose - there is a simple formula for permutation symbol
+# Leave intact for now
 #------------------------------------------------------------------------------
 grF_preCalc_LevCS4 := proc(object, iList)
 local a, b, c, d, pset:

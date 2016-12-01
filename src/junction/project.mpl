@@ -53,17 +53,15 @@ juncF_project := proc(expr, gname, sName)
 # gname: Manifold
 # sname: surface
 #
-
+option trace;
 local newExpr, a, holdXform:
 
-global grJ_badVars, grJ_holdCoords, grJ_badFuns, grJ_badValues:
+global grJ_badVars, grJ_holdCoords, grJ_badFuns, grJ_badValues, 
+  grG_constraint, gr_data, Ndim:
 
   if Ndim[gname] < Ndim[sName] then
      ERROR(`Metric names backwards`):
   fi:
-
-  # HACK
-  return expr;
 
   #
   # assign to grJ_badVars the names of those coordinates
@@ -88,10 +86,10 @@ global grJ_badVars, grJ_holdCoords, grJ_badFuns, grJ_badValues:
      # a name will cause problems if arbitrary functions
      # of those coordinates exist in the metric
      #
-    if not type(grG_xformup_[gname,a], name) then
-       grJ_badVars := grJ_badVars, grG_xup_[gname,a]:
+    if not type(gr_data[xformup_,gname,a], name) then
+       grJ_badVars := grJ_badVars, gr_data[xup_,gname,a]:
        # keep a parallel seq with the bad value
-       grJ_badValues := grJ_badValues, grG_xformup_[gname,a]:
+       grJ_badValues := grJ_badValues, gr_data[xformup_,gname,a]:
     fi:
   od:
 

@@ -345,20 +345,18 @@ end:
 #----------------------------
 
 grF_pre_calc_ff1 := proc()
- option trace;
  local a1, a2, s, a,b, pname;
  global gr_data, Ndim, grG_metricName:
 
  gname := grG_metricName;
-
  pname := gr_data[partner_,gname]:
  for a1 to Ndim[gname] do
    for a2 from a1 to Ndim[gname] do
      s := 0:
-     for a to Ndim[gname]+1 do
-       for b to Ndim[gname]+1 do
-         s := s + diff(gr_data[xformup_,pname,a], gr_data[xup_,grG_metricName,a1])
-                * diff(gr_data[xformup_,pname,b], gr_data[xup_,grG_metricName,a2])
+     for a to Ndim[pname] do
+       for b to Ndim[pname] do
+         s := s + diff(gr_data[xformup_,pname,a], gr_data[xup_,gname,a1])
+                * diff(gr_data[xformup_,pname,b], gr_data[xup_,gname,a2])
                 * gr_data[gdndn_,pname,a,b]:
        od:
      od:
