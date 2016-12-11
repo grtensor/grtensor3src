@@ -53,6 +53,7 @@
 #////////////////////////////
 #////////////////////////////
 
+$define gname grG_metricName
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 #
@@ -73,7 +74,6 @@ grF_calc_sum2_project := proc(object, iList)
 local s, surf, M;
 global s1_, s2_, gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
   #
   # first determine if the metric is the surface or full manifold
   #
@@ -283,8 +283,6 @@ grF_calc_evInt := proc(object, iList)
 local iSeq, M, s:
 global gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
-
  iSeq := gr_data[partner_,gname], mass, gr_data[join_,gr_data[partner_,gname]]:
  M := 4*Pi*gr_data[sigma_,gname]*R(tau)^2:
 
@@ -320,8 +318,6 @@ grF_calc_evInt1 := proc(object, iList)
 local iSeq, M, s :
 global gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
-
  iSeq := gr_data[partner_,gname], mass, gr_data[join_,gr_data[partner_,gname]]:
  M := 4*Pi*gr_data[sigma1_,gname]*R(tau)^2:
 
@@ -348,7 +344,6 @@ grF_pre_calc_ff1 := proc()
  local a1, a2, s, a,b, pname;
  global gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
  pname := gr_data[partner_,gname]:
  for a1 to Ndim[gname] do
    for a2 from a1 to Ndim[gname] do
@@ -418,7 +413,6 @@ grF_calc_Gxn := proc( object, iList)
 local s, a, b:
 global gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
  s := 0:
  for a to Ndim[gname] do
     for b to Ndim[gname] do
@@ -489,8 +483,6 @@ grG_ObjDef[Hlhs][grC_depends] := {sigma, P,
 grF_calc_Hlhs := proc(object, iList)
 global gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
-
 
  gr_data[ntype_,gr_data[partner_,gname]] *
  ( gr_data[sigma_,gname] + gr_data[P_,gname]) *
@@ -517,8 +509,6 @@ grG_ObjDef[H1lhs][grC_depends] := {sigma1, P1, Mean[trK],
 
 grF_calc_H1lhs := proc(object, iList)
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
 
  gr_data[utype_,gr_data[partner_,gname]] *
@@ -614,11 +604,8 @@ grG_ObjDef[K(dn,dn)][grC_depends] := {n[gr_data[partner_,grG_metricName]](dn),
 		Chr[gr_data[partner_,grG_metricName]](dn,dn,up)}:
 
 grF_calc_ff2 := proc(object, iList)
-
-local s, a, b, c, s1, pname, gname:
+local s, a, b, c, s1, pname:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  pname := gr_data[partner_,gname]:
  s := 0:
@@ -637,6 +624,7 @@ global gr_data, Ndim, grG_metricName:
 		gr_data[xup_,gname,a2_]);
  od:
 
+ printf("project disabled\n");
  juncF_project( -s-s1,pname,gname);
 
 end:
@@ -678,10 +666,8 @@ grG_ObjDef[mass][grC_depends] := {R(dn,dn,up,up)}: # dependencies calculated exp
 
 grF_calc_mass := proc(object, iList)
 
-local thetaNum, phiNum, ok, coordList, xformList, i, gname:
+local thetaNum, phiNum, ok, coordList, xformList, i:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
   #
   # first check that theta and phi are coordinates of M
@@ -729,10 +715,8 @@ grG_ObjDef[ndiv][grC_depends] := {n(up,cdn)}: # dependencies calculated explicit
 
 grF_calc_ndiv := proc(object, iList)
 
-local a, s, pname, gname:
+local a, s, pname:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  pname := gr_data[partner_,gname]:
 
@@ -782,10 +766,8 @@ grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, nsign}:
 
 grF_calc_ndn := proc( object, iList)
 
-local a,b,s, coordList, gname:
+local a,b,s, coordList:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
 
   #
@@ -825,8 +807,7 @@ global gr_data, Ndim, grG_metricName:
       od:
     od:
     for a to Ndim[gname] do
-       gr_data[ndn_,gname,a] :=  gr_data[nsign_,gname]*
-           normal(gr_data[ndn_,gname,a]/
+       gr_data[ndn_,gname,a] :=  normal(gr_data[ndn_,gname,a]/
            sqrt( gr_data[ntype_,gname] * normal(s), symbolic)):
     od:
   fi:
@@ -863,10 +844,8 @@ grG_ObjDef[ndotu][grC_depends] := {n(dn),udot(up)}:
 
 grF_calc_ndotu := proc(object, iList)
 
-local a,s, pname, gname:
+local a,s, pname:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  s := 0:
  for a to Ndim[gname] do
@@ -895,10 +874,8 @@ grG_ObjDef[nuJumpeqn][grC_depends] := {
 
 grF_calc_nuJumpeqn := proc(object, iList)
 
-local s, i, j, gname:
+local s, i, j:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  s := 0:
  for i to Ndim[gname] do
@@ -930,10 +907,8 @@ grG_ObjDef[nuMeaneqn][grC_depends] := {
 
 grF_calc_nuMeaneqn := proc(object, iList)
 
-local s, i, j, gname:
+local s, i, j:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  s := 0:
  for i to Ndim[gname] do
@@ -964,10 +939,7 @@ grG_ObjDef[nuPeqn][grC_depends] := {
 
 
 grF_calc_nuPeqn := proc(object, iList)
-local gname;
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  RETURN(gr_data[Jump_, gr_data[partner_,gname], ndotu, gr_data[join_,gr_data[partner_,gname]] ]
         =  8 * Pi * ( gr_data[P_,gname] + gr_data[sigma_,gname]/2) );
@@ -991,10 +963,7 @@ grG_ObjDef[nuP1eqn][grC_depends] := {
 
 
 grF_calc_nuP1eqn := proc(object, iList)
-local gname:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  RETURN(gr_data[Jump_, gr_data[partner_,gname], ndotu, gr_data[join_,gr_data[partner_,gname]] ]
          =  8 * Pi * ( gr_data[P1_,gname] + gr_data[sigma1_,gname]/2) );
@@ -1017,10 +986,8 @@ grG_ObjDef[P][grC_depends] := {sigma, S3(dn,dn),g(up,up)}:
 
 grF_calc_P := proc(objects, iList)
 
-local s, a, b, pname, gname:
+local s, a, b, pname:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  #
  # find the trace of S
@@ -1051,10 +1018,8 @@ grG_ObjDef[P1][grC_depends] := {}:
 
 grF_calc_P1 := proc(object, iList)
 
-local a, gname;
+local a;
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  P(seq(gr_data[xup_,gname,a],a=1..Ndim[gname]));
 
@@ -1076,10 +1041,8 @@ grG_ObjDef[PCeqn(dn)][grC_depends] := {trK(cdn),K(dn,up,cdn),
 
 grF_calc_PCGeqn := proc(object, iList)
 
-local s,b, gname;
+local s,b;
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
   s := 0:
 
@@ -1109,10 +1072,8 @@ grG_ObjDef[PCeqn(dn)][grC_depends] := {trK(cdn),K(dn,up,cdn),
 
 grF_calc_PCTeqn := proc(object, iList)
 
-local s,b, gname;
+local s,b;
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
   s := 0:
 
@@ -1142,9 +1103,7 @@ grG_ObjDef[sigma][grC_depends] := {S3(dn,dn), u3(up),ntype[gr_data[partner_,gnam
 grF_calc_sigma := proc(objects, iList)
 
 local s, a, b:
-global gr_data, Ndim, grG_metricName, gname:
-
- gname := grG_metricName;
+global gr_data, Ndim, grG_metricName:
 
  s := 0:
  for a to Ndim[gname] do
@@ -1174,10 +1133,8 @@ grG_ObjDef[sigma1][grC_depends] := {}:
 
 grF_calc_sigma1 := proc(object, iList)
 
-local a, gname;
+local a;
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  sigma(seq(gr_data[xup_,gname,a],a=1..Ndim[gname]));
 
@@ -1243,10 +1200,9 @@ grG_ObjDef[S3(dn,up)][grC_depends] := {Jump[K(dn,up),grG_join_[gname] ],
                     Jump[trK,gr_data[join_,gname] ]}:
 
 grF_calc_S3dnup := proc(object,iList)
-local s, gname;
+local s;
 global gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
  s := gr_data[Jump_,gname,K(dn,up),gr_data[join_,gname],a1_,a2_];
  if a1_ = a2_ then
     s := s - gr_data[Jump_,gname,trK,gr_data[join_,gname]]:
@@ -1271,10 +1227,8 @@ grG_ObjDef[S3(dn,up,cdn)][grC_symmetry] := grF_sym_nosym3:
 grG_ObjDef[S3(dn,up,cdn)][grC_depends] := {S3(dn,up), Chr(dn,dn,up) }:
 
 grF_calc_S3dnupcdn := proc(object,iList)
-local s, a, gname;
+local s, a;
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  s := diff( gr_data[S3dnup_,gname, a1_,a2_], gr_data[xup_,gname, a3_]);
  for a to Ndim[gname] do
@@ -1303,10 +1257,8 @@ grG_ObjDef[SKGeqn][grC_depends] := {S3(dn,up), Mean[K(dn,up)],
        [gr_data[partner_,gname], Jump[ Gnn, gr_data[join_, gr_data[partner_, gname]] ] ] }:
 
 grF_calc_SKGeqn := proc( object, iList)
-local a, b, s, gname:
+local a, b, s:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  s := 0;
  for a to Ndim[gname] do
@@ -1337,10 +1289,8 @@ grG_ObjDef[SKTeqn][grC_depends] := {S3(dn,up), Mean[K(dn,up)],
        [gr_data[partner_,gname], Jump[ Tnn, gr_data[join_, gr_data[partner_, gname]] ] ] }:
 
 grF_calc_SKTeqn := proc( object, iList)
-local a, b, s, gname:
+local a, b, s:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  s := 0;
  for a to Ndim[gname] do
@@ -1371,7 +1321,7 @@ grG_ObjDef[surface][grC_depends] := {g(up,up)}: # g(up,up) needed eventually for
 
 grF_preCalc_surface := proc( object)
 
-printf(` SURFACE: Enter the expression for the surface.\n`):
+printf(` SURFACE: Enter the expression for the surface in %a.\n`, grG_metricName):
 printf(`   The surface will be defined by setting the \n`):
 printf(`   expression you enter to zero.\n`):
 printf(`   To enter the normal explicitly, enter 0 (zero)\n`):
@@ -1424,10 +1374,9 @@ grG_ObjDef[Txn(dn)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[Txn(dn)][grC_depends] := {[gr_data[partner_,gname], n(up)]}:
 
 grF_calc_Txn := proc( object, iList)
-local s, a, b, gname:
+local s, a, b:
 global gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
  s := 0:
  for a to Ndim[gname] do
     for b to Ndim[gname] do
@@ -1462,10 +1411,8 @@ grG_ObjDef[u3(dn)][grC_depends] := { xform[gr_data[partner_,gname]](up),u[gr_dat
 
 grF_calc_u3dn := proc(object, iList)
 
-local pname, a, s, gname:
+local pname, a, s:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  s := 0:
  grJ_totalVar := gr_data[totalVar_,gname]:
@@ -1494,10 +1441,8 @@ grG_ObjDef[u3div][grC_depends] := { u3(up,cdn)}:
 
 grF_calc_u3div := proc(object, iList)
 
-local a, s, gname:
+local a, s:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  s := 0:
  for a to Ndim[gname] do
@@ -1523,8 +1468,6 @@ grG_ObjDef[u(up)][grC_depends] := {}:
 grF_calc_uup := proc(object, iList)
 global gr_data, Ndim, grG_metricName:
 
- gname := grG_metricName;
-
   if not assigned( gr_data[totalVar_,grG_metricName] ) then
      ERROR(`u(up) cannot be calculated. No parameter was given in surf()`):
   fi:
@@ -1545,10 +1488,8 @@ grG_ObjDef[udot(up)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[udot(up)][grC_depends] := {u(up),Chr(dn,dn,up)}:
 
 grF_calc_udot := proc(object, iList)
-local s, a,b, norm, N, pname, gname, totalVar:
+local s, a,b, norm, N, pname, totalVar:
 global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
 
  totalVar := gr_data[totalVar_,gname]:
  N := Ndim[gname]:
@@ -1591,89 +1532,13 @@ grG_ObjDef[utype][grC_depends] := {}: # dependencies calculated explicitly in ju
 
 #----------------------------
 # xform(up)
+# Assigned directly in hypersurf 
 #----------------------------
 grG_ObjDef[xform(up)][grC_header] := `Coordinate transforms onto the surface`:
 grG_ObjDef[xform(up)][grC_root] := xformup_:
 grG_ObjDef[xform(up)][grC_rootStr] := `xform `:
 grG_ObjDef[xform(up)][grC_indexList] := [up]:
-grG_ObjDef[xform(up)][grC_calcFn] := grF_enter_xform: # prompt the user for the surface
-grG_ObjDef[xform(up)][grC_preCalcFn] := grF_preCalc_xform: # help info
 grG_ObjDef[xform(up)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[xform(up)][grC_depends] := {}:
 
-grF_preCalc_xform := proc( object)
-
-local result, okay, coords, a, b, s, gname, errString:
-
-global gr_data, Ndim, grG_metricName:
-
- gname := grG_metricName;
-
- s := sprintf(`\n SURFACE: Please enter the coordinate definition of the surface\n`):
- s := cat( s,sprintf(`   (the x{^a} = x(xi{^b})  ) as a LIST. \n`)):
- s := cat(s, sprintf(`   e.g. [ r=R(tau), theta=theta, phi=phi, t=T(tau)]\n`));
- coords := {seq( gr_data[xup_,gname,a], a=1..Ndim[gname])}:
- okay := false:
- 
- errString := "";
-
- while not okay do
-   result := grF_input(cat(errString,s), [], `xform`);
-
-   if not type(result, list) then
-      errString := sprintf(`Invalid input: Please enter a LIST\n`);
-
-   elif nops(result) <> Ndim[gname] then
-      errString := sprintf(`Invalid input: List must have %d entries.\n`, Ndim[gname] );
-
-   else
-      # check all entries are equations
-      okay := true:
-      for a in result do
-        okay := okay and type( a, equation):
-      od:
-      #
-      # check to see that there are no functions using
-      # coordinate names (e.g. r=r(t) ) since sub-ing in later for
-      # these would cause grief
-      #
-      if okay then
-         for a in indets(result) do
-            if type(a, {function,indexed}) and member( op(0,a), coords) then
-                errString := sprintf(`Invalid Input: a coordinate name cannot be used as a function or index name\n`);     
-                errString := cat(errString, sprintf(`e.g. if r is a coordinate, r(t) or r[0] is no good\n`));
-                okay := false:
-                break;
-            fi:
-         od:
-      else
-         errString := sprintf(`Invalid input: Entries in list must be equations\n`);
-      fi:
-
-      if okay then
-        #
-        # now copy the equations into the xform internals
-        # (don't assume that  they're in coordinate order)
-        #
-        for a to Ndim[gname] do
-           #
-           # find the equation with the lhs of this coordinate
-           #
-           b := 1;
-           while  b <= Ndim[gname] and gr_data[xup_,gname,a] <> lhs(result[b]) do
-               b := b+1:
-           od:
-           if b > Ndim[gname] then
-              printf(`Coordinate %a does not appear in the list\n`,
-			gr_data[xform_,gname,a]);
-              okay := false;
-	      break;
-           else
-              gr_data[xformup_,gname,a] := rhs(result[b]);
-           fi:
-        od:
-      fi:
-    fi:
-  od: # end while
-
-end:
+$undef gname

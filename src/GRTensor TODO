@@ -3,12 +3,8 @@ GRTensor TODO
 
 Junction
 ========
-Check normal vectors and calculation of K(dn,dn)
-Get correct results and then optimize the workflow!
-- why does Kdnup have an "r" in it? Where did this creep in? - juncF_project was bypassed. Now doing stuff...
-Eric uses [gij] to get a constraint, grj uses u{^a}u{a} (this also assumes u{^i} = [0,0,1] ?! This is not clear)
-
-- defining u() and n() might be annoying for users (plus conflict with existing docs...)
+- post-load of junction objects is breakng dependency checking. 
+(use of grG_metricName in depends?)
 
 Packaging
 =========
@@ -57,6 +53,9 @@ TODO
 ====
 Add geodesic equation as an operator on a vector
 - prompt for +/-1, 0 ?
+
+Add support for null expansion, shear and vor using k^a and N^a as parameters.
+
 
 Support email address in ?grtensor ??
 

@@ -280,7 +280,7 @@ global grG_metricSet, grG_metricName, grG_ObjDef,
   else
     grG_constraint[grG_metricName] := []:
     grG_constraint[sName] := [seq( gr_data[xup_,grG_metricName,a] =
-		gr_data[xformup_,grG_metricName,a],a=1..Ndim[grG_metricName]) ]:
+		    gr_data[xformup_,grG_metricName,a],a=1..Ndim[grG_metricName]) ]:
   fi:
 
   grmetric(metricName);

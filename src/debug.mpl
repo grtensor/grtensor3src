@@ -14,6 +14,8 @@ global grG_ObjDef;
 	print(grG_ObjDef[name][grC_calcFn]);
 	printf("CalcFnParms:\n");
 	print(grG_ObjDef[name][grC_calcFnParms]);
+	printf("Depends:\n");
+	print(grG_ObjDef[name][grC_depends]);
 
 end proc:
 
@@ -22,6 +24,8 @@ grdump := proc()
 
    printf("grG_rootSet=%a\n", grG_rootSet);
 end proc:
+
+#-----------------------------------------------------
 
 grdata := proc( list)
 global grG_ObjDef, grG_calcFlag; 
