@@ -326,8 +326,8 @@ local	i, j, a:
 				od:
 			od:
 		od:
-	elif grF_checkIfAssigned ( e(bdn,up) ) or grF_checkIfAssigned
-( g(up,up) ) then
+	elif grF_checkIfAssigned ( e(bdn,up) ) or 
+		grF_checkIfAssigned( g(up,up) ) then
 		if not grF_checkIfAssigned(g(up,up)) then
         		grF_core(g(up,up),true):
       		fi:
@@ -336,7 +336,7 @@ local	i, j, a:
       		fi:
       		grF_invMetric(gdndn_, gupup_):
 		grF_assignedFlag ( g(dn,dn), set ):
-	elif assigned(gr_data[partner_,grG_metricName]) and Ndim[grG_metricName] = 3 then
+	elif assigned(gr_data[partner_,grG_metricName]) then
 		# this is the intrinsic metric of a surface
 		grF_pre_calc_ff1()
 	else

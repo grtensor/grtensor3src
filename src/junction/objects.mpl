@@ -373,7 +373,7 @@ grG_ObjDef[Gnn][grC_root] := Gnn_:
 grG_ObjDef[Gnn][grC_rootStr] := `Gnn `:
 grG_ObjDef[Gnn][grC_indexList] := []:
 grG_ObjDef[Gnn][grC_calcFn] := grF_calc_sum2_project:
-grG_ObjDef[Gnn][grC_calcFnParms] := 'grG_Gdndn_[grG_metricName,s1_,s2_]'*
+grG_ObjDef[Gnn][grC_calcFnParms] := 'gr_data[Gdndn_,grG_metricName,s1_,s2_]'*
                        'gr_data[nup_,grG_metricName,s1_]' *
                        'gr_data[nup_,grG_metricName,s2_]':
 grG_ObjDef[Gnn][grC_symmetry] := grF_sym_scalar:
@@ -389,7 +389,7 @@ grG_ObjDef[Gun][grC_root] := Gun_:
 grG_ObjDef[Gun][grC_rootStr] := `Gun `:
 grG_ObjDef[Gun][grC_indexList] := []:
 grG_ObjDef[Gun][grC_calcFn] := grF_calc_sum2_project:
-grG_ObjDef[Gun][grC_calcFnParms] := 'grG_Gdndn_[grG_metricName,s1_,s2_]'*
+grG_ObjDef[Gun][grC_calcFnParms] := 'gr_data[Gdndn_,grG_metricName,s1_,s2_]'*
                        'gr_data[uup_,grG_metricName,s1_]' *
                        'gr_data[nup_,grG_metricName,s2_]':
 grG_ObjDef[Gun][grC_symmetry] := grF_sym_scalar:
@@ -624,7 +624,6 @@ global gr_data, Ndim, grG_metricName:
 		gr_data[xup_,gname,a2_]);
  od:
 
- printf("project disabled\n");
  juncF_project( -s-s1,pname,gname);
 
 end:
@@ -637,7 +636,7 @@ grG_ObjDef[Ksq][grC_root] := Ksq_:
 grG_ObjDef[Ksq][grC_rootStr] := `Ksq `:
 grG_ObjDef[Ksq][grC_indexList] := []:
 grG_ObjDef[Ksq][grC_calcFn] := grF_calc_sum2:
-grG_ObjDef[Ksq][grC_calcFnParms] := 'grG_Kdnup_[gname,s1_,s2_] * grG_Kdnup_[gname,s2_,s1_]':
+grG_ObjDef[Ksq][grC_calcFnParms] := 'gr_data[Kdnup_,gname,s1_,s2_] * gr_data[Kdnup_,gname,s2_,s1_]':
 grG_ObjDef[Ksq][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[Ksq][grC_depends] := {K(dn,up)}:
 
@@ -649,7 +648,7 @@ grG_ObjDef[trK][grC_root] := trK_:
 grG_ObjDef[trK][grC_rootStr] := `trK `:
 grG_ObjDef[trK][grC_indexList] := []:
 grG_ObjDef[trK][grC_calcFn] := grF_calc_sum2:
-grG_ObjDef[trK][grC_calcFnParms] := 'grG_Kdndn_[gname,s1_,s2_] * grG_gupup_[gname,s1_,s2_]':
+grG_ObjDef[trK][grC_calcFnParms] := 'gr_data[Kdndn_,gname,s1_,s2_] * gr_data[gupup_,gname,s1_,s2_]':
 grG_ObjDef[trK][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[trK][grC_depends] := {K(dn,dn),g(up,up)}:
 

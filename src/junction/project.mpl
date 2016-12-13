@@ -116,37 +116,39 @@ global grJ_badVars, grJ_holdCoords, grJ_badFuns, grJ_badValues,
       # (do it twice since u{a} u{^a} may involve terms which need 
       # subbing into etc.)
       #
-      newExpr := subs(grG_constraint[sName],newExpr):
+      newExpr := eval(subs(grG_constraint[sName],newExpr)):
       newExpr := eval(subs(grG_constraint[sName],newExpr));
+  fi:
+    #
+    # as a result of evaluating some D(F)(R(tau)) 's will have crept
+    # in for consistency we need to convert these to inert Diff's.
+    # Before we do that we need to hold all the diff's so they
+    # don't get hit by this.
+    #
+    # Since the diff by is an argument we'll end up with &where's
+    # so we need to use these to switch things back to the
+    # "normal form" we desire.
+    #
+    newExpr :=  subs( diff= juncF_diffFreeze, newExpr);
+    newExpr :=  eval(subs( diff= juncF_diffFreeze, newExpr));
+    newExpr :=  eval( subs( `&where` = juncF_where, convert( newExpr, Diff)));
+    #
+    # now we want to convert the inactive Diff's to diff but
+    # we have frozen some diff's of the form diff( f(r), r)
+    # when in fact we might have r=R(t). If we don't do something
+    # about this then subsequent t derivatives would give 0 (wrong)
+    # So some of the inert Diff's will get converted to D(f)(R(t))
+    # 
+    # Why no just use D's throughout? Cause it offends my sense of aesthetics!
+    #
+    newExpr := eval( subs( holdDiff = diff, Diff=juncF_unDiff, thaw( eval(thaw(newExpr))) ));
 
+    if assigned( grG_constraint[sName]) then
       #
-      # as a result of evaluating some D(F)(R(tau)) 's will have crept
-      # in for consistency we need to convert these to inert Diff's.
-      # Before we do that we need to hold all the diff's so they
-      # don't get hit by this.
-      #
-      # Since the diff by is an argument we'll end up with &where's
-      # so we need to use these to switch things back to the
-      # "normal form" we desire.
-      #
-      newExpr :=  subs( diff= juncF_diffFreeze, newExpr);
-      newExpr :=  eval(subs( diff= juncF_diffFreeze, newExpr));
-      newExpr :=  eval( subs( `&where` = juncF_where, convert( newExpr, Diff)));
-      #
-      # now we want to convert the inactive Diff's to diff but
-      # we have frozen some diff's of the form diff( f(r), r)
-      # when in fact we might have r=R(t). If we don't do something
-      # about this then subsequent t derivatives would give 0 (wrong)
-      # So some of the inert Diff's will get converted to D(f)(R(t))
-      # 
-      # Why no just use D's throughout? Cause it offends my sense of aesthetics!
-      #
-      newExpr := eval( subs( holdDiff = diff, Diff=juncF_unDiff, thaw( eval(thaw(newExpr))) ));
-      #
-      # use the coordinate relations on last time so that D(f)(r) -> D(f)(R(t))
+      # use the coordinate relations one last time so that D(f)(r) -> D(f)(R(t))
       #
       newExpr := eval( subs(grG_constraint[sName],newExpr) ):
-  fi:
+    fi:
   RETURN(newExpr);
 end:
 

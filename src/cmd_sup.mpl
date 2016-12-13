@@ -184,8 +184,7 @@ end:
 #------------------------------------------------------------
 
 grF_simpDecode := proc(how,gname)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-	global  grG_preSeq, grG_postSeq, grG_simpHow, grG_simp;
+	global  grG_preSeq, grG_postSeq, grG_simpHow, grG_simp, grG_constraint;
 	grG_preSeq := NULL:
 	grG_postSeq := NULL:
 	if how = 8 or how = normal then 
@@ -231,7 +230,7 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 		`simplify[sqrt]`;
 	elif how = 11 or how = trigsin then
 ### WARNING: persistent store makes one-argument readlib obsolete
-                readlib(trigsin):
+    readlib(trigsin):
 		grG_simpHow := simplify:
 		grG_postSeq := trigsin:
 		`simplify[trigsin]`;

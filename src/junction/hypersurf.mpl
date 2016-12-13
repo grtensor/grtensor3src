@@ -56,7 +56,7 @@ end proc:
 hs_validate[xform] := proc(xform)
 DEBUG
   local errorStr, eqn; 
-  global grG_metricName, Ndim;
+  global grG_metricName, Ndim, gr_data;
 
   errorStr := "ok"; 
   if not type(xform,list) then
@@ -64,12 +64,21 @@ DEBUG
   elif nops(xform) <> Ndim[grG_metricName] then
     errorStr := sprintf("Number of xform entries is not %d\n", Ndim[grG_metricName]);
   else
-    for eqn in xform do
+    for i to nops(xform) do
+      eqn := xform[i]:
       if not type(eqn, equation) then 
         errorStr := "Entries in xform must be equations coord = f(surface co-ordinates)";
         break;
       fi:
-      # TODO: check LHS is a coord in space
+      # check LHS is a coord in space and in correct order
+      if not type(lhs(eqn), name) then
+        ERROR("Left side of xform must be a coord name ", lhs(eqn));
+      fi:
+      if lhs(eqn) <> gr_data[xup_,grG_metricName, i] then
+        grdisplay(x(up));
+        printf("%a vs %a at num=%d\n", lhs(eqn), gr_data[xup_, grG_metricName, i], i);
+        ERROR("Coord xform must be in same order as coords"):
+      fi:
     od:
   fi:
   RETURN(errorStr):
@@ -114,7 +123,7 @@ DEBUG
   # screen all the input attributes
   for i from 2 to nargs do
     if not type(args[i], equation) then
-      printf("arg=%a\n", args[1]);
+      printf("arg=%a\n", args[i]);
       ERROR("Arguments must be equations. See ?hypersurf")
     elif not member(lhs(args[i]), hs_fields) then
       printf("attribute %a\n", lhs(args[i]));
@@ -154,7 +163,7 @@ end proc:
 grG_hyperLoaded := false;
 
 hs_load := proc()
-  global grG_ObjDef;
+  global grG_ObjDef, grG_rootSet;
   local hs_objects;
 
   if grG_hyperLoaded then
@@ -178,6 +187,7 @@ hs_load := proc()
   load_hypers_objects();
   grF_gen_rootSet():
   grF_gen_calcFnSet():
+  grG_hyperLoaded := true;
 
 end proc:
 
@@ -222,7 +232,7 @@ hypersurf := proc()
 DEBUG
   local args_by_name, sName, xform_rhs; 
   global grG_hyperLoaded, grG_metricName, gr_data, Ndim, 
-      grG_metricSet;
+      grG_metricSet, grG_constraint;
 
   #hs_load();
 
@@ -247,14 +257,14 @@ DEBUG
 
   #....................................................
   # Set the surface tangent and normal type
-  # timelike means normal is timelike
+  # timelike means surface is timelike => normal is spacelike
   #....................................................
   if args_by_name[type] = timelike then
-    gr_data[ntype_, grG_metricName] := -1:
-    gr_data[utype_, grG_metricName] := 1:
-  elif args_by_name[type] = spacelike then
     gr_data[ntype_, grG_metricName] := 1:
     gr_data[utype_, grG_metricName] := -1:
+  elif args_by_name[type] = spacelike then
+    gr_data[ntype_, grG_metricName] := -1:
+    gr_data[utype_, grG_metricName] := 1:
   elif args_by_name[type] = null then
     # does this ever get used?
     gr_data[ntype_, grG_metricName] := 0:
@@ -266,6 +276,7 @@ DEBUG
 
   #....................................................
   # assign the xform functions
+  # - important that they be in same order as coords
   #....................................................
   for i to Ndim[grG_metricName] do
     xform_rhs[i] := rhs(args_by_name[xform][i]):
@@ -292,6 +303,11 @@ DEBUG
   #....................................................
   grmetric(sName):
   hs_init_from_vector(x(up), args_by_name[coord]):
+  grF_assignedFlag ( constraint, set ):
+  # the xform functions are a constraint on the surface
+  # (gr_data ref for display purposes - ideally RF to remove grG_constraint throughout)
+  gr_data[constraint, sName] := grG_constraint[sName]:
+  grG_constraint[sName] := args_by_name[xform]:
 
   #....................................................
   # Determine the metric on the surface

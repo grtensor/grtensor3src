@@ -254,7 +254,7 @@ global grOptionCoordNames, grOptionWindows, gr_data;
  fi:
  #
  # LOTS of bogus raise null strings to powers etc. stuff
- # ahead to make Maple llok like it does super/sub scripting
+ # ahead to make Maple look like it does super/sub scripting
  #
  if not grOptionWindows then
    

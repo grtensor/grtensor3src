@@ -36,46 +36,6 @@
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-#************************************************
-# Input validators
-#************************************************
-
-jfields := {coord, xform};
-
-jvalidate[coord] := proc(coords)
-  local errorStr;
-
-  if not type(coords,list) then
-    errorStr := "Please enter co-ords as a list (in [])\n":
-  elif Ndim[sName] != Ndim[metricName]-1 then
-    errorStr := sprintf("Number of co-ords is not %d\n", Ndim[metricName]-1);
-  else
-    errorStr := "ok"; 
-  fi:
-  RETURN(errorStr):
-
-end proc:
-
-jvalidate[xform] := proc(xform)
-  local errorStr, eqn; 
-
-  errorStr := "ok"; 
-  if not type(coords,list) then
-    errorStr := "Please enter xforms as a list (in [])\n":
-  elif Ndim[sName] != Ndim[metricName]-1 then
-    errorStr := sprintf("Number of xform entries is not %d\n", Ndim[metricName]-1);
-  else
-    for eqn in xform do
-      if not type(eqn, equation) then 
-        errorStr := "Entries in xform must be equations coord = f(surface co-ordinates)";
-        break;
-      fi:
-      # TODO: check LHS is a coord in space
-    od:
-  fi:
-  RETURN(errorStr):
-
-end proc:
 
 
 
@@ -108,25 +68,6 @@ global grG_metricSet, grG_metricName, grG_ObjDef,
 
   metricName := args[1];
   sName := args[2];
-(*
-  # if nargs = 2 then run Maplet to gather info
-
-  # screen all the input attributes
-  for i from 3 to nargs do:
-    if not type(args[i], equation) then
-      printf("arg=%a\n", args[1]);
-      ERROR("Arguments must be equations. See ?grsurface")
-    elif not member(rhs(args[i], jfields) then
-      printf("attribute %a\n", args[i]);
-      ERROR("Unknown attribute");
-    else
-      errString := jvalidate(args[1]);
-      if errString != "" then
-         ERROR(errString);
-      fi:
-    fi: 
-  od:
-*)
   # verify that a minimal set of input attributes has been provided
 
 

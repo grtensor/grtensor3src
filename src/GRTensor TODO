@@ -6,9 +6,14 @@ Junction
 - post-load of junction objects is breakng dependency checking. 
 (use of grG_metricName in depends?)
 
+BUG: Need to have xform in same order as coords in M. Why?
+
 Packaging
 =========
 
+GRT
+===
+- add radnormal to gralter options
 
 Open Beta Prep
 ==============
