@@ -315,6 +315,8 @@ DEBUG
   # precalc for gdndn has special code to use ff1 if there is a partner
   # spacetime
   grcalc( g(dn,dn)): 
+  # apply constraints
+  gralter( g(dn,dn), 12);
   #
   # naughty, but explicitly calc ds (since if goes through normal
   # it gets messy and this is best work around)

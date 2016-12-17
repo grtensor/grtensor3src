@@ -15,7 +15,7 @@
 # PeterM Mac
 savelibname := "/Users/peter/maple/gitlab/GRTensorIII/lib":
 
-#$define junction
+$define junction
 (*
 In GRTensorII global variables were heavily used and
 created on the fly with name concatentation. 
@@ -85,6 +85,7 @@ $ifdef junction
 	# Junction functions
 	jsave,
 	grsurface,
+	hypersurf,
 $endif
 	# debug
 	grdebug, # debug fn
@@ -227,8 +228,11 @@ Contents of the junction package
 *)
 $ifdef junction
 
-load_junc_objects := proc()
-global grG_ObjDef, grG_multipleDef, grF_pre_calc_ff1:
+load_hypers_objects := proc()
+global grG_ObjDef, grG_multipleDef, grF_pre_calc_ff1, grG_metricName:
+local temp_metric; 
+temp_metric := grG_metricName; 
+grG_metricName := `grG_metricName`:
 #$include "src/junction/clawHist.mpl"
 $include "src/junction/objects.mpl"
 #$include "src/junction/elasticity.mpl"
@@ -237,11 +241,13 @@ $include "src/junction/objects.mpl"
 #$include "src/junction/newn.mpl"
 $include "src/junction/oper.mpl"
 #
+grG_metricName := temp_metric;
 end proc:
 
 # Junction code
 $include "src/junction/chain.mpl"
 $include "src/junction/jdiff.mpl"
+$include "src/junction/hypersurf.mpl"
 $include "src/junction/jsave.mpl"
 $include "src/junction/junction.mpl"
 $include "src/junction/project.mpl"
@@ -260,10 +266,8 @@ global grG_metricSet, grG_ObjDef;
 	grG_metricSet := {}:
 	globals_init():
 	load_objects();
-$ifdef junction
-	load_junc_objects();
-$endif
-	grF_gen_rootSet():
+	load_hypers_objects():
+    grF_gen_rootSet():
 	grF_gen_calcFnSet():
 	print("GRTensor III"):
 	print("Copyright 2016, Peter Musgrave, Denis Pollney, Kayll Lake");

@@ -54,10 +54,10 @@ juncF_project := proc(expr, gname, sName)
 # sname: surface
 #
 #option trace;
-local newExpr, a, holdXform:
+local newExpr, a, c, holdXform, xf:
 
 global grJ_badVars, grJ_holdCoords, grJ_badFuns, grJ_badValues, 
-  grG_constraint, gr_data, Ndim:
+  grG_constraint, gr_data, Ndim, grJ_sCoords:
 
   if Ndim[gname] < Ndim[sName] then
      ERROR(`Metric names backwards`):
@@ -70,12 +70,13 @@ global grJ_badVars, grJ_holdCoords, grJ_badFuns, grJ_badValues,
   # We want to leave e.g. diff( u(r), r) in this form if
   #  r= R(tau). To do this we first build a sequence
   # of "bad coordinates" (those whose transformations are not
-  # to names).
+  # to co-ordinates on Sigma).
   #  
   # Functions in derivatives involving bad coordinates are
   # detected in juncF_diff which changes the derivative from 
   # diff to Diff
   #
+  grJ_sCoords := {seq(gr_data[xup_,sName,i], i=1..Ndim[sName])};
  
   grJ_badVars := NULL;
   grJ_badValues := NULL:
@@ -86,10 +87,15 @@ global grJ_badVars, grJ_holdCoords, grJ_badFuns, grJ_badValues,
      # a name will cause problems if arbitrary functions
      # of those coordinates exist in the metric
      #
-    if not type(gr_data[xformup_,gname,a], name) then
+    xf := gr_data[xformup_,gname,a]:
+    if not type(xf, name) then
        grJ_badVars := grJ_badVars, gr_data[xup_,gname,a]:
        # keep a parallel seq with the bad value
-       grJ_badValues := grJ_badValues, gr_data[xformup_,gname,a]:
+       grJ_badValues := grJ_badValues, xf:
+    elif not member( xf, grJ_sCoords) then
+       grJ_badVars := grJ_badVars, gr_data[xup_,gname,a]:
+       # if have e.g. r = R, then don;t want diff(m(r), r) to become diff(m(R),r)
+       grJ_badValues := grJ_badValues, xf:
     fi:
   od:
 
@@ -149,6 +155,13 @@ global grJ_badVars, grJ_holdCoords, grJ_badFuns, grJ_badValues,
       #
       newExpr := eval( subs(grG_constraint[sName],newExpr) ):
     fi:
+    #
+    # Undo any co-ordinates that were preserved inside Eval()
+    # 
+    for a to Ndim[gname] do 
+       c := gr_data[xup_, gname, a]:
+       newExpr := subs(preserve_||c = c, newExpr):
+    od:
   RETURN(newExpr);
 end:
 
@@ -172,9 +185,9 @@ end:
 
 juncF_diff := proc( a, b)
 
-global grJ_badVars, grJ_holdCoords, grJ_addCoords:
+global grJ_badVars, grJ_badValues, grJ_sCoords:
 
-local newOps, i;
+local newOps, i, expr;
 
   if member(b, {grJ_badVars}) or thaw(a) <> a then
       #
@@ -183,7 +196,29 @@ local newOps, i;
       # let any of the outer diffs go through (since
       # we'll get trivial zeros)
       #         
-      RETURN( freeze( Diff( a, b)) );
+      if type(b,name) then
+        #
+        # xform is to a name which is not a co-ord e.g. l = L
+        # in this case want to leave the extrinsic coords in place 
+        # and show they are being evaluated at this point. 
+        # i.e
+        #   /d      \|
+        #   |-- r(l)||
+        #   \dl     /|l = L
+        #
+        # Since there will be this coord throughout
+        #   coord -> preserve_coord
+
+        for i in nops(grJ_badVars) do
+           if op(i, grJ_badVars) = b then
+              expr := subs(b=preserve_||b, diff(a,b)):
+              RETURN( Eval(expr, op(i, grJ_badValues)) ):
+           fi:
+        od:
+        ERROR("Had a bad name but could not find value ", b):
+      else
+        RETURN( freeze( Diff( a, b)) );
+      fi
   else
       RETURN( diff(a,b) );
   fi:
