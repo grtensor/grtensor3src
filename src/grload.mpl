@@ -60,7 +60,7 @@
 #-------------------------------------------------------------------
 grload := proc ( gname, gfile )
 # need Ndim_ global since can be read from metric file (typically will be)
-global  Ndim, Ndim_, constraint_, grG_constraint,
+global  Ndim, Ndim_, constraint_,
   grG_metricName, Info_, sig_, grG_sig_, grG_complexSet_, 
   grG_metricSet, gr_data;
 local  a, b, i, j, ndim, gtype, ip, npip, g, bu, bd, bup, bdn, grinit, stsig, underscore:
@@ -238,7 +238,7 @@ local  a, b, i, j, ndim, gtype, ip, npip, g, bu, bd, bup, bdn, grinit, stsig, un
 # initialize constraints, if they exist.
 #
   if assigned ( constraint_ ) then
-    grG_constraint[gname] := [op(constraint_)]:
+    gr_data[constraint_,gname] := [op(constraint_)]:
     grF_assignedFlag ( constraint, set, gname ):
     constraint_ := 'constraint_':
   fi:

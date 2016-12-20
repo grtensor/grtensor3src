@@ -36,10 +36,6 @@
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-
-
-
-
 #************************************************
 # surf( metric, grG_metricName, surface)
 #
@@ -143,7 +139,6 @@ global grG_metricSet, grG_metricName, grG_ObjDef,
     gr_data[totalVar_,metricName] := grF_input(s, 0, `junction`):
     gr_data[totalVar_,sName] := gr_data[totalVar_,metricName]:
   od:
-  grJ_totalVar := gr_data[totalVar_,grG_metricName]: # used by jdiff and various definitions
 
 
   #
@@ -404,7 +399,7 @@ join := proc( outside, inside)
 
 local a:
 
-global grG_join_, grG_default_metricName,
+global gr_data, grG_metricName,
        grG_default_Mint, grG_default_Mext:
 
  for a in {outside, inside} do
@@ -422,7 +417,7 @@ global grG_join_, grG_default_metricName,
  printf(`The exterior metric is: %a\n`, outside):
  printf(`The interior metric is: %a\n`, inside):
 
- grG_default_metricName := outside:
+ grG_metricName := outside:
  grG_default_Mext := outside:
  grG_default_Mint := inside:
  grcalc(Jump[g(dn,dn)]);

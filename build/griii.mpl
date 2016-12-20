@@ -83,8 +83,7 @@ export
 	grtestinput,   
 $ifdef junction
 	# Junction functions
-	jsave,
-	grsurface,
+	join,
 	hypersurf,
 $endif
 	# debug

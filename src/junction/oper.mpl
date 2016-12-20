@@ -32,12 +32,13 @@ grG_ObjDef[Jump][grC_symmetry] := grG_ObjDef[grG_object][grC_symmetry]:
 
 grF_calc_Jump := proc( object, iList)
 
+global grG_metricName, gr_data;
 local root:
 
   root := grG_ObjDef[grG_object][grC_root]:
 
-  grG_||root[grG_metricName,op(iList)] -
-     grG_||root[grG_Mint,op(iList)]:
+  gr_data[root,grG_metricName,op(iList)] -
+     gr_data[root, grG_Mint,op(iList)]:
 end:
 
 #----------------------------
@@ -64,12 +65,13 @@ grG_ObjDef[Mean][grC_symmetry] := grG_ObjDef[grG_object][grC_symmetry]:
 
 
 grF_calc_Mean := proc( object, iList)
+global grG_metricName, gr_data;
 
 local root:
 
   root := grG_ObjDef[grG_object][grC_root]:
 
-  (grG_||root[grG_metricName,op(iList)] +
-     grG_||root[grG_Mint,op(iList)])/2:
+  (gr_data[root,grG_metricName,op(iList)] +
+     gr_data[root,grG_Mint,op(iList)])/2:
 end:
 

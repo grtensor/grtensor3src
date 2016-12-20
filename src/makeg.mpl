@@ -868,7 +868,7 @@ grF_usemetric := proc ( G_gdim,
 						G_sig, 
 						G_basisd,
 						G_basisu)
-global  Ndim, grG_constraint, grG_Ndim, grG_metricName, grG_default_metricName, grG_sig_, grG_complexSet_, gr_data:
+global  Ndim, grG_Ndim, grG_metricName, grG_default_metricName, grG_sig_, grG_complexSet_, gr_data:
 local 	i, btype:
 	Ndim[(G_gname)] := G_gdim:
 	grG_metricName := G_gname:
@@ -890,8 +890,7 @@ local 	i, btype:
 	fi:
 
 	if assigned ( G_constraint ) then
-	    gr_data[constraint, grG_metricName] := grG_constraint[grG_metricName];
-		grG_constraint[grG_metricName] := [op(G_constraint)]:
+	    gr_data[constraint_, grG_metricName] := [op(G_constraint)]:
 		grF_assignedFlag ( constraint, set, grG_metricName ):
 	fi:
 

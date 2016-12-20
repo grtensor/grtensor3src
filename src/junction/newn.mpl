@@ -16,12 +16,11 @@ grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, nsign}:
 grF_calc_ndn := proc( object, iList)
 
 local a,b,s, coordList:
-global gr_data, Ndim, grG_metricName, grJ_totalVar:
+global gr_data, Ndim, grG_metricName:
 local gname;
 
   gname := grG_metricName;
 
-  grJ_totalVar := grG_totalVar_[gname]:
   for a to Ndim[gname] do
     gr_data[ndn_,gname,a] := subs( diff=jdiff,
         diff( gr_data[surface_,gname], gr_data[xup_,gname,a])):

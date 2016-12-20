@@ -184,7 +184,7 @@ end:
 #------------------------------------------------------------
 
 grF_simpDecode := proc(how,gname)
-	global  grG_preSeq, grG_postSeq, grG_simpHow, grG_simp, grG_constraint;
+	global  grG_preSeq, grG_postSeq, grG_simpHow, grG_simp, gr_data;
 	grG_preSeq := NULL:
 	grG_postSeq := NULL:
 	if how = 8 or how = normal then 
@@ -236,11 +236,11 @@ grF_simpDecode := proc(how,gname)
 		`simplify[trigsin]`;
 	elif how = 12 or how = cons then
 		grG_simpHow := subs:
-		grG_preSeq := grG_constraint[gname]: # this is a list
+		grG_preSeq := gr_data[constraint_, gname]: # this is a list
 		`Apply constraints`;
 	elif how = 13 or how = consr then
 		grG_simpHow := consr:
-		grG_postSeq := grG_constraint[gname]: # this is a list
+		grG_postSeq := gr_data[constraint_,gname]: # this is a list
 		`Apply constraints repeatedly`;
         elif type( how, name) then
                 grG_simpHow := how:

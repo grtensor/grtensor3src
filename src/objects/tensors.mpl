@@ -221,7 +221,7 @@ grG_ObjDef[C(dn,dn,up,up)][grC_depends] := {g(up,up), C(dn,dn,dn,dn)}:
 # constraint
 #----------------------------
 grG_ObjDef[constraint][grC_header] := `constraints`:
-grG_ObjDef[constraint][grC_root] := constraint:
+grG_ObjDef[constraint][grC_root] := constraint_:
 grG_ObjDef[constraint][grC_rootStr] := `constraint `:
 grG_ObjDef[constraint][grC_indexList] := []:
 grG_ObjDef[constraint][grC_symmetry] := grF_sym_scalar:

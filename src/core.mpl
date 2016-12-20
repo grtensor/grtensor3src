@@ -81,7 +81,7 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 #               routine or not. If true then want to set up the
 #               globals, if false leave them alone.
 #
-global  grG_displayZero, grG_objectName, grG_metricName, grG_constraint,
+global  grG_displayZero, grG_objectName, grG_metricName, 
         grG_operands, grG_baseObject, grG_fnCode, grG_firstObj,
 	      grG_profileList, grG_profileTimer, grG_profileCount, grG_profileSize,
         grG_lastHeader, grG_ObjDef:

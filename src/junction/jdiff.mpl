@@ -26,16 +26,19 @@
 # leave any others unaffected
 #
 # (This routine makes reference to the global variable
-#  grJ_totalVar which indicates that TOTAL derivatives
+#  totalVar which indicates that TOTAL derivatives
 #  are to be expressed w.r.t to this variable)
 #
 
 jdiff := proc(expr, diffBy)
-global grG_metricName, gr_data, grJ_totalVar;
-local newExpr, a, fun:
+option trace;
+global grG_metricName, gr_data;
+local newExpr, a, fun, totalVar:
+
+  totalVar := gr_data[totalVar_, grG_metricName]:
 
   newExpr := diff(expr, diffBy):
-  if type(expr, function) and not grJ_totalVar = 0 then
+  if type(expr, function) and not totalVar = 0 then
     #
     # operand could be sin(x) or jdiff() even
     # leave these alone
@@ -47,14 +50,14 @@ local newExpr, a, fun:
       # about single argument functions
       #
       if op(1,expr) = diffBy then
-        if diffBy <> grJ_totalVar then
+        if diffBy <> totalVar then
 	  #
 	  # change e.g. diff(R(t),t) -> diff(R(tau),tau)/ diff(T(tau),tau)
 	  # (where we use grxform to get t -> T(tau) )
 	  #
 	  # Find the coordinate number for diffBy
 	  #
-	  fun := diffBy(grJ_totalVar):
+	  fun := diffBy(totalVar):
 	  for a to Ndim[grG_metricName] do
 	    if gr_data[xup_,grG_metricName, a] = diffBy then
 	       fun := gr_data[xformup_,grG_metricName,a]:
@@ -66,9 +69,9 @@ local newExpr, a, fun:
           # and expanding into tau's produces a division by
           # zero - since u != u(tau). Catch this case
           #
-          if diff(fun, grJ_totalVar) <> 0 then
-            newExpr := diff( op(0,expr)(grJ_totalVar), grJ_totalVar)/
-                       diff( fun, grJ_totalVar):
+          if diff(fun, totalVar) <> 0 then
+            newExpr := diff( op(0,expr)(totalVar), totalVar)/
+                       diff( fun, totalVar):
           fi:
         fi:
       fi:

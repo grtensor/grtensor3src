@@ -775,7 +775,6 @@ global gr_data, Ndim, grG_metricName:
   # is *always* defined by surf if surface = 0
   #
   if gr_data[surface_,gname] <> 0 then
-    grJ_totalVar := gr_data[totalVar_,gname]: # need this for jdiff
     for a to Ndim[gname] do
       gr_data[ndn_,gname,a] := subs( diff=jdiff,
           diff( gr_data[surface_,gname], gr_data[xup_,gname,a])):
@@ -1182,7 +1181,7 @@ grG_ObjDef[S3(dn,dn)][grC_calcFnParms] :=
       'gr_data[Jump_,gname,trK,gr_data[join_,gname]]')/(8*Pi)
     *'gr_data[utype_,gr_data[partner_,grG_metricName]]':
 grG_ObjDef[S3(dn,dn)][grC_symmetry] := grF_sym_sym2:
-grG_ObjDef[S3(dn,dn)][grC_depends] := {Jump[K(dn,dn),grG_join_[gname] ],
+grG_ObjDef[S3(dn,dn)][grC_depends] := {Jump[K(dn,dn),gr_data[join,gname] ],
                     Jump[trK,gr_data[join_,gname] ]}:
 
 
@@ -1195,7 +1194,7 @@ grG_ObjDef[S3(dn,up)][grC_rootStr] := `S `:
 grG_ObjDef[S3(dn,up)][grC_indexList] := [dn,up]:
 grG_ObjDef[S3(dn,up)][grC_calcFn] := grF_calc_S3dnup:
 grG_ObjDef[S3(dn,up)][grC_symmetry] := grF_sym_nosym2:
-grG_ObjDef[S3(dn,up)][grC_depends] := {Jump[K(dn,up),grG_join_[gname] ],
+grG_ObjDef[S3(dn,up)][grC_depends] := {Jump[K(dn,up),gr_data[join,gname] ],
                     Jump[trK,gr_data[join_,gname] ]}:
 
 grF_calc_S3dnup := proc(object,iList)
@@ -1414,7 +1413,6 @@ local pname, a, s:
 global gr_data, Ndim, grG_metricName:
 
  s := 0:
- grJ_totalVar := gr_data[totalVar_,gname]:
 
  pname := gr_data[partner_,gname]:
  for a to Ndim[pname] do

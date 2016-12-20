@@ -184,7 +184,7 @@ juncF_diffFreeze := proc(a,b)
 end:
 
 juncF_diff := proc( a, b)
-
+#option trace;
 global grJ_badVars, grJ_badValues, grJ_sCoords:
 
 local newOps, i, expr;
@@ -195,7 +195,8 @@ local newOps, i, expr;
       # if the operand is already frozen then we can't
       # let any of the outer diffs go through (since
       # we'll get trivial zeros)
-      #         
+      #     
+(*    
       if type(b,name) then
         #
         # xform is to a name which is not a co-ord e.g. l = L
@@ -209,16 +210,17 @@ local newOps, i, expr;
         # Since there will be this coord throughout
         #   coord -> preserve_coord
 
-        for i in nops(grJ_badVars) do
-           if op(i, grJ_badVars) = b then
+        for i in nops([grJ_badVars]) do
+           if op(i, [grJ_badVars]) = b then
               expr := subs(b=preserve_||b, diff(a,b)):
-              RETURN( Eval(expr, op(i, grJ_badValues)) ):
+              RETURN( Eval(expr, op(i, [grJ_badValues])) ):
            fi:
         od:
         ERROR("Had a bad name but could not find value ", b):
       else
+*)
         RETURN( freeze( Diff( a, b)) );
-      fi
+#      fi
   else
       RETURN( diff(a,b) );
   fi:

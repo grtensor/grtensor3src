@@ -13,7 +13,7 @@ $define DEBUG
 #   ndn= list of components of n{a} in x{^a}
 #************************************************
 
-hs_fields := {type, coord, surf, xform, nup, ndn};
+hs_fields := {type, coord, surf, xform, nup, ndn, param};
 
 hs_validate[type] := proc(stype)
 DEBUG
@@ -92,22 +92,35 @@ DEBUG
   errorStr := "ok"; 
   if not type(nup,list) then
     errorStr := "Please enter n{^a} components as a list (in [])\n":
-  elif nops(list) <> Ndim[grG_metricName] then
+  elif nops(nup) <> Ndim[grG_metricName] then
     errorStr := sprintf("Number of n{^a} entries is not %d\n", Ndim[grG_metricName]);
   fi:
   RETURN(errorStr):
 
 end proc:
 
-hs_validate[nup] := proc(ndn)
+hs_validate[ndn] := proc(ndn)
 DEBUG
   local errorStr, eqn; 
 
   errorStr := "ok"; 
-  if not type(nup,list) then
+  if not type(ndn,list) then
     errorStr := "Please enter n{a} components as a list (in [])\n":
-  elif nops(list) <> Ndim[grG_metricName] then
+  elif nops(ndn) <> Ndim[grG_metricName] then
     errorStr := sprintf("Number of n{a} entries is not %d\n", Ndim[grG_metricName]);
+  fi:
+  RETURN(errorStr):
+
+end proc:
+
+hs_validate[param] := proc(stype)
+DEBUG
+  local errorStr;
+
+  if not type(param, name) then
+    errorStr := "Please enter param as a name (e.g. tau)\n":
+  else
+    errorStr := "ok"; 
   fi:
   RETURN(errorStr):
 
@@ -232,7 +245,7 @@ hypersurf := proc()
 DEBUG
   local args_by_name, sName, xform_rhs; 
   global grG_hyperLoaded, grG_metricName, gr_data, Ndim, 
-      grG_metricSet, grG_constraint;
+      grG_metricSet;
 
   #hs_load();
 
@@ -299,15 +312,24 @@ DEBUG
   grdisplay(n(dn));
 
   #....................................................
+  # assign the totalVar on the surface (if required)
+  #....................................................
+  if assigned(args_by_name[param]) then
+    gr_data[totalVar_, grG_metricName] := args_by_name[param]:
+    gr_data[totalVar_, sName] := args_by_name[param]:
+  else
+    gr_data[totalVar_, grG_metricName] := 0:
+    gr_data[totalVar_, sName] := 0:
+  fi:
+
+  #....................................................
   # assign the coords on the surface 
   #....................................................
   grmetric(sName):
   hs_init_from_vector(x(up), args_by_name[coord]):
   grF_assignedFlag ( constraint, set ):
   # the xform functions are a constraint on the surface
-  # (gr_data ref for display purposes - ideally RF to remove grG_constraint throughout)
-  gr_data[constraint, sName] := grG_constraint[sName]:
-  grG_constraint[sName] := args_by_name[xform]:
+  gr_data[constraint_, sName] := args_by_name[xform]:
 
   #....................................................
   # Determine the metric on the surface
