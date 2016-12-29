@@ -35,7 +35,13 @@ global grG_ObjDef, grG_calcFlag;
 		  printf("gr_data%a = %a\n", a, gr_data[op(a)]);
 	   od:
 	else
-		printf("gr_data%a = %a\n", list, gr_data[op(list)]):
+	   for b in list do
+		   for a in indices(gr_data) do
+		      if member(b, a) then
+			     printf("gr_data%a = %a\n", a, gr_data[op(a)]);
+			  fi:
+		   od:
+	   od:
 	fi:
 	for a in indices(grG_calcFlag) do
 	   for b in indices(grG_calcFlag[op(a)]) do

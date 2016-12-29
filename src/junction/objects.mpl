@@ -97,6 +97,16 @@ global s1_, s2_, gr_data, Ndim, grG_metricName:
 end:
 
 #----------------------------
+# Partner
+#
+# Conservation Law for the surface
+#----------------------------
+grG_ObjDef[partner][grC_header] := `Joined to spacetime`:
+grG_ObjDef[partner][grC_root] := partner_:
+grG_ObjDef[partner][grC_rootStr] := `partner `:
+grG_ObjDef[partner][grC_indexList] := []:
+
+#----------------------------
 # C1lhs
 #
 # Conservation Law for the surface
@@ -763,6 +773,26 @@ grG_ObjDef[n(dn)][grC_preCalcFn] := grF_calc_ndn: # preCalc since we need to nor
 grG_ObjDef[n(dn)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, nsign}:
 
+grF_calc_ndn_new := proc( object, iList)
+
+local a,b,s, coordList:
+global gr_data, Ndim, grG_metricName:
+
+  for a to Ndim[gname] do
+    gr_data[ndn_,gname,a] := subs( diff=jdiff,
+        diff( gr_data[surface_,gname], gr_data[xup_,gname,a])):
+  od:
+  #
+  # want to normalize, but ensure we don't take sqrt(-1)
+  # so multiply normalization factor by ntype
+  #
+  for a to Ndim[gname] do
+    gr_data[ndn_,gname,a] :=  gr_data[ntype_,gname]*
+           gr_data[ndn_,gname,a];
+  od:
+
+end:
+
 grF_calc_ndn := proc( object, iList)
 
 local a,b,s, coordList:
@@ -1181,8 +1211,8 @@ grG_ObjDef[S3(dn,dn)][grC_calcFnParms] :=
       'gr_data[Jump_,gname,trK,gr_data[join_,gname]]')/(8*Pi)
     *'gr_data[utype_,gr_data[partner_,grG_metricName]]':
 grG_ObjDef[S3(dn,dn)][grC_symmetry] := grF_sym_sym2:
-grG_ObjDef[S3(dn,dn)][grC_depends] := {Jump[K(dn,dn),gr_data[join,gname] ],
-                    Jump[trK,gr_data[join_,gname] ]}:
+grG_ObjDef[S3(dn,dn)][grC_depends] := {Jump[K(dn,dn) ],
+                    Jump[trK] }:
 
 
 #----------------------------
@@ -1194,8 +1224,8 @@ grG_ObjDef[S3(dn,up)][grC_rootStr] := `S `:
 grG_ObjDef[S3(dn,up)][grC_indexList] := [dn,up]:
 grG_ObjDef[S3(dn,up)][grC_calcFn] := grF_calc_S3dnup:
 grG_ObjDef[S3(dn,up)][grC_symmetry] := grF_sym_nosym2:
-grG_ObjDef[S3(dn,up)][grC_depends] := {Jump[K(dn,up),gr_data[join,gname] ],
-                    Jump[trK,gr_data[join_,gname] ]}:
+grG_ObjDef[S3(dn,up)][grC_depends] := {Jump[K(dn,up)],
+                    Jump[trK]}:
 
 grF_calc_S3dnup := proc(object,iList)
 local s;

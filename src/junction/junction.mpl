@@ -354,39 +354,6 @@ grJ_getComponents := proc(vec_prompt, metricName, vect)
 
 end:
 
-#************************************************
-# sload( metric, sName, fileName)
-#
-#************************************************
-
-#sload := proc( metric, sName, fileName)
-#
-#global grG_metricSet, gr_data, grG_metricName:
-#
-#local mFile, sFile:
-#
-# if member( metric, grG_metricSet) then
-#   ERROR(`Metric name `, metric, ` is already in use.`);
-# elif member( sName, grG_metricSet) then
-#   ERROR(`Metric name `, sName, ` is already in use.`);
-# fi:
-#
-# grG_metricSet := grG_metricSet union {metric,sName}:
-# gr_data[partner_,metric] := sName:
-# gr_data[partner_,sName] := metric:
-# mFile := convert( fileName.`.ju1`, string):
-# grloadobj( metric, mFile):
-# grG_metricName := metric:
-# gr_data[ds_,metric] := grF_calc_ds(ds,[]):
-# grdisplay(ds);
-# sFile := convert( fileName.`.ju2`, string):
-# grloadobj( sName, sFile):
-# grG_metricName := sName:
-# gr_data[ds_,sName] := grF_calc_ds(ds,[]):
-# grdisplay(ds);
-# printf(`The default metric is now %a\n`, sName);
-#
-#end:
 
 #************************************************
 # join( outside, inside)
@@ -419,7 +386,9 @@ global gr_data, grG_metricName,
 
  grG_metricName := outside:
  grG_default_Mext := outside:
+ # magic variable name required by operand expansion for Jump/Mean
  grG_default_Mint := inside:
+ grmetric(outside);
  grcalc(Jump[g(dn,dn)]);
  grdisplay(_):
 
@@ -431,75 +400,5 @@ global gr_data, grG_metricName,
 
 end:
 
-#************************************************
-# ssave(sName, fileName)
-#
-# - save all the objects associated with a surface:
-#     Sigma: g(dn,dn) x(up) K(dn,dn)
-#         M: g(dn,dn) n(dn) n(up) xform(up) ntype x(up)
-#
-#************************************************
 
-#ssave := proc( sName, fileName)
-#
-#global grG_default_metricName, gr_data, Ndim:
-#
-#local  oldDefault, mFile, sFile:
-#
-# if not member(sName, grG_metricSet) then
-#   ERROR(`Cannot find `,sName):
-# elif not assigned( gr_data[partner_,sName] ) then
-#   ERROR(sName, ` does not reference an enveloping spacetime.`):
-# fi:
-#
-# # (use two files, one for M, one for Sigma, so we use grsaveobj)
-#
-# #
-# # Save Manifold stuff to file.ju1
-# #
-# # use grsaveobj to save the values for the Enveloping space
-# #
-# oldDefault := grG_default_metricName:
-# grG_default_metricName := gr_data[partner_,sName]:
-# mFile := convert( fileName.`.ju1`, string):
-# grsaveobj( g(dn,dn),x(up),xform(up),n(dn),u(up),
-#            udot(up),ntype,ndiv, mFile):
-# appendto(mFile);
-# printf(`Ndim[grG_metricName] := %d:\n`, Ndim[grG_default_metricName]):
-# printf(`Ndim[grG_metricName] := %d:\n`, Ndim[grG_default_metricName]):
-# printf(`gr_data[totalVar_,grG_metricName] := %a:\n`,
-#           gr_data[totalVar_,grG_default_metricName]):
-# printf(`gr_data[partialVars_,grG_metricName] := %a:\n`,
-#           gr_data[partialVars_,grG_default_metricName]):
-# writeto(`terminal`):
-#
-# #
-# # Save surface stuff to file.ju2
-# #
-# # for each object, set the metric name and any operands
-# # grF_saveObj is a dummy function. Check for this fn name
-# # in grcomponent.
-# #
-# grG_default_metricName := sName:
-# sFile := convert( fileName.`.ju2`, string);
-# grsaveobj( g(dn,dn), K(dn,dn), x(up), sFile);
-#
-# #
-# # explicitly write out the constraints
-# #
-# appendto(sFile);
-# lprint(`# additional stuff`);
-# lprint(`gr_data[constraint,grG_metricName] :=`,
-#            gr_data[constraint,sName],`:`);
-#
-# lprint(`Ndim[grG_metricName] := `, Ndim[grG_default_metricName],`:`):
-# lprint(`Ndim[grG_metricName] := `, Ndim[grG_default_metricName],`:`):
-#
-# grG_default_metricName := oldDefault:
-#
-# writeto(`terminal`):
-# printf(`Saved the spacetime %a in %s\n and surface %a in %s\n.`,
-#           gr_data[partner_,sName], mFile,  sName, sFile):
-#
-#end:
 

@@ -73,7 +73,6 @@
 #**********************************************************
 
 grF_core := proc(objectParm, externalCall)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 #option trace;
 #
 # objectName:   name of the object to operate on

@@ -93,7 +93,6 @@ end:
 #----------------------------------------------------------
 
 grF_expandOperands := proc( objectParm )
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 
 local a, objOperands, objectName, notDone, subSeq, opList,
       opSeq, returnVal, operands, b:

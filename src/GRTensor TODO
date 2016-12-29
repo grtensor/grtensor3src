@@ -6,7 +6,22 @@ Junction
 - post-load of junction objects is breakng dependency checking. 
 (use of grG_metricName in depends?)
 
+BUG: S3(dn,up) not getting calculated properly. 
+- ah, same metric name twice (in/out names should be there)
+- how is Jump working at all?!
+
 BUG: Need to have xform in same order as coords in M. Why?
+
+Issue: jdiff not getting used => find a better way to get n(dn) from surface equation + xform
+Issue: Why D(2)(R)(tau) in OS??
+- can use convert( expr, diff) to unlock
+TL cases are now working as expected. 
+Issue: calc_ndn_new does not give FF2 jump zero for OS. ??
+
+ToDo:
+- need to finish the end game for OS collapse
+- do shell collapse example
+
 
 Packaging
 =========
@@ -14,16 +29,10 @@ Packaging
 GRT
 ===
 - add radnormal to gralter options
+- document grconstraint(add, ) variation
 
 Open Beta Prep
 ==============
-Eric's bug
-- direct calc of v(dn,pdn) is ok. 
-- other pdn extensions (e.g. g(dn,dn,pdn)) are ok
-
-nprotate() example - not getting same tetrad to start with 
-(had to change nptetrad to [t,r])
-
 Do the caveats w.r.t I (sqrt(-1)) in the nptetrad help still apply?
 
  
