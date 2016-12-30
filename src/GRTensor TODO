@@ -6,11 +6,12 @@ Junction
 - post-load of junction objects is breakng dependency checking. 
 (use of grG_metricName in depends?)
 
-BUG: S3(dn,up) not getting calculated properly. 
-- ah, same metric name twice (in/out names should be there)
-- how is Jump working at all?!
+Shell evolution: result is very messy - but ISTM ok. 
+- can the constraint be expressed in terms of Beta?
 
 BUG: Need to have xform in same order as coords in M. Why?
+
+BUG: HGeqn and evInt fail (likely due to lack of a parameter for the shell?)
 
 Issue: jdiff not getting used => find a better way to get n(dn) from surface equation + xform
 Issue: Why D(2)(R)(tau) in OS??

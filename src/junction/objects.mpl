@@ -1495,8 +1495,9 @@ grG_ObjDef[u(up)][grC_depends] := {}:
 grF_calc_uup := proc(object, iList)
 global gr_data, Ndim, grG_metricName:
 
-  if not assigned( gr_data[totalVar_,grG_metricName] ) then
-     ERROR(`u(up) cannot be calculated. No parameter was given in surf()`):
+  if not assigned( gr_data[totalVar_,grG_metricName] ) or
+    (gr_data[totalVar_,grG_metricName] = 0) then
+     ERROR(`u(up) cannot be calculated. Require a param= argument in hypersurf()`):
   fi:
   diff( gr_data[xformup_,grG_metricName,a1_], gr_data[totalVar_,grG_metricName]);
 
