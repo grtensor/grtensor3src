@@ -13,9 +13,9 @@ $define DEBUG
 #   ndn= list of components of n{a} in x{^a}
 #************************************************
 
-hs_fields := {type, coord, surf, xform, nup, ndn, param};
+hs_fields := {type, coord, surf, xform, nup, ndn, param, Ndn, Nup};
 
-hs_validate[type] := proc(stype)
+hs_validate[type] := proc(name, stype)
 DEBUG
   local errorStr;
 
@@ -28,7 +28,7 @@ DEBUG
 
 end proc:
 
-hs_validate[coord] := proc(coords)
+hs_validate[coord] := proc(name, coords)
 DEBUG
   local errorStr;
   global grG_metricName;
@@ -44,7 +44,7 @@ DEBUG
 
 end proc:
 
-hs_validate[surf] := proc(coords)
+hs_validate[surf] := proc(name, coords)
 DEBUG
   local errorStr;
 
@@ -53,7 +53,7 @@ DEBUG
 
 end proc:
 
-hs_validate[xform] := proc(xform)
+hs_validate[xform] := proc(n, xform)
 DEBUG
   local errorStr, eqn; 
   global grG_metricName, Ndim, gr_data;
@@ -85,35 +85,40 @@ DEBUG
 
 end proc:
 
-hs_validate[nup] := proc(nup)
+hs_checkVector := proc(name, value)
 DEBUG
   local errorStr, eqn; 
+  global Ndim, grG_metricName;
 
   errorStr := "ok"; 
-  if not type(nup,list) then
-    errorStr := "Please enter n{^a} components as a list (in [])\n":
-  elif nops(nup) <> Ndim[grG_metricName] then
-    errorStr := sprintf("Number of n{^a} entries is not %d\n", Ndim[grG_metricName]);
+  if not type(value,list) then
+    errorStr := sprintf("Please enter %a components as a list (in [])\n", name):
+  elif nops(value) <> Ndim[grG_metricName] then
+    errorStr := sprintf("Number of %a entries is not %d\n", name, Ndim[grG_metricName]);
   fi:
   RETURN(errorStr):
 
 end proc:
 
-hs_validate[ndn] := proc(ndn)
-DEBUG
-  local errorStr, eqn; 
-
-  errorStr := "ok"; 
-  if not type(ndn,list) then
-    errorStr := "Please enter n{a} components as a list (in [])\n":
-  elif nops(ndn) <> Ndim[grG_metricName] then
-    errorStr := sprintf("Number of n{a} entries is not %d\n", Ndim[grG_metricName]);
-  fi:
-  RETURN(errorStr):
-
+hs_validate[ndn] := proc(name, value)
+  RETURN(hs_checkVector(name,value)):
 end proc:
 
-hs_validate[param] := proc(stype)
+hs_validate[nup] := proc(name, value)
+  RETURN(hs_checkVector(name,value)):
+end proc:
+
+hs_validate[Ndn] := proc(name, value)
+  RETURN(hs_checkVector(name,value)):
+end proc:
+
+hs_validate[Nup] := proc(name, value)
+  RETURN(hs_checkVector(name,value)):
+end proc:
+
+
+
+hs_validate[param] := proc(name, stype)
 DEBUG
   local errorStr;
 
@@ -143,7 +148,7 @@ DEBUG
       printf("Not in attriture list: %a\n", hs_fields);
       ERROR("Unknown attribute");
     else
-      errString := hs_validate[lhs(args[i])](rhs(args[i]));
+      errString := hs_validate[lhs(args[i])](lhs(args[i]), rhs(args[i]));
       if errString <> "ok" then
          ERROR(errString);
       fi:
@@ -166,12 +171,12 @@ DEBUG
 
 end proc:
 
-#
+#-------------------------------------------------
 # hyper-surface objects have common names u(up), n(up) that are sometimes used in 
 # user-defined calculations. Rather than prohibiting these names in standard
 # use check to see if they are defined before loading the hyper objects the first 
 # time hyper is loaded
-#
+#-------------------------------------------------
 
 grG_hyperLoaded := false;
 
@@ -256,6 +261,11 @@ DEBUG
   args_by_name := hs_checkargs(args);
   printf("Surface is %s \n", args_by_name[type]):
 
+  if args_by_name[type] = null then
+    # null surfaces use a different proc
+    hypersurf_null(sName, args_by_name);
+  fi:
+
   #....................................................
   # Setup a metric for the surface
   #....................................................
@@ -278,10 +288,6 @@ DEBUG
   elif args_by_name[type] = spacelike then
     gr_data[ntype_, grG_metricName] := -1:
     gr_data[utype_, grG_metricName] := 1:
-  elif args_by_name[type] = null then
-    # does this ever get used?
-    gr_data[ntype_, grG_metricName] := 0:
-    gr_data[utype_, grG_metricName] := 0:
   else
     # with arg checking should never happen
     ERROR("Unknown type of surface"):
@@ -346,5 +352,64 @@ DEBUG
   gr_data[ds_,sName] := grF_calc_ds(ds,[]):
   grF_assignedFlag(ds, set);
   grdisplay(ds);
+
+end proc:
+
+#################################################
+# NULL hypersurf
+# (internal) control passes from hypersurf() for
+# a null shell
+#################################################
+
+hypersurf_null := proc(sName, args_by_name)
+DEBUG
+  global grG_hyperLoaded, grG_metricName, gr_data, Ndim, 
+      grG_metricSet;
+  local xform_rhs;
+
+  #....................................................
+  # Setup a metric for the surface
+  #....................................................
+  #
+  # link the surface to grG_metricName
+  #
+  if Ndim[grG_metricName] <> 4 then 
+    ERROR("Null formalism requires N=4");
+  fi:
+  grG_metricSet := grG_metricSet union {sName}:
+  gr_data[partner_,sName] := grG_metricName:
+  gr_data[partner_,grG_metricName] := sName:
+  Ndim[sName] := 2:
+
+
+  #....................................................
+  # Set the surface tangent and normal type
+  # timelike means surface is timelike => normal is spacelike
+  #....................................................
+  gr_data[ntype_, grG_metricName] := 0:
+  gr_data[utype_, grG_metricName] := -1:
+
+  #....................................................
+  # assign the xform functions
+  # - important that they be in same order as coords
+  #....................................................
+  for i to Ndim[grG_metricName] do
+    xform_rhs[i] := rhs(args_by_name[xform][i]):
+  od:
+  hs_init_from_vector(xform(up), xform_rhs):
+
+  #....................................................
+  # Calculate k^a and null generators Theta{A}
+  # - either explicitly provided or determined from surface eqn
+  #....................................................
+
+  #....................................................
+  # Use a specified lapse (N) or determine from (k, Theta{A})
+  #....................................................
+
+  #....................................................
+  # assign the coords on the surface 
+  #....................................................
+
 
 end proc:
