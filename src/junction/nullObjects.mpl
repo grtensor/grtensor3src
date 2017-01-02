@@ -19,6 +19,9 @@ $define gname grG_metricName
 # GRT happy (since we always assume the dimension
 # of each index is the same). Hence we set the
 # fourth basis component to zero.
+#
+# The first vector is aliased to k{^a}
+# 2 & 3 are the e{^a (2)} and e{^a (3)}
 #----------------------------
 grG_ObjDef[es(bdn,up)][grC_header] := `Basis vector`:
 grG_ObjDef[es(bdn,up)][grC_root] := esbdnup_:
@@ -331,6 +334,27 @@ local r, l, a;
 end:
 
 #----------------------------
+# k(up)
+# - defined for null shells only
+#----------------------------
+grG_ObjDef[k(up)][grC_header] := `Null vector on Surface`:
+grG_ObjDef[k(up)][grC_root] := kup_:
+grG_ObjDef[k(up)][grC_rootStr] := `k `:
+grG_ObjDef[k(up)][grC_indexList] := [up]:
+grG_ObjDef[k(up)][grC_preCalcFn] := grF_calc_kup: # preCalc since we need to normalize
+grG_ObjDef[k(up)][grC_symmetry] := grF_sym_vector:
+grG_ObjDef[k(up)][grC_depends] := {xform(up)}:
+
+grF_calc_kup := proc(object)
+
+  global gr_data, grG_metricName, Ndim;
+
+  for i to Ndim[grG_metricName] do
+    gr_data[kup_, grG_metricName, i] := diff( gr_data[xformup_, grG_metricName], gr_data[null_param_, grG_metricName])
+  od:
+end proc:
+
+#----------------------------
 # nullK(dn,dn)
 #----------------------------
 grG_ObjDef[nullK(dn,dn)][grC_header] := `Extrinsic Curvature (for null shell)`:
@@ -368,6 +392,18 @@ local s, a, b, c, s1, pname:
  unleash( -s-s1,pname,gname,false);
 
 end:
+
+#----------------------------
+# null_param
+# assigned in hypersurf()
+#----------------------------
+grG_ObjDef[null_param][grC_header] := `Null parameter on Surface`:
+grG_ObjDef[null_param][grC_root] := null_param_:
+grG_ObjDef[null_param][grC_rootStr] := `Null Parameter `:
+grG_ObjDef[null_param][grC_indexList] := []:
+grG_ObjDef[null_param][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[null_param][grC_depends] := {}: # dependencies calculated explicitly in junction()
+
 
 #----------------------------
 # nullGamma(dn)
@@ -501,7 +537,7 @@ local s, a, b;
 # This object is assigned by surf or
 # calculated by lowering N(up)
 #----------------------------
-grG_ObjDef[N(dn)][grC_header] := `Lapse Vector`:
+grG_ObjDef[N(dn)][grC_header] := `Transverse Vector`:
 grG_ObjDef[N(dn)][grC_root] := Ndn_:
 grG_ObjDef[N(dn)][grC_rootStr] := `N `:
 grG_ObjDef[N(dn)][grC_indexList] := [dn]:
@@ -516,7 +552,7 @@ grG_ObjDef[N(dn)][grC_depends] := {}:
 # This object is assigned by surf or
 # calculated by raising N(dn)
 #----------------------------
-grG_ObjDef[N(up)][grC_header] := `Lapse Vector`:
+grG_ObjDef[N(up)][grC_header] := `Transverse Vector`:
 grG_ObjDef[N(up)][grC_root] := Nup_:
 grG_ObjDef[N(up)][grC_rootStr] := `N `:
 grG_ObjDef[N(up)][grC_indexList] := [up]:

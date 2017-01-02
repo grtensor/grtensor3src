@@ -601,6 +601,7 @@ grG_ObjDef[H1Teqn][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[H1Teqn][grC_depends] := {H2lhs,
                     [gr_data[partner_,gname], Jump[Gnn, gr_data[partner_,gr_data[join_,gname]]]] }:
 
+
 #----------------------------
 # K(dn,dn)
 #----------------------------
@@ -760,7 +761,6 @@ grG_ObjDef[ntype][grC_indexList] := []:
 grG_ObjDef[ntype][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[ntype][grC_depends] := {}: # dependencies calculated explicitly in junction()
 
-
 #----------------------------
 # n(dn)
 #
@@ -773,7 +773,7 @@ grG_ObjDef[n(dn)][grC_preCalcFn] := grF_calc_ndn: # preCalc since we need to nor
 grG_ObjDef[n(dn)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, nsign}:
 
-grF_calc_ndn_new := proc( object, iList)
+grF_calc_ndn_new := proc( object)
 
 local a,b,s, coordList:
 global gr_data, Ndim, grG_metricName:
@@ -793,7 +793,7 @@ global gr_data, Ndim, grG_metricName:
 
 end:
 
-grF_calc_ndn := proc( object, iList)
+grF_calc_ndn := proc( object)
 
 local a,b,s, coordList:
 global gr_data, Ndim, grG_metricName:

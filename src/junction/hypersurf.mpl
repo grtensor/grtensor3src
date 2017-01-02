@@ -379,7 +379,7 @@ DEBUG
   grG_metricSet := grG_metricSet union {sName}:
   gr_data[partner_,sName] := grG_metricName:
   gr_data[partner_,grG_metricName] := sName:
-  Ndim[sName] := 2:
+  Ndim[sName] := 3:
 
 
   #....................................................
@@ -399,17 +399,40 @@ DEBUG
   hs_init_from_vector(xform(up), xform_rhs):
 
   #....................................................
-  # Calculate k^a and null generators Theta{A}
-  # - either explicitly provided or determined from surface eqn
+  # assign the null parameter
+  # - the parameter null_param defines the null parameter (typically lambda)
   #....................................................
+  gr_data[null_param_, grG_metricName] := rhs(args_by_name[null_param]):
+  grF_assignedFlag( null_param, set ):
+  
+  #....................................................
+  # assign the coords on the surface 
+  # - the null_gen param specifies the TWO coords that label the 
+  #   null generators on Sigma (the Theta[A], Theta[B])
+  #....................................................
+  grmetric(sName):
+
+  # explicitly assign 
+  gr_data[xup_, sName, 1] := args_by_name[null_param]:
+  gr_data[xup_, sName, 2] := args_by_name[null_gen][1]:
+  gr_data[xup_, sName, 3] := args_by_name[null_gen][2]:
+  grF_assignedFlag ( xup_, set ):
+
+  # the xform functions are a constraint on the surface
+  grF_assignedFlag ( constraint, set ):
+  gr_data[constraint_, sName] := args_by_name[xform]:
 
   #....................................................
   # Use a specified lapse (N) or determine from (k, Theta{A})
   #....................................................
 
   #....................................................
-  # assign the coords on the surface 
+  # Calculate k^a and null generators Theta{A}
+  # - either explicitly provided or determined from surface eqn
+  # See https://arxiv.org/pdf/gr-qc/0207101v1.pdf
+  # eqns (2.2)
   #....................................................
+
 
 
 end proc:
