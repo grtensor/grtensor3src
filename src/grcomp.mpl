@@ -254,7 +254,7 @@ global grOptionCoordNames, grOptionWindows, gr_data;
  fi:
  #
  # LOTS of bogus raise null strings to powers etc. stuff
- # ahead to make Maple llok like it does super/sub scripting
+ # ahead to make Maple look like it does super/sub scripting
  #
  if not grOptionWindows then
    
@@ -416,8 +416,8 @@ local displayList;
 		fi:
 	fi:
 	grdisplay ( displayList ):
-	if assigned ( grG_constraint[gname] ) then
-		print ( Constraints = grG_constraint[gname] ):
+	if assigned ( gr_data[contraint_,gname] ) then
+		print ( Constraints = gr_data[constraint_,gname] ):
 	fi:
 	if assigned ( complexSet_ ) and complexSet_<>{} then
 		print ( `Complex quantities` = complexSet_ ):

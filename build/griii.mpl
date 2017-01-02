@@ -15,6 +15,7 @@
 # PeterM Mac
 savelibname := "/Users/peter/maple/gitlab/GRTensorIII/lib":
 
+$define junction
 (*
 In GRTensorII global variables were heavily used and
 created on the fly with name concatentation. 
@@ -29,7 +30,7 @@ In the module-friendly refactor:
 Still need to handle signature, basis, np stuff
 
 *)
-(*)
+(*
 with(FileTools); 
 griiilib := FileTools:-JoinPath(["lib", "griii.mla"]);
 
@@ -80,6 +81,12 @@ export
 	PetrovReport,
 	qload, 
 	grtestinput,   
+$ifdef junction
+	# Junction functions
+	join,
+	hypersurf,
+$endif
+	# debug
 	grdebug, # debug fn
 	grdata, # debug fn
 	grdump, # debug fn
@@ -172,7 +179,7 @@ Wrap the object definitions in a procedure wrapper
 *)
 
 load_objects := proc()
-global grG_ObjDef, grG_multipleDef:
+global grG_ObjDef, grG_multipleDef, grF_calc_ds:
 
 $include  "src/objects/basis.mpl"
 $include  "src/objects/cmdef.mpl"
@@ -215,6 +222,38 @@ $include "src/objects/invar/w2.mpl"
 end proc:
 
 (*
+Contents of the junction package
+
+*)
+$ifdef junction
+
+load_hypers_objects := proc()
+global grG_ObjDef, grG_multipleDef, grF_pre_calc_ff1, grG_metricName:
+local temp_metric; 
+temp_metric := grG_metricName; 
+grG_metricName := `grG_metricName`:
+#$include "src/junction/clawHist.mpl"
+$include "src/junction/objects.mpl"
+#$include "src/junction/elasticity.mpl"
+#$include "src/junction/e3_object.mpl"
+#$include "src/junction/null_objects.mpl"
+#$include "src/junction/newn.mpl"
+$include "src/junction/oper.mpl"
+#
+grG_metricName := temp_metric;
+end proc:
+
+# Junction code
+$include "src/junction/chain.mpl"
+$include "src/junction/jdiff.mpl"
+$include "src/junction/hypersurf.mpl"
+$include "src/junction/jsave.mpl"
+$include "src/junction/junction.mpl"
+$include "src/junction/project.mpl"
+
+$endif
+
+(*
 Useful debug routines
 - also included in the export list
 *)
@@ -226,7 +265,8 @@ global grG_metricSet, grG_ObjDef;
 	grG_metricSet := {}:
 	globals_init():
 	load_objects();
-	grF_gen_rootSet():
+	load_hypers_objects():
+    grF_gen_rootSet():
 	grF_gen_calcFnSet():
 	print("GRTensor III"):
 	print("Copyright 2016, Peter Musgrave, Denis Pollney, Kayll Lake");

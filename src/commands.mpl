@@ -511,7 +511,6 @@ end:
 # If the object is a scalar, iList is not required.
 #----------------------------------------------------------
 grcomponent := proc()
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 local object, objectName, iList, coordNum_seq,  a, b, operands,
       newArgs, gname:
 
@@ -571,14 +570,15 @@ end:
 # coordNumbers -  convert from coord name to number if required
 #------------------------------------------------------------------------------
 grF_coordNumbers := proc ( gname, iList )
-global grG_coordStr;
+global Ndim, gr_data;
 local a, b, coordNumSeq:
   coordNumSeq := NULL:
   for a to nops(iList) do
     if not type( iList[a], integer) then
-      for b to Ndim[gname] while iList[a] <> grG_coordStr[gname,b] do od:
-      if iList[a] <> grG_coordStr[gname,b] then
-        ERROR(`Unknown coord `= iList[a]);
+      for b to Ndim[gname] while iList[a] <> gr_data[xup_,gname,b] do od:
+      if iList[a] <> gr_data[xup_,gname,b] then
+        printf("Unknown coord=%a in metric %a\n", iList[a], gname):
+        ERROR(`Unknown coord`);
       fi:
       coordNumSeq := coordNumSeq, b:
     else
@@ -807,8 +807,8 @@ local 	a, b, G, req, metrictype, bupflag, bdnflag, gname, ndim, metricdir, saven
 	G_gname := savename:
   ndim := Ndim[gname];
 	G_gdim := Ndim[gname]:
-	if assigned ( grG_constraint[gname] ) then
-		G_constraint := grG_constraint[gname]:
+	if assigned ( gr_data[constraint_,gname] ) then
+		G_constraint := gr_data[constraint_,gname]:
 	else
 		G_constraint := evaln ( G_constraint ):
 	fi:

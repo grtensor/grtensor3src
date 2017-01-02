@@ -1,10 +1,8 @@
 readlib(makehelp);
 
-makehelp( Info, "help/Info.help", "lib/maple.help"):
+makehelp( PetrovReport, "help/PetrovReport.help", "lib/maple.help", browser=["GRTensorIII/PetrovReport"]):
 
-makehelp( PetrovReport, "help/PetrovReport.help", "lib/maple.help"):
-
-makehelp( autoAlias, "help/autoAlias.help", "lib/maple.help"):
+makehelp( autoAlias, "help/autoAlias.help", "lib/maple.help", browser=["GRTensorIII/autoAlias"]):
 
 makehelp( cmscalar, "help/cmscalar.help", "lib/maple.help"):
 
@@ -34,21 +32,13 @@ makehelp( grconstraint, "help/grconstraint.help", "lib/maple.help"):
 
 makehelp( grdef, "help/grdef.help", "lib/maple.help"):
 
-makehelp( grdefine, "help/grdefine.help", "lib/maple.help"):
-
 makehelp( grdisplay, "help/grdisplay.help", "lib/maple.help"):
 
 makehelp( greqn2set, "help/greqn2set.help", "lib/maple.help"):
 
 makehelp( grlib, "help/grlib.help", "lib/maple.help"):
 
-makehelp( grlimit, "help/grlimit.help", "lib/maple.help"):
-
 makehelp( grload, "help/grload.help", "lib/maple.help"):
-
-makehelp( grloaddef, "help/grloaddef.help", "lib/maple.help"):
-
-makehelp( grloadobj, "help/grloadobj.help", "lib/maple.help"):
 
 makehelp( grmap, "help/grmap.help", "lib/maple.help"):
 
@@ -63,8 +53,6 @@ makehelp( groptions, "help/groptions.help", "lib/maple.help"):
 makehelp( grsavedef, "help/grsavedef.help", "lib/maple.help"):
 
 makehelp( grsaveg, "help/grsaveg.help", "lib/maple.help"):
-
-makehelp( grsaveobj, "help/grsaveobj.help", "lib/maple.help"):
 
 makehelp( grt_basis, "help/grt_basis.help", "lib/maple.help"):
 

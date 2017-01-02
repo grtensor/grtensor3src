@@ -1,26 +1,42 @@
 GRTensor TODO
 ==============
 
+Junction
+========
+- post-load of junction objects is breakng dependency checking. 
+(use of grG_metricName in depends?)
+
+Shell evolution: result is very messy - but ISTM ok. 
+- can the constraint be expressed in terms of Beta?
+
+BUG: Need to have xform in same order as coords in M. Why?
+
+BUG: HGeqn and evInt fail (likely due to lack of a parameter for the shell?)
+
+Issue: jdiff not getting used => find a better way to get n(dn) from surface equation + xform
+Issue: Why D(2)(R)(tau) in OS??
+- can use convert( expr, diff) to unlock
+TL cases are now working as expected. 
+Issue: calc_ndn_new does not give FF2 jump zero for OS. ??
+
+ToDo:
+- need to finish the end game for OS collapse
+- do shell collapse example
+
+
 Packaging
 =========
 
-- check install instructions, help, some basic worksheets
-- create some info on table of contents in help?
-- update the Latex files and regenerate (as PDF?)
-- move HELP HTML onto gitlab public pages
-
+GRT
+===
+- add radnormal to gralter options
+- document grconstraint(add, ) variation
 
 Open Beta Prep
 ==============
-nprotate() example - not getting same tetrad to start with 
-(had to change nptetrad to [t,r])
-
 Do the caveats w.r.t I (sqrt(-1)) in the nptetrad help still apply?
 
  
-Work through the help pages (Info)
-- eta(bup,bup) display as array is crowded
-
 Intro book:
 - WeySc Psi 1/2 for NP example are close - but do not match the doc!!	
  * if change to noparam or reverse param list, then get a different Petrov type. IS that a bug?
@@ -29,13 +45,22 @@ Intro book:
 Calc book: ok
 
 Basis Book:
-	grdef("F{[a b]} := 4*lambda*l{[a}*n{b]}");
-    - definition should say NPl and NPn
+- made fixes (see commit)
 
-	grdef("my_e3{^a} := e{(b) ^a}*kdelta{^(b) $3}");
-	Created definition for grtensor:-kdelta(bup,dn) 
-	Error, (in grtensor:-grdef) Explicit coordinate 3 not found in metric schwb
-    * ALSO needed to change to my e3 - e3 was already defined
+grdef Book:
+- restrict indices is not working
+(comment out of doc/help for now)
+
+Fix up help_griii.mpl and add to Makefile (do this as part of distrib)
+
+LATEX HINTS:
+============
+Latex -> trash aux files
+run Latex
+run Bibtex
+run Latex
+run Latex
+and only then will references be ok. 
 
 
 
@@ -43,6 +68,9 @@ TODO
 ====
 Add geodesic equation as an operator on a vector
 - prompt for +/-1, 0 ?
+
+Add support for null expansion, shear and vor using k^a and N^a as parameters.
+
 
 Support email address in ?grtensor ??
 
@@ -88,14 +116,8 @@ Tests
 
 
 
-
 BUGS
 ====
-
-
-find all path manipulations and use FileTools:-JoinPath()
-grcomponent has some issues and needs fixing
-create.mpl has old concat based junk in it. 
 grC_ZERO will be broken - use $define?
 schwbasis.mws also
 

@@ -648,7 +648,7 @@ local expr, stdidx, a, idx, stdterm, idxl, idxr:
         ERROR (`Index error:`,idx[2]):
       elif stdidx=NULL then
         stdidx := idx:
-	stdterm := a:
+	      stdterm := a:
       else
         if grF_compareIndices (idx, stdidx)<>NULL then
           ERROR (`Index conflict: `,idx[2]):
@@ -686,6 +686,27 @@ grF_compareIndices := proc ( idx1, idx2 )
   RETURN ():
 end:
 
+grF_appendIdx := proc(newidx, idxIn)
+DEBUG
+local appended_idx;
+
+    if newidx[1] = -1 then
+        appended_idx := newidx:
+    else
+        # append the resulting indices into the up/down sets
+        # if there are new members
+        if {op(op(1,idxIn))} intersect {op(op(1,newidx))} = {} and
+           {op(op(2,idxIn))} intersect {op(op(2,newidx))} = {} then
+          appended_idx := [[op(op(1,idxIn)),op(op(1,newidx))],
+            [op(op(2,idxIn)),op(op(2,newidx))]]:
+        else
+          appended_idx := [-1,({op(op(1,idxIn))} intersect {op(op(1,newidx))})
+            union ({op(op(2,idxIn))} intersect {op(op(2,newidx))})]:
+        fi:
+    fi:
+    RETURN(appended_idx)
+end proc:
+
 #-----------------------------------------------------------------
 # grF_checkTermIndices
 # Descend through expressions and functions and accumulate the 
@@ -704,6 +725,14 @@ local a, idx, newidx, upset, dnset, dummyset:
   # if a terminal (index-bearing object) then get the indices for it
   if type(expr,function) and member (op(0,expr), {Tensor_, Operator_}) then
     idx := grF_getTermIndices (expr):
+      #
+      # May have indices in operator argument LieD[u,R{a b}] => 
+      # Operator_(LieD, u, Tensor_(R, [dn, dn], [a, b], 0), [], [])
+      #
+    if member (op(0,expr), {Operator_}) then
+      newidx := grF_checkTermIndices (op(2,expr)):
+      idx := grF_appendIdx(newidx, idx):
+    fi:
 
   elif type(expr,`*`) or type(expr,`+`) or type(expr,function) then
     for a in expr while idx<>-1 do
@@ -713,20 +742,7 @@ local a, idx, newidx, upset, dnset, dummyset:
       fi:
       # recurse through each term in the expression 
       newidx := grF_checkTermIndices (a):
-      if newidx[1] = -1 then
-        idx := newidx:
-      else
-        # append the resulting indices into the up/down sets
-        # if there are new members
-        if {op(op(1,idx))} intersect {op(op(1,newidx))} = {} and
-           {op(op(2,idx))} intersect {op(op(2,newidx))} = {} then
-          idx := [[op(op(1,idx)),op(op(1,newidx))],
-            [op(op(2,idx)),op(op(2,newidx))]]:
-        else
-          idx := [-1,({op(op(1,idx))} intersect {op(op(1,newidx))})
-            union ({op(op(2,idx))} intersect {op(op(2,newidx))})]:
-        fi:
-      fi:
+      idx := grF_appendIdx(newidx, idx):
     od:
   fi:
 
@@ -781,10 +797,6 @@ local pos, idx, upidx, dnidx, a, expr:
     elif op(0,expr)=Operator_ then
       pos := op(3,expr):
       idx := op(4,expr):
-      #
-      # this is not working for LieD[u,R{a b}] => 
-      # Operator_(LieD, u, Tensor_(R, [dn, dn], [a, b], 0), [], [])
-      #
       for a to nops(pos) do
         if member(pos[a], {up,cup,bup,pup,cbdn,pbdn}) then
           if member(idx[a],{upidx}) then

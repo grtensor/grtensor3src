@@ -167,7 +167,7 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
   # as a special case
   #
   if grG_fnCode = grC_DISP and objectName = x(up) then
-    print( seq( `x `^convert(a1_,name) = grG_xup_[grG_metricName,a1_], a1_=1..Ndim[grG_metricName])):
+    print( seq( `x `^convert(a1_,name) = gr_data[xup_,grG_metricName,a1_], a1_=1..Ndim[grG_metricName])):
     grG_displayZero := false:
   else
     for a1_ to Ndim[grG_metricName] do

@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{maplestd2e}
+\usepackage{fancyhdr}
+\usepackage{rotating}
+\usepackage{grbooks}
+\newcommand{\grtitle}{\renewcommand\grtitle}
+\newcommand{\grdate}{\renewcommand\grdate}
+\newcommand{\grlabel}{\renewcommand\grlabel}
+%
+\newlength{\grlabelwidth}
+\newlength{\grtitlewidth}
+\begin{document}
+\thispagestyle{empty}
+%------------------------------------------------------------------------------
+% set the page size.
+%------------------------------------------------------------------------------
+\oddsidemargin  -10pt
+\evensidemargin -10pt
+\marginparwidth 50pt 
+\marginparsep 5pt
+\topmargin 0pt
+\textheight  7.9in
+\textwidth 5.85in
+\hoffset=0.65in
+\newfont{\fntest}{cmcsc10 at 80pt}
+%
+%
+\setcounter{tocdepth}{1} % {\value{secnumdepth}}
+%
+  \begin{minipage}[t][.95\textheight][c]{.2\textwidth}
+    \begin{sideways}
+      \fntest
+      GRTensorIII
+      \normalsize
+    \end{sideways}
+    \rule{1mm}{.95\textheight}
+  \end{minipage}
+\grtitle{\grIntroTitle}
+\grlabel{\grIntroLabel}
+\begin{minipage}[t][.95\textheight][c]{.6\textwidth}
+    \settowidth{\grlabelwidth}{\grlabel.~}
+    \setlength{\grtitlewidth}{\textwidth}
+    \addtolength{\grtitlewidth}{-\grlabelwidth}
+    \Large
+    \textit{GRTensorIII Release \grRelease}\\
+    \large
+    For Maple 2016\\ [40mm]
+    \huge
+    \grlabel.~\parbox[t]{\grtitlewidth}{\raggedright\grtitle}\\ [20mm]
+    \large
+    Peter Musgrave\\
+    Denis Pollney\\ 
+    Kayll Lake\\[10mm]
+    %
+    \grdate\\ [10mm]
+    \rule{\textwidth}{.8pt}
+    \normalsize\vspace{-2\baselineskip}
+    \tableofcontents
+    \rule{\textwidth}{.8pt}
+    \vfill
+    \large
+    \textit{Queen's University at Kingston, Ontario}
+\end{minipage}
+
+\section{Intro}
+
+\section{Some More Stuff}
+
+\end{document}

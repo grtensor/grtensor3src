@@ -14,6 +14,8 @@ global grG_ObjDef;
 	print(grG_ObjDef[name][grC_calcFn]);
 	printf("CalcFnParms:\n");
 	print(grG_ObjDef[name][grC_calcFnParms]);
+	printf("Depends:\n");
+	print(grG_ObjDef[name][grC_depends]);
 
 end proc:
 
@@ -23,6 +25,8 @@ grdump := proc()
    printf("grG_rootSet=%a\n", grG_rootSet);
 end proc:
 
+#-----------------------------------------------------
+
 grdata := proc( list)
 global grG_ObjDef, grG_calcFlag; 
 
@@ -31,7 +35,13 @@ global grG_ObjDef, grG_calcFlag;
 		  printf("gr_data%a = %a\n", a, gr_data[op(a)]);
 	   od:
 	else
-		printf("gr_data%a = %a\n", list, gr_data[op(list)]):
+	   for b in list do
+		   for a in indices(gr_data) do
+		      if member(b, a) then
+			     printf("gr_data%a = %a\n", a, gr_data[op(a)]);
+			  fi:
+		   od:
+	   od:
 	fi:
 	for a in indices(grG_calcFlag) do
 	   for b in indices(grG_calcFlag[op(a)]) do

@@ -234,12 +234,12 @@ local a,b,c,i, cousins,root, newList, baseObj, objIndices, dependSet,
       # assigned during the calculation, not now!!
       #
       if (newIndex = up) and (nearIndex = dn) then
-	expr[a] := gr_data[gupup_,'grG_metricName',a||a||_,s||b||_]:
-	dependSet := dependSet union {g(up,up)}:
+      	expr[a] := gr_data[gupup_,'grG_metricName',a||a||_,s||b||_]:
+      	dependSet := dependSet union {g(up,up)}:
 
       elif (newIndex = dn) and (nearIndex = up) then
-	expr[a] := gr_data[gdndn_,'grG_metricName',a||a||_,s||b||_]:
-	dependSet := dependSet union {g(dn,dn)}:
+      	expr[a] := gr_data[gdndn_,'grG_metricName',a||a||_,s||b||_]:
+      	dependSet := dependSet union {g(dn,dn)}:
 
       elif (newIndex = bup) and (nearIndex = bdn) then
         expr[a] := gr_data[etabupbup_,'grG_metricName',a||a||_,s||b||_]:
@@ -456,8 +456,6 @@ end:
 #----------------------------------------------------------
 
 grF_makeD := proc(object)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-
 local rootObj, newPerm, oldPerm, n, a, newObject, dependsOn, raise,
 	newIndex, i:
 
@@ -554,7 +552,7 @@ global grG_ObjDef, grG_operands, gr_data:
      grG_ObjDef[newObject][grC_calcFn] := grF_calc_scalar:
      grG_ObjDef[newObject][grC_calcFnParms] :=
         parse(convert(cat(`'`,`diff(gr_data`,
-	      `[grG_ObjDef[rootObj][grC_root],grG_metricName`,seq(`,a`||i||_,i=1..n-1),
+	      `[`,grG_ObjDef[rootObj][grC_root],`,grG_metricName`,seq(`,a`||i||_,i=1..n-1),
 	      `],gr_data[xup_,grG_metricName,`,
 	      a||n||_,`])'` ),name)):
      grG_ObjDef[newObject][grC_depends] := { dependsOn }:

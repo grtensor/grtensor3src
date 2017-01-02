@@ -184,8 +184,7 @@ end:
 #------------------------------------------------------------
 
 grF_simpDecode := proc(how,gname)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-	global  grG_preSeq, grG_postSeq, grG_simpHow, grG_simp;
+	global  grG_preSeq, grG_postSeq, grG_simpHow, grG_simp, gr_data;
 	grG_preSeq := NULL:
 	grG_postSeq := NULL:
 	if how = 8 or how = normal then 
@@ -231,17 +230,17 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 		`simplify[sqrt]`;
 	elif how = 11 or how = trigsin then
 ### WARNING: persistent store makes one-argument readlib obsolete
-                readlib(trigsin):
+    readlib(trigsin):
 		grG_simpHow := simplify:
 		grG_postSeq := trigsin:
 		`simplify[trigsin]`;
 	elif how = 12 or how = cons then
 		grG_simpHow := subs:
-		grG_preSeq := grG_constraint[gname]: # this is a list
+		grG_preSeq := gr_data[constraint_, gname]: # this is a list
 		`Apply constraints`;
 	elif how = 13 or how = consr then
 		grG_simpHow := consr:
-		grG_postSeq := grG_constraint[gname]: # this is a list
+		grG_postSeq := gr_data[constraint_,gname]: # this is a list
 		`Apply constraints repeatedly`;
         elif type( how, name) then
                 grG_simpHow := how:
@@ -259,7 +258,7 @@ end:
 #----------------------------------------------------------
 
 grF_screenArgs := proc(argParm, reqCalced, reqUncalced)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
+#option trace;
 global  grG_metricName, object, grG_lastObjectSeq, grG_checkObjects_Cache:
 
 #
@@ -538,6 +537,7 @@ end:
 #----------------------------------------------------------
 
 grF_checkObjects := proc( objList, reqCalced, reqUncalced)
+#option trace;
 local a, b, i, x, actual, actual2, start, calced,
       subMe, indexStuff,
       compound, operands, item, dependSet, objectName, returnSeq,
@@ -797,6 +797,7 @@ end:
 #----------------------------------------------------------
 
 grF_checkIfDefined := proc(objectParm, act)
+#option trace;
 local  a, objRoot, i, baseObj, object, c, p, cb, pb;
 global grG_metricName;
  #
@@ -954,8 +955,8 @@ end:
 #----------------------------------------------------------
 
 grF_clear := proc(object)
-local a,b, clearMe, operands, entries, root, opList, objectName;
-global grG_metricName, grG_calcFlag, gr_data, Ndim:
+local a,b, clearMe, operands, entries, root, opList, objectName, rootStr;
+global grG_metricName, grG_calcFlag, gr_data, grG_ObjDef, Ndim:
 
   if member( object, grG_metricSet) then
     grG_metricName := object:
@@ -965,12 +966,13 @@ global grG_metricName, grG_calcFlag, gr_data, Ndim:
     # on object name and current metric name
     #
     grG_calcFlag[grG_metricName][object] := false:
-(*
+
     objectName := grF_objectName(object): # get name (might be operator)
-    entries := indices(gr_data[grG_ObjDef[objectName][grC_root]):
+    entries := indices(gr_data):
+    rootStr := grG_ObjDef[object][grC_root];
     # entries is a list with objectName, metric as the first two 
-    for a in [entries] do
-      if a[1] = objectName and a[2] = grG_metricName then
+    for a in entries do
+      if a[1] = rootStr and a[2] = grG_metricName then
          #
          # found an entry for this metric, but if it's an operator
          # we require more than just the metric name to match
@@ -985,11 +987,11 @@ global grG_metricName, grG_calcFlag, gr_data, Ndim:
             od:
          fi:
          if clearMe then
-            # how do we unassign array entry?
+             gr_data[op(a)] := evaln(gr_data[op(a)]);
          fi:
       fi:
     od:
-*)
+
   fi:
 
 end:

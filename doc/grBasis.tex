@@ -1,5 +1,5 @@
 %=================================================================-*-LaTeX-*-==
-% GRTensorII 1.50 Manual
+% GRTensorIII 1.50 Manual
 % Booklet E: Bases and tetrads
 %
 % Denis Pollney
@@ -8,7 +8,7 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{maple2e}
+%\usepackage{maple2e}
 \usepackage{longtable}
 \usepackage{grtensor}
 \usepackage{grbooks}
@@ -16,7 +16,7 @@
 \begin{document}
 \grlabel{\grBasisLabel}
 \grtitle{\grBasisTitle}
-\grdate{July 1996}
+\grdate{Nov 2016}
 \grtitlepage
 %==============================================================================
 % Body.
@@ -30,14 +30,14 @@ description is obtained when one specifies a set of coordinate axes
 product. Together, these are called a basis (or frame, or tetrad in
 four dimensions).
 
-For the most part, GRTensorII calculations for a basis directly
+For the most part, GRTensorIII calculations for a basis directly
 parallel those for a metric and the two formalisms have been described
 together wherever necessary in Booklets \textsl{A--D}. However, to
 this point most of the examples used in these documents
 have relied on calculations in metric coordinates. The goal
 of this booklet is to supplement the previous descriptions by
 emphasizing some of the unique features of symbolic calculations for
-spacetimes described by a basis in GRTensorII.
+spacetimes described by a basis in GRTensorIII.
 %
 %------------------------------------------------------------------------------
 \section{Notation}
@@ -100,17 +100,17 @@ using the basis inner product,
 A computational advantage over tensor methods is offered here, since
 by choosing basis vectors correctly the inner product $\eta_{(a)(b)}$
 can be constructed so as to have a simple form, most often with
-constant coefficients.\footnote{In GRTensorII it is not necessary that
+constant coefficients.\footnote{In GRTensorIII it is not necessary that
 $\eta_{(a)(b)}$ have constant coefficients. See the demonstration
 \texttt{mixmr.ms} available from the world-wide-web page
 \cite{www}.}\\
 
-The GRTensorII notation for the basis vectors $e_{(a)}{}^b$ is
+The GRTensorIII notation for the basis vectors $e_{(a)}{}^b$ is
 \texttt{e(bdn,up)}, following the convention that basis indices are
 labeled using \texttt{bdn} and \texttt{bup} to indicate covariant and
 contravariant components, respectively. The inner product,
 $\eta_{(a)(b)}$, is referenced using the object name
-\texttt{e(bdn,bdn)}. The creation of bases for GRTensorII is outlined
+\texttt{e(bdn,bdn)}. The creation of bases for GRTensorIII is outlined
 in Booklet \grMakegRef.\\
 
 A particularly useful form of basis (for general relativity) is given
@@ -135,7 +135,7 @@ convention, they are labeled
 \]
 A formalism for studying the geometries specified by such null tetrads
 was developed by Newman and Penrose \cite{newman/penrose:1962}. As such,
-they are often called `NP tetrads'. The standard GRTensorII library
+they are often called `NP tetrads'. The standard GRTensorIII library
 incorporates the full range of objects defined for the Newman-Penrose
 formalism, as listed in Section \ref{sec:NP}.
 
@@ -180,7 +180,7 @@ to perform an explicit simplification of the components of
 \grCalcRef, in particular the section on simplification strategies.}
 
 If the basis calculation is requested, the algorithm used by
-GRTensorII to calculate the basis components of curvature tensors are
+GRTensorIII to calculate the basis components of curvature tensors are
 chosen so as to take maximal use of the basis formalism, ie. they
 avoid the use of the metric.\footnote{In the particular case of the Ricci
 tensor, the definition is in terms of the rotation coefficients:
@@ -279,7 +279,7 @@ definitions in terms of these vectors. For instance, a
 \[
   F_{ab} := 4 \lambda l_{[a} n_{b]},
 \]
-which can be defined for GRTensorII by using the command\\
+which can be defined for GRTensorIII by using the command\\
 
 \noindent\texttt{> grdef ( `F\{[a b]\} := 4*lambda*NPl\{[a\}*NPn\{b]\}` ):}\\
 
@@ -294,7 +294,7 @@ simplification of the \texttt{l(up)}$\ldots$ \texttt{mbar(up)}, for
 instance, will not be carried over to the corresponding components of
 \texttt{e(bdn,up)}.
 
-The GRTensorII algorithms for the calculation of curvature tensors
+The GRTensorIII algorithms for the calculation of curvature tensors
 rely on the versions of the basis components stored in the objects
 \texttt{e(bdn,up)} and \texttt{e(bdn,dn)}. Thus, regardless of the
 form of the accessory objects, for calculation purposes it should be
@@ -342,13 +342,13 @@ vectors. The operators
   D := l^a\partial_a, \qquad \Delta := n^a\partial_a, \qquad
   \delta := m^a\partial_a, \qquad \delta^* := \bar{m}^a\partial_a,
 \]
-are defined by the GRTensorII operators
+are defined by the GRTensorIII operators
 \begin{center}
   \texttt{Dl[]}, \qquad \texttt{Dn[]}, \qquad \texttt{Dm[]}, \qquad
   \texttt{Dmbar[]},
 \end{center}
-respectively. The operators act on any GRTensorII object placed in
-the square braces.\footnote{GRTensorII operators are described in
+respectively. The operators act on any GRTensorIII object placed in
+the square braces.\footnote{GRTensorIII operators are described in
 Booklet \grCalcRef.} For example, the right-hand side of the
 NP equation
 \[
@@ -372,7 +372,7 @@ could be defined using the command\\
 %------------------------------------------------------------------------------
 %
 The following sections list the objects contained within the standard
-GRTensorII library which are defined specifically for use with bases.
+GRTensorIII library which are defined specifically for use with bases.
 They can be calculated using \grcmd{grcalc} once a basis has been
 created or loaded into the current session (see Booklet \grMakegRef).
 
@@ -396,7 +396,7 @@ the command\\
 
 \renewcommand{\baselinestretch}{1.5}\normalsize
 \begin{longtable}[c]{lp{.6\textwidth}}\hline\hline
-GRTensorII name & Definition\\ \hline
+GRTensorIII name & Definition\\ \hline
 \texttt{e(bdn,up)}	& basis vectors, $e_{(a)}{}^b$ \\
 \texttt{eta(bdn,bdn)}	& basis inner product, $\eta_{(a)(b)}$ \\
 \texttt{basisv(up)}	& collection of basis vectors,
@@ -436,7 +436,7 @@ tetrad. The following objects are defined in
 \cite{newman/penrose:1962}.\\
 
 \begin{longtable}[c]{p{.4\textwidth}p{.4\textwidth}}\hline\hline
-GRTensorII name & Definition\\ \hline
+GRTensorIII name & Definition\\ \hline
 & \\
 \texttt{l(up)}, \texttt{n(up)}, \texttt{m(up)}, \texttt{mbar(up)}
 				& basis vectors,\footnote{As explained
@@ -484,11 +484,11 @@ GRTensorII name & Definition\\ \hline
 A set of four derivative operators, corresponding to partial derivatives
 along the basis vectors, are also defined for the Newman-Penrose formalism.
 In the following example the argument `\grarg{object}' represents an
-arbitrary GRTensorII object on which the operator is to act.\\
+arbitrary GRTensorIII object on which the operator is to act.\\
 
 \renewcommand{\baselinestretch}{1.5}\normalsize
 \begin{longtable}[c]{ll}\hline\hline
-GRTensorII name & Definition\\ \hline
+GRTensorIII name & Definition\\ \hline
 \texttt{Dl[\grarg{object}]}	& 
 		$D  := l^c\partial_c$ \\
 \texttt{Dn[\grarg{object}]}	&
@@ -509,7 +509,7 @@ An alternate set of definitions for the Newman-Penrose coefficients is
 provided by Allen, et al. \cite{allen/etal:1994}. The definitions
 aim to gain a computational advantage by avoiding the inversion of
 the basis vectors (that is, only the covariant components are needed).
-These algorithms have been incorporated into GRTensorII and tested
+These algorithms have been incorporated into GRTensorIII and tested
 with results presented in \cite{pmsl96}. It was found that no consistent
 computational advantage was gained through use of the alternative
 formulas, though in certain cases the covariant
@@ -528,14 +528,14 @@ the formulas defined by Newman-Penrose, while the command\\
 
 \noindent calculates the same objects using the alternate `covariant'
 formulas.\footnote{Note that if one of the above commands is executed
-in a given session, then GRTensorII will recognize the Weyl
+in a given session, then GRTensorIII will recognize the Weyl
 coefficients as having been calculated. Thus the use of the second
 command will return the previously calculated results. In order to
 compare the results of each command, they must be issued individually
-in separate GRTensorII sessions.}
+in separate GRTensorIII sessions.}
 
 \begin{longtable}[c]{p{.4\textwidth}p{.4\textwidth}}\hline\hline
-GRTensorII name & Definition\\ \hline
+GRTensorIII name & Definition\\ \hline
 & \\
 \texttt{Ckappa, Csigma, Clambda, Cnu} & spin coefficients, \\
 \texttt{Crho, Cmu, Ctau, Cpi,} & $\kappa, \sigma, \ldots, \beta$\\

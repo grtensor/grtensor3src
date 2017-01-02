@@ -221,7 +221,7 @@ grG_ObjDef[C(dn,dn,up,up)][grC_depends] := {g(up,up), C(dn,dn,dn,dn)}:
 # constraint
 #----------------------------
 grG_ObjDef[constraint][grC_header] := `constraints`:
-grG_ObjDef[constraint][grC_root] := constraint:
+grG_ObjDef[constraint][grC_root] := constraint_:
 grG_ObjDef[constraint][grC_rootStr] := `constraint `:
 grG_ObjDef[constraint][grC_indexList] := []:
 grG_ObjDef[constraint][grC_symmetry] := grF_sym_scalar:
@@ -308,7 +308,7 @@ grG_ObjDef[g(dn,dn)][grC_depends] := {}:
 
 grF_precalcgdd := proc(object)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-global	grG_partner_, gr_data, Ndim, grG_metricName:
+global	gr_data, Ndim, grG_metricName:
 local	i, j, a:
 	if grF_checkIfAssigned ( e(bdn,dn) ) then
 		if not grF_checkIfAssigned ( e(bup,dn) ) then
@@ -326,8 +326,8 @@ local	i, j, a:
 				od:
 			od:
 		od:
-	elif grF_checkIfAssigned ( e(bdn,up) ) or grF_checkIfAssigned
-( g(up,up) ) then
+	elif grF_checkIfAssigned ( e(bdn,up) ) or 
+		grF_checkIfAssigned( g(up,up) ) then
 		if not grF_checkIfAssigned(g(up,up)) then
         		grF_core(g(up,up),true):
       		fi:
@@ -336,7 +336,7 @@ local	i, j, a:
       		fi:
       		grF_invMetric(gdndn_, gupup_):
 		grF_assignedFlag ( g(dn,dn), set ):
-	elif assigned(grG_partner_[grG_metricName]) and Ndim[grG_metricName] = 3 then
+	elif assigned(gr_data[partner_,grG_metricName]) then
 		# this is the intrinsic metric of a surface
 		grF_pre_calc_ff1()
 	else

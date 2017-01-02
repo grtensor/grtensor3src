@@ -33,36 +33,59 @@
 grconstraint := proc( metricName)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 
-local a,b, cType, action, choice, s:
+local a,b, cType, action, choice, s, newEqn:
 
-global grG_constraint:
+global grG_constraint, gr_data, grG_metricName:
 
- action[1] := grFc_add_constraint:
- action[2] := grFc_del_constraint:
- action[3] := grFc_mod_constraint:
- action[4] := grFc_display:
+ # can be used in interactive (no args) or command mode
+ # 
+ if nargs <> 0 then
+    if args[1] = add then
+       # take remaining args and add then 
+       # TODO allow second arg to be a metric name
+       newEqn := args[2]:
+       if assigned( gr_data[constraint_,grG_metricName]) then
+            gr_data[constraint_,grG_metricName]  :=
+                  [op(gr_data[constraint_,grG_metricName]),newEqn];
+       else
+         # assign to reference
+         gr_data[constraint_,grG_metricName]  := [newEqn];
+         grF_assignedFlag ( constraint, set ):
+       fi:
+    else
+      printf("Command %a not supported\n", args[1]);
+      ERROR("Command not supported");
+    fi:
+ else
+    # interactive
 
- while (choice <> 5) do
-   #
-   # which type of constraints have been defined ??
-   #
-   s := sprintf(`Constraint specification and manipulation\n`);
-   s := cat(s, sprintf(`\nDo you wish to\n`));
-   s := cat(s, sprintf(`1) Add a constraint to the metric\n`));
-   s := cat(s, sprintf(`2) Remove a constraint from the metric\n`));
-   s := cat(s, sprintf(`3) Modify a metric constraint\n`));
-   s := cat(s, sprintf(`4) Display the existing constraints\n`));
-   s := cat(s, sprintf(`5) Exit\n`));
+     action[1] := grFc_add_constraint:
+     action[2] := grFc_del_constraint:
+     action[3] := grFc_mod_constraint:
+     action[4] := grFc_display:
 
-   choice := 0:
-   while not type(choice, integer) or choice < 1 or choice > 5 do
-     choice := grF_input(s, [], `grconstraint`);
-   od:
-   if choice < 5 then
-     action[choice](constraint, metricName):
-   fi:
-   Done:
- od:
+     while (choice <> 5) do
+       #
+       # which type of constraints have been defined ??
+       #
+       s := sprintf(`Constraint specification and manipulation\n`);
+       s := cat(s, sprintf(`\nDo you wish to\n`));
+       s := cat(s, sprintf(`1) Add a constraint to the metric\n`));
+       s := cat(s, sprintf(`2) Remove a constraint from the metric\n`));
+       s := cat(s, sprintf(`3) Modify a metric constraint\n`));
+       s := cat(s, sprintf(`4) Display the existing constraints\n`));
+       s := cat(s, sprintf(`5) Exit\n`));
+
+       choice := 0:
+       while not type(choice, integer) or choice < 1 or choice > 5 do
+         choice := grF_input(s, [], `grconstraint`);
+       od:
+       if choice < 5 then
+         action[choice](constraint, metricName):
+       fi:
+       Done:
+     od:
+  fi:
 
 end:
 
@@ -105,13 +128,13 @@ global grG_constraint, gr_data:
  printf(`The new constraint equation is :\n`);
  print(newEqn);
 
- if assigned( grG_constraint[metric]) then
-      grG_constraint[metric]  :=
-            [op(grG_constraint[metric]),newEqn];
+ if assigned( gr_data[constraint_,metric]) then
+      gr_data[constraint_,metric]  :=
+            [op(gr_data[constraint_,metric]),newEqn];
  else
    # assign to reference
-   gr_data[constraint, metric] := grG_constraint[metric];
-   grG_constraint[metric]  := [newEqn];
+   gr_data[constraint, metric] := gr_data[constraint_,metric];
+   gr_data[constraint_,metric]  := [newEqn];
    grF_assignedFlag ( constraint, set ):
  fi:
 
@@ -209,7 +232,6 @@ global grG_constraint:
  while not okay do
    s := sprintf(`Enter the term you wish to use the constraint to eliminate\n`):
    elim := eval(grF_input(s, [], `grconstraint`)):
-   printf("elim=%a ceqn=%a\n", elim, ceqn);
    newEqn := solve( ceqn, elim):
    #
    # did we get a NULL solution, or multiple solutions ??

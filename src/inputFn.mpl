@@ -121,13 +121,12 @@ grF_maplet_input := proc (userprompt, default_value, caller)
     # Run the Maplet application. Assign result to the value
     # returned by the Maplet application.
     result := Maplets[Display]( maplet );
-    if result = "exit" then
+    if result = "exit" or result = "FAIL" then
     	ERROR(`Exit requested`):
     fi:
 
     if result = "FAIL" then
-    	quit
-        #error "request failure, an integer was not entered";
+        error "cancel requested";
     else
         do
             try
@@ -152,8 +151,7 @@ grF_maplet_input := proc (userprompt, default_value, caller)
                 result := Maplets:-Display( maplet );
 
                 if result = "FAIL" then
-                	quit
-                    #error "request failure, an integer was not entered";
+                    error "cancel requested";
                 end if;
             end try;
         end do;
