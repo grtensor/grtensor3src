@@ -345,7 +345,6 @@ end:
 #----------------------------------------------------------
 
 qload := proc( metric)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 global  grOptionFileCharacter, grOptionMetricPath, grOptionqloadPath:
 local mfile, m;
 
@@ -366,9 +365,9 @@ local mfile, m;
     #
     if not grF_testLoad( mpath) then
        if assigned(grOptionqloadPath) then
-         for m in [grOptionqloadPath,grOptionMetricPath] do
-            mpath := FileTools:-JoinPath(m, mfile);
-            if not grF_testLoad( mfile) then
+         for m in [grOptionqloadPath] do
+            mpath := FileTools:-JoinPath([m, mfile]);
+            if not grF_testLoad( mpath) then
               mfile := NULL:
             else
               break;
