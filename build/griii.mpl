@@ -121,7 +121,7 @@ global
 
 local
 	ModuleLoad := proc()
-		grinit():
+		grinit();
 	end proc:
 
 # include may not be indented
@@ -268,8 +268,8 @@ global grG_metricSet, grG_ObjDef;
 	load_hypers_objects():
     grF_gen_rootSet():
 	grF_gen_calcFnSet():
-	print("GRTensor III"):
-	print("Copyright 2016, Peter Musgrave, Denis Pollney, Kayll Lake");
+	print("GRTensor III v1.1 Jan 2, 2017"):
+	print("Copyright 2017, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://gitlab.com/grtensor/grtensor");
 	print("For help ?grtensor");
 	
