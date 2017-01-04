@@ -15,7 +15,7 @@
 # PeterM Mac
 savelibname := "/Users/peter/maple/gitlab/GRTensorIII/lib":
 
-$define junction
+#$define junction
 (*
 In GRTensorII global variables were heavily used and
 created on the fly with name concatentation. 

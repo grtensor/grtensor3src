@@ -133,7 +133,7 @@ grF_maplet_input := proc (userprompt, default_value, caller)
 
                 # Try to parse the result.
                 result := parse( result[1] );
-                return result;
+                return eval(result);
             catch:
 
                 # Define the Maplet application that returns to the user
