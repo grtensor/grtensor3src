@@ -204,7 +204,6 @@ NULL; end: # return NULL
 # Used by tangent vectors of three surface in N=4 (junction/objects_null)
 
 grF_sym_esbdnup := proc(objectName, root, calcFn)
-option trace; 
 global gr_data, grG_metricName, a1_, a2_;
     for a1_ to Ndim[grG_metricName]-1 do
       for a2_ to Ndim[grG_metricName] do

@@ -4,7 +4,7 @@ $define gname grG_metricName
 
 #----------------------------
 # C(dn,dn)
-# 2-metric of null surface
+# Curvature of null surface
 #----------------------------
 grG_ObjDef[C(dn,dn)][grC_header] := `Curvature of null surface`:
 grG_ObjDef[C(dn,dn)][grC_root] := Cdndn_:
@@ -12,7 +12,7 @@ grG_ObjDef[C(dn,dn)][grC_rootStr] := `C `:
 grG_ObjDef[C(dn,dn)][grC_indexList] := [dn,dn]:
 grG_ObjDef[C(dn,dn)][grC_calcFn] := grF_calc_Cnull:
 grG_ObjDef[C(dn,dn)][grC_symmetry] := grF_sym_sym2:
-grG_ObjDef[C(dn,dn)][grC_depends] := {N[gr_data[partner_,grG_metricName]](dn), 
+grG_ObjDef[C(dn,dn)][grC_depends] := {N[gr_data[partner_,grG_metricName]](up), 
 			es[gr_data[partner_,grG_metricName]](bdn,up,cdn)}:
 
 grF_calc_Cnull := proc(object, iList)
@@ -155,6 +155,46 @@ grF_calc_sigmadndn := proc(object, iList)
 
    juncF_project( grG_simpHow( grG_preSeq, s, grG_postSeq), pname, gname);
    RETURN(s):
+
+end proc:
+
+#----------------------------
+# sigma(up,up)
+# 2-metric of null surface
+#----------------------------
+grG_ObjDef[sigma(up,up)][grC_header] := `Metric of null surface`:
+grG_ObjDef[sigma(up,up)][grC_root] := sigmaupup_:
+grG_ObjDef[sigma(up,up)][grC_rootStr] := `sigma `:
+grG_ObjDef[sigma(up,up)][grC_indexList] := [up,up]:
+grG_ObjDef[sigma(up,up)][grC_preCalcFn] := grF_precalc_sigmaupup:
+grG_ObjDef[sigma(up,up)][grC_symmetry] := grF_sym_sym2:
+grG_ObjDef[sigma(up,up)][grC_depends] := {sigma(dn,dn)}:
+
+grF_precalc_sigmaupup := proc(object)
+  global gr_data, Ndim, grG_metricName;
+  local s, twoD, twoDinv, i, j, a, b:
+
+   # Take the 2x2 matrix from row/col 2 & 3 and invert
+  twoD := array(1 .. 2,1 .. 2):
+  for i from 2 to 3 do
+	for j from 2 to 3 do
+	  twoD[i-1,j-1] := gr_data[sigmadndn_,grG_metricName,i,j]:
+	od:
+  od:
+  twoDinv := array(1 .. 2,1 .. 2):
+  twoDinv := linalg[inverse](twoD):
+
+   for a to Ndim[gname] do
+      for b to Ndim[gname] do
+         gr_data[sigmaupup_, grG_metricName, a, b] := 0:
+      od:
+   od:
+
+   for i from 2 to 3 do
+	 for j from 2 to 3 do
+        gr_data[sigmaupup_, grG_metricName, i, j] := twoDinv[i-1, j-1]:
+	 od:
+   od:
 
 end proc:
 
