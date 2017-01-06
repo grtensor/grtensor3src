@@ -11,40 +11,6 @@
 #////////////////////////////////////////////////////////
 
 $define gname grG_metricName
-#----------------------------
-# es(bdn,up)
-# This object (in M) describes the basis
-# vectors of the surface. It should have only
-# 3 bdn index values but has to have 4 to keep
-# GRT happy (since we always assume the dimension
-# of each index is the same). Hence we set the
-# fourth basis component to zero.
-#
-# The first vector is aliased to k{^a}
-# 2 & 3 are the e{^a (2)} and e{^a (3)}
-#----------------------------
-grG_ObjDef[es(bdn,up)][grC_header] := `Basis vector`:
-grG_ObjDef[es(bdn,up)][grC_root] := esbdnup_:
-grG_ObjDef[es(bdn,up)][grC_rootStr] := `e `:
-grG_ObjDef[es(bdn,up)][grC_indexList] := [bdn,up]:
-grG_ObjDef[es(bdn,up)][grC_calcFn] := grF_calc_eupbdn_:
-grG_ObjDef[es(bdn,up)][grC_symmetry] := grF_sym_nosym2:
-grG_ObjDef[es(bdn,up)][grC_depends] := {}:
-
-grF_calc_eupbdn_ := proc(object, iList)
-global Ndim, grG_metricName, gr_data;
-local a, sname;
-
-  sname := gr_data[partner_,gname]: # get the name of the surface
-  if a1_ < Ndim[gname] then
-     a := diff( gr_data[xformup_,gname, a2_], gr_data[xup_,sname, a1_] );
-  else
-     a := 0;
-  fi;
-
-  RETURN(a);
-
-end:
 
 #----------------------------
 # l(up)
@@ -333,26 +299,6 @@ local r, l, a;
 
 end:
 
-#----------------------------
-# k(up)
-# - defined for null shells only
-#----------------------------
-grG_ObjDef[k(up)][grC_header] := `Null vector on Surface`:
-grG_ObjDef[k(up)][grC_root] := kup_:
-grG_ObjDef[k(up)][grC_rootStr] := `k `:
-grG_ObjDef[k(up)][grC_indexList] := [up]:
-grG_ObjDef[k(up)][grC_preCalcFn] := grF_calc_kup: # preCalc since we need to normalize
-grG_ObjDef[k(up)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[k(up)][grC_depends] := {xform(up)}:
-
-grF_calc_kup := proc(object)
-
-  global gr_data, grG_metricName, Ndim;
-
-  for i to Ndim[grG_metricName] do
-    gr_data[kup_, grG_metricName, i] := diff( gr_data[xformup_, grG_metricName], gr_data[null_param_, grG_metricName])
-  od:
-end proc:
 
 #----------------------------
 # nullK(dn,dn)
@@ -392,17 +338,6 @@ local s, a, b, c, s1, pname:
  unleash( -s-s1,pname,gname,false);
 
 end:
-
-#----------------------------
-# null_param
-# assigned in hypersurf()
-#----------------------------
-grG_ObjDef[null_param][grC_header] := `Null parameter on Surface`:
-grG_ObjDef[null_param][grC_root] := null_param_:
-grG_ObjDef[null_param][grC_rootStr] := `Null Parameter `:
-grG_ObjDef[null_param][grC_indexList] := []:
-grG_ObjDef[null_param][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[null_param][grC_depends] := {}: # dependencies calculated explicitly in junction()
 
 
 #----------------------------
@@ -532,35 +467,6 @@ local s, a, b;
 
  end:
 
-#----------------------------
-# N(dn)
-# This object is assigned by surf or
-# calculated by lowering N(up)
-#----------------------------
-grG_ObjDef[N(dn)][grC_header] := `Transverse Vector`:
-grG_ObjDef[N(dn)][grC_root] := Ndn_:
-grG_ObjDef[N(dn)][grC_rootStr] := `N `:
-grG_ObjDef[N(dn)][grC_indexList] := [dn]:
-grG_ObjDef[N(dn)][grC_calcFn] := grF_calc_sum1:
-grG_ObjDef[N(dn)][grC_calcFnParms] :=
-   'gr_data[gdndn_,grG_metricName, a1_, s1_] * gr_data[Nup_,grG_metricName, s1_]':
-grG_ObjDef[N(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[N(dn)][grC_depends] := {}:
-
-#----------------------------
-# N(up)
-# This object is assigned by surf or
-# calculated by raising N(dn)
-#----------------------------
-grG_ObjDef[N(up)][grC_header] := `Transverse Vector`:
-grG_ObjDef[N(up)][grC_root] := Nup_:
-grG_ObjDef[N(up)][grC_rootStr] := `N `:
-grG_ObjDef[N(up)][grC_indexList] := [up]:
-grG_ObjDef[N(up)][grC_calcFn] := grF_calc_sum1:
-grG_ObjDef[N(up)][grC_calcFnParms] :=
-   'gr_data[gupup_,grG_metricName, a1_, s1_] * gr_data[Ndn_,grG_metricName, s1_]':
-grG_ObjDef[N(up)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[N(up)][grC_depends] := {}:
 
 #----------------------------
 # n(bdn)

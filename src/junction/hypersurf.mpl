@@ -264,6 +264,7 @@ DEBUG
   if args_by_name[type] = null then
     # null surfaces use a different proc
     hypersurf_null(sName, args_by_name);
+    RETURN();
   fi:
 
   #....................................................
@@ -397,34 +398,32 @@ DEBUG
     xform_rhs[i] := rhs(args_by_name[xform][i]):
   od:
   hs_init_from_vector(xform(up), xform_rhs):
-
-  #....................................................
-  # assign the null parameter
-  # - the parameter null_param defines the null parameter (typically lambda)
-  #....................................................
-  gr_data[null_param_, grG_metricName] := rhs(args_by_name[null_param]):
-  grF_assignedFlag( null_param, set ):
   
   #....................................................
   # assign the coords on the surface 
-  # - the null_gen param specifies the TWO coords that label the 
-  #   null generators on Sigma (the Theta[A], Theta[B])
+  # - the first coord is the null parameter
   #....................................................
-  grmetric(sName):
-
-  # explicitly assign 
-  gr_data[xup_, sName, 1] := args_by_name[null_param]:
-  gr_data[xup_, sName, 2] := args_by_name[null_gen][1]:
-  gr_data[xup_, sName, 3] := args_by_name[null_gen][2]:
-  grF_assignedFlag ( xup_, set ):
-
-  # the xform functions are a constraint on the surface
+  grG_metricName := sName:
+  hs_init_from_vector(x(up), args_by_name[coord]):
   grF_assignedFlag ( constraint, set ):
+  # the xform functions are a constraint on the surface
   gr_data[constraint_, sName] := args_by_name[xform]:
+
+  print("Null generators parameterized by "|| gr_data[xup_,sName,1]):
+
+  # Back to exterior spacetime
+  grG_metricName := gr_data[partner_, sName]:
 
   #....................................................
   # Use a specified lapse (N) or determine from (k, Theta{A})
   #....................................................
+  if assigned(args_by_name[Nup]) then
+    hs_init_from_vector(N(up), args_by_name[Nup]):
+  elif assigned(args_by_name[Ndn]) then
+    hs_init_from_vector(N(dn), args_by_name[Ndn]):
+  else
+    printf("TODO: Determine N(dn)"):
+  fi:
 
   #....................................................
   # Calculate k^a and null generators Theta{A}
@@ -432,6 +431,17 @@ DEBUG
   # See https://arxiv.org/pdf/gr-qc/0207101v1.pdf
   # eqns (2.2)
   #....................................................
+  grcalc(es(bdn,up), k(up)); 
+  printf("TODO: restrict display to A,B");
+  grdisplay(es(bdn,up));
+  grdisplay(k(up));
+
+  #....................................................
+  # Calculate "metric" on surface
+  #....................................................
+  grmetric(sName);
+  grcalc(sigma(dn,dn));
+  grdisplay(sigma(dn,dn)):
 
 
 

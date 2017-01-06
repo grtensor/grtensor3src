@@ -1,8 +1,27 @@
 GRTensor TODO
 ==============
 
+
 Junction
 ========
+
+NULL
+----
+- define symmetry to do (1,2) stuff
+- define sigma(A,B) - should this be sigma(bdn,bdn)
+- might be easier to make es(1) es(2) be the sigmas or define them
+  as distinct vectors eA(up), eB(up) EXCEPT paper says:
+     y^a = (lambda, Theta^A, Theta^B) (2.1)
+  => So should stick to lambda first
+- could force definition as A=theta B=phi lambda= in hypersurf_null
+- do somethimes want to contract over AB (e.g. 2.8)
+- look also at contractions of sigma with C
+
+ juncF_project( grG_simpHow( grG_preSeq, s, grG_postSeq), pname, gname);
+?whats with the simpHow stuff here?
+
+
+
 - post-load of junction objects is breakng dependency checking. 
 (use of grG_metricName in depends?)
 

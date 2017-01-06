@@ -200,6 +200,23 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     od;
 NULL; end: # return NULL
 
+#*** 2 index ebdnup(N-1, N) ***
+# Used by tangent vectors of three surface in N=4 (junction/objects_null)
+
+grF_sym_esbdnup := proc(objectName, root, calcFn)
+option trace; 
+global gr_data, grG_metricName, a1_, a2_;
+    for a1_ to Ndim[grG_metricName]-1 do
+      for a2_ to Ndim[grG_metricName] do
+      if grG_calc and assigned(calcFn)  then
+         # assignement
+         gr_data[root,grG_metricName,grG_operands,a1_,a2_] := calcFn(objectName,[a1_,a2_]):
+      fi:
+      grF_symCore(objectName, [a1_,a2_], root):
+      od;
+    od;
+NULL; end: # return NULL
+
 #*** 2 index anti-symmetric ***
 grG_symmetry[grF_sym_asym2] := {[[2,1],-1]}:
 
