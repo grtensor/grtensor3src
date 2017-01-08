@@ -389,7 +389,11 @@ global gr_data, grG_metricName,
  # magic variable name required by operand expansion for Jump/Mean
  grG_default_Mint := inside:
  grmetric(outside);
- grcalc(Jump[g(dn,dn)]);
+ if gr_data[type_, outside] <> null then
+    grcalc(Jump[g(dn,dn)]);
+ else
+    grcalc(Jump[sigma(dn,dn)]):
+ fi:
  grdisplay(_):
 
  gr_data[join_,outside] := inside:

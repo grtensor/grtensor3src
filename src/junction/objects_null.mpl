@@ -12,18 +12,20 @@ grG_ObjDef[C(dn,dn)][grC_rootStr] := `C `:
 grG_ObjDef[C(dn,dn)][grC_indexList] := [dn,dn]:
 grG_ObjDef[C(dn,dn)][grC_calcFn] := grF_calc_Cnull:
 grG_ObjDef[C(dn,dn)][grC_symmetry] := grF_sym_sym2:
-grG_ObjDef[C(dn,dn)][grC_depends] := {N[gr_data[partner_,grG_metricName]](up), 
+grG_ObjDef[C(dn,dn)][grC_depends] := {N[gr_data[partner_,grG_metricName]](dn), 
 			es[gr_data[partner_,grG_metricName]](bdn,up,cdn)}:
 
 grF_calc_Cnull := proc(object, iList)
 local s, a, b, c, s1, pname:
 global gr_data, Ndim, grG_metricName:
 
+ printf("Cnull a1_=%d a2_=%d\n", a1_, a2_);
+
  pname := gr_data[partner_,gname]:
  s := 0:
  for a to Ndim[gname]+1 do
    for b to Ndim[gname]+1 do
-       s := s + gr_data[Nup_,pname,a] *
+       s := s + gr_data[Ndn_,pname,a] *
 		  gr_data[esbdnupcdn_,pname,a1_, a, b] *
 		  gr_data[esbdnup_,pname, a2_, b ];
    od:
@@ -58,12 +60,40 @@ local a, sname;
     for b to Ndim[gname] do
        gr_data[esbdnup_, gname, a, b] := 
           diff( gr_data[xformup_,gname,b], gr_data[xup_, gr_data[partner_, gname], a]):
+       gr_data[esbdnup_, gname, 4, b] := 0:
     od:
   od:
 
   RETURN(a);
 
 end:
+
+#----------------------------
+# j_null(up)
+# - defined for null shells only
+#----------------------------
+grG_ObjDef[j_null(up)][grC_header] := `Null mass density`:
+grG_ObjDef[j_null(up)][grC_root] := jup_:
+grG_ObjDef[j_null(up)][grC_rootStr] := `j null `:
+grG_ObjDef[j_null(up)][grC_indexList] := [up]:
+grG_ObjDef[j_null(up)][grC_symmetry] := grF_sym_vector:
+grG_ObjDef[j_null(up)][grC_calcFn] := grF_calc_j_null:
+grG_ObjDef[j_null(up)][grC_depends] := {Jump[C(dn,dn)],sigma(up,up)}:
+
+grF_calc_j_null := proc(object, iList)
+  global gr_data, Ndim, grG_metricName;
+  local s, a, b:
+
+  s := 0;
+  if a1_ > 1 then
+     for b from 2 to 3 do 
+        # select Jump[C(1,dn)]
+        s := gr_data[sigmaupup_, grG_metricName, a1_, b] * 
+        	gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],1,b]:
+     od:
+  fi:
+  RETURN(s):
+end proc:
 
 #----------------------------
 # k(up)
@@ -96,6 +126,33 @@ grG_ObjDef[null_param][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[null_param][grC_depends] := {}: # dependencies calculated explicitly in junction()
 
 #----------------------------
+# mu_null
+# - defined for null shells only
+#----------------------------
+grG_ObjDef[mu_null][grC_header] := `Null mass density`:
+grG_ObjDef[mu_null][grC_root] := mu_null_:
+grG_ObjDef[mu_null][grC_rootStr] := `mu (null) `:
+grG_ObjDef[mu_null][grC_indexList] := []:
+grG_ObjDef[mu_null][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[mu_null][grC_preCalcFn] := grF_calc_mu_null:
+grG_ObjDef[mu_null][grC_depends] := {Jump[C(dn,dn)],sigma(up,up)}:
+
+grF_calc_mu_null := proc(object)
+  global gr_data, Ndim, grG_metricName;
+  local s, a, b:
+
+  s := 0;
+  for a from 2 to 3 do
+     for b from 2 to 3 do 
+        s := gr_data[sigmaupup_, grG_metricName, a, b] * 
+        	gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],a,b]:
+     od:
+  od:
+  gr_data[mu_null_, grG_metricName] := s:
+end proc:
+
+
+#----------------------------
 # N(dn)
 # This object is assigned by surf or
 # calculated by lowering N(up)
@@ -124,6 +181,27 @@ grG_ObjDef[N(up)][grC_calcFnParms] :=
    'gr_data[gupup_,grG_metricName, a1_, s1_] * gr_data[Ndn_,grG_metricName, s1_]':
 grG_ObjDef[N(up)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[N(up)][grC_depends] := {}:
+
+#----------------------------
+# p_null
+# - defined for null shells only
+#----------------------------
+grG_ObjDef[p_null][grC_header] := `Null mass density`:
+grG_ObjDef[p_null][grC_root] := p_null_:
+grG_ObjDef[p_null][grC_rootStr] := `p null `:
+grG_ObjDef[p_null][grC_indexList] := []:
+grG_ObjDef[p_null][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[p_null][grC_preCalcFn] := grF_calc_p_null:
+grG_ObjDef[p_null][grC_depends] := {Jump[C(dn,dn)]}:
+
+grF_calc_p_null := proc(object)
+  global gr_data, Ndim, grG_metricName;
+
+  # lambda, lambda component of the jump
+  gr_data[p_null_, grG_metricName] := 
+  	    gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],1,1]:
+
+end proc:
 
 #----------------------------
 # sigma(dn,dn)

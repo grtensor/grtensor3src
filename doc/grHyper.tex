@@ -1,0 +1,65 @@
+%=================================================================-*-LaTeX-*-==
+% GRTensorIII 1. Manual
+% Booklet G: Hypersurfaces
+%
+% Peter Musgrave
+% Jan 2017
+%==============================================================================
+\documentclass{article}
+\usepackage{amsmath}
+% Maple package causes a failure of the title text to rotate
+% can just return through the missing maplelatex stmts while building
+% and document appears to be ok
+%\usepackage{maplestd2e}
+\usepackage{grtensor}
+\usepackage{grbooks}
+\usepackage{hyperref}
+%------------------------------------------------------------------------------
+\begin{document}
+%\setlength{\footrulewidth}{\headrulewidth}
+\grtitle{\grHyperTitle}
+\grlabel{\grHyperLabel}
+\grdate{Jan 2017}
+\grtitlepage
+%
+%==============================================================================
+% Body.
+%==============================================================================
+\copyrightpage
+\noindent 
+GRTensor III supports the definition and evaluation of hyper-surfaces within a spacetime, and the joining
+of two spacetimes along a hyper-surface. It facilitates the evaluation of the Darmois-Israel jump conditions
+and the determination of the hyper-surface evolution and properties of the shell (if one exists). 
+Hyper-surfaces and junctions for timelike, spacelike and null shells are supported. This functionality was
+initially provided in the GRJunction package (refs). The core objects in this package have been migrated 
+into GRTensor III Version 1.1. The commands from that package have been re-designed to allow for
+direct (non-interactive) definitions that allow worksheet recalculation in a natural way.
+
+There are numerous text book treatments and review papers that describe the junction formalism in detail. This
+booklet does not attempt to cover this material. We present a personal choice of references to establish notation
+and object definitions.
+
+A copy of the GRTensorIII source code is available online at 
+\href{url}{http:/gitlab.com/grtensor/GRTensorIII}. Merge requests
+will be considered. 
+
+%
+%------------------------------------------------------------------------------
+\section{Non-Null Hypersurfaces}
+%------------------------------------------------------------------------------
+
+
+%------------------------------------------------------------------------------
+\section{Junction Conditions}
+%------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------
+\section{Null Hypersurfaces}
+%------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------
+\vfill
+\bibliographystyle{unsrt}
+\bibliography{grtensor}
+\end{document}
+%==============================================================================

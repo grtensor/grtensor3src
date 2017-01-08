@@ -277,6 +277,7 @@ DEBUG
   gr_data[partner_,sName] := grG_metricName:
   gr_data[partner_,grG_metricName] := sName:
   Ndim[sName] := Ndim[grG_metricName]-1:
+  gr_data[type_, sName] := args_by_name[type];
 
 
   #....................................................
@@ -380,6 +381,7 @@ DEBUG
   grG_metricSet := grG_metricSet union {sName}:
   gr_data[partner_,sName] := grG_metricName:
   gr_data[partner_,grG_metricName] := sName:
+  gr_data[type_, sName] := null;
   Ndim[sName] := 3:
 
 
@@ -409,7 +411,7 @@ DEBUG
   # the xform functions are a constraint on the surface
   gr_data[constraint_, sName] := args_by_name[xform]:
 
-  print("Null generators parameterized by "|| gr_data[xup_,sName,1]):
+  print("Null generators parameterized by ", gr_data[xup_,sName,1]):
 
   # Back to exterior spacetime
   grG_metricName := gr_data[partner_, sName]:
@@ -441,6 +443,8 @@ DEBUG
   #....................................................
   grmetric(sName);
   grcalc(sigma(dn,dn));
+  # apply constraints
+  gralter(sigma(dn,dn), 12):
   grdisplay(sigma(dn,dn)):
 
 
