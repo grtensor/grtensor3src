@@ -433,10 +433,8 @@ DEBUG
   # See https://arxiv.org/pdf/gr-qc/0207101v1.pdf
   # eqns (2.2)
   #....................................................
-  grcalc(es(bdn,up), k(up)); 
-  printf("TODO: restrict display to A,B");
-  grdisplay(es(bdn,up));
-  grdisplay(k(up));
+  grcalc(k(up), eA(up), eB(up)); 
+  grdisplay(k(up), eA(up), eB(up));
 
   #....................................................
   # Calculate "metric" on surface

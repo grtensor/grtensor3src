@@ -15,7 +15,7 @@
 # PeterM Mac
 savelibname := "/Users/peter/maple/gitlab/GRTensorIII/lib":
 
-#$define junction
+$define junction
 (*
 In GRTensorII global variables were heavily used and
 created on the fly with name concatentation. 
@@ -236,7 +236,7 @@ grG_metricName := `grG_metricName`:
 $include "src/junction/objects.mpl"
 #$include "src/junction/elasticity.mpl"
 #$include "src/junction/e3_object.mpl"
-$include "src/junction/nullObjects.mpl"
+$include "src/junction/objects_null.mpl"
 #$include "src/junction/newn.mpl"
 $include "src/junction/oper.mpl"
 #

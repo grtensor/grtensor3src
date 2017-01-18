@@ -12,61 +12,67 @@ grG_ObjDef[C(dn,dn)][grC_rootStr] := `C `:
 grG_ObjDef[C(dn,dn)][grC_indexList] := [dn,dn]:
 grG_ObjDef[C(dn,dn)][grC_calcFn] := grF_calc_Cnull:
 grG_ObjDef[C(dn,dn)][grC_symmetry] := grF_sym_sym2:
-grG_ObjDef[C(dn,dn)][grC_depends] := {N[gr_data[partner_,grG_metricName]](dn), 
-			es[gr_data[partner_,grG_metricName]](bdn,up,cdn)}:
+grG_ObjDef[C(dn,dn)][grC_depends] := {
+			N[gr_data[partner_,grG_metricName]](dn), 
+			k[gr_data[partner_,grG_metricName]](up,cdn),
+			eA[gr_data[partner_,grG_metricName]](up,cdn),
+			eB[gr_data[partner_,grG_metricName]](up,cdn)
+			}:
 
 grF_calc_Cnull := proc(object, iList)
-local s, a, b, c, s1, pname:
+local s, a, b, c, s1, pname, basis_root:
 global gr_data, Ndim, grG_metricName:
 
- printf("Cnull a1_=%d a2_=%d\n", a1_, a2_);
-
  pname := gr_data[partner_,gname]:
+ basis_rootcdn := [kupcdn_, eAupcdn_, eBupcdn_]:
+ basis_root := [kup_, eAup_, eBup_]:
  s := 0:
  for a to Ndim[gname]+1 do
    for b to Ndim[gname]+1 do
        s := s + gr_data[Ndn_,pname,a] *
-		  gr_data[esbdnupcdn_,pname,a1_, a, b] *
-		  gr_data[esbdnup_,pname, a2_, b ];
+		  gr_data[basis_rootcdn[a1_],pname,a, b] *
+		  gr_data[basis_root[a2_],pname, b ];
    od:
  od:
-
- juncF_project( -s,pname,gname);
+ s := -1 * s:
+ #juncF_project( s,pname,gname);
 
 end:
 
 #----------------------------
-# es(bdn,up)
-# This object (in M) describes the basis vectors of the surface. 
-# It will only have 3 bdn index values (with the fourth set to
-# zero)
+# eA(up)
+# This object (in M) describes a basis vectors of the surface. 
 #
 # The first vector is aliased to k{^a}
 # 2 & 3 are the e{^a (2)} and e{^a (3)}
 #----------------------------
-grG_ObjDef[es(bdn,up)][grC_header] := `Basis vector`:
-grG_ObjDef[es(bdn,up)][grC_root] := esbdnup_:
-grG_ObjDef[es(bdn,up)][grC_rootStr] := `e `:
-grG_ObjDef[es(bdn,up)][grC_indexList] := [bdn,up]:
-grG_ObjDef[es(bdn,up)][grC_preCalcFn] := grF_precalc_esupbdn_:
-grG_ObjDef[es(bdn,up)][grC_symmetry] := grF_sym_esbdnup:
-grG_ObjDef[es(bdn,up)][grC_depends] := {xform(up)}:
+grG_ObjDef[eA(up)][grC_header] := `Basis vector`:
+grG_ObjDef[eA(up)][grC_root] := eAup_:
+grG_ObjDef[eA(up)][grC_rootStr] := `eA `:
+grG_ObjDef[eA(up)][grC_indexList] := [up]:
+grG_ObjDef[eA(up)][grC_calcFn] := grF_calc_sum0:
+grG_ObjDef[eA(up)][grC_calcFnParms] :=
+	'diff( gr_data[xformup_,gname,a1_], gr_data[xup_, gr_data[partner_, gname], 2])':
+grG_ObjDef[eA(up)][grC_symmetry] := grF_sym_vector:
+grG_ObjDef[eA(up)][grC_depends] := {xform(up)}:
 
-grF_precalc_esupbdn_ := proc(object, iList)
-global Ndim, grG_metricName, gr_data;
-local a, sname;
+#----------------------------
+# eB(up)
+# This object (in M) describes a basis vectors of the surface. 
+#
+# The first vector is aliased to k{^a}
+# 2 & 3 are the e{^a (2)} and e{^a (3)}
+#----------------------------
+grG_ObjDef[eB(up)][grC_header] := `Basis vector`:
+grG_ObjDef[eB(up)][grC_root] := eBup_:
+grG_ObjDef[eB(up)][grC_rootStr] := `eB `:
+grG_ObjDef[eB(up)][grC_indexList] := [up]:
+grG_ObjDef[eB(up)][grC_calcFn] := grF_calc_sum0:
+grG_ObjDef[eB(up)][grC_calcFnParms] :=
+	'diff( gr_data[xformup_,gname,a1_], gr_data[xup_, gr_data[partner_, gname], 3])':
+grG_ObjDef[eB(up)][grC_symmetry] := grF_sym_vector:
+grG_ObjDef[eB(up)][grC_depends] := {xform(up)}:
 
-  for a to Ndim[gname]-1 do
-    for b to Ndim[gname] do
-       gr_data[esbdnup_, gname, a, b] := 
-          diff( gr_data[xformup_,gname,b], gr_data[xup_, gr_data[partner_, gname], a]):
-       gr_data[esbdnup_, gname, 4, b] := 0:
-    od:
-  od:
-
-  RETURN(a);
-
-end:
 
 #----------------------------
 # j_null(up)
@@ -98,7 +104,6 @@ end proc:
 #----------------------------
 # k(up)
 # - defined for null shells only
-# - calculation is side-effect of es(bdn,up)
 #----------------------------
 grG_ObjDef[k(up)][grC_header] := `Null vector on Surface`:
 grG_ObjDef[k(up)][grC_root] := kup_:
@@ -106,11 +111,42 @@ grG_ObjDef[k(up)][grC_rootStr] := `k `:
 grG_ObjDef[k(up)][grC_indexList] := [up]:
 grG_ObjDef[k(up)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[k(up)][grC_calcFn] := grF_calc_sum0:
-# Take first basis vector in es(dbn,up)
 grG_ObjDef[k(up)][grC_calcFnParms] :=
-   'gr_data[esbdnup_,grG_metricName, 1, a1_]':
-grG_ObjDef[k(up)][grC_depends] := {es(bdn,up)}:
+	'diff( gr_data[xformup_,gname,a1_], gr_data[xup_, gr_data[partner_, gname], 1])':
+grG_ObjDef[k(up)][grC_depends] := {xform(up)}:
 
+#----------------------------
+# kdotk
+# - defined for null shells only
+#----------------------------
+grG_ObjDef[kdotk][grC_header] := `k{a} k{^a}`:
+grG_ObjDef[kdotk][grC_root] := kdotk_:
+grG_ObjDef[kdotk][grC_rootStr] := `kdotk `:
+grG_ObjDef[kdotk][grC_indexList] := []:
+grG_ObjDef[kdotk][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[kdotk][grC_calcFn] := grF_calc_sum2:
+# Take first basis vector in es(dbn,up)
+grG_ObjDef[kdotk][grC_calcFnParms] :=
+   gr_data[gdndn_,grG_metricName, s1_, s2_]* 
+   gr_data[kup_,grG_metricName, s1_]*
+   gr_data[kup_,grG_metricName, s2_]:
+grG_ObjDef[kdotk][grC_depends] := {k(up)}:
+
+#----------------------------
+# kdotN
+# - defined for null shells only
+#----------------------------
+grG_ObjDef[kdotN][grC_header] := `k{^a} N{a}`:
+grG_ObjDef[kdotN][grC_root] := kdotN_:
+grG_ObjDef[kdotN][grC_rootStr] := `kdotN `:
+grG_ObjDef[kdotN][grC_indexList] := []:
+grG_ObjDef[kdotN][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[kdotN][grC_calcFn] := grF_calc_sum1:
+# Take first basis vector in es(dbn,up)
+grG_ObjDef[kdotN][grC_calcFnParms] :=
+   gr_data[kup_,grG_metricName, s1_]*
+   gr_data[Ndn_,grG_metricName, s1_]:
+grG_ObjDef[kdotN][grC_depends] := {k(up), N(dn)}:
 
 #----------------------------
 # Do we need this?
@@ -183,6 +219,22 @@ grG_ObjDef[N(up)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[N(up)][grC_depends] := {}:
 
 #----------------------------
+# NdotN
+# - defined for null shells only
+#----------------------------
+grG_ObjDef[NdotN][grC_header] := `N{^a} N{a}`:
+grG_ObjDef[NdotN][grC_root] := NdotN_:
+grG_ObjDef[NdotN][grC_rootStr] := `NdotN `:
+grG_ObjDef[NdotN][grC_indexList] := []:
+grG_ObjDef[NdotN][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[NdotN][grC_calcFn] := grF_calc_sum1:
+# Take first basis vector in es(dbn,up)
+grG_ObjDef[NdotN][grC_calcFnParms] :=
+   gr_data[Nup_,grG_metricName, s1_]*
+   gr_data[Ndn_,grG_metricName, s1_]:
+grG_ObjDef[NdotN][grC_depends] := {N(up), N(dn), g(up,up)}:
+
+#----------------------------
 # p_null
 # - defined for null shells only
 #----------------------------
@@ -217,17 +269,16 @@ grG_ObjDef[sigma(dn,dn)][grC_depends] := {}:
 
 grF_calc_sigmadndn := proc(object, iList)
   global gr_data, Ndim, grG_metricName;
-  local s:
+  local s, basis_root:
 
    pname := gr_data[partner_,gname]:
    s := 0; 
-   # first es vector is k{^a} - skip?
-   # (could make 3x3 and have 2x2 sub-valid?)
+   basis_root := [kup_, eAup_, eBup_]:
    for a to Ndim[pname] do
       for b to Ndim[pname] do
          s := s + gr_data[gdndn_, pname, a, b] *
-         	gr_data[esbdnup_, pname, a1_, a] *
-         	gr_data[esbdnup_, pname, a2_, b]:
+         	gr_data[basis_root[a1_], pname, a] *
+         	gr_data[basis_root[a2_], pname, b]:
       od:
    od:
 
