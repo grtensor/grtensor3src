@@ -12,6 +12,8 @@ NULL
 gralter(C(dn,dn), project)
  * requires that the metric have a partner a
 
+Getting non-zero C(l,l) terms - even in the simplest example. 
+
  juncF_project( grG_simpHow( grG_preSeq, s, grG_postSeq), pname, gname);
 ?whats with the simpHow stuff here?
 

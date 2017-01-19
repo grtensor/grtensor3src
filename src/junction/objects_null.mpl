@@ -13,14 +13,36 @@ grG_ObjDef[C(dn,dn)][grC_indexList] := [dn,dn]:
 grG_ObjDef[C(dn,dn)][grC_calcFn] := grF_calc_Cnull:
 grG_ObjDef[C(dn,dn)][grC_symmetry] := grF_sym_sym2:
 grG_ObjDef[C(dn,dn)][grC_depends] := {
-			N[gr_data[partner_,grG_metricName]](dn), 
-			k[gr_data[partner_,grG_metricName]](up,cdn),
-			eA[gr_data[partner_,grG_metricName]](up,cdn),
-			eB[gr_data[partner_,grG_metricName]](up,cdn)
+			N[gr_data[partner_,grG_metricName]](dn,cdn), 
+			k[gr_data[partner_,grG_metricName]](up),
+			eA[gr_data[partner_,grG_metricName]](up),
+			eB[gr_data[partner_,grG_metricName]](up)
 			}:
 
+# Use this form (not 3.100) since cdn wants vector in 
+# the co-ordinates of M and k, eA, eB have a been 
+# converted already into Sigma
+
 grF_calc_Cnull := proc(object, iList)
-local s, a, b, c, s1, pname, basis_root:
+local s, a, b, c, s1, pname, basis_root, basis_rootcdn:
+global gr_data, Ndim, grG_metricName:
+
+ pname := gr_data[partner_,gname]:
+ basis_root := [kup_, eAup_, eBup_]:
+ s := 0:
+ for a to Ndim[gname]+1 do
+   for b to Ndim[gname]+1 do
+       s := s + (1/2)*(gr_data[Ndncdn_,pname,a, b] + gr_data[Ndncdn_,pname,b,a]) *
+		  gr_data[basis_root[a1_],pname, a] *
+		  gr_data[basis_root[a2_],pname, b ];
+   od:
+ od:
+ #juncF_project( s,pname,gname);
+
+end:
+
+grF_calc_Cnull_old := proc(object, iList)
+local s, a, b, c, s1, pname, basis_root, basis_rootcdn:
 global gr_data, Ndim, grG_metricName:
 
  pname := gr_data[partner_,gname]:
