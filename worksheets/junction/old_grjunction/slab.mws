@@ -1,0 +1,154 @@
+{VERSION 2 3 "DEC ALPHA UNIX" "2.3" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 0 
+0 }{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 }
+{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "Times" 1 10 0 0 0 1 2 2 2 0 
+0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "Text Output" -1 
+2 1 {CSTYLE "" -1 -1 "Courier" 1 10 0 0 255 1 0 0 0 0 0 1 3 0 0 }1 0 
+0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "" 2 6 1 {CSTYLE "" -1 -1 "" 0 1 
+0 0 0 0 0 0 0 0 0 0 2 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "M
+aple Output" 0 11 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+}3 3 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "R3 Font 0" -1 256 1 
+{CSTYLE "" -1 -1 "Helvetica" 1 10 255 0 0 1 2 1 2 0 0 0 0 0 0 }0 0 0 
+-1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "R3 Font 2" -1 257 1 {CSTYLE "" -1 
+-1 "Courier" 1 10 0 0 0 1 2 2 2 0 0 0 0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 
+0 -1 0 }}
+{SECT 0 {EXCHG {PARA 0 "" 0 "" {TEXT -1 4 "slab" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 8 "restart:" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 96 "Verif
+y the junction of a slab of dust to vacuum as given in \{\\em An inhom
+ogeneous Slab Cosmolgy\}" }}{PARA 0 "" 0 "" {TEXT -1 37 "K. Lake, 1992
+, Ap.J. \{\\bf 401\}:L1-L2." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 7 "grtw(
+);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%>GRTensorII~Version~1.72b~(R4)G
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%,10~Feb~1999G" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#%ZDeveloped~by~Peter~Musgrave,~Denis~Pollney~and~Kayl
+l~LakeG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%DCopyright~1994-1999~by~th
+e~authors.G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%\\oLatest~version~avai
+lable~from:~http://astro.queensu.ca/|irgrtensor/G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%3/home/lake/MetricsG" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 16 "grlib(junction):" }}{PARA 6 "" 1 "" {TEXT -1 244 "The
+ GRJunction Package Version 2.05 Release 4\nLast modified 16 Oct 1997
+\nDeveloped by Peter Musgrave and Kayll Lake, (c) 1995-97\nLatest vers
+ion available at:\n     http://www.astro.queensu.ca/~grtensor/GRjuncti
+on.html\nHelp available via ?junction" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 22 "grOptionTermSize := 0;" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#>%1grOptionTermSizeG\"\"!" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
+1 0 53 "grOptionMetricPath := `/home/lake/Junction4/Metrics`;" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#>%3grOptionMetricPathG%=/home/lake/Jun
+ction4/MetricsG" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "qload(sl
+ab1);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%2Default~spacetimeG%&slab1G
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%9For~the~slab1~spacetime:G" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%,CoordinatesG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#-%\"xG6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6&/)%#x~
+G%\"1G%\"tG/)F%%\"2G%\"xG/)F%%\"3G%\"yG/)F%%\"4G%\"zG" }}{PARA 11 "" 
+1 "" {XPPMATH 20 "6#%-Line~elementG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6
+#/*$%$~dsG\"\"#,**&%#~dG\"\"\")%\"tG%#2~GF*!\"\"*(F,#\"\"%\"\"$F)F*)%
+\"xGF-F*F**(F,F0F)F*)%\"yGF-F*F**(F,#!\"#F2F)F*)%\"zGF-F*F*" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 20 "surf(slab1, sslab1);" }}
+{PARA 6 "" 1 "" {TEXT -1 108 "\n COORRDINATES: Enter the coordinates o
+f the surface as a list\n   e.g. [theta, phi, tau]; \n   Enter a list \+
+>" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 10 "[x,y,tau];" }}{PARA 6 
+"" 1 "" {TEXT -1 188 "\n SHELL PARAMETER:\n   For a one-parameter shel
+l, enter the parameter name.\n   For a null shell indicate which coord
+inate is a null generator\n   Enter coordinate name or 0 (zero) for no
+ne >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 4 "tau;" }}{PARA 6 "" 
+1 "" {TEXT -1 161 "\n SURFACE: Please enter the coordinate definition \+
+of the surface\n   (the x\{^a\} = x(xi\{^b\})  ) as a LIST. \n   e.g. \+
+[ r=R(tau), theta=theta, phi=phi, t=T(tau)]\n  >" }}}{EXCHG {PARA 0 ">
+ " 0 "" {MPLTEXT 1 0 26 "[ z = A, x=x, y=y, t=tau];" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"%!\"$" }}{PARA 6 "" 1 "" {TEXT -1 
+125 "\n NORMAL TYPE: Please indicate the nature of the snormal vector
+\n   (-1 = timelike, 0 = null, 1= spacelike) Enter +1,0 or -1 >" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 1 "" {TEXT 
+-1 75 "\n CONSTRAINT: Use  +/- 1 = u\{^a\} u\{a\} as a constraint ?   \+
+ Enter 1 if yes >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "0;" }}
+{PARA 6 "" 1 "" {TEXT -1 205 "Default metric is now slab1\n SURFACE: E
+nter the expression for the surface.\n   The surface will be defined b
+y setting the \n   expression you enter to zero.\n   To enter the norm
+al explicitly, enter 0 (zero)" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%(sur
+faceG" }}}{EXCHG {PARA 0 " >" 0 "" {MPLTEXT 1 0 4 "z-A;" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#5!\"$" }}{PARA 6 "" 1 "" {TEXT 
+-1 146 "\n NORMAL SIGN\n   The definition of the normal vector is +/- \+
+grad(surface)\n   please enter +1 or -1 to indicate the CHOICE of sign
+\n   Enter +1,-1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#G!\"$" }}{PARA 6 "" 
+1 "" {TEXT -1 28 "Default metric is now sslab1" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%*CPU~Time~G$\"#<!\"$" }}{PARA 6 "" 1 "" {TEXT -1 27 "
+ds has not been calculated." }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%9For~t
+he~slab1~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%<The~Equation
+~of~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%)surface~G,&%\"z
+G\"\"\"%\"AG!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%9For~the~slab1~s
+pacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%GCoordinate~transforms~
+onto~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%&xformG6#%#upG
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"tG%$tauG" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"xGF&" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/)%'xform~G%\"yGF&" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/
+)%'xform~G%\"zG%\"AG" }}{PARA 6 "" 1 "" {TEXT -1 149 "The intrinsic me
+tric and normal vector have been calculated.\nYou may wish to simplify
+ them further before saving the surface\nor calculating K(dn,dn) " }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "qload(slab2);" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#/%2Default~spacetimeG%&slab2G" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#%9For~the~slab2~spacetime:G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%,CoordinatesG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%\"x
+G6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6&/)%#x~G%\"1G%\"TG/)F%%\"2G
+%\"XG/)F%%\"3G%\"YG/)F%%\"4G%\"ZG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%
+-Line~elementG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*$%$~dsG\"\"#,**&%#
+~dG\"\"\")%\"TG%#2~GF*!\"\"*(F,#\"\"%\"\"$F)F*)%\"XGF-F*F**(F,F0F)F*)%
+\"YGF-F*F**(,(*$F,F0F**&F,#F*F2-%\"fG6#%\"ZGF*F&*&F,#!\"#F2F=F&F*F*F)F
+*)F@F-F*F*" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 19 "surf(slab2,ss
+lab2);" }}{PARA 6 "" 1 "" {TEXT -1 108 "\n COORRDINATES: Enter the coo
+rdinates of the surface as a list\n   e.g. [theta, phi, tau]; \n   Ent
+er a list >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 10 "[x,y,tau];" 
+}}{PARA 6 "" 1 "" {TEXT -1 188 "\n SHELL PARAMETER:\n   For a one-para
+meter shell, enter the parameter name.\n   For a null shell indicate w
+hich coordinate is a null generator\n   Enter coordinate name or 0 (ze
+ro) for none >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 4 "tau;" }}
+{PARA 6 "" 1 "" {TEXT -1 161 "\n SURFACE: Please enter the coordinate \+
+definition of the surface\n   (the x\{^a\} = x(xi\{^b\})  ) as a LIST.
+ \n   e.g. [ r=R(tau), theta=theta, phi=phi, t=T(tau)]\n  >" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 24 "[ Z=A, X=x, Y=y, T=tau];" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"\"%!\"$" }}{PARA 6 "" 
+1 "" {TEXT -1 125 "\n NORMAL TYPE: Please indicate the nature of the s
+normal vector\n   (-1 = timelike, 0 = null, 1= spacelike) Enter +1,0 o
+r -1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 2 "1;" }}{PARA 6 "" 
+1 "" {TEXT -1 75 "\n CONSTRAINT: Use  +/- 1 = u\{^a\} u\{a\} as a cons
+traint ?    Enter 1 if yes >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 
+0 2 "0;" }}{PARA 6 "" 1 "" {TEXT -1 205 "Default metric is now slab2\n
+ SURFACE: Enter the expression for the surface.\n   The surface will b
+e defined by setting the \n   expression you enter to zero.\n   To ent
+er the normal explicitly, enter 0 (zero)" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#%(surfaceG" }}}{EXCHG {PARA 0 " >" 0 "" {MPLTEXT 1 0 4 "Z-A;" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#;!\"$" }}{PARA 6 "" 
+1 "" {TEXT -1 146 "\n NORMAL SIGN\n   The definition of the normal vec
+tor is +/- grad(surface)\n   please enter +1 or -1 to indicate the CHO
+ICE of sign\n   Enter +1,-1 >" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 
+0 2 "1;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#?!\"$" }}
+{PARA 6 "" 1 "" {TEXT -1 28 "Default metric is now sslab2" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "6#/%*CPU~Time~G$\"#6!\"$" }}{PARA 6 "" 1 "" 
+{TEXT -1 27 "ds has not been calculated." }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#%9For~the~slab2~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%
+<The~Equation~of~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%)su
+rface~G,&%\"ZG\"\"\"%\"AG!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%9Fo
+r~the~slab2~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%GCoordinat
+e~transforms~onto~the~surfaceG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#-%&x
+formG6#%#upG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"TG%$tauG
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"XG%\"xG" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "6#/)%'xform~G%\"YG%\"yG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/)%'xform~G%\"ZG%\"AG" }}{PARA 6 "" 1 "" {TEXT -1 149 "
+The intrinsic metric and normal vector have been calculated.\nYou may \+
+wish to simplify them further before saving the surface\nor calculatin
+g K(dn,dn) " }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 20 "join(sslab1,
+sslab2);" }}{PARA 6 "" 1 "" {TEXT -1 130 "sslab1 and sslab2 are now jo
+ined.\nThe default metric name is sslab1.\nThe exterior metric is: ssl
+ab1\nThe interior metric is: sslab2" }}{PARA 11 "" 1 "" {XPPMATH 20 "6
+#/%*CPU~Time~G$\"\"&!\"$" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%:For~the~
+sslab1~spacetime:G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%@~Jump~from~def
+aultMetric~-~MintG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%&Jump~G6#%
+\"aG\"\"\"&%!G6#%\"bGF)%8All~components~are~zeroG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%&slab1G" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 23 "
+grcalc(Jump[K(dn,dn)]);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%*CPU~Time
+~G$\"$@\"!\"$" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 13 "grdisplay(
+_);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%:For~the~sslab1~spacetime:G" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6#%@~Jump~from~defaultMetric~-~MintG" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&&%&Jump~G6#%\"aG\"\"\"&%!G6#%\"bGF
+)%8All~components~are~zeroG" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 
+0 "" }}}}{MARK "26 0 0" 0 }{VIEWOPTS 1 1 0 1 1 1803 }

@@ -5,6 +5,11 @@ GRTensor TODO
 Junction
 ========
 
+Fixes:
+- autoload objects?
+- allow out of order coord in xform
+- allow udn. uup to be defined in hypersurface
+
 NULL
 ----
 - add project as an alter method? 

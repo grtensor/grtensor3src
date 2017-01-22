@@ -271,6 +271,32 @@ grG_ObjDef[divSTeqn(dn)][grC_calcFnParms] :=
 grG_ObjDef[divSTeqn(dn)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[divSTeqn(dn)][grC_depends] := {Txn(dn), divS3(dn), Jump[Txn(dn)]}:
 
+#----------------------------
+# es(bdn,up)
+# This object (in M) describes the basis vectors of the surface. 
+# It will only have 3 bdn index values (with the fourth set to
+# zero)
+#----------------------------
+grG_ObjDef[es(bdn,up)][grC_header] := `Basis vector`:
+grG_ObjDef[es(bdn,up)][grC_root] := esbdnup_:
+grG_ObjDef[es(bdn,up)][grC_rootStr] := `e `:
+grG_ObjDef[es(bdn,up)][grC_indexList] := [bdn,up]:
+grG_ObjDef[es(bdn,up)][grC_preCalcFn] := grF_precalc_esupbdn_:
+grG_ObjDef[es(bdn,up)][grC_symmetry] := grF_sym_esbdnup:
+grG_ObjDef[es(bdn,up)][grC_depends] := {xform(up)}:
+
+grF_precalc_esupbdn_ := proc(object, iList)
+global Ndim, grG_metricName, gr_data;
+local a, sname;
+
+  for a to Ndim[gname]-1 do
+    for b to Ndim[gname] do
+       gr_data[esbdnup_, gname, a, b] := 
+          diff( gr_data[xformup_,gname,b], gr_data[xup_, gr_data[partner_, gname], a]):
+       gr_data[esbdnup_, gname, 4, b] := 0:
+    od:
+  od:
+end proc:
 
 #----------------------------
 # evInt

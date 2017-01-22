@@ -236,6 +236,7 @@ grG_metricName := `grG_metricName`:
 $include "src/junction/objects.mpl"
 #$include "src/junction/elasticity.mpl"
 #$include "src/junction/e3_object.mpl"
+$include "src/junction/objects_GC.mpl"
 $include "src/junction/objects_null.mpl"
 #$include "src/junction/newn.mpl"
 $include "src/junction/oper.mpl"
