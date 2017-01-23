@@ -399,21 +399,6 @@ grF_pre_calc_ff1 := proc()
 
 end:
 
-#----------------------------
-# Gnn
-#
-# Defined for the manifold
-#----------------------------
-grG_ObjDef[Gnn][grC_header] := `G{a b} n{^a} n{^b}`:
-grG_ObjDef[Gnn][grC_root] := Gnn_:
-grG_ObjDef[Gnn][grC_rootStr] := `Gnn `:
-grG_ObjDef[Gnn][grC_indexList] := []:
-grG_ObjDef[Gnn][grC_calcFn] := grF_calc_sum2_project:
-grG_ObjDef[Gnn][grC_calcFnParms] := 'gr_data[Gdndn_,grG_metricName,s1_,s2_]'*
-                       'gr_data[nup_,grG_metricName,s1_]' *
-                       'gr_data[nup_,grG_metricName,s2_]':
-grG_ObjDef[Gnn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[Gnn][grC_depends] := {G(dn,dn),n(up)}:
 
 #----------------------------
 # Gun
@@ -431,54 +416,6 @@ grG_ObjDef[Gun][grC_calcFnParms] := 'gr_data[Gdndn_,grG_metricName,s1_,s2_]'*
 grG_ObjDef[Gun][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[Gun][grC_depends] := {G(dn,dn),u(up)}:
 
-#----------------------------
-# Gxn(dn)
-#
-# Defined for the surface
-#----------------------------
-grG_ObjDef[Gxn(dn)][grC_header] := `G{a b} diff(x{^a},xi{^i}) n{^b}`:
-grG_ObjDef[Gxn(dn)][grC_root] := Gxndn_:
-grG_ObjDef[Gxn(dn)][grC_rootStr] := `Gxn `:
-grG_ObjDef[Gxn(dn)][grC_indexList] := [dn]:
-grG_ObjDef[Gxn(dn)][grC_calcFn] := grF_calc_Gxn:
-grG_ObjDef[Gxn(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[Gxn(dn)][grC_depends] := {[gr_data[partner_,gname], G(dn,dn)],
-          [gr_data[partner_,gname], n(up)]}:
-
-grF_calc_Gxn := proc( object, iList)
-local s, a, b:
-global gr_data, Ndim, grG_metricName:
-
- s := 0:
- for a to Ndim[gname] do
-    for b to Ndim[gname] do
-       s := s + gr_data[Gdndn_, gr_data[partner_,grG_metricName],a,b] *
-       diff( gr_data[xformup_,gr_data[partner_,grG_metricName],a],
-             gr_data[xup_,gname,a1_]) *
-       gr_data[nup_, gr_data[partner_,grG_metricName],b]:
-
-    od:
- od:
-
- juncF_project( s, gr_data[partner_,gname], gname);
-
-end:
-#----------------------------
-# HCGeqn
-#
-# Hamiltonian constraint equation on Sigma (G version)
-#----------------------------
-grG_ObjDef[HCeqn][grC_header] := `R + K^2 +K_{ij} K^{ij} = 0`:
-grG_ObjDef[HCeqn][grC_root] := HCeqn_:
-grG_ObjDef[HCeqn][grC_rootStr] := `HCeqn `:
-grG_ObjDef[HCeqn][grC_indexList] := []:
-grG_ObjDef[HCeqn][grC_calcFn] := grF_calc_sum0:
-grG_ObjDef[HCeqn][grC_calcFnParms] := 'grG_scalarR_[grG_metricName]'+
-                       'gr_data[trK_,grG_metricName]'^2 -
-                       'gr_data[Ksq_,grG_metricName]' =
-                       'gr_data[Gnn_,gr_data[partner_,grG_metricName]]':
-grG_ObjDef[HCeqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[HCeqn][grC_depends] := {Ricciscalar,trK,Ksq, [gr_data[partner_,gname], Tnn]}:
 
 #----------------------------
 # HCTeqn
@@ -737,6 +674,7 @@ global gr_data, Ndim, grG_metricName:
            gr_data[Rdndnupup_,gname,thetaNum,phiNum,thetaNum,phiNum]/2):
 
 end:
+
 #----------------------------
 # ndiv
 #----------------------------
@@ -1079,67 +1017,7 @@ global gr_data, Ndim, grG_metricName:
 
 end:
 
-#----------------------------
-# PCGeqn
-#
-# Momentum constraint equation on Sigma
-#----------------------------
-grG_ObjDef[PCeqn(dn)][grC_header] := `R_{;a} - K^{i}_{a;i} = 0`:
-grG_ObjDef[PCeqn(dn)][grC_root] := PCGeqn_:
-grG_ObjDef[PCeqn(dn)][grC_rootStr] := `PCGeqn `:
-grG_ObjDef[PCeqn(dn)][grC_indexList] := [dn]:
-grG_ObjDef[PCeqn(dn)][grC_calcFn] := grF_calc_PCGeqn:
-grG_ObjDef[PCeqn(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[PCeqn(dn)][grC_depends] := {trK(cdn),K(dn,up,cdn),
-                [ gr_data[partner_,gname], Gxn(dn)] }:
 
-grF_calc_PCGeqn := proc(object, iList)
-
-local s,b;
-global gr_data, Ndim, grG_metricName:
-
-  s := 0:
-
-  for b to Ndim[gname] do
-    s := s - gr_data[Kdnupcdn_,gname,a1_,b,b]:
-  od:
-
-  s := s + gr_data[trKcdn_,gname,a1_]:
-
- RETURN(s=gr_data[Gxndn_,gr_data[partner_,gname],a1_]);
-
-end:
-
-#----------------------------
-# PCTeqn
-#
-# Momentum constraint equation on Sigma
-#----------------------------
-grG_ObjDef[PCeqn(dn)][grC_header] := `R_{;a} - K^{i}_{a;i} = 0`:
-grG_ObjDef[PCeqn(dn)][grC_root] := PCTeqn_:
-grG_ObjDef[PCeqn(dn)][grC_rootStr] := `PCTeqn `:
-grG_ObjDef[PCeqn(dn)][grC_indexList] := [dn]:
-grG_ObjDef[PCeqn(dn)][grC_calcFn] := grF_calc_PCTeqn:
-grG_ObjDef[PCeqn(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[PCeqn(dn)][grC_depends] := {trK(cdn),K(dn,up,cdn),
-                [ gr_data[partner_,gname], Txn(dn)] }:
-
-grF_calc_PCTeqn := proc(object, iList)
-
-local s,b;
-global gr_data, Ndim, grG_metricName:
-
-  s := 0:
-
-  for b to Ndim[gname] do
-    s := s - gr_data[Kdnupcdn_,gname,a1_,b,b]:
-  od:
-
-  s := s + gr_data[trKcdn_,gname,a1_]:
-
- RETURN(s=8*Pi*gr_data[Txndn_,gr_data[partner_,gname],a1_]);
-
-end:
 
 #----------------------------
 # sigma

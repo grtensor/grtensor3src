@@ -285,10 +285,10 @@ DEBUG
   # timelike means surface is timelike => normal is spacelike
   #....................................................
   if args_by_name[type] = timelike then
-    gr_data[ntype_, grG_metricName] := 1:
+    gr_data[nsign_, grG_metricName] := 1:
     gr_data[utype_, grG_metricName] := -1:
   elif args_by_name[type] = spacelike then
-    gr_data[ntype_, grG_metricName] := -1:
+    gr_data[nsign_, grG_metricName] := -1:
     gr_data[utype_, grG_metricName] := 1:
   else
     # with arg checking should never happen
@@ -389,7 +389,7 @@ DEBUG
   # Set the surface tangent and normal type
   # timelike means surface is timelike => normal is spacelike
   #....................................................
-  gr_data[ntype_, grG_metricName] := 0:
+  gr_data[nsign_, grG_metricName] := 0:
   gr_data[utype_, grG_metricName] := -1:
 
   #....................................................
