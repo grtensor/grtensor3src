@@ -44,6 +44,7 @@
 grdef := proc ( )
 local a, defineStr, symSet, asymSet, subRanges, eqPos, tensorName, tensorDef,
 	symList, newTensor, newTensorDef, symFn, grdefArgs:
+global grG_default_metricName;
 
 # Check the command-line arguments:
 

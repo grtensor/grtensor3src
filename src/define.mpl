@@ -64,7 +64,7 @@ local   newObject, symm, expr, subRanges, # command args
 
 global  grG_metricName, grG_metricName1, grG_metricName2, grG_metricName3,
         grG_metricName4, grF_DIFF, grF_INT, grG_ObjDef, grG_rootSet,
-        grG_parseAuxMetrics;
+        grG_parseAuxMetrics, grG_default_metricName;
   #
   # screen the arguments
   #

@@ -6,10 +6,16 @@ Junction
 ========
 
 Fixes:
+- nsign is a bad name, really it's nsig?
 - autoload objects?
 - allow out of order coord in xform
 - allow udn. uup to be defined in hypersurface
 - when C2Geqn(dn) all components zero display is blank
+
+BUGS?
+=====
+- display of equation C2Teqn(dn) 0=0 does not show anything
+
 
 NULL
 ----

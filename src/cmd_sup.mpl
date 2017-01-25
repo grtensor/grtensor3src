@@ -259,7 +259,8 @@ end:
 
 grF_screenArgs := proc(argParm, reqCalced, reqUncalced)
 #option trace;
-global  grG_metricName, object, grG_lastObjectSeq, grG_checkObjects_Cache:
+global  grG_metricName, object, grG_lastObjectSeq, grG_checkObjects_Cache, 
+        grG_default_metricName:
 
 #
 # argParm: list of object names
@@ -681,7 +682,8 @@ global grG_metricName, grG_operands, grG_checkObjects_Cache, grG_multipleDef:
         actual2 := actual2, newMetric, object, oldMetric:
     fi:
     if oldMetric <> NULL then
-        grG_metricName := oldMetric:      
+        grG_metricName := oldMetric:   
+        grG_default_metric := oldMetric:   
         grG_checkObjects_Cache := {}:
 
     fi:
@@ -709,7 +711,6 @@ end:
 
 
 grF_assignedFlag := proc()
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 #
 # mode is either set or test
 #

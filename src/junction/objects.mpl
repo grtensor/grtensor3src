@@ -1260,21 +1260,6 @@ printf(`   To enter the normal explicitly, enter 0 (zero)\n`):
 
 end:
 
-#----------------------------
-# Tnn
-#
-# Defined for the manifold
-#----------------------------
-grG_ObjDef[Tnn][grC_header] := `T{^a ^b} n{a} n{b}`:
-grG_ObjDef[Tnn][grC_root] := Tnn_:
-grG_ObjDef[Tnn][grC_rootStr] := `Tnn `:
-grG_ObjDef[Tnn][grC_indexList] := []:
-grG_ObjDef[Tnn][grC_calcFn] := grF_calc_sum2_project:
-grG_ObjDef[Tnn][grC_calcFnParms] := 'grG_Tupup_[grG_metricName,s1_,s2_]'*
-                       'gr_data[ndn_,grG_metricName,s1_]' *
-                       'gr_data[ndn_,grG_metricName,s2_]':
-grG_ObjDef[Tnn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[Tnn][grC_depends] := {T(up,up),n(dn)}:
 
 #----------------------------
 # Tun
@@ -1292,37 +1277,6 @@ grG_ObjDef[Tun][grC_calcFnParms] := 'grG_Tdndn_[grG_metricName,s1_,s2_]'*
 grG_ObjDef[Tun][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[Tun][grC_depends] := {T(dn,dn),u(up)}:
 
-#----------------------------
-# Txn(dn)
-#
-# Defined for the 3 surface
-#----------------------------
-grG_ObjDef[Txn(dn)][grC_header] := `T{a b} diff(x{^a},xi{^i}) n{^b}`:
-grG_ObjDef[Txn(dn)][grC_root] := Txndn_:
-grG_ObjDef[Txn(dn)][grC_rootStr] := `Txn `:
-grG_ObjDef[Txn(dn)][grC_indexList] := [dn]:
-grG_ObjDef[Txn(dn)][grC_calcFn] := grF_calc_sum2:
-grG_ObjDef[Txn(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[Txn(dn)][grC_depends] := {[gr_data[partner_,gname], n(up)]}:
-
-grF_calc_Txn := proc( object, iList)
-local s, a, b:
-global gr_data, Ndim, grG_metricName:
-
- s := 0:
- for a to Ndim[gname] do
-    for b to Ndim[gname] do
-       s := s + gr_data[Tdndn_, gr_data[partner_,grG_metricName],a,b] *
-       diff( gr_data[xformup_,gr_data[partner_,grG_metricName],a],
-             gr_data[xup_,gname,a1_]) *
-       gr_data[nup_, gr_data[partner_,grG_metricName],b]:
-
-    od:
- od:
-
- juncF_project( s, gr_data[partner_,gname], gname);
-
-end:
 
 #----------------------------
 # u3(dn)

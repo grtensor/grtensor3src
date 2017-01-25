@@ -5,6 +5,8 @@
 #
 # Not sure the full GC equations are used much 
 # Seems to be mostly the contracted versions...
+# Leave the full ones commented out. They have NOT
+# been tested!
 
 $define gname grG_metricName
 
@@ -216,12 +218,67 @@ global gr_data, Ndim, grG_metricName:
 end:
 
 #----------------------------
+# Tnn
+#
+# Defined for the manifold
+#----------------------------
+grG_ObjDef[Tnn][grC_header] := `T{^a ^b} n{a} n{b}`:
+grG_ObjDef[Tnn][grC_root] := Tnn_:
+grG_ObjDef[Tnn][grC_rootStr] := `Tnn `:
+grG_ObjDef[Tnn][grC_indexList] := []:
+grG_ObjDef[Tnn][grC_calcFn] := grF_calc_sum2_project:
+grG_ObjDef[Tnn][grC_calcFnParms] := 'gr_data[Tupup_,grG_metricName,s1_,s2_]'*
+                       'gr_data[ndn_,grG_metricName,s1_]' *
+                       'gr_data[ndn_,grG_metricName,s2_]':
+grG_ObjDef[Tnn][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[Tnn][grC_depends] := {T(up,up),n(dn)}:
+
+#----------------------------
+# Txn(dn)
+#
+# Defined for the 3 surface
+# USER must have defined T(dn,dn) for their phenomenology
+#----------------------------
+grG_ObjDef[Txn(dn)][grC_header] := `T{a b} diff(x{^a},xi{^i}) n{^b}`:
+grG_ObjDef[Txn(dn)][grC_root] := Txndn_:
+grG_ObjDef[Txn(dn)][grC_rootStr] := `Txn `:
+grG_ObjDef[Txn(dn)][grC_indexList] := [dn]:
+grG_ObjDef[Txn(dn)][grC_calcFn] := grF_calc_Txn:
+grG_ObjDef[Txn(dn)][grC_symmetry] := grF_sym_vector:
+grG_ObjDef[Txn(dn)][grC_depends] := {n(up), T(dn,dn)}:
+
+grF_calc_Txn := proc( object, iList)
+local s, a, b, M, surf:
+global gr_data, Ndim, grG_metricName:
+
+ surf := gr_data[partner_,grG_metricName]:
+
+ # listing index is over basis vectors 1..3
+ if a1_ = 4 then 
+ 	RETURN(0):
+ fi:
+
+ s := 0:
+ for a to Ndim[grG_metricName] do
+    for b to Ndim[grG_metricName] do
+       s := s + gr_data[Tdndn_, M,a,b] *
+       		diff( gr_data[xformup_,M,a],gr_data[xup_,surf,a1_]) *
+       		gr_data[nup_, M, b]:
+
+    od:
+ od:
+
+ juncF_project( s, grG_metricName,  surf);
+
+end:
+
+#----------------------------
 # C1Geqn
 #
 # Hamiltonian constraint equation on Sigma (G version)
 # Toolkit (3.41)
 #----------------------------
-grG_ObjDef[C1Geqn][grC_header] := `-2 nsign G{a b} n{^a} n{^b} = R + nsign(K^2 +K_{ij} K^{ij})`:
+grG_ObjDef[C1Geqn][grC_header] := `-2 nsign G{a b} n{^a} n{^b} = R + nsign(K^2  - K_{ij} K^{ij})`:
 grG_ObjDef[C1Geqn][grC_root] := C1Geqn_:
 grG_ObjDef[C1Geqn][grC_rootStr] := `C1Geqn `:
 grG_ObjDef[C1Geqn][grC_indexList] := []:
@@ -237,6 +294,33 @@ local s, M:
  	M := gr_data[partner_,grG_metricName]:
 
 	s := -2*gr_data[nsign_, M]*gr_data[Gnn_,M] = 
+                    gr_data[C1eqnRHS_,grG_metricName]:
+
+    RETURN(s):
+end proc:
+
+#----------------------------
+# C1Teqn
+#
+# Hamiltonian constraint equation on Sigma (G version)
+# Toolkit (3.41)
+#----------------------------
+grG_ObjDef[C1Teqn][grC_header] := `16 Pi T{a b} n{^a} n{^b} = R + nsign(K^2 - K_{ij} K^{ij})`:
+grG_ObjDef[C1Teqn][grC_root] := C1Teqn_:
+grG_ObjDef[C1Teqn][grC_rootStr] := `C1Teqn `:
+grG_ObjDef[C1Teqn][grC_indexList] := []:
+grG_ObjDef[C1Teqn][grC_calcFn] := grF_calc_C1Teqn:
+grG_ObjDef[C1Teqn][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[C1Teqn][grC_depends] := {Tnn[gr_data[partner_,grG_metricName]], 
+									C1eqnRHS}:
+
+grF_calc_C1Teqn := proc(object, iList)
+global gr_data, grG_metricName, Ndim:
+local s, M:
+
+ 	M := gr_data[partner_,grG_metricName]:
+
+	s := 16*Pi*gr_data[Tnn_,M] = 
                     gr_data[C1eqnRHS_,grG_metricName]:
 
     RETURN(s):
@@ -261,9 +345,8 @@ local s, M:
 
 	M := gr_data[partner_, grG_metricName]:
 
-	s := gr_data[scalarR_,grG_metricName]+ gr_data[nsign_, M] *
-                       (gr_data[trK_,grG_metricName]^2 -
-                       gr_data[Ksq_,grG_metricName]) :
+	s := gr_data[scalarR_,grG_metricName] + gr_data[nsign_, M] *
+                       (gr_data[Ksq_,grG_metricName] - gr_data[trK_,grG_metricName]^2) :
 
 RETURN(s):
 
@@ -301,6 +384,37 @@ global gr_data, Ndim, grG_metricName:
 end:
 
 #----------------------------
+# C2Teqn(dn)
+#
+# Momentum constraint equation on Sigma
+#----------------------------
+grG_ObjDef[C2Teqn(dn)][grC_header] := `K_{,a} - K^{i}_{a;i} = T{i j} e{(a) ^i} n{^j}`:
+grG_ObjDef[C2Teqn(dn)][grC_root] := C2Teqn_:
+grG_ObjDef[C2Teqn(dn)][grC_rootStr] := `C2Teqn `:
+grG_ObjDef[C2Teqn(dn)][grC_indexList] := [dn]:
+grG_ObjDef[C2Teqn(dn)][grC_calcFn] := grF_calc_C2Teqn:
+grG_ObjDef[C2Teqn(dn)][grC_symmetry] := grF_sym_vector:
+grG_ObjDef[C2Teqn(dn)][grC_depends] := {trK(cdn),K(dn,up,cdn),
+                 Txn[gr_data[partner_,gname]](dn) }:
+
+grF_calc_C2Teqn := proc(object, iList)
+
+local s,b;
+global gr_data, Ndim, grG_metricName:
+
+  s := 0:
+
+  for b to Ndim[gname] do
+    s := s - gr_data[Kdnupcdn_,gname,a1_,b,b]:
+  od:
+
+  s := s + gr_data[trKcdn_,gname,a1_]:
+
+ RETURN(s=8*Pi*gr_data[Txndn_,gr_data[partner_,gname],a1_]);
+
+end:
+
+#----------------------------
 # C2eqnRHS(dn)
 #
 # Momentum constraint equation on Sigma
@@ -326,7 +440,7 @@ global gr_data, Ndim, grG_metricName:
 
   s := s + gr_data[trKcdn_,gname,a1_]:
 
- RETURN(s=8*Pi*gr_data[Txndn_,gr_data[partner_,gname],a1_]);
+ RETURN(s);
 
 end:
 

@@ -32,17 +32,17 @@ of two spacetimes along hyper-surfaces. It facilitates the evaluation of the Dar
 and the determination of the hyper-surface evolution and properties of the shell (if one exists). 
 Hyper-surfaces and junctions for timelike, spacelike and null shells are supported. This functionality was
 initially provided in the GRJunction package. It is now part of GRTensorIII. The commands from that package have been re-designed to allow for
-direct (non-interactive) definitions that allow worksheet recalculation in a natural way.
+direct (non-interactive) definitions that allow worksheet recalculation in a natural way. \\
 
 There are numerous text book treatments and review papers that describe the junction formalism in detail. This
 booklet does not attempt to cover this material. We present a personal choice of references to establish notation
 and object definitions. In most things we are guided by "A Relativist's Toolkit" by Eric Poisson \cite{poisson:2004}.
 Some of the issues of developing computer algorithms for hypersurface and junctions are described in the original 
-GRJunction papers \cite{musgravelake:1994, musgravelake:1997}.
+GRJunction papers \cite{musgravelake:1994, musgravelake:1997}. \\
 
 A copy of the GRTensorIII source code is available online at 
 \href{url}{http:/gitlab.com/grtensor/GRTensorIII}. Merge requests
-will be considered. 
+will be considered. \\
 
 %
 %------------------------------------------------------------------------------
@@ -50,10 +50,10 @@ will be considered.
 %------------------------------------------------------------------------------
 A hyper-surface $\Sigma$ in a spacetime $M$ is a 3-dimensional sub-space of $M$. The co-ordinates of $\Sigma$ are in 
 general distinct from those in $M$. In practice it is common to use some of the same co-ordinates in both $M$ and $\Sigma$. 
-Here we follow the definitions and conventions in \cite{toolkit} and label the co-ordinates on $\Sigma$ as $y^a$, using Roman indices on tensorial objects. The co-ordinates on $M$ are $x^\alpha$ and Greek indices are used. 
+Here we follow the definitions and conventions in \cite{toolkit} and label the co-ordinates on $\Sigma$ as $y^a$, using Roman indices on tensorial objects. The co-ordinates on $M$ are $x^\alpha$ and Greek indices are used. \\
 
 A hypersurface can be defined by either a set of relations of the form $x^\alpha = f(y^a)$ or by a scalar function $\Phi(x^\alpha)$ that is zero on 
-$\Sigma$.
+$\Sigma$. \\
  
 
 %------------------------------------------------------------------------------
@@ -70,14 +70,14 @@ The intrinsic metric $g_{a b}$ on $\Sigma$ is defined by:
 \begin{center}
 $g_{a b} = g_{\alpha \beta} e^{\alpha}_a e^{\beta}_b$
 \end{center}
-Here we deviate slightly from the nomenclature of \cite{poisson:2004} retaining the object \text\tt{g(dn,dn)} for the intrinsic metric instead of $h_{a b}$.
+Here we deviate slightly from the nomenclature of \cite{poisson:2004} retaining the object \text\tt{g(dn,dn)} for the intrinsic metric instead of $h_{a b}$. \\
 
 The normal to the hypersurface can be specified explicitly or derived as the gradient of a scalar definition $\Phi(x^\alpha) = 0$ of the surface. GRTIII 
 allows either approach. If a scalar surface definition is provided the normal is defined by:
 \begin{center}
 $n_\alpha = \frac{\epsilon \Phi_{,\alpha}}{\left| g^{\mu \nu} \Phi_{,\mu} \Phi_{,\nu} \right|}$
 \end{center}
-where $\epsilon=1$ for a timelike surface and $-1$ for a spacelike surface.
+where $\epsilon=1$ for a timelike surface and $-1$ for a spacelike surface. \\
 
 The extrinsic curvature \text\tt{K(dn,dn)} of the surface is determined by:
 \begin{center}
@@ -85,9 +85,24 @@ $K_{a b} = \nabla_\alpha n_\beta e^\alpha_a e^\beta_b = n_\alpha \left( \frac{\p
 + \Gamma^\alpha_{\mu \nu} \frac{\partial x^{\mu}}{\partial y^a} \frac{\partial x^{\nu}}{\partial y^b} \right)$
 \end{center}
 
-The GRTensorIII objects relating to timelike/spacelike hypersurfaces:
+The contracted forms of the Gauss-Codazzi equations are also provided. These are:
+\begin{center}
+$-2 \epsilon G_{\mu \nu} n^\mu n^\nu = R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$ \\
+\end{center}
+and 
+\begin{center}
+$G_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$
+\end{center}
+Note that these equations mix the contraction of objects in $M$ defined in the co-ordinates of $M$ into an equation 
+defined on $\Sigma$. By default the 
+calculation will not apply the equations restricting the objects in $M$ to $\Sigma$ but this is easily done by using the
+\text\tt{gralter} command with the \text\tt{cons} argument. \\
 
-\begin{table}
+The right-hand side of the contracted Gauss-Codazzi equations is provided as an object. In some case it is useful to
+construct modified versions of the G-C equations using $T_{\mu \nu}$ or a specific decomposition via \text\tt{grdef}. \\
+
+The GRTensorIII objects relating to timelike/spacelike hypersurfaces:
+\begin{table}[!htbp]
   \begin{center}
     \begin{tabular}{ll}\hline\hline
       \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
@@ -95,6 +110,13 @@ The GRTensorIII objects relating to timelike/spacelike hypersurfaces:
       \texttt{K(dn,dn)}        & $K_{ab} $  \\      
       \texttt{Ksq}        & $K_{ab} K^{ab}$  \\
       \texttt{trK}        & $K_{a}^{a} $  \\
+%      \texttt{GCeqn1}        & $R_{\alpha \beta \mu \nu} e^\alpha_a e^\beta_b e^\mu_c e^\nu_d =
+%      			R_{a b c d} + \epsilon \left( K_{ab} K_{bc} - K_{ac} K_{bd} \right) $  \\
+%     \texttt{GCeqn1RHS}        &  R_{a b c d} + \epsilon \left( K_{ab} K_{bc} - K_{ac} K_{bd} \right) $  \\
+      \texttt{HCGeqn}        & $-2 \epsilon G_{\mu \nu} n^\mu n^\nu = R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$  \\
+      \texttt{HCGeqnRHS}        & $R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$  \\
+      \texttt{PCGeqn}        & $G_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$ \\
+      \texttt{PCGeqnRHS}        & $ K^b_{a|b} - K_{,a}$ \\
     \end{tabular}
     \caption{GRTensorIII objects defined on $\Sigma$}
     \label{tbl:indices}
@@ -102,7 +124,7 @@ The GRTensorIII objects relating to timelike/spacelike hypersurfaces:
 \end{table}
 
 Objects defined on $M$:
-\begin{table}
+\begin{table}[!htbp]
   \begin{center}
     \begin{tabular}{ll}\hline\hline
       \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
