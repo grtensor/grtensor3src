@@ -54,7 +54,6 @@ Here we follow the definitions and conventions in \cite{toolkit} and label the c
 
 A hypersurface can be defined by either a set of relations of the form $x^\alpha = f(y^a)$ or by a scalar function $\Phi(x^\alpha)$ that is zero on 
 $\Sigma$. \\
- 
 
 %------------------------------------------------------------------------------
 \subsection{Timelike and Spacelike Surfaces}
@@ -85,7 +84,7 @@ $K_{a b} = \nabla_\alpha n_\beta e^\alpha_a e^\beta_b = n_\alpha \left( \frac{\p
 + \Gamma^\alpha_{\mu \nu} \frac{\partial x^{\mu}}{\partial y^a} \frac{\partial x^{\nu}}{\partial y^b} \right)$
 \end{center}
 
-The contracted forms of the Gauss-Codazzi equations are also provided. These are:
+The contracted forms of the Gauss-Codazzi equations are provided. These are:
 \begin{center}
 $-2 \epsilon G_{\mu \nu} n^\mu n^\nu = R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$ \\
 \end{center}
@@ -93,16 +92,27 @@ and
 \begin{center}
 $G_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$
 \end{center}
+These equations using $G{\mu \nu}$ are identities and serve as useful validation check for the package implementation. Using them to 
+examine the physics of a spacetime is done by using Einstein's equation and providing a specific form for $T{\mu \nu}$
+by using \text\tt{grdef} to define \text\tt{T(dn,dn)} and provide a phenomenology. See the \text\tt{hyper\_frw\_constraint} worksheet
+for an example (following section 3.6.2 in \cite{poisson:2004}). 
+
+\begin{center}
+$16 \pi T_{\mu \nu} n^\mu n^\nu = R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$ \\
+\end{center}
+and 
+\begin{center}
+$8 \pi T_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$
+\end{center}
+
 Note that these equations mix the contraction of objects in $M$ defined in the co-ordinates of $M$ into an equation 
 defined on $\Sigma$. By default the 
 calculation will not apply the equations restricting the objects in $M$ to $\Sigma$ but this is easily done by using the
 \text\tt{gralter} command with the \text\tt{cons} argument. \\
 
-The right-hand side of the contracted Gauss-Codazzi equations is provided as an object. In some case it is useful to
-construct modified versions of the G-C equations using $T_{\mu \nu}$ or a specific decomposition via \text\tt{grdef}. \\
-
-The GRTensorIII objects relating to timelike/spacelike hypersurfaces:
-\begin{table}[!htbp]
+The GRTensorIII objects relating to timelike/spacelike hypersurfaces are listed in Table~\ref{tab:ts1} and~\ref{tab:ts2}.
+%\begin{table}[!htbp]
+\begin{table}
   \begin{center}
     \begin{tabular}{ll}\hline\hline
       \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
@@ -113,30 +123,78 @@ The GRTensorIII objects relating to timelike/spacelike hypersurfaces:
 %      \texttt{GCeqn1}        & $R_{\alpha \beta \mu \nu} e^\alpha_a e^\beta_b e^\mu_c e^\nu_d =
 %      			R_{a b c d} + \epsilon \left( K_{ab} K_{bc} - K_{ac} K_{bd} \right) $  \\
 %     \texttt{GCeqn1RHS}        &  R_{a b c d} + \epsilon \left( K_{ab} K_{bc} - K_{ac} K_{bd} \right) $  \\
-      \texttt{HCGeqn}        & $-2 \epsilon G_{\mu \nu} n^\mu n^\nu = R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$  \\
-      \texttt{HCGeqnRHS}        & $R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$  \\
-      \texttt{PCGeqn}        & $G_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$ \\
-      \texttt{PCGeqnRHS}        & $ K^b_{a|b} - K_{,a}$ \\
+      \texttt{C1GeqnRHS}        & $R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$  \\
+       \texttt{C1Geqn}        & $-2 \epsilon G_{\mu \nu} n^\mu n^\nu = R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$  \\
+      \texttt{C1Teqn}        & $16 \pi T_{\mu \nu} n^\mu n^\nu = R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$  \\
+      \texttt{C2GeqnRHS(dn)}        & $ K^b_{a|b} - K_{,a}$ \\
+     \texttt{C2Geqn(dn)}        & $G_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$ \\
+     \texttt{C2Teqn(dn)}        & $8 \pi T_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$ \\
     \end{tabular}
-    \caption{GRTensorIII objects defined on $\Sigma$}
-    \label{tbl:indices}
+    \caption{GRTensorIII objects defined on $\Sigma$ for timelike/spacelike surfaces}
+    \label{tab:ts1}
   \end{center}
 \end{table}
 
 Objects defined on $M$:
-\begin{table}[!htbp]
+\begin{table}
   \begin{center}
     \begin{tabular}{ll}\hline\hline
       \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
 %      \texttt{e(bdn,up)}        & $e^\alpha_a $  \\
       \texttt{Gnn}        & $G^{\mu \nu} n_\mu n_\nu $  \\
+      \texttt{Gxn(dn)}        & $G_{\mu \nu} \frac{\partial x^\mu}{\partial y^a} n^\nu $  \\
+      \texttt{Tnn}        & $T^{\mu \nu} n_\mu n_\nu $  \\
+      \texttt{Txn(dn)}        & $T_{\mu \nu} \frac{\partial x^\mu}{\partial y^a} n^\nu $  \\
       \texttt{n(dn) }      & $n_\alpha$, normal to the surface   \\    
       \texttt{xform(up)}        & $x^\alpha(y^a)$, definition of the surface  \\    
     \end{tabular}
-    \caption{GRTensorIII objects defined on $M$}
-    \label{tbl:indices}
+    \caption{GRTensorIII objects defined on $M$ for timelike/spacelike surfaces}
+    \label{tab:ts2}
   \end{center}
 \end{table}
+
+%------------------------------------------------------------------------------
+\subsection{Restricting components to $\Sigma$}
+The formalization of hypersurface definition in a computer algebra system such as Maple highlights the
+fact that it is common in the literature to be inconsistent in the application of the surface definition where
+doing so complicates the expressions or makes them less intuitive. 
+
+For example, a null surface metric may be:
+\begin{center}
+$\sigma_{AB} d\theta^A d\theta^B = \lambda^2 \left(d\theta^2 + sin^2 \theta d\phi^2 \right)$
+\end{center}
+but the extrinsic curvature is written as 
+\begin{center}
+$C_{AB} = \frac{1}{2r} \sigma_{AB}$
+\end{center}
+where the surface definition includes $r=-\lambda$.
+
+In some cases the direct substitution of the $x^\alpha(y^a)$ is desired, but not in all cases. In addition there are cases where
+a direct substitution will cause issues with Maple. Consider a term:
+\begin{center}
+\text\tt{diff(f(r), r)}
+\end{center}
+in the case where $r=-lambda$. Evaluating this in Maple:
+\begin{center}
+\begin{verbatim}
+eval(subs(r = -lambda, diff(f(r), r)));
+Error, invalid input: diff received -lambda, which is not valid for its 2nd argument
+\end{verbatim}
+\end{center}
+Maple expects the argument to a \text\tt{diff} function to be a name, not an expression. \\
+
+GRTensorIII will restrict components in $M$ to $\Sigma$ as follows:
+\begin{enumerate}
+\item Determine a list of direct substitutions: the $x^\alpha(y^a)$ where the RHS is one of the $y^a$
+\item Map all derivatives that involve a non-direct substitution to the Maple \text\tt{Diff} function (the
+inactive form of the \text\tt{diff} function). 
+\item Freeze all the inactive \text\tt{Diff} functions so that a substitution of the $x^\alpha(y^a)$ will not 
+be applied
+\item Substitute the $x^\alpha(y^a)$
+\item Un-freeze the \text\tt{Diff} functions
+\end{enumerate}
+
+
 
 %------------------------------------------------------------------------------
 \subsection{Null Surfaces}
