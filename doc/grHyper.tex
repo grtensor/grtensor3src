@@ -63,13 +63,13 @@ The basic vectors of the surface in $M$ are defined by:
 $e^{\alpha}_{a} = \frac{\partial x^{\alpha}}{\partial y^a}$
 \end{center}
 
-%These correspond to the GRTIII object \text\tt{es(bdn,dn)}. This object is defined in $M$. 
+%These correspond to the GRTIII object \texttt{es(bdn,dn)}. This object is defined in $M$. 
 
 The intrinsic metric $g_{a b}$ on $\Sigma$ is defined by:
 \begin{center}
 $g_{a b} = g_{\alpha \beta} e^{\alpha}_a e^{\beta}_b$
 \end{center}
-Here we deviate slightly from the nomenclature of \cite{poisson:2004} retaining the object \text\tt{g(dn,dn)} for the intrinsic metric instead of $h_{a b}$. \\
+Here we deviate slightly from the nomenclature of \cite{poisson:2004} retaining the object \texttt{g(dn,dn)} for the intrinsic metric instead of $h_{a b}$. \\
 
 The normal to the hypersurface can be specified explicitly or derived as the gradient of a scalar definition $\Phi(x^\alpha) = 0$ of the surface. GRTIII 
 allows either approach. If a scalar surface definition is provided the normal is defined by:
@@ -78,7 +78,7 @@ $n_\alpha = \frac{\epsilon \Phi_{,\alpha}}{\left| g^{\mu \nu} \Phi_{,\mu} \Phi_{
 \end{center}
 where $\epsilon=1$ for a timelike surface and $-1$ for a spacelike surface. \\
 
-The extrinsic curvature \text\tt{K(dn,dn)} of the surface is determined by:
+The extrinsic curvature \texttt{K(dn,dn)} of the surface is determined by:
 \begin{center}
 $K_{a b} = \nabla_\alpha n_\beta e^\alpha_a e^\beta_b = n_\alpha \left( \frac{\partial^2 x^\alpha}{\partial y^a \partial y^b}
 + \Gamma^\alpha_{\mu \nu} \frac{\partial x^{\mu}}{\partial y^a} \frac{\partial x^{\nu}}{\partial y^b} \right)$
@@ -94,7 +94,7 @@ $G_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$
 \end{center}
 These equations using $G{\mu \nu}$ are identities and serve as useful validation check for the package implementation. Using them to 
 examine the physics of a spacetime is done by using Einstein's equation and providing a specific form for $T{\mu \nu}$
-by using \text\tt{grdef} to define \text\tt{T(dn,dn)} and provide a phenomenology. See the \text\tt{hyper\_frw\_constraint} worksheet
+by using \texttt{grdef} to define \texttt{T(dn,dn)} and provide a phenomenology. See the \texttt{hyper\_frw\_constraint} worksheet
 for an example (following section 3.6.2 in \cite{poisson:2004}). 
 
 \begin{center}
@@ -108,11 +108,11 @@ $8 \pi T_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$
 Note that these equations mix the contraction of objects in $M$ defined in the co-ordinates of $M$ into an equation 
 defined on $\Sigma$. By default the 
 calculation will not apply the equations restricting the objects in $M$ to $\Sigma$ but this is easily done by using the
-\text\tt{gralter} command with the \text\tt{cons} argument. \\
+\texttt{gralter} command with the \texttt{cons} argument. \\
 
 The GRTensorIII objects relating to timelike/spacelike hypersurfaces are listed in Table~\ref{tab:ts1} and~\ref{tab:ts2}.
-%\begin{table}[!htbp]
-\begin{table}
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[h]
   \begin{center}
     \begin{tabular}{ll}\hline\hline
       \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
@@ -136,7 +136,7 @@ The GRTensorIII objects relating to timelike/spacelike hypersurfaces are listed 
 \end{table}
 
 Objects defined on $M$:
-\begin{table}
+\begin{table}[h]
   \begin{center}
     \begin{tabular}{ll}\hline\hline
       \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
@@ -153,11 +153,103 @@ Objects defined on $M$:
   \end{center}
 \end{table}
 
+
+%------------------------------------------------------------------------------
+\subsection{Null Surfaces}
+The null surfaces in GRTensorIII follow the presentation in Section 3.11 of \cite{poisson:2004}. This adaptation of the 
+Barrabes-Israel forumulation \cite{bi} was first presented in \cite{poisson:2002}. The null case is distinct because the 
+normal vector $k^\mu$ is also tangent to the surface. The coordinates on the surface are $(\lambda, A, B)$ and the 
+tangent vectors are:
+\begin{center}
+$k^\mu = \left( \frac{\partial x^\mu}{\partial \lambda} \right)_{\theta^A}, 
+e^\mu_A = \left( \frac{\partial x^\mu}{\partial \theta^a} \right)_{\lambda}$
+\end{center}
+
+The surface metric itself is degenerate and described by a two metric:
+\begin{center}
+$\sigma_{AB} = g_{\mu \nu} e^\mu_A e^\nu_B$
+\end{center}
+And this two tensor acts as a metric on $\Sigma$
+
+To compute transverse curvature a vector $N_\alpha$ orthogonal to $\Sigma$ is required. It must satisfy:
+\begin{center}
+$N^\alpha N_\alpha = 0, N_\alpha k^\alpha = 0, N_\alpha e^\alpha_A = 0$
+\end{center}
+The transverse curvature is then 
+\begin{center}
+$C_{ab} = - N_\alpha e^\alpha_{a;b} e^\beta_b$
+\end{center}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{ll}\hline\hline
+      \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
+      \texttt{s3(dn,dn)}        & $\sigma_{ab} $  \\
+      \texttt{C(dn,dn)}        & $C_{ab} $  \\
+    \end{tabular}
+    \caption{GRTensorIII objects defined on $\Sigma$ for null surfaces}
+    \label{tab:null1}
+  \end{center}
+\end{table}
+
+\begin{table}[ht]
+  \begin{center}
+    \begin{tabular}{ll}\hline\hline
+      \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
+      \texttt{k(up)}        & $k^\alpha$  \\
+      \texttt{eA(up)}        & $e^\alpha_{A}, A=y^2 $  \\
+      \texttt{eB(up)}        & $e^\alpha_{B}, B=y^2 $  \\
+      \texttt{kdotk}        & $k^\alpha k_\alpha$  \\
+      \texttt{kdotN}        & $k^\alpha N_\alpha$  \\
+      \texttt{NdotN}        & $N^\alpha N_\alpha$  \\
+    \end{tabular}
+    \caption{GRTensorIII objects defined on $M$ for null surfaces}
+    \label{tab:null1}
+  \end{center}
+\end{table}
+
+
+%------------------------------------------------------------------------------
+\subsection{The \texttt{hypersurf} command}
+
+A hypersurface is defined in GRTensorIII with the \texttt{hypersurf} command. This command takes a series of
+\texttt{param=value} arguments to specify the surface. For example (putting each parameter on it's own line for readability):
+
+\begin{verbatim}
+hypersurf(shellOut, 
+type = timelike, 
+coord = [theta, phi, tau], 
+xform = [r = R(tau), theta = theta, phi = phi, t = T(tau)], 
+ndn = [diff(T(tau), tau), 0, 0, -(diff(R(tau), tau))], 
+);                
+\end{verbatim}
+
+The parameters supported by the package are:
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[ht]
+  \begin{center}
+    \begin{tabular}{lll}\hline\hline
+      \textbf{Parameter} & \textbf{Value} & Example \\ \hline
+\texttt{type} & type of surface & \texttt{timelike}, \texttt{null} \\
+\texttt{coord} & $y^a$ as list & \texttt{[tau,theta,phi]} \\
+\texttt{xform} & $x^\alpha(y^a)$ as list & \texttt{[tau,theta,phi]} \\
+\texttt{ndn} & $n_\alpha$ as list & \texttt{[1,0,0,0]} \\
+\texttt{nup} & $n^\alpha$ as list & \texttt{[1,0,0,0]} \\
+\texttt{Ndn} & $N_\alpha$ as list & \texttt{[1,0,0,0]} \\
+\texttt{Nup} & $N^\alpha$ as list & \texttt{[1,0,0,0]} \\
+\texttt{surf} & $\Phi(x^\alpha)$ & \texttt{r-R(tau)} \\
+    \end{tabular}
+    \caption{\texttt{hypersurf} command parameters}
+    \label{tab:hypersurf}
+  \end{center}
+\end{table}
+
 %------------------------------------------------------------------------------
 \subsection{Restricting components to $\Sigma$}
 The formalization of hypersurface definition in a computer algebra system such as Maple highlights the
 fact that it is common in the literature to be inconsistent in the application of the surface definition where
-doing so complicates the expressions or makes them less intuitive. 
+doing so complicates the expressions or makes them less intuitive. \\
 
 For example, a null surface metric may be:
 \begin{center}
@@ -172,7 +264,7 @@ where the surface definition includes $r=-\lambda$.
 In some cases the direct substitution of the $x^\alpha(y^a)$ is desired, but not in all cases. In addition there are cases where
 a direct substitution will cause issues with Maple. Consider a term:
 \begin{center}
-\text\tt{diff(f(r), r)}
+\texttt{diff(f(r), r)}
 \end{center}
 in the case where $r=-lambda$. Evaluating this in Maple:
 \begin{center}
@@ -181,32 +273,83 @@ eval(subs(r = -lambda, diff(f(r), r)));
 Error, invalid input: diff received -lambda, which is not valid for its 2nd argument
 \end{verbatim}
 \end{center}
-Maple expects the argument to a \text\tt{diff} function to be a name, not an expression. \\
+Maple expects the argument to a \texttt{diff} function to be a name, not an expression. \\
 
 GRTensorIII will restrict components in $M$ to $\Sigma$ as follows:
 \begin{enumerate}
 \item Determine a list of direct substitutions: the $x^\alpha(y^a)$ where the RHS is one of the $y^a$
-\item Map all derivatives that involve a non-direct substitution to the Maple \text\tt{Diff} function (the
-inactive form of the \text\tt{diff} function). 
-\item Freeze all the inactive \text\tt{Diff} functions so that a substitution of the $x^\alpha(y^a)$ will not 
+\item Map all derivatives that involve a non-direct substitution to the Maple \texttt{Diff} function (the
+inactive form of the \texttt{diff} function). 
+\item Freeze all the inactive \texttt{Diff} functions so that a substitution of the $x^\alpha(y^a)$ will not 
 be applied
 \item Substitute the $x^\alpha(y^a)$
-\item Un-freeze the \text\tt{Diff} functions
+\item Un-freeze the \texttt{Diff} functions
 \end{enumerate}
 
+In the case above...
 
+Using constraints...
+
+Ok to delete param? Ever need to chain derivatives?
 
 %------------------------------------------------------------------------------
-\subsection{Null Surfaces}
+\subsection{Working with more than one metric}
+GRTensorIII allows multiple metrics in a session. Here we highlight several ways of calculating and display objects in a session
+with more than one metric. \\
 
-%------------------------------------------------------------------------------
-\subsection{The \text\tt{hypersurf} command}
+To change the default metric, use the \texttt{grmetric} command (see \texttt{?grmetric}).\\
 
-A hypersurface is defined in GRTensorIII with the \text\tt{hypersurf} command. 
+To calculate or display an object in a non-default metric, use the metric name in the argument list, or place the metric name in 
+square braces. Eg.
+\begin{verbatim}
+grcalc(schw, R(dn,dn));
+grcalc(R[schw](dn,dn));
+\end{verbatim}
 
 %------------------------------------------------------------------------------
 \section{Junction Conditions}
 %------------------------------------------------------------------------------
+Joining two spacetimes $M^{pm}$ requires we work with two surfaces $\Sigma^{\pm}$. The hypersurfaces are identified and then
+the discontinuity in the intrinsic properties of the hypersurfaces are evaluated. i.e. $\left[ g_{ab} \right]$ and
+$\left[ K_{ab} \right]$, where $\left[ x \right]$ indicates the value on  $\Sigma^{+}$ minus the value on $\Sigma^{-}$
+(or $M^\pm$ restricted to $\Sigma$ in some cases). \\
+
+For non-null shells, the surface stress-energy tensor \texttt{S3(dn,dn)} is defined as:
+\begin{center}
+$S_{ab} = - \frac{\epsilon}{8 \pi} \left( \left[K_{ab}\right] - \left[K\right]g_{ab} \right)$
+\end{center}
+with $\epsilon = n^\alpha n_\alpha$.
+
+The command \texttt{join} is used in GRTensorIII to make this identification.
+\begin{verbatim}
+join(houtside, hinside);
+\end{verbatim}
+where \texttt{houtside} and \texttt{hinside} are hypersurfaces defined using the \texttt{hypersurface} command. This command
+links the $M^\pm$ and $\Sigma^\pm$ by defining the \texttt{join} object for each metric as the name of the metric it is identified with. 
+For example the join of \texttt{houtside} is \texttt{hinside}. With \texttt{houtside} as the default metric the discontinuity in $K_{ab}$ can be determined
+using the \texttt{Jump} operator:
+\begin{verbatim}
+grcalc(Jump[K(dn,dn)]);
+\end{verbatim}
+
+It is often the case that careful simplification of $K_{ab}$ in each hypersurface metric prior to evaluating the jump is worthwhile. \\
+
+The objects defined for junctions are:
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{lll}\hline\hline
+      \textbf{GRTensorIII name} & \textbf{Common representation} & Surface Type \\ \hline
+      \texttt{S3(dn,dn)}        & $S_{ab} $ & timelike/spacelike  \\
+      \texttt{C3(dn,dn)}        & $C_{ab} $ & null \\
+      \texttt{j\_null}   & $ j^A = \frac{1}{8 \pi} \sigma^{AB} \left[C_{\lambda B}\right]$ & null \\
+      \texttt{mu\_null}   &$ \mu= - \frac{1}{8 \pi} \sigma^{AB} \left[C_{AB}\right]$ & null \\
+      \texttt{p\_null}   &$ p = -\frac{1}{8 \pi} \left[C_{\lambda \lambda}\right]$ & null \\
+    \end{tabular}
+    \caption{GRTensorIII objects defined on $\Sigma$ for junctions}
+    \label{tab:junc}
+  \end{center}
+\end{table}
 
 
 %------------------------------------------------------------------------------

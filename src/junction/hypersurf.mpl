@@ -13,7 +13,7 @@ $define DEBUG
 #   ndn= list of components of n{a} in x{^a}
 #************************************************
 
-hs_fields := {type, coord, surf, xform, nup, ndn, param, Ndn, Nup};
+hs_fields := {type, coord, surf, xform, nup, ndn, Ndn, Nup};
 
 hs_validate[type] := proc(name, stype)
 DEBUG
@@ -117,7 +117,7 @@ hs_validate[Nup] := proc(name, value)
 end proc:
 
 
-
+(*
 hs_validate[param] := proc(name, stype)
 DEBUG
   local errorStr;
@@ -130,7 +130,7 @@ DEBUG
   RETURN(errorStr):
 
 end proc:
-
+*)
 #--------------------------------------------
 # hs_checkargs 
 #--------------------------------------------
