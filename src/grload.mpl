@@ -63,7 +63,7 @@ grload := proc ( gname, gfile )
 global  Ndim, Ndim_, constraint_,
   grG_metricName, Info_, sig_, grG_sig_, grG_complexSet_, 
   grG_metricSet, gr_data;
-local  a, b, i, j, ndim, gtype, ip, npip, g, bu, bd, bup, bdn, grinit, stsig, underscore:
+local  a, b, cons,  i, j, ndim, gtype, ip, npip, g, bu, bd, bup, bdn, grinit, stsig, underscore:
   if member ( gname, grG_metricSet ) then
     grmetric (gname):
     RETURN():
@@ -238,9 +238,12 @@ local  a, b, i, j, ndim, gtype, ip, npip, g, bu, bd, bup, bdn, grinit, stsig, un
 # initialize constraints, if they exist.
 #
   if assigned ( constraint_ ) then
-    gr_data[constraint_,gname] := [op(constraint_)]:
-    grF_assignedFlag ( constraint, set, gname ):
+    # awkward, since use constraint_ as tag
+    cons := constraint_;
     constraint_ := 'constraint_':
+    printf("Loaded constraint: %a\n", cons):
+    gr_data[constraint_,gname] := [op(cons)]:
+    grF_assignedFlag ( constraint, set, gname ):
   fi:
 #
 # initialize text information field, if it exists.
