@@ -309,7 +309,7 @@ grcalc(R[schw](dn,dn));
 %------------------------------------------------------------------------------
 \section{Junction Conditions}
 %------------------------------------------------------------------------------
-Joining two spacetimes $M^{pm}$ requires we work with two surfaces $\Sigma^{\pm}$. The hypersurfaces are identified and then
+Joining two spacetimes $M^{\pm}$ requires we work with two surfaces $\Sigma^{\pm}$. The hypersurfaces are identified and then
 the discontinuity in the intrinsic properties of the hypersurfaces are evaluated. i.e. $\left[ g_{ab} \right]$ and
 $\left[ K_{ab} \right]$, where $\left[ x \right]$ indicates the value on  $\Sigma^{+}$ minus the value on $\Sigma^{-}$
 (or $M^\pm$ restricted to $\Sigma$ in some cases). \\
@@ -318,7 +318,7 @@ For non-null shells, the surface stress-energy tensor \texttt{S3(dn,dn)} is defi
 \begin{center}
 $S_{ab} = - \frac{\epsilon}{8 \pi} \left( \left[K_{ab}\right] - \left[K\right]g_{ab} \right)$
 \end{center}
-with $\epsilon = n^\alpha n_\alpha$.
+with $\epsilon = n^\alpha n_\alpha$. \\
 
 The command \texttt{join} is used in GRTensorIII to make this identification.
 \begin{verbatim}
