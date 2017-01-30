@@ -439,6 +439,36 @@ global gr_data, Ndim, grG_metricName:
 end:
 
 #----------------------------
+# K2(dn,dn)
+# Alternate form - direct use of n(dn,cdn)
+#----------------------------
+grG_ObjDef[K2(dn,dn)][grC_header] := `Extrinsic Curvature`:
+grG_ObjDef[K2(dn,dn)][grC_root] := K2dndn_:
+grG_ObjDef[K2(dn,dn)][grC_rootStr] := `K `:
+grG_ObjDef[K2(dn,dn)][grC_indexList] := [dn,dn]:
+grG_ObjDef[K2(dn,dn)][grC_calcFn] := grF_calc_ff2_ndncdn:
+grG_ObjDef[K2(dn,dn)][grC_symmetry] := grF_sym_sym2:
+grG_ObjDef[K2(dn,dn)][grC_depends] := {n[gr_data[partner_,grG_metricName]](dn,cdn)}:
+
+grF_calc_ff2_ndncdn := proc(object, iList)
+local s, a, b, c, pname:
+global gr_data, Ndim, grG_metricName:
+
+ pname := gr_data[partner_,gname]:
+ s := 0:
+ for a to Ndim[gname]+1 do
+   for b to Ndim[gname]+1 do
+       s := s + gr_data[ndncdn_,pname,a,b] *
+      diff(gr_data[xformup_,pname,a],gr_data[xup_,gname,a1_]) *
+      diff(gr_data[xformup_,pname,b],gr_data[xup_,gname,a2_]) 
+   od:
+ od:
+
+ juncF_project( s,pname,gname);
+
+end:
+
+#----------------------------
 # Ksq
 #----------------------------
 grG_ObjDef[Ksq][grC_header] := `K_{ij} K^{ij}`:

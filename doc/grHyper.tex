@@ -14,6 +14,7 @@
 \usepackage{grtensor}
 \usepackage{grbooks}
 \usepackage{hyperref}
+\usepackage{placeins}  % allows FloatBarrier
 %------------------------------------------------------------------------------
 \begin{document}
 %\setlength{\footrulewidth}{\headrulewidth}
@@ -38,7 +39,7 @@ There are numerous text book treatments and review papers that describe the junc
 booklet does not attempt to cover this material. We present a personal choice of references to establish notation
 and object definitions. In most things we are guided by "A Relativist's Toolkit" by Eric Poisson \cite{poisson:2004}.
 Some of the issues of developing computer algorithms for hypersurface and junctions are described in the original 
-GRJunction papers \cite{musgravelake:1994, musgravelake:1997}. \\
+GRJunction papers \cite{musgravelake:1996, musgravelake:1997}. \\
 
 A copy of the GRTensorIII source code is available online at 
 \href{url}{http:/gitlab.com/grtensor/GRTensorIII}. Merge requests
@@ -50,7 +51,7 @@ will be considered. \\
 %------------------------------------------------------------------------------
 A hyper-surface $\Sigma$ in a spacetime $M$ is a 3-dimensional sub-space of $M$. The co-ordinates of $\Sigma$ are in 
 general distinct from those in $M$. In practice it is common to use some of the same co-ordinates in both $M$ and $\Sigma$. 
-Here we follow the definitions and conventions in \cite{toolkit} and label the co-ordinates on $\Sigma$ as $y^a$, using Roman indices on tensorial objects. The co-ordinates on $M$ are $x^\alpha$ and Greek indices are used. \\
+Here we follow the definitions and conventions in \cite{poisson:2004} and label the co-ordinates on $\Sigma$ as $y^a$, using Roman indices on tensorial objects. The co-ordinates on $M$ are $x^\alpha$ and Greek indices are used. \\
 
 A hypersurface can be defined by either a set of relations of the form $x^\alpha = f(y^a)$ or by a scalar function $\Phi(x^\alpha)$ that is zero on 
 $\Sigma$. \\
@@ -83,6 +84,7 @@ The extrinsic curvature \texttt{K(dn,dn)} of the surface is determined by:
 $K_{a b} = \nabla_\alpha n_\beta e^\alpha_a e^\beta_b = n_\alpha \left( \frac{\partial^2 x^\alpha}{\partial y^a \partial y^b}
 + \Gamma^\alpha_{\mu \nu} \frac{\partial x^{\mu}}{\partial y^a} \frac{\partial x^{\nu}}{\partial y^b} \right)$
 \end{center}
+GRTensorIII uses the second definition since it is defined in terms that can be evaluated directly in $\Sigma$.
 
 The contracted forms of the Gauss-Codazzi equations are provided. These are:
 \begin{center}
@@ -92,10 +94,10 @@ and
 \begin{center}
 $G_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$
 \end{center}
-These equations using $G{\mu \nu}$ are identities and serve as useful validation check for the package implementation. Using them to 
-examine the physics of a spacetime is done by using Einstein's equation and providing a specific form for $T{\mu \nu}$
-by using \texttt{grdef} to define \texttt{T(dn,dn)} and provide a phenomenology. See the \texttt{hyper\_frw\_constraint} worksheet
-for an example (following section 3.6.2 in \cite{poisson:2004}). 
+These equations using $G_{\mu \nu}$ are identities and serve as useful validation check for the package implementation. Using them to 
+examine the physics of a spacetime is done by using Einstein's equation and providing a specific form for $T_{\mu \nu}$
+by using \texttt{grdef} to define \texttt{T(dn,dn)} and provide a phenomenology. (See the \texttt{hyper\_frw\_constraint} worksheet
+for an example that follows section 3.6.2 in \cite{poisson:2004}). 
 
 \begin{center}
 $16 \pi T_{\mu \nu} n^\mu n^\nu = R + \epsilon \left( K^{i j}K_{ij} -K^2 \right)$ \\
@@ -119,7 +121,7 @@ The GRTensorIII objects relating to timelike/spacelike hypersurfaces are listed 
       \texttt{g(dn,dn)}        & $g_{ab} $  \\
       \texttt{K(dn,dn)}        & $K_{ab} $  \\      
       \texttt{Ksq}        & $K_{ab} K^{ab}$  \\
-      \texttt{trK}        & $K_{a}^{a} $  \\
+      \texttt{trK}        & $K_{a}^{a}  $  \\
 %      \texttt{GCeqn1}        & $R_{\alpha \beta \mu \nu} e^\alpha_a e^\beta_b e^\mu_c e^\nu_d =
 %      			R_{a b c d} + \epsilon \left( K_{ab} K_{bc} - K_{ac} K_{bd} \right) $  \\
 %     \texttt{GCeqn1RHS}        &  R_{a b c d} + \epsilon \left( K_{ab} K_{bc} - K_{ac} K_{bd} \right) $  \\
@@ -153,11 +155,11 @@ Objects defined on $M$:
   \end{center}
 \end{table}
 
-
+\FloatBarrier
 %------------------------------------------------------------------------------
 \subsection{Null Surfaces}
 The null surfaces in GRTensorIII follow the presentation in Section 3.11 of \cite{poisson:2004}. This adaptation of the 
-Barrabes-Israel forumulation \cite{bi} was first presented in \cite{poisson:2002}. The null case is distinct because the 
+Barrabes-Israel forumulation \cite{barrabesisrael:1991} was first presented in \cite{poisson:2002}. The null case is distinct because the 
 normal vector $k^\mu$ is also tangent to the surface. The coordinates on the surface are $(\lambda, A, B)$ and the 
 tangent vectors are:
 \begin{center}
@@ -210,6 +212,7 @@ $C_{ab} = - N_\alpha e^\alpha_{a;b} e^\beta_b$
 \end{table}
 
 
+\FloatBarrier
 %------------------------------------------------------------------------------
 \subsection{The \texttt{hypersurf} command}
 
@@ -233,7 +236,7 @@ The parameters supported by the package are:
       \textbf{Parameter} & \textbf{Value} & Example \\ \hline
 \texttt{type} & type of surface & \texttt{timelike}, \texttt{null} \\
 \texttt{coord} & $y^a$ as list & \texttt{[tau,theta,phi]} \\
-\texttt{xform} & $x^\alpha(y^a)$ as list & \texttt{[tau,theta,phi]} \\
+\texttt{xform} & $x^\alpha(y^a)$ as list & \texttt{[t=T(tau),theta=theta,phi=phi,r=R(tau)]} \\
 \texttt{ndn} & $n_\alpha$ as list & \texttt{[1,0,0,0]} \\
 \texttt{nup} & $n^\alpha$ as list & \texttt{[1,0,0,0]} \\
 \texttt{Ndn} & $N_\alpha$ as list & \texttt{[1,0,0,0]} \\
@@ -245,6 +248,7 @@ The parameters supported by the package are:
   \end{center}
 \end{table}
 
+\FloatBarrier
 %------------------------------------------------------------------------------
 \subsection{Restricting components to $\Sigma$}
 The formalization of hypersurface definition in a computer algebra system such as Maple highlights the
@@ -259,7 +263,7 @@ but the extrinsic curvature is written as
 \begin{center}
 $C_{AB} = \frac{1}{2r} \sigma_{AB}$
 \end{center}
-where the surface definition includes $r=-\lambda$.
+where the surface definition includes $r=-\lambda$. \\
 
 In some cases the direct substitution of the $x^\alpha(y^a)$ is desired, but not in all cases. In addition there are cases where
 a direct substitution will cause issues with Maple. Consider a term:
@@ -286,11 +290,18 @@ be applied
 \item Un-freeze the \texttt{Diff} functions
 \end{enumerate}
 
-In the case above...
+In some cases the end result will have inactive \texttt{Diff} functions that can be ``reactivated''. This can be done using Maple's
+convert command using \texttt{grmap}. For example in the \texttt{hyper\_frw\_constraint} worksheet
+\begin{verbatim}
+grmap(K(dn,up), convert, 'x', diff);
+\end{verbatim}
+is used to convert the inactive \texttt{Diff} to \texttt{diff}. \\
 
-Using constraints...
-
-Ok to delete param? Ever need to chain derivatives?
+The  $x^\alpha(y^a)$ relations specified by the \texttt{xform} parameter are automatically added to the constraints for the
+metric. They can be inspected using \texttt{grconstraint} and applied via e.g.
+\begin{verbatim}
+gralter(K(dn,up), cons); 
+\end{verbatim}
 
 %------------------------------------------------------------------------------
 \subsection{Working with more than one metric}
@@ -306,6 +317,7 @@ grcalc(schw, R(dn,dn));
 grcalc(R[schw](dn,dn));
 \end{verbatim}
 
+\FloatBarrier
 %------------------------------------------------------------------------------
 \section{Junction Conditions}
 %------------------------------------------------------------------------------
@@ -351,6 +363,36 @@ The objects defined for junctions are:
   \end{center}
 \end{table}
 
+\FloatBarrier
+%------------------------------------------------------------------------------
+\section{Examples}
+%------------------------------------------------------------------------------
+The directory \texttt{worksheet/junctions} contains demonstrations of the use of the package.\\
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{lll}\hline\hline
+      \textbf{Worksheet} & \textbf{Description} & Source \\ \hline
+   \texttt{hyper\_frw\_constraint} & Hypersurface in FRW &  \cite{poisson:2004}, 3.6.2 \\
+    \texttt{os\_dust\_collapse} & Oppenheimer-Snyder junction FRW to Schw & \cite{poisson:2004}, 3.8 \\
+   \texttt{null\_accreting} & Accreting Kerr BH to order a &  \cite{poisson:2004}, 3.11.7 \\
+   \texttt{null\_accreting\_k} & Accreting Kerr BH to order a &  \cite{poisson:2004}, 3.11.7 \\
+    & (check $k^\alpha$ $N^\alpha$) &  \\
+    \texttt{null\_cosmo} & Null junction cosmology phase transitions &  \cite{poisson:2004}, 3.11.8 \\
+    \texttt{null\_shell\_implosion} & Null shell implosion &  \cite{poisson:2004}, 3.11.6 \\
+    \texttt{schw\_shell} & Spherical dust shell collapse &  \cite{poisson:2004}, 3.9 \\
+    \texttt{spinning\_shell} & Spherical shell as Kerr source (order a) &  \cite{poisson:2004}, 3.10 \\
+     \end{tabular}
+    \caption{Example Worksheets for Hypersurfaces and Junctions}
+    \label{tab:junc}
+  \end{center}
+\end{table}
+
+In all but one case, the results from the reference are easily reproduced. The exception is the derivation of the equation of motion for 
+a collapsing dust shell in a Schwarzschild background. In this case the resulting differential equations are not very accesible. 
+The grouping of terms $K_{ab}$ into intermediate functions in \cite{poisson:2004}, 3.9 allows a very transparent progression to the solution. 
+This is where human skill is required to augment the computer assisted calculations!
 
 %------------------------------------------------------------------------------
 \vfill
