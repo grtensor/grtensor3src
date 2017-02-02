@@ -15,7 +15,7 @@ Fixes:
 BUGS?
 =====
 - display of equation C2Teqn(dn) 0=0 does not show anything
-
+- mu for null rotating shell off by a factor of 2 (but j(up) is ok)
 
 NULL
 ----

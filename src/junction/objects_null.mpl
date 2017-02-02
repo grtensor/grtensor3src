@@ -12,13 +12,13 @@ grG_ObjDef[C(dn,dn)][grC_rootStr] := `C `:
 grG_ObjDef[C(dn,dn)][grC_indexList] := [dn,dn]:
 grG_ObjDef[C(dn,dn)][grC_calcFn] := grF_calc_Cnull:
 grG_ObjDef[C(dn,dn)][grC_symmetry] := grF_sym_sym2:
+
 grG_ObjDef[C(dn,dn)][grC_depends] := {
 			N[gr_data[partner_,grG_metricName]](dn,cdn), 
 			k[gr_data[partner_,grG_metricName]](up),
 			eA[gr_data[partner_,grG_metricName]](up),
 			eB[gr_data[partner_,grG_metricName]](up)
 			}:
-
 # Use this form (not 3.100) since cdn wants vector in 
 # the co-ordinates of M and k, eA, eB have a been 
 # converted already into Sigma
@@ -37,26 +37,6 @@ global gr_data, Ndim, grG_metricName:
 		  gr_data[basis_root[a2_],pname, b ];
    od:
  od:
- #juncF_project( s,pname,gname);
-
-end:
-
-grF_calc_Cnull_old := proc(object, iList)
-local s, a, b, c, s1, pname, basis_root, basis_rootcdn:
-global gr_data, Ndim, grG_metricName:
-
- pname := gr_data[partner_,gname]:
- basis_rootcdn := [kupcdn_, eAupcdn_, eBupcdn_]:
- basis_root := [kup_, eAup_, eBup_]:
- s := 0:
- for a to Ndim[gname]+1 do
-   for b to Ndim[gname]+1 do
-       s := s + gr_data[Ndn_,pname,a] *
-		  gr_data[basis_rootcdn[a1_],pname,a, b] *
-		  gr_data[basis_root[a2_],pname, b ];
-   od:
- od:
- s := -1 * s:
  #juncF_project( s,pname,gname);
 
 end:
@@ -120,6 +100,7 @@ grF_calc_j_null := proc(object, iList)
         	gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],1,b]:
      od:
   fi:
+  s := 1/(8*Pi)*s;
   RETURN(s):
 end proc:
 
@@ -202,11 +183,11 @@ grF_calc_mu_null := proc(object)
   s := 0;
   for a from 2 to 3 do
      for b from 2 to 3 do 
-        s := gr_data[sigmaupup_, grG_metricName, a, b] * 
+        s := s + gr_data[sigmaupup_, grG_metricName, a, b] * 
         	gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],a,b]:
      od:
   od:
-  gr_data[mu_null_, grG_metricName] := s:
+  gr_data[mu_null_, grG_metricName] := -1/(8*Pi)*s:
 end proc:
 
 
@@ -272,7 +253,7 @@ grF_calc_p_null := proc(object)
   global gr_data, Ndim, grG_metricName;
 
   # lambda, lambda component of the jump
-  gr_data[p_null_, grG_metricName] := 
+  gr_data[p_null_, grG_metricName] := -1/(8*Pi)*
   	    gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],1,1]:
 
 end proc:
