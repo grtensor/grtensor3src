@@ -570,17 +570,6 @@ global gr_data, Ndim, grG_metricName:
 end:
 
 #----------------------------
-# nsign
-# assigned in junction()
-#----------------------------
-grG_ObjDef[nsign][grC_header] := `n{a} n{^a}`:
-grG_ObjDef[nsign][grC_root] := nsign_:
-grG_ObjDef[nsign][grC_rootStr] := `nsign `:
-grG_ObjDef[nsign][grC_indexList] := []:
-grG_ObjDef[nsign][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[nsign][grC_depends] := {}: # dependencies calculated explicitly in junction()
-
-#----------------------------
 # ntype
 # assigned in junction()
 #----------------------------
@@ -601,7 +590,7 @@ grG_ObjDef[n(dn)][grC_rootStr] := `n `:
 grG_ObjDef[n(dn)][grC_indexList] := [dn]:
 grG_ObjDef[n(dn)][grC_preCalcFn] := grF_calc_ndn: # preCalc since we need to normalize
 grG_ObjDef[n(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, nsign}:
+grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, ntype}:
 
 grF_calc_ndn_new := proc( object)
 
@@ -785,7 +774,7 @@ end:
 #
 # (intrinsic eqn)
 #----------------------------
-grG_ObjDef[nuPeqn][grC_header] := `Jump[n{a} udot{^a}] = 8 pi ( P + sigma/2)`:
+grG_ObjDef[nuPeqn][grC_header] := `Jump[n{a} udot{^a}] = 8 Pi ( P + sigma/2)`:
 grG_ObjDef[nuPeqn][grC_root] := nuPeqn_:
 grG_ObjDef[nuPeqn][grC_rootStr] := `nuPeqn `:
 grG_ObjDef[nuPeqn][grC_indexList] := []:
