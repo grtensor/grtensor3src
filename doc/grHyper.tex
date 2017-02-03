@@ -109,7 +109,8 @@ $8 \pi T_{\mu \nu} e^\mu_a n^\nu = K^b_{a|b} - K_{,a}$
 
 Note that these equations mix the contraction of objects in $M$ defined in the co-ordinates of $M$ into an equation 
 defined on $\Sigma$. By default the 
-calculation will not apply the equations restricting the objects in $M$ to $\Sigma$ but this is easily done by using the
+calculation will not apply the equations restricting the objects in $M$ to $\Sigma$. These relations are automatically
+added to M as constraints and they can be applied by using the
 \texttt{gralter} command with the \texttt{cons} argument. \\
 
 The GRTensorIII objects relating to timelike/spacelike hypersurfaces are listed in Table~\ref{tab:ts1} and~\ref{tab:ts2}.
@@ -201,7 +202,7 @@ $C_{ab} = - N_\alpha e^\alpha_{a;b} e^\beta_b$
       \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
       \texttt{k(up)}        & $k^\alpha$  \\
       \texttt{eA(up)}        & $e^\alpha_{A}, A=y^2 $  \\
-      \texttt{eB(up)}        & $e^\alpha_{B}, B=y^2 $  \\
+      \texttt{eB(up)}        & $e^\alpha_{B}, B=y^3 $  \\
       \texttt{kdotk}        & $k^\alpha k_\alpha$  \\
       \texttt{kdotN}        & $k^\alpha N_\alpha$  \\
       \texttt{NdotN}        & $N^\alpha N_\alpha$  \\
@@ -247,6 +248,10 @@ The parameters supported by the package are:
     \label{tab:hypersurf}
   \end{center}
 \end{table}
+Note that the corder of the coordinates in the \texttt{xform} parameter must match the co-odinates in $M$ as must the
+components of any normal or lapse vector that is specified. \\
+
+In the case of a null surface the co-ordinates must be in the order $(\lambda, A, B)$ using the notation of \cite{poisson:2004}. \\
 
 \FloatBarrier
 %------------------------------------------------------------------------------
@@ -381,6 +386,7 @@ The directory \texttt{worksheet/junctions} contains demonstrations of the use of
     & (check $k^\alpha$ $N^\alpha$) &  \\
     \texttt{null\_cosmo} & Null junction cosmology phase transitions &  \cite{poisson:2004}, 3.11.8 \\
     \texttt{null\_shell\_implosion} & Null shell implosion &  \cite{poisson:2004}, 3.11.6 \\
+    \texttt{null\_shells} & Spherical null shells &  \cite{poisson:2002}, 2nd application \\
     \texttt{schw\_shell} & Spherical dust shell collapse &  \cite{poisson:2004}, 3.9 \\
     \texttt{spinning\_shell} & Spherical shell as Kerr source (order a) &  \cite{poisson:2004}, 3.10 \\
      \end{tabular}
