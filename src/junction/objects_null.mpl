@@ -100,7 +100,7 @@ grF_calc_j_null := proc(object, iList)
         	gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],1,b]:
      od:
   fi:
-  s := 1/(8*Pi)*s;
+  s := 1/(8*pi)*s;
   RETURN(s):
 end proc:
 
@@ -187,7 +187,7 @@ grF_calc_mu_null := proc(object)
         	gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],a,b]:
      od:
   od:
-  gr_data[mu_null_, grG_metricName] := -1/(8*Pi)*s:
+  gr_data[mu_null_, grG_metricName] := -1/(8*pi)*s:
 end proc:
 
 
@@ -253,7 +253,7 @@ grF_calc_p_null := proc(object)
   global gr_data, Ndim, grG_metricName;
 
   # lambda, lambda component of the jump
-  gr_data[p_null_, grG_metricName] := -1/(8*Pi)*
+  gr_data[p_null_, grG_metricName] := -1/(8*pi)*
   	    gr_data[Jump_,grG_metricName,C(dn,dn),gr_data[join_,gname],1,1]:
 
 end proc:

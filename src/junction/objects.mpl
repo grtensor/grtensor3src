@@ -39,7 +39,7 @@
 #
 # Nov.  9, 95 add explicit S3(dn,up,cdn) def
 #
-# Nov. 28, 95 Corrected missing 1/8Pi in SKGeqn, divSGeqn(dn)
+# Nov. 28, 95 Corrected missing 1/8pi in SKGeqn, divSGeqn(dn)
 #
 # Apr 13, 96  Change n(dn) so that if ntype=0 doesn't normalize
 #
@@ -251,7 +251,7 @@ grG_ObjDef[divSGeqn(dn)][grC_indexList] := [dn]:
 grG_ObjDef[divSGeqn(dn)][grC_calcFn] := grF_calc_sum0:
 grG_ObjDef[divSGeqn(dn)][grC_calcFnParms] :=
   'gr_data[utype_,gr_data[partner_,gname]]* gr_data[divS3dn_,gname, a1_]' =
-  'gr_data[Jump_,gname,Gxn(dn),gr_data[join_,gname],a1_ ]/8/Pi':
+  'gr_data[Jump_,gname,Gxn(dn),gr_data[join_,gname],a1_ ]/8/pi':
 grG_ObjDef[divSGeqn(dn)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[divSGeqn(dn)][grC_depends] := {Gxn(dn), divS3(dn), Jump[Gxn(dn)]}:
 
@@ -320,7 +320,7 @@ local iSeq, M, s:
 global gr_data, Ndim, grG_metricName:
 
  iSeq := gr_data[partner_,gname], mass, gr_data[join_,gr_data[partner_,gname]]:
- M := 4*Pi*gr_data[sigma_,gname]*R(tau)^2:
+ M := 4*pi*gr_data[sigma_,gname]*R(tau)^2:
 
  s :=
    diff(R(tau),tau)^2 =
@@ -355,7 +355,7 @@ local iSeq, M, s :
 global gr_data, Ndim, grG_metricName:
 
  iSeq := gr_data[partner_,gname], mass, gr_data[join_,gr_data[partner_,gname]]:
- M := 4*Pi*gr_data[sigma1_,gname]*R(tau)^2:
+ M := 4*pi*gr_data[sigma1_,gname]*R(tau)^2:
 
  s :=
    diff(R(tau),tau)^2 =
@@ -774,7 +774,7 @@ end:
 #
 # (intrinsic eqn)
 #----------------------------
-grG_ObjDef[nuPeqn][grC_header] := `Jump[n{a} udot{^a}] = 8 Pi ( P + sigma/2)`:
+grG_ObjDef[nuPeqn][grC_header] := `Jump[n{a} udot{^a}] = 8 pi ( P + sigma/2)`:
 grG_ObjDef[nuPeqn][grC_root] := nuPeqn_:
 grG_ObjDef[nuPeqn][grC_rootStr] := `nuPeqn `:
 grG_ObjDef[nuPeqn][grC_indexList] := []:
@@ -789,7 +789,7 @@ grF_calc_nuPeqn := proc(object, iList)
 global gr_data, Ndim, grG_metricName:
 
  RETURN(gr_data[Jump_, gr_data[partner_,gname], ndotu, gr_data[join_,gr_data[partner_,gname]] ]
-        =  8 * Pi * ( gr_data[P_,gname] + gr_data[sigma_,gname]/2) );
+        =  8 * pi * ( gr_data[P_,gname] + gr_data[sigma_,gname]/2) );
 
 end:
 
@@ -813,7 +813,7 @@ grF_calc_nuP1eqn := proc(object, iList)
 global gr_data, Ndim, grG_metricName:
 
  RETURN(gr_data[Jump_, gr_data[partner_,gname], ndotu, gr_data[join_,gr_data[partner_,gname]] ]
-         =  8 * Pi * ( gr_data[P1_,gname] + gr_data[sigma1_,gname]/2) );
+         =  8 * pi * ( gr_data[P1_,gname] + gr_data[sigma1_,gname]/2) );
 
 end:
 
@@ -967,7 +967,7 @@ grG_ObjDef[S3(dn,dn)][grC_calcFn] := grF_calc_sum0:
 grG_ObjDef[S3(dn,dn)][grC_calcFnParms] :=
   ('gr_data[Jump_,gname,K(dn,dn),gr_data[join_,gname],a1_,a2_]'
     - 'gr_data[gdndn_,grG_metricName,a1_,a2_]'*
-      'gr_data[Jump_,gname,trK,gr_data[join_,gname]]')/(8*Pi)
+      'gr_data[Jump_,gname,trK,gr_data[join_,gname]]')/(8*pi)
     *'gr_data[utype_,gr_data[partner_,grG_metricName]]':
 grG_ObjDef[S3(dn,dn)][grC_symmetry] := grF_sym_sym2:
 grG_ObjDef[S3(dn,dn)][grC_depends] := {Jump[K(dn,dn) ],
@@ -994,7 +994,7 @@ global gr_data, Ndim, grG_metricName:
  if a1_ = a2_ then
     s := s - gr_data[Jump_,gname,trK,gr_data[join_,gname]]:
  fi:
- s := s/(8*Pi)
+ s := s/(8*pi)
     *gr_data[utype_,gr_data[partner_,grG_metricName]]:
 
 end:
@@ -1057,7 +1057,7 @@ global gr_data, Ndim, grG_metricName:
 
  RETURN(- s =  gr_data[utype_, gr_data[partner_, gname]] *
     gr_data[Jump_, gr_data[partner_,gname], Gnn,
-               gr_data[partner_, gr_data[join_,gname]] ]/8/Pi):
+               gr_data[partner_, gr_data[join_,gname]] ]/8/pi):
 
 end:
 

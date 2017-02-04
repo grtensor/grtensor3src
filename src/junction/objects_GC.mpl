@@ -305,7 +305,7 @@ end proc:
 # Hamiltonian constraint equation on Sigma (G version)
 # Toolkit (3.41)
 #----------------------------
-grG_ObjDef[C1Teqn][grC_header] := `16 Pi T{a b} n{^a} n{^b} = R + nsign(K^2 - K_{ij} K^{ij})`:
+grG_ObjDef[C1Teqn][grC_header] := `16 pi T{a b} n{^a} n{^b} = R + nsign(K^2 - K_{ij} K^{ij})`:
 grG_ObjDef[C1Teqn][grC_root] := C1Teqn_:
 grG_ObjDef[C1Teqn][grC_rootStr] := `C1Teqn `:
 grG_ObjDef[C1Teqn][grC_indexList] := []:
@@ -320,7 +320,7 @@ local s, M:
 
  	M := gr_data[partner_,grG_metricName]:
 
-	s := 16*Pi*gr_data[Tnn_,M] = 
+	s := 16*pi*gr_data[Tnn_,M] = 
                     gr_data[C1eqnRHS_,grG_metricName]:
 
     RETURN(s):
@@ -410,7 +410,7 @@ global gr_data, Ndim, grG_metricName:
 
   s := s + gr_data[trKcdn_,gname,a1_]:
 
- RETURN(s=8*Pi*gr_data[Txndn_,gr_data[partner_,gname],a1_]);
+ RETURN(s=8*pi*gr_data[Txndn_,gr_data[partner_,gname],a1_]);
 
 end:
 

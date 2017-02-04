@@ -1,0 +1,10 @@
+doc/*.aux
+doc/*.pdf
+doc/*.bib
+doc/*.log
+doc/*.toc
+doc/*.bbl
+doc/*.blg
+doc/*.out
+doc/*.*.gz
+
