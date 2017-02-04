@@ -286,10 +286,8 @@ local a,  t, toc, root, entry, objectName, objectNameString,
        print(grG_ObjDef[objectName][grC_rootStr] = 0):
     else
        if assigned ( grG_ObjDef[objectName][grC_displayFn] ) then
-          objectNameString := grG_ObjDef[objectName][grC_displayFn]
-		( objectName, [] ):
-       elif member ( nops ( grG_ObjDef[objectName][grC_indexList]), {1,2} )
-	  then
+          objectNameString := grG_ObjDef[objectName][grC_displayFn](objectName, [] ):
+       elif member ( nops ( grG_ObjDef[objectName][grC_indexList]), {1,2} ) then
           objectNameString := grF_symbTensorName ( objectName ):
        fi:
        print(objectNameString = `All components are zero`):

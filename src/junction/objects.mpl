@@ -39,7 +39,7 @@
 #
 # Nov.  9, 95 add explicit S3(dn,up,cdn) def
 #
-# Nov. 28, 95 Corrected missing 1/8Pi in SKGeqn, divSGeqn(dn)
+# Nov. 28, 95 Corrected missing 1/8pi in SKGeqn, divSGeqn(dn)
 #
 # Apr 13, 96  Change n(dn) so that if ntype=0 doesn't normalize
 #
@@ -251,7 +251,7 @@ grG_ObjDef[divSGeqn(dn)][grC_indexList] := [dn]:
 grG_ObjDef[divSGeqn(dn)][grC_calcFn] := grF_calc_sum0:
 grG_ObjDef[divSGeqn(dn)][grC_calcFnParms] :=
   'gr_data[utype_,gr_data[partner_,gname]]* gr_data[divS3dn_,gname, a1_]' =
-  'gr_data[Jump_,gname,Gxn(dn),gr_data[join_,gname],a1_ ]/8/Pi':
+  'gr_data[Jump_,gname,Gxn(dn),gr_data[join_,gname],a1_ ]/8/pi':
 grG_ObjDef[divSGeqn(dn)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[divSGeqn(dn)][grC_depends] := {Gxn(dn), divS3(dn), Jump[Gxn(dn)]}:
 
@@ -271,6 +271,32 @@ grG_ObjDef[divSTeqn(dn)][grC_calcFnParms] :=
 grG_ObjDef[divSTeqn(dn)][grC_symmetry] := grF_sym_vector:
 grG_ObjDef[divSTeqn(dn)][grC_depends] := {Txn(dn), divS3(dn), Jump[Txn(dn)]}:
 
+#----------------------------
+# es(bdn,up)
+# This object (in M) describes the basis vectors of the surface. 
+# It will only have 3 bdn index values (with the fourth set to
+# zero)
+#----------------------------
+grG_ObjDef[es(bdn,up)][grC_header] := `Basis vector`:
+grG_ObjDef[es(bdn,up)][grC_root] := esbdnup_:
+grG_ObjDef[es(bdn,up)][grC_rootStr] := `e `:
+grG_ObjDef[es(bdn,up)][grC_indexList] := [bdn,up]:
+grG_ObjDef[es(bdn,up)][grC_preCalcFn] := grF_precalc_esupbdn_:
+grG_ObjDef[es(bdn,up)][grC_symmetry] := grF_sym_esbdnup:
+grG_ObjDef[es(bdn,up)][grC_depends] := {xform(up)}:
+
+grF_precalc_esupbdn_ := proc(object, iList)
+global Ndim, grG_metricName, gr_data;
+local a, sname;
+
+  for a to Ndim[gname]-1 do
+    for b to Ndim[gname] do
+       gr_data[esbdnup_, gname, a, b] := 
+          diff( gr_data[xformup_,gname,b], gr_data[xup_, gr_data[partner_, gname], a]):
+       gr_data[esbdnup_, gname, 4, b] := 0:
+    od:
+  od:
+end proc:
 
 #----------------------------
 # evInt
@@ -294,7 +320,7 @@ local iSeq, M, s:
 global gr_data, Ndim, grG_metricName:
 
  iSeq := gr_data[partner_,gname], mass, gr_data[join_,gr_data[partner_,gname]]:
- M := 4*Pi*gr_data[sigma_,gname]*R(tau)^2:
+ M := 4*pi*gr_data[sigma_,gname]*R(tau)^2:
 
  s :=
    diff(R(tau),tau)^2 =
@@ -329,7 +355,7 @@ local iSeq, M, s :
 global gr_data, Ndim, grG_metricName:
 
  iSeq := gr_data[partner_,gname], mass, gr_data[join_,gr_data[partner_,gname]]:
- M := 4*Pi*gr_data[sigma1_,gname]*R(tau)^2:
+ M := 4*pi*gr_data[sigma1_,gname]*R(tau)^2:
 
  s :=
    diff(R(tau),tau)^2 =
@@ -373,233 +399,7 @@ grF_pre_calc_ff1 := proc()
 
 end:
 
-#----------------------------
-# Gnn
-#
-# Defined for the manifold
-#----------------------------
-grG_ObjDef[Gnn][grC_header] := `G{a b} n{^a} n{^b}`:
-grG_ObjDef[Gnn][grC_root] := Gnn_:
-grG_ObjDef[Gnn][grC_rootStr] := `Gnn `:
-grG_ObjDef[Gnn][grC_indexList] := []:
-grG_ObjDef[Gnn][grC_calcFn] := grF_calc_sum2_project:
-grG_ObjDef[Gnn][grC_calcFnParms] := 'gr_data[Gdndn_,grG_metricName,s1_,s2_]'*
-                       'gr_data[nup_,grG_metricName,s1_]' *
-                       'gr_data[nup_,grG_metricName,s2_]':
-grG_ObjDef[Gnn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[Gnn][grC_depends] := {G(dn,dn),n(up)}:
 
-#----------------------------
-# Gun
-#
-# Defined for the manifold
-#----------------------------
-grG_ObjDef[Gun][grC_header] := `G{a b} u{^a} n{^b}`:
-grG_ObjDef[Gun][grC_root] := Gun_:
-grG_ObjDef[Gun][grC_rootStr] := `Gun `:
-grG_ObjDef[Gun][grC_indexList] := []:
-grG_ObjDef[Gun][grC_calcFn] := grF_calc_sum2_project:
-grG_ObjDef[Gun][grC_calcFnParms] := 'gr_data[Gdndn_,grG_metricName,s1_,s2_]'*
-                       'gr_data[uup_,grG_metricName,s1_]' *
-                       'gr_data[nup_,grG_metricName,s2_]':
-grG_ObjDef[Gun][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[Gun][grC_depends] := {G(dn,dn),u(up)}:
-
-#----------------------------
-# Gxn(dn)
-#
-# Defined for the surface
-#----------------------------
-grG_ObjDef[Gxn(dn)][grC_header] := `G{a b} diff(x{^a},xi{^i}) n{^b}`:
-grG_ObjDef[Gxn(dn)][grC_root] := Gxndn_:
-grG_ObjDef[Gxn(dn)][grC_rootStr] := `Gxn `:
-grG_ObjDef[Gxn(dn)][grC_indexList] := [dn]:
-grG_ObjDef[Gxn(dn)][grC_calcFn] := grF_calc_Gxn:
-grG_ObjDef[Gxn(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[Gxn(dn)][grC_depends] := {[gr_data[partner_,gname], G(dn,dn)],
-          [gr_data[partner_,gname], n(up)]}:
-
-grF_calc_Gxn := proc( object, iList)
-local s, a, b:
-global gr_data, Ndim, grG_metricName:
-
- s := 0:
- for a to Ndim[gname] do
-    for b to Ndim[gname] do
-       s := s + gr_data[Gdndn_, gr_data[partner_,grG_metricName],a,b] *
-       diff( gr_data[xformup_,gr_data[partner_,grG_metricName],a],
-             gr_data[xup_,gname,a1_]) *
-       gr_data[nup_, gr_data[partner_,grG_metricName],b]:
-
-    od:
- od:
-
- juncF_project( s, gr_data[partner_,gname], gname);
-
-end:
-#----------------------------
-# HCGeqn
-#
-# Hamiltonian constraint equation on Sigma (G version)
-#----------------------------
-grG_ObjDef[HCeqn][grC_header] := `R + K^2 +K_{ij} K^{ij} = 0`:
-grG_ObjDef[HCeqn][grC_root] := HCeqn_:
-grG_ObjDef[HCeqn][grC_rootStr] := `HCeqn `:
-grG_ObjDef[HCeqn][grC_indexList] := []:
-grG_ObjDef[HCeqn][grC_calcFn] := grF_calc_sum0:
-grG_ObjDef[HCeqn][grC_calcFnParms] := 'grG_scalarR_[grG_metricName]'+
-                       'gr_data[trK_,grG_metricName]'^2 -
-                       'gr_data[Ksq_,grG_metricName]' =
-                       'gr_data[Gnn_,gr_data[partner_,grG_metricName]]':
-grG_ObjDef[HCeqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[HCeqn][grC_depends] := {Ricciscalar,trK,Ksq, [gr_data[partner_,gname], Tnn]}:
-
-#----------------------------
-# HCTeqn
-#
-# Hamiltonian constraint equation on Sigma (T version)
-#----------------------------
-grG_ObjDef[HCeqn][grC_header] := `R + K^2 +K_{ij} K^{ij} = 0`:
-grG_ObjDef[HCeqn][grC_root] := HCeqn_:
-grG_ObjDef[HCeqn][grC_rootStr] := `HCeqn `:
-grG_ObjDef[HCeqn][grC_indexList] := []:
-grG_ObjDef[HCeqn][grC_calcFn] := grF_calc_sum0:
-grG_ObjDef[HCeqn][grC_calcFnParms] := 'grG_scalarR_[grG_metricName]'+
-                       'gr_data[trK_,grG_metricName]'^2 -
-                       'gr_data[Ksq_,grG_metricName]' = 0:
-                       8*Pi* 'gr_data[Tnn_,gr_data[partner,grG_metricName]]':
-grG_ObjDef[HCeqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[HCeqn][grC_depends] := {Ricciscalar,trK,Ksq, [gr_data[partner_,gname], Tnn] }:
-
-#----------------------------
-# H2lhs
-#
-# History for the surface
-#----------------------------
-grG_ObjDef[Hlhs][grC_header] := `History for the surface`:
-grG_ObjDef[Hlhs][grC_root] := Hlhs_:
-grG_ObjDef[Hlhs][grC_rootStr] := `Hlhs `:
-grG_ObjDef[Hlhs][grC_indexList] := []:
-grG_ObjDef[Hlhs][grC_calcFn] := grF_calc_Hlhs:
-grG_ObjDef[Hlhs][grC_symmetry] := grF_sym_scalar:
-#
-# rely on grG_default_Mint
-#
-grG_ObjDef[Hlhs][grC_depends] := {sigma, P,
-     [gr_data[partner_,gname],Mean[ndotu, gr_data[partner_,gr_data[join_,gname]]] ],
-     Mean[trK], ntype[gr_data[partner_,gname]]}:
-
-
-grF_calc_Hlhs := proc(object, iList)
-global gr_data, Ndim, grG_metricName:
-
-
- gr_data[ntype_,gr_data[partner_,gname]] *
- ( gr_data[sigma_,gname] + gr_data[P_,gname]) *
- gr_data[Mean_,gr_data[partner_,gname],ndotu,gr_data[join_,gr_data[partner_,gname]]] +
- gr_data[P_,gname]* gr_data[Mean_,gname,trK,gr_data[join_,gname] ];
-
-end:
-
-#----------------------------
-# H1lhs
-#
-# HIstory for the surface
-#----------------------------
-grG_ObjDef[H1lhs][grC_header] := `History for the surface`:
-grG_ObjDef[H1lhs][grC_root] := H1lhs_:
-grG_ObjDef[H1lhs][grC_rootStr] := `H1lhs `:
-grG_ObjDef[H1lhs][grC_indexList] := []:
-grG_ObjDef[H1lhs][grC_calcFn] := grF_calc_H1lhs:
-grG_ObjDef[H1lhs][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[H1lhs][grC_depends] := {sigma1, P1, Mean[trK],
-     [gr_data[partner_,gname],Mean[ndotu, gr_data[partner_,gr_data[join_,gname]]] ],
-     ntype[gr_data[partner_,gname]]}:
-
-
-grF_calc_H1lhs := proc(object, iList)
-global gr_data, Ndim, grG_metricName:
-
-
- gr_data[utype_,gr_data[partner_,gname]] *
- ( gr_data[sigma1_,gname] + gr_data[P1_,gname]) *
- gr_data[Mean_,gr_data[partner_,gname],ndotu,gr_data[join_,gr_data[partner_,gname]]] +
- gr_data[P1_,gname]* gr_data[Mean_,gname,trK,grG_default_Mint];
-
-end:
-
-#----------------------------
-# HGeqn
-#
-# Conservation Law for the surface
-#----------------------------
-grG_ObjDef[HGeqn][grC_header] := `History equation`:
-grG_ObjDef[HGeqn][grC_root] := HGeqn_:
-grG_ObjDef[HGeqn][grC_rootStr] := `HGeqn `:
-grG_ObjDef[HGeqn][grC_indexList] := []:
-grG_ObjDef[HGeqn][grC_calcFn] := grF_calc_sum0:
-grG_ObjDef[HGeqn][grC_calcFnParms] :=
-  'gr_data[H1lhs_,gname]' =
- 'gr_data[utype_,gr_data[partner_,gname]] *
-   gr_data[Jump_,gr_data[partner_,gname], Gnn,gr_data[partner_,gr_data[join_,gname]] ]':
-grG_ObjDef[HGeqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[HGeqn][grC_depends] := {H1lhs,
-                    [gr_data[partner_,gname], Jump[Gnn, gr_data[partner_,gr_data[join_,gname]]]] }:
-
-
-#----------------------------
-# HTeqn
-#
-# Conservation Law for the surface
-#----------------------------
-grG_ObjDef[HTeqn][grC_header] := `History equation`:
-grG_ObjDef[HTeqn][grC_root] := HTeqn_:
-grG_ObjDef[HTeqn][grC_rootStr] := `HTeqn `:
-grG_ObjDef[HTeqn][grC_indexList] := []:
-grG_ObjDef[HTeqn][grC_calcFn] := grF_calc_sum0:
-grG_ObjDef[HTeqn][grC_calcFnParms] :=
-  'gr_data[H1lhs_,gname]' =
-  'gr_data[utype_,gr_data[partner_,gname]] *
-   gr_data[Jump_,gr_data[partner_,gname], Tnn,gr_data[partner_,gr_data[join_,gname]] ]':
-grG_ObjDef[HTeqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[HTeqn][grC_depends] := {H1lhs,
-                    [gr_data[partner_,gname], Jump[Tnn, gr_data[partner_,gr_data[join_,gname]]]] }:
-
-#----------------------------
-# H1Geqn
-#
-# Conservation Law for the surface
-#----------------------------
-grG_ObjDef[H1Geqn][grC_header] := `History equation`:
-grG_ObjDef[H1Geqn][grC_root] := H1Geqn_:
-grG_ObjDef[H1Geqn][grC_rootStr] := `H1Geqn `:
-grG_ObjDef[H1Geqn][grC_indexList] := []:
-grG_ObjDef[H1Geqn][grC_calcFn] := grF_calc_sum0:
-grG_ObjDef[H1Geqn][grC_calcFnParms] :=
-  'gr_data[H2lhs_,gname]' =
- 'gr_data[utype_,gr_data[partner_,gname]] *
-   gr_data[Jump_,gr_data[partner_,gname], Gnn,gr_data[partner_,gr_data[join_,gname]] ]':
-grG_ObjDef[H1Geqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[H1Geqn][grC_depends] := {H2lhs,
-                    [gr_data[partner_,gname], Jump[Gnn, gr_data[partner_,gr_data[join_,gname]]]] }:
-
-#----------------------------
-# H2Teqn
-#
-# Conservation Law for the surface
-#----------------------------
-grG_ObjDef[H1Teqn][grC_header] := `History equation`:
-grG_ObjDef[H1Teqn][grC_root] := H1Teqn_:
-grG_ObjDef[H1Teqn][grC_rootStr] := `H1Teqn `:
-grG_ObjDef[H1Teqn][grC_indexList] := []:
-grG_ObjDef[H1Teqn][grC_calcFn] := grF_calc_sum0:
-grG_ObjDef[H1Teqn][grC_calcFnParms] :=
-  'gr_data[H2lhs_,gname]' =
-  'gr_data[utype_,gr_data[partner_,gname]] *
-   gr_data[Jump_,gr_data[partner_,gname], Tnn,gr_data[partner_,gr_data[join_,gname]] ]':
-grG_ObjDef[H1Teqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[H1Teqn][grC_depends] := {H2lhs,
-                    [gr_data[partner_,gname], Jump[Gnn, gr_data[partner_,gr_data[join_,gname]]]] }:
 
 #----------------------------
 # K(dn,dn)
@@ -635,6 +435,36 @@ global gr_data, Ndim, grG_metricName:
  od:
 
  juncF_project( -s-s1,pname,gname);
+
+end:
+
+#----------------------------
+# K2(dn,dn)
+# Alternate form - direct use of n(dn,cdn)
+#----------------------------
+grG_ObjDef[K2(dn,dn)][grC_header] := `Extrinsic Curvature`:
+grG_ObjDef[K2(dn,dn)][grC_root] := K2dndn_:
+grG_ObjDef[K2(dn,dn)][grC_rootStr] := `K `:
+grG_ObjDef[K2(dn,dn)][grC_indexList] := [dn,dn]:
+grG_ObjDef[K2(dn,dn)][grC_calcFn] := grF_calc_ff2_ndncdn:
+grG_ObjDef[K2(dn,dn)][grC_symmetry] := grF_sym_sym2:
+grG_ObjDef[K2(dn,dn)][grC_depends] := {n[gr_data[partner_,grG_metricName]](dn,cdn)}:
+
+grF_calc_ff2_ndncdn := proc(object, iList)
+local s, a, b, c, pname:
+global gr_data, Ndim, grG_metricName:
+
+ pname := gr_data[partner_,gname]:
+ s := 0:
+ for a to Ndim[gname]+1 do
+   for b to Ndim[gname]+1 do
+       s := s + gr_data[ndncdn_,pname,a,b] *
+      diff(gr_data[xformup_,pname,a],gr_data[xup_,gname,a1_]) *
+      diff(gr_data[xformup_,pname,b],gr_data[xup_,gname,a2_]) 
+   od:
+ od:
+
+ juncF_project( s,pname,gname);
 
 end:
 
@@ -710,6 +540,7 @@ global gr_data, Ndim, grG_metricName:
            gr_data[Rdndnupup_,gname,thetaNum,phiNum,thetaNum,phiNum]/2):
 
 end:
+
 #----------------------------
 # ndiv
 #----------------------------
@@ -739,17 +570,6 @@ global gr_data, Ndim, grG_metricName:
 end:
 
 #----------------------------
-# nsign
-# assigned in junction()
-#----------------------------
-grG_ObjDef[nsign][grC_header] := `n{a} n{^a}`:
-grG_ObjDef[nsign][grC_root] := nsign_:
-grG_ObjDef[nsign][grC_rootStr] := `nsign `:
-grG_ObjDef[nsign][grC_indexList] := []:
-grG_ObjDef[nsign][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[nsign][grC_depends] := {}: # dependencies calculated explicitly in junction()
-
-#----------------------------
 # ntype
 # assigned in junction()
 #----------------------------
@@ -759,7 +579,6 @@ grG_ObjDef[ntype][grC_rootStr] := `ntype `:
 grG_ObjDef[ntype][grC_indexList] := []:
 grG_ObjDef[ntype][grC_symmetry] := grF_sym_scalar:
 grG_ObjDef[ntype][grC_depends] := {}: # dependencies calculated explicitly in junction()
-
 
 #----------------------------
 # n(dn)
@@ -771,9 +590,9 @@ grG_ObjDef[n(dn)][grC_rootStr] := `n `:
 grG_ObjDef[n(dn)][grC_indexList] := [dn]:
 grG_ObjDef[n(dn)][grC_preCalcFn] := grF_calc_ndn: # preCalc since we need to normalize
 grG_ObjDef[n(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, nsign}:
+grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, ntype}:
 
-grF_calc_ndn_new := proc( object, iList)
+grF_calc_ndn_new := proc( object)
 
 local a,b,s, coordList:
 global gr_data, Ndim, grG_metricName:
@@ -793,7 +612,7 @@ global gr_data, Ndim, grG_metricName:
 
 end:
 
-grF_calc_ndn := proc( object, iList)
+grF_calc_ndn := proc( object)
 
 local a,b,s, coordList:
 global gr_data, Ndim, grG_metricName:
@@ -970,7 +789,7 @@ grF_calc_nuPeqn := proc(object, iList)
 global gr_data, Ndim, grG_metricName:
 
  RETURN(gr_data[Jump_, gr_data[partner_,gname], ndotu, gr_data[join_,gr_data[partner_,gname]] ]
-        =  8 * Pi * ( gr_data[P_,gname] + gr_data[sigma_,gname]/2) );
+        =  8 * pi * ( gr_data[P_,gname] + gr_data[sigma_,gname]/2) );
 
 end:
 
@@ -994,7 +813,7 @@ grF_calc_nuP1eqn := proc(object, iList)
 global gr_data, Ndim, grG_metricName:
 
  RETURN(gr_data[Jump_, gr_data[partner_,gname], ndotu, gr_data[join_,gr_data[partner_,gname]] ]
-         =  8 * Pi * ( gr_data[P1_,gname] + gr_data[sigma1_,gname]/2) );
+         =  8 * pi * ( gr_data[P1_,gname] + gr_data[sigma1_,gname]/2) );
 
 end:
 
@@ -1053,67 +872,7 @@ global gr_data, Ndim, grG_metricName:
 
 end:
 
-#----------------------------
-# PCGeqn
-#
-# Momentum constraint equation on Sigma
-#----------------------------
-grG_ObjDef[PCeqn(dn)][grC_header] := `R_{;a} - K^{i}_{a;i} = 0`:
-grG_ObjDef[PCeqn(dn)][grC_root] := PCGeqn_:
-grG_ObjDef[PCeqn(dn)][grC_rootStr] := `PCGeqn `:
-grG_ObjDef[PCeqn(dn)][grC_indexList] := [dn]:
-grG_ObjDef[PCeqn(dn)][grC_calcFn] := grF_calc_PCGeqn:
-grG_ObjDef[PCeqn(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[PCeqn(dn)][grC_depends] := {trK(cdn),K(dn,up,cdn),
-                [ gr_data[partner_,gname], Gxn(dn)] }:
 
-grF_calc_PCGeqn := proc(object, iList)
-
-local s,b;
-global gr_data, Ndim, grG_metricName:
-
-  s := 0:
-
-  for b to Ndim[gname] do
-    s := s - gr_data[Kdnupcdn_,gname,a1_,b,b]:
-  od:
-
-  s := s + gr_data[trKcdn_,gname,a1_]:
-
- RETURN(s=gr_data[Gxndn_,gr_data[partner_,gname],a1_]);
-
-end:
-
-#----------------------------
-# PCTeqn
-#
-# Momentum constraint equation on Sigma
-#----------------------------
-grG_ObjDef[PCeqn(dn)][grC_header] := `R_{;a} - K^{i}_{a;i} = 0`:
-grG_ObjDef[PCeqn(dn)][grC_root] := PCTeqn_:
-grG_ObjDef[PCeqn(dn)][grC_rootStr] := `PCTeqn `:
-grG_ObjDef[PCeqn(dn)][grC_indexList] := [dn]:
-grG_ObjDef[PCeqn(dn)][grC_calcFn] := grF_calc_PCTeqn:
-grG_ObjDef[PCeqn(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[PCeqn(dn)][grC_depends] := {trK(cdn),K(dn,up,cdn),
-                [ gr_data[partner_,gname], Txn(dn)] }:
-
-grF_calc_PCTeqn := proc(object, iList)
-
-local s,b;
-global gr_data, Ndim, grG_metricName:
-
-  s := 0:
-
-  for b to Ndim[gname] do
-    s := s - gr_data[Kdnupcdn_,gname,a1_,b,b]:
-  od:
-
-  s := s + gr_data[trKcdn_,gname,a1_]:
-
- RETURN(s=8*Pi*gr_data[Txndn_,gr_data[partner_,gname],a1_]);
-
-end:
 
 #----------------------------
 # sigma
@@ -1208,7 +967,7 @@ grG_ObjDef[S3(dn,dn)][grC_calcFn] := grF_calc_sum0:
 grG_ObjDef[S3(dn,dn)][grC_calcFnParms] :=
   ('gr_data[Jump_,gname,K(dn,dn),gr_data[join_,gname],a1_,a2_]'
     - 'gr_data[gdndn_,grG_metricName,a1_,a2_]'*
-      'gr_data[Jump_,gname,trK,gr_data[join_,gname]]')/(8*Pi)
+      'gr_data[Jump_,gname,trK,gr_data[join_,gname]]')/(8*pi)
     *'gr_data[utype_,gr_data[partner_,grG_metricName]]':
 grG_ObjDef[S3(dn,dn)][grC_symmetry] := grF_sym_sym2:
 grG_ObjDef[S3(dn,dn)][grC_depends] := {Jump[K(dn,dn) ],
@@ -1235,7 +994,7 @@ global gr_data, Ndim, grG_metricName:
  if a1_ = a2_ then
     s := s - gr_data[Jump_,gname,trK,gr_data[join_,gname]]:
  fi:
- s := s/(8*Pi)
+ s := s/(8*pi)
     *gr_data[utype_,gr_data[partner_,grG_metricName]]:
 
 end:
@@ -1298,7 +1057,7 @@ global gr_data, Ndim, grG_metricName:
 
  RETURN(- s =  gr_data[utype_, gr_data[partner_, gname]] *
     gr_data[Jump_, gr_data[partner_,gname], Gnn,
-               gr_data[partner_, gr_data[join_,gname]] ]/8/Pi):
+               gr_data[partner_, gr_data[join_,gname]] ]/8/pi):
 
 end:
 
@@ -1355,208 +1114,6 @@ printf(`   expression you enter to zero.\n`):
 printf(`   To enter the normal explicitly, enter 0 (zero)\n`):
 
 end:
-
-#----------------------------
-# Tnn
-#
-# Defined for the manifold
-#----------------------------
-grG_ObjDef[Tnn][grC_header] := `T{^a ^b} n{a} n{b}`:
-grG_ObjDef[Tnn][grC_root] := Tnn_:
-grG_ObjDef[Tnn][grC_rootStr] := `Tnn `:
-grG_ObjDef[Tnn][grC_indexList] := []:
-grG_ObjDef[Tnn][grC_calcFn] := grF_calc_sum2_project:
-grG_ObjDef[Tnn][grC_calcFnParms] := 'grG_Tupup_[grG_metricName,s1_,s2_]'*
-                       'gr_data[ndn_,grG_metricName,s1_]' *
-                       'gr_data[ndn_,grG_metricName,s2_]':
-grG_ObjDef[Tnn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[Tnn][grC_depends] := {T(up,up),n(dn)}:
-
-#----------------------------
-# Tun
-#
-# Defined for the manifold
-#----------------------------
-grG_ObjDef[Tun][grC_header] := `T{a b} u{^a} n{^b}`:
-grG_ObjDef[Tun][grC_root] := Tun_:
-grG_ObjDef[Tun][grC_rootStr] := `Tun `:
-grG_ObjDef[Tun][grC_indexList] := [dn]:
-grG_ObjDef[Tun][grC_calcFn] := grF_calc_sum2_project:
-grG_ObjDef[Tun][grC_calcFnParms] := 'grG_Tdndn_[grG_metricName,s1_,s2_]'*
-                       'gr_data[uup_,grG_metricName,s1_]' *
-                       'gr_data[nup_,grG_metricName,s2_]':
-grG_ObjDef[Tun][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[Tun][grC_depends] := {T(dn,dn),u(up)}:
-
-#----------------------------
-# Txn(dn)
-#
-# Defined for the 3 surface
-#----------------------------
-grG_ObjDef[Txn(dn)][grC_header] := `T{a b} diff(x{^a},xi{^i}) n{^b}`:
-grG_ObjDef[Txn(dn)][grC_root] := Txndn_:
-grG_ObjDef[Txn(dn)][grC_rootStr] := `Txn `:
-grG_ObjDef[Txn(dn)][grC_indexList] := [dn]:
-grG_ObjDef[Txn(dn)][grC_calcFn] := grF_calc_sum2:
-grG_ObjDef[Txn(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[Txn(dn)][grC_depends] := {[gr_data[partner_,gname], n(up)]}:
-
-grF_calc_Txn := proc( object, iList)
-local s, a, b:
-global gr_data, Ndim, grG_metricName:
-
- s := 0:
- for a to Ndim[gname] do
-    for b to Ndim[gname] do
-       s := s + gr_data[Tdndn_, gr_data[partner_,grG_metricName],a,b] *
-       diff( gr_data[xformup_,gr_data[partner_,grG_metricName],a],
-             gr_data[xup_,gname,a1_]) *
-       gr_data[nup_, gr_data[partner_,grG_metricName],b]:
-
-    od:
- od:
-
- juncF_project( s, gr_data[partner_,gname], gname);
-
-end:
-
-#----------------------------
-# u3(dn)
-#
-# We use u3(dn) since all the other transformations
-# have their indices down and hence require the
-# x^\alpha = f(\xi^i) instead of the inverse.
-#
-# Entered as part of junction()
-#----------------------------
-grG_ObjDef[u3(dn)][grC_header] := `Intrinsic Tangent Vector`:
-grG_ObjDef[u3(dn)][grC_root] := u3dn_:
-grG_ObjDef[u3(dn)][grC_rootStr] := `u3 `:
-grG_ObjDef[u3(dn)][grC_indexList] := [dn]:
-grG_ObjDef[u3(dn)][grC_calcFn] := grF_calc_u3dn:
-grG_ObjDef[u3(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[u3(dn)][grC_depends] := { xform[gr_data[partner_,gname]](up),u[gr_data[partner_,gname]](dn)}:
-
-grF_calc_u3dn := proc(object, iList)
-
-local pname, a, s:
-global gr_data, Ndim, grG_metricName:
-
- s := 0:
-
- pname := gr_data[partner_,gname]:
- for a to Ndim[pname] do
-   s := s + diff(gr_data[xformup_,pname,a], gr_data[xup_,gname,a1_]) *
-        gr_data[udn_,pname,a]:
- od:
- juncF_project(s,pname,gname);
-
-end:
-
-#----------------------------
-# u3div
-#
-# Entered as part of junction()
-#----------------------------
-grG_ObjDef[u3div][grC_header] := `Intrinsic Tangent Vector`:
-grG_ObjDef[u3div][grC_root] := u3div_:
-grG_ObjDef[u3div][grC_rootStr] := `u3div `:
-grG_ObjDef[u3div][grC_indexList] := []:
-grG_ObjDef[u3div][grC_calcFn] := grF_calc_u3div:
-grG_ObjDef[u3div][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[u3div][grC_depends] := { u3(up,cdn)}:
-
-grF_calc_u3div := proc(object, iList)
-
-local a, s:
-global gr_data, Ndim, grG_metricName:
-
- s := 0:
- for a to Ndim[gname] do
-   s := s + gr_data[u3upcdn_,gname,a,a]:
- od:
- s;
-
-end:
-
-#----------------------------
-# u(up)
-#
-# Entered as part of junction()
-#----------------------------
-grG_ObjDef[u(up)][grC_header] := `Tangent Vector`:
-grG_ObjDef[u(up)][grC_root] := uup_:
-grG_ObjDef[u(up)][grC_rootStr] := `u `:
-grG_ObjDef[u(up)][grC_indexList] := [up]:
-grG_ObjDef[u(up)][grC_calcFn] := grF_calc_uup:
-grG_ObjDef[u(up)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[u(up)][grC_depends] := {}:
-
-grF_calc_uup := proc(object, iList)
-global gr_data, Ndim, grG_metricName:
-
-  if not assigned( gr_data[totalVar_,grG_metricName] ) or
-    (gr_data[totalVar_,grG_metricName] = 0) then
-     ERROR(`u(up) cannot be calculated. Require a param= argument in hypersurf()`):
-  fi:
-  diff( gr_data[xformup_,grG_metricName,a1_], gr_data[totalVar_,grG_metricName]);
-
-end:
-
-#----------------------------
-# udot(up)
-#
-#----------------------------
-grG_ObjDef[udot(up)][grC_header] := `Accel. of Tangent`:
-grG_ObjDef[udot(up)][grC_root] := udotup_:
-grG_ObjDef[udot(up)][grC_rootStr] := `udot `:
-grG_ObjDef[udot(up)][grC_indexList] := [up]:
-grG_ObjDef[udot(up)][grC_calcFn] := grF_calc_udot:
-grG_ObjDef[udot(up)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[udot(up)][grC_depends] := {u(up),Chr(dn,dn,up)}:
-
-grF_calc_udot := proc(object, iList)
-local s, a,b, norm, N, pname, totalVar:
-global gr_data, Ndim, grG_metricName:
-
- totalVar := gr_data[totalVar_,gname]:
- N := Ndim[gname]:
- pname := gr_data[partner_,gname]:
- s := diff( gr_data[uup_,gname,a1_],totalVar):
-   for a to N do
-     for b to N do
-       s := s + gr_data[uup_,gname,a] * gr_data[uup_,gname,b]
-                * gr_data[Chrdndnup_,gname,a,b,a1_]:
-     od:
-   od:
-   juncF_project(s,gname,pname); # don't unchain
-
-end:
-
-#----------------------------
-# udot_old(up)
-#
-#----------------------------
-grG_ObjDef[udot_old(up)][grC_header] := `Accel. of Tangent`:
-grG_ObjDef[udot_old(up)][grC_root] := udotOldup_:
-grG_ObjDef[udot_old(up)][grC_rootStr] := `udot `:
-grG_ObjDef[udot_old(up)][grC_indexList] := [up]:
-grG_ObjDef[udot_old(up)][grC_calcFn] := grF_calc_sum1:
-grG_ObjDef[udot_old(up)][grC_calcFnParms] := 'grG_uup_[grG_metricName,s1_] *
-        gr_data[uupcdn_,grG_metricName,a1_,s1_]':
-grG_ObjDef[udot_old(up)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[udot_old(up)][grC_depends] := {u(up),u(up,cdn)}:
-
-#----------------------------
-# utype
-# assigned in junction()
-#----------------------------
-grG_ObjDef[utype][grC_header] := `u{a} u{^a}`:
-grG_ObjDef[utype][grC_root] := utype_:
-grG_ObjDef[utype][grC_rootStr] := `utype `:
-grG_ObjDef[utype][grC_indexList] := []:
-grG_ObjDef[utype][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[utype][grC_depends] := {}: # dependencies calculated explicitly in junction()
 
 #----------------------------
 # xform(up)

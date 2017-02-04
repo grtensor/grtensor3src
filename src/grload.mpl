@@ -351,32 +351,36 @@ qload := proc( metric)
 global  grOptionFileCharacter, grOptionMetricPath, grOptionqloadPath:
 local mfile, m;
 
-    if not assigned ( grOptionMetricPath ) then
-      printf ( `Warning: grOptionMetricPath has not been assigned.\n` ):
-    fi:
-
     mfile = metric:
     if not type(metric, string) then
        mfile := sprintf("%a", metric);
     fi:
-
     mfile := cat(mfile,".mpl"):
-    mpath := FileTools:-JoinPath([grOptionMetricPath, mfile]);
+
+    if not assigned ( grOptionMetricPath ) then
+      printf ( `Warning: grOptionMetricPath has not been assigned.\n` ):
+    else
+      mpath := FileTools:-JoinPath([grOptionMetricPath, mfile]);
+      if grF_testLoad( mpath) then
+        grload( metric, mpath);
+        RETURN():
+      fi:
+    fi:
+
+ 
     #
     # if it's not in the directory indicated in grOptionMetricPath
     # then try each of the entries in grOptionqloadPath (in order)
     #
-    if not grF_testLoad( mpath) then
-       if assigned(grOptionqloadPath) then
-         for m in [grOptionqloadPath] do
-            mpath := FileTools:-JoinPath([m, mfile]);
-            if not grF_testLoad( mpath) then
-              mfile := NULL:
-            else
-              break;
-            fi:
-         od:
-       fi:
+    if assigned(grOptionqloadPath) then
+      for m in [grOptionqloadPath] do
+         mpath := FileTools:-JoinPath([m, mfile]);
+         if not grF_testLoad( mpath) then
+           mfile := NULL:
+         else
+           break;
+         fi:
+      od:
     fi:
 
     if mfile <> NULL then

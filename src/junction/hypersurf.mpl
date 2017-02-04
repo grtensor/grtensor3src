@@ -13,7 +13,7 @@ $define DEBUG
 #   ndn= list of components of n{a} in x{^a}
 #************************************************
 
-hs_fields := {type, coord, surf, xform, nup, ndn, param, Ndn, Nup};
+hs_fields := {type, coord, surf, xform, nup, ndn, Ndn, Nup};
 
 hs_validate[type] := proc(name, stype)
 DEBUG
@@ -117,7 +117,7 @@ hs_validate[Nup] := proc(name, value)
 end proc:
 
 
-
+(*
 hs_validate[param] := proc(name, stype)
 DEBUG
   local errorStr;
@@ -130,7 +130,7 @@ DEBUG
   RETURN(errorStr):
 
 end proc:
-
+*)
 #--------------------------------------------
 # hs_checkargs 
 #--------------------------------------------
@@ -264,6 +264,7 @@ DEBUG
   if args_by_name[type] = null then
     # null surfaces use a different proc
     hypersurf_null(sName, args_by_name);
+    RETURN();
   fi:
 
   #....................................................
@@ -276,6 +277,7 @@ DEBUG
   gr_data[partner_,sName] := grG_metricName:
   gr_data[partner_,grG_metricName] := sName:
   Ndim[sName] := Ndim[grG_metricName]-1:
+  gr_data[type_, sName] := args_by_name[type];
 
 
   #....................................................
@@ -379,14 +381,15 @@ DEBUG
   grG_metricSet := grG_metricSet union {sName}:
   gr_data[partner_,sName] := grG_metricName:
   gr_data[partner_,grG_metricName] := sName:
-  Ndim[sName] := 2:
+  gr_data[type_, sName] := null;
+  Ndim[sName] := 3:
 
 
   #....................................................
   # Set the surface tangent and normal type
   # timelike means surface is timelike => normal is spacelike
   #....................................................
-  gr_data[ntype_, grG_metricName] := 0:
+  gr_data[nsign_, grG_metricName] := 0:
   gr_data[utype_, grG_metricName] := -1:
 
   #....................................................
@@ -397,19 +400,51 @@ DEBUG
     xform_rhs[i] := rhs(args_by_name[xform][i]):
   od:
   hs_init_from_vector(xform(up), xform_rhs):
+  
+  #....................................................
+  # assign the coords on the surface 
+  # - the first coord is the null parameter
+  #....................................................
+  grG_metricName := sName:
+  hs_init_from_vector(x(up), args_by_name[coord]):
+  grF_assignedFlag ( constraint, set ):
+  # the xform functions are a constraint on the surface
+  gr_data[constraint_, sName] := args_by_name[xform]:
 
-  #....................................................
-  # Calculate k^a and null generators Theta{A}
-  # - either explicitly provided or determined from surface eqn
-  #....................................................
+  print("Null generators parameterized by ", gr_data[xup_,sName,1]):
+
+  # Back to exterior spacetime
+  grG_metricName := gr_data[partner_, sName]:
 
   #....................................................
   # Use a specified lapse (N) or determine from (k, Theta{A})
   #....................................................
+  if assigned(args_by_name[Nup]) then
+    hs_init_from_vector(N(up), args_by_name[Nup]):
+  elif assigned(args_by_name[Ndn]) then
+    hs_init_from_vector(N(dn), args_by_name[Ndn]):
+  else
+    printf("TODO: Determine N(dn)"):
+  fi:
 
   #....................................................
-  # assign the coords on the surface 
+  # Calculate k^a and null generators Theta{A}
+  # - either explicitly provided or determined from surface eqn
+  # See https://arxiv.org/pdf/gr-qc/0207101v1.pdf
+  # eqns (2.2)
   #....................................................
+  grcalc(k(up), eA(up), eB(up)); 
+  grdisplay(k(up), eA(up), eB(up));
+
+  #....................................................
+  # Calculate "metric" on surface
+  #....................................................
+  grmetric(sName);
+  grcalc(sigma(dn,dn));
+  # apply constraints
+  gralter(sigma(dn,dn), 12):
+  grdisplay(sigma(dn,dn)):
+
 
 
 end proc:

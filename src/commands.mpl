@@ -369,8 +369,10 @@ end:
 # calcObj - calculate object without time header
 #------------------------------------------------------------------------------
 grF_calcObj := proc ( )
-global  grG_fnCode, grG_simp, grG_calc, grG_callComp, grOptionDefaultSimp:
-local	i:
+global  grG_fnCode, grG_simp, grG_metricName, grG_calc, grG_callComp, 
+        grOptionDefaultSimp, grG_default_metricName:
+local	i, metric:
+     metric := grG_metricName:
      grF_unassignLoopVars(); # do this so aux metric names are cleared
      for i in grF_screenArgs([args], false, true) do
        #
@@ -393,6 +395,10 @@ local	i:
        #
        grF_core(i, true):
      od:
+     if metric <> grG_default_metricName then
+        grG_metricName := metric:
+        grG_default_metricName := metric:
+     fi:
 end:
 
 

@@ -1,8 +1,36 @@
 GRTensor TODO
 ==============
 
+
 Junction
 ========
+
+Fixes:
+- nsign is a bad name, really it's nsig?
+- autoload objects?
+- allow out of order coord in xform
+- allow udn. uup to be defined in hypersurface
+- when C2Geqn(dn) all components zero display is blank
+
+BUGS?
+=====
+- display of equation C2Teqn(dn) 0=0 does not show anything
+- mu for null rotating shell off by a factor of 2 (but j(up) is ok)
+
+NULL
+----
+- add project as an alter method? 
+* distinct from apply constraints, since does some magic diff stuff?
+gralter(C(dn,dn), project)
+ * requires that the metric have a partner a
+
+Getting non-zero C(l,l) terms - even in the simplest example. 
+
+ juncF_project( grG_simpHow( grG_preSeq, s, grG_postSeq), pname, gname);
+?whats with the simpHow stuff here?
+
+
+
 - post-load of junction objects is breakng dependency checking. 
 (use of grG_metricName in depends?)
 

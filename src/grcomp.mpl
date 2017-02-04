@@ -497,7 +497,12 @@ local	a, b, gname, Object, opList, displayZero:
         opList := grF_checkOperands ( objectName ):
 	if nops ( objectName ) = 1 then
 		for a to Ndim[gname] while displayZero = true do
-			if gr_data[Object,gname,opList,a]<>0 then
+			if type(gr_data[Object,gname,opList,a], equation) then
+			    if (rhs(gr_data[Object,gname,opList,a]) <> 0) or 
+			       (lhs(gr_data[Object,gname,opList,a]) <> 0) then
+			       		displayZero := false:
+			    fi:
+			elif gr_data[Object,gname,opList,a]<>0 then
 				displayZero := false:
 			fi:
 		od:

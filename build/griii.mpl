@@ -15,7 +15,7 @@
 # PeterM Mac
 savelibname := "/Users/peter/maple/gitlab/GRTensorIII/lib":
 
-#$define junction
+$define junction
 (*
 In GRTensorII global variables were heavily used and
 created on the fly with name concatentation. 
@@ -236,7 +236,8 @@ grG_metricName := `grG_metricName`:
 $include "src/junction/objects.mpl"
 #$include "src/junction/elasticity.mpl"
 #$include "src/junction/e3_object.mpl"
-#$include "src/junction/null_objects.mpl"
+$include "src/junction/objects_GC.mpl"
+$include "src/junction/objects_null.mpl"
 #$include "src/junction/newn.mpl"
 $include "src/junction/oper.mpl"
 #
@@ -268,7 +269,7 @@ global grG_metricSet, grG_ObjDef;
 	load_hypers_objects():
     grF_gen_rootSet():
 	grF_gen_calcFnSet():
-	print("GRTensor III v1.2 Jan 29, 2017"):
+	print("GRTensor III v2.0 Feb 5, 2017"):
 	print("Copyright 2017, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://github.com/grtensor/grtensor");
 	print("For help ?grtensor");
