@@ -82,3 +82,11 @@ makehelp( nptetrad, "help/nptetrad.help", "lib/maple.help"):
 
 makehelp( qload, "help/qload.help", "lib/maple.help"):
 
+makehelp( hypersurf, "help/hypersurf.help", "lib/maple.help"):
+
+makehelp( join, "help/join.help", "lib/maple.help"):
+
+makehelp( hyper_objects, "help/hyper_objects.help", "lib/hyper_objects.help"):
+
+
+

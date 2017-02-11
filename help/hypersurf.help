@@ -30,12 +30,12 @@ CALLING SEQUENCE: hypersurf ( mname, [name = value] )
                   nature of the surface)
                   e.g. surf = chi - X0
 
-          ndn   - components of the normal vector to the surface
+          ndn/nup - components of the normal vector to the surface
                   e.g. ndn=[0,1,0,0]
 
           Null hyper-surfaces
 
-          Ndn   - components of the null lapse vector to the surface N{a}
+          Ndn/Nup - components of the null lapse vector to the surface N{a}
                   e.g. Ndn=[-1/2,-1/2,0,0]
 
 -------------------------------------------------------------------------------

@@ -41,9 +41,7 @@ and object definitions. In most things we are guided by "A Relativist's Toolkit"
 Some of the issues of developing computer algorithms for hypersurface and junctions are described in the original 
 GRJunction papers \cite{musgravelake:1996, musgravelake:1997}. \\
 
-A copy of the GRTensorIII source code is available online at 
-\href{url}{http:/gitlab.com/grtensor/GRTensorIII}. Merge requests
-will be considered. \\
+\getgrt \\
 
 %
 %------------------------------------------------------------------------------
@@ -188,7 +186,7 @@ $C_{ab} = - N_\alpha e^\alpha_{a;b} e^\beta_b$
   \begin{center}
     \begin{tabular}{ll}\hline\hline
       \textbf{GRTensorIII name} & \textbf{Common representation}\\ \hline
-      \texttt{s3(dn,dn)}        & $\sigma_{ab} $  \\
+      \texttt{sigma(dn,dn)}        & $\sigma_{ab} $  \\
       \texttt{C(dn,dn)}        & $C_{ab} $  \\
     \end{tabular}
     \caption{GRTensorIII objects defined on $\Sigma$ for null surfaces}
@@ -358,7 +356,6 @@ The objects defined for junctions are:
     \begin{tabular}{lll}\hline\hline
       \textbf{GRTensorIII name} & \textbf{Common representation} & Surface Type \\ \hline
       \texttt{S3(dn,dn)}        & $S_{ab} $ & timelike/spacelike  \\
-      \texttt{C3(dn,dn)}        & $C_{ab} $ & null \\
       \texttt{j\_null}   & $ j^A = \frac{1}{8 \pi} \sigma^{AB} \left[C_{\lambda B}\right]$ & null \\
       \texttt{mu\_null}   &$ \mu= - \frac{1}{8 \pi} \sigma^{AB} \left[C_{AB}\right]$ & null \\
       \texttt{p\_null}   &$ p = -\frac{1}{8 \pi} \left[C_{\lambda \lambda}\right]$ & null \\

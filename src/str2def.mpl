@@ -913,15 +913,15 @@ global grG_symList, grG_asymList;
    # If it's the beginning or end of a tensor, handle it.
    #
    if convert (workStr[i], name) = `{` then
-	 #
-	 # Entered a tensor expression
-	 # start some book keeping
-	 #
-	 iTypeSeq := NULL:
-	 iListSeq := NULL:
-	 start := i:
-	 workStr[i] := `(`:
-	 inTensor := true:
+    	 #
+    	 # Entered a tensor expression
+    	 # start some book keeping
+    	 #
+    	 iTypeSeq := NULL:
+    	 iListSeq := NULL:
+    	 start := i:
+    	 workStr[i] := `(`:
+    	 inTensor := true:
 
    elif convert (workStr[i], name) = `}` then
       #
@@ -934,50 +934,50 @@ global grG_symList, grG_asymList;
       # [trailing integer indicates auxilaary metric number]
       #
       if not addToOperator then
-   	  workStr[i] := ``:
-	  inTensor := false:
-	  if convert (workStr[start-1], name) = `>` then
-	   if convert (workStr[start-3], name) <> `<` then
-	      ERROR(`Error in angle brackets.`):
-	   fi:
-	   #
-	   # not for the default metric
-	   #
-	   gnum := parse( workStr[start-2]): # convert string to integer
-	   workStr[start-1] := ``;
-	   workStr[start-2] := ``;
-	   workStr[start-3] := ``;
-	   tName := workStr[start-4]:
-	   workStr[start-4] := ``:
-	 else
-	   tName := workStr[start-1]:
-	   gnum := 0:
-	 fi:
-	    #
-	    # change e.g  `R`, `{`, `a`, `b`, `}` to
-	    #  `Tensor_( R, [dn,dn], [a,b])`
-	    #
-            # Note: This is converting the iList to names 
-            # (so explicit  3 -> `3`)  PM2016
-            newiList := []:
-            for index in iListSeq do
-                if type(index, integer) then
-                   newiList := [op(newiList), index]
-                else
-                   newiList := [op(newiList), convert(index, name)]
-                fi:
-            od:
-
-	    workStr[start-1] := convert( cat(`Tensor_(`, tName,`,`,
-		 convert( [iTypeSeq], name),`,`,
-		 newiList,`,`,gnum,`)`) ,name):
-    else # add indices to the end of an Operator
-         workStr[i] := convert( cat( convert( [iTypeSeq], name),`,`,
-		 convert( [iListSeq], name),`)`), name):
+   	    workStr[i] := ``:
+	      inTensor := false:
+	      if convert (workStr[start-1], name) = `>` then
+	         if convert (workStr[start-3], name) <> `<` then
+	           ERROR(`Error in angle brackets.`):
+	         fi:
+      	   #
+      	   # not for the default metric
+      	   #
+      	   gnum := parse( workStr[start-2]): # convert string to integer
+      	   workStr[start-1] := ``;
+      	   workStr[start-2] := ``;
+      	   workStr[start-3] := ``;
+      	   tName := workStr[start-4]:
+      	   workStr[start-4] := ``:
+	       else
+	         tName := workStr[start-1]:
+	         gnum := 0:
+	       fi:
+    	   #
+    	   # change e.g  `R`, `{`, `a`, `b`, `}` to
+    	   #  `Tensor_( R, [dn,dn], [a,b])`
+    	   #
+         # Note: This is converting the iList to names 
+         # (so explicit  3 -> `3`)  PM2016
+         newiList := []:
+         for index in iListSeq do
+             if type(index, integer) then
+                newiList := [op(newiList), index]
+             else
+                newiList := [op(newiList), convert(index, name)]
+             fi:
+         od:
+         # breaks in Maple 18?
+	       workStr[start-1] := convert( cat(`Tensor_(`, tName,`,`,
+		          convert( [iTypeSeq], string),`,`,
+		          convert(newiList,string),`,`,gnum,`)`) ,name):
+      else # add indices to the end of an Operator
+         workStr[i] := convert( cat( convert( [iTypeSeq], string),`,`,
+		            convert( [iListSeq], string),`)`), name):
          addToOperator := false:
          inTensor := false:
 
-    fi:
+      fi:
 
    #
    # OPERATORS e.g.
@@ -1029,7 +1029,7 @@ global grG_symList, grG_asymList;
            workStr[i+3] := ``;
          fi:
          workStr[i] := convert( cat(`Tensor_(`, workStr[i],`,`,
-           `[],[],`, convert(gnum,name),`)` ), name):  
+           `[],[],`, convert(gnum,string),`)` ), name):  
        fi:
      fi:
 
