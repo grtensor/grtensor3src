@@ -28,6 +28,8 @@ kdotN           k{a} N{^a}
 
 n(dn)           Normal vector (non-null)
 
+ndotn           n{a} n{^a}
+
 N(dn)           Normal vector (null)
 
 NdotN           N{a} N{^a}

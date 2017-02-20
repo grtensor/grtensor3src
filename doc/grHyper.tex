@@ -147,6 +147,7 @@ Objects defined on $M$:
       \texttt{Tnn}        & $T^{\mu \nu} n_\mu n_\nu $  \\
       \texttt{Txn(dn)}        & $T_{\mu \nu} \frac{\partial x^\mu}{\partial y^a} n^\nu $  \\
       \texttt{n(dn) }      & $n_\alpha$, normal to the surface   \\    
+      \texttt{ndotn }      & $n_\alpha n^\alpha$, dot product of normal with itself   \\    
       \texttt{xform(up)}        & $x^\alpha(y^a)$, definition of the surface  \\    
     \end{tabular}
     \caption{GRTensorIII objects defined on $M$ for timelike/spacelike surfaces}
@@ -227,7 +228,8 @@ ndn = [diff(T(tau), tau), 0, 0, -(diff(R(tau), tau))],
 );                
 \end{verbatim}
 
-The parameters supported by the package are:
+The parameters supported by the package are listed in Table \ref{tab:hypersurf}. \\
+
 \renewcommand{\arraystretch}{1.5}
 \begin{table}[ht]
   \begin{center}
@@ -246,7 +248,7 @@ The parameters supported by the package are:
     \label{tab:hypersurf}
   \end{center}
 \end{table}
-Note that the corder of the coordinates in the \texttt{xform} parameter must match the co-odinates in $M$ as must the
+Note that the order of the co-ordinates in the \texttt{xform} parameter must match the co-ordinates in $M$ as must the
 components of any normal or lapse vector that is specified. \\
 
 In the case of a null surface the co-ordinates must be in the order $(\lambda, A, B)$ using the notation of \cite{poisson:2004}. \\
@@ -273,7 +275,7 @@ a direct substitution will cause issues with Maple. Consider a term:
 \begin{center}
 \texttt{diff(f(r), r)}
 \end{center}
-in the case where $r=-lambda$. Evaluating this in Maple:
+in the case where $r=-\lambda$. Evaluating this in Maple:
 \begin{center}
 \begin{verbatim}
 eval(subs(r = -lambda, diff(f(r), r)));

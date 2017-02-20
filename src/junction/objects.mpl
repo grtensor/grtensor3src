@@ -542,6 +542,21 @@ global gr_data, Ndim, grG_metricName:
 end:
 
 #----------------------------
+# ndotn
+# - defined for non-null shells only
+#----------------------------
+grG_ObjDef[ndotn][grC_header] := `n{^a} n{a}`:
+grG_ObjDef[ndotn][grC_root] := ndotn_:
+grG_ObjDef[ndotn][grC_rootStr] := `ndotn `:
+grG_ObjDef[ndotn][grC_indexList] := []:
+grG_ObjDef[ndotn][grC_symmetry] := grF_sym_scalar:
+grG_ObjDef[ndotn][grC_calcFn] := grF_calc_sum1:
+grG_ObjDef[ndotn][grC_calcFnParms] :=
+   gr_data[nup_,grG_metricName, s1_]*
+   gr_data[ndn_,grG_metricName, s1_]:
+grG_ObjDef[ndotn][grC_depends] := {n(up), n(dn), g(up,up)}:
+
+#----------------------------
 # ndiv
 #----------------------------
 grG_ObjDef[ndiv][grC_header] := `n{^a ; a}`:
