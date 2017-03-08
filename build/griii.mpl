@@ -64,6 +64,7 @@ export
 	grdef,
 	greqn2set,
 	grload, 
+	grload_maplet,
 	grinit,
 	grmap,
 	grmetric,
@@ -151,6 +152,7 @@ $include  "src/expandsqrt.mpl"
 $include  "src/grcomp.mpl"
 $include  "src/grdef.mpl"
 $include  "src/grload.mpl"
+$include  "src/grload_maplet.mpl"
 $include  "src/grtransform.mpl"
 $include  "src/initFn.mpl"
 $include  "src/inputFn.mpl"):

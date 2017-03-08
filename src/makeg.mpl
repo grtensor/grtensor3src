@@ -38,6 +38,8 @@
 # 15 Sep 2016   Change input to use grF_inputFn. [pm]
 #
 #*************************************************************************
+#$define DEBUG option trace;
+#$define DEBUG 
 
 
 #-------------------------------------------------------------------
@@ -388,57 +390,70 @@ end:
 # getds.
 #-------------------------------------------------------------------
 grF_getds := proc ( gdim, coord )
-local	ds, metric, i, j, cmpt, happy, divby, symfac, tlist, s:
+option trace;
+local	ds, metric, happy, divby, s:
 	happy := false:
 	while not happy do
 		happy := true:
- 		metric := array(1..gdim,1..gdim,[seq([seq(0,i=1..gdim)],i=1..gdim)]);
  		s := sprintf ( `Enter the line element using d[coord] to indicate differentials.\n` );
  		s := cat(s, sprintf(`(for example,  r^2*(d[theta]^2 + sin(theta)^2*d[phi]^2)\n`));
  		s := cat(s, sprintf(`[Type 'exit' to quit makeg]\n`));
 
  		ds := grF_makeg_input (s, []);
+ 		metric := grF_parse_ds(ds, coord):
 
-  		#
-  		# now expand ds^2 and sift through picking out terms
-  		# and putting them in the metric array
-  		#
-  		ds := expand(ds):
-### WARNING: note that `I` is no longer of type `^`
-  		if type ( ds, `*` ) or type ( ds, `^` ) then
-			tlist := [ds]:
-		else
-			tlist := [op(ds)]:
-  		fi:
-  		for i in tlist do
-    			divby := 2;
-		        cmpt := NULL:
-			for j to gdim do
-				if has(i, d[coord[j]]) then
-					if has ( i, d[coord[j]]^2 ) then
-						cmpt := cmpt, j, j:
-		                                symfac := 1:
-		                       else
-						cmpt := cmpt, j;
-		                                symfac := 1/2:
-		                        fi:
-		      		fi:
-		    	od:
-    			if nops ( [cmpt] ) <> 2 then
-       				printf(`Error - the following term is not quadratic in d[]: %a\n`, i );
-       				happy := false;
-       				break;
-    			else
-       				metric[cmpt] := metric[cmpt] + symfac*i/(d[coord[op(1,[cmpt])]]*d[coord[op(2,[cmpt])]]);
-       				if op(1,[cmpt])<>op(2,[cmpt]) then
-         				metric[op(2,[cmpt]),op(1,[cmpt])] := metric[cmpt]:
-                                fi:
-    			fi:
- 		 od:
  	od:
-RETURN ( metric ):
+	RETURN ( metric ):
 end:
 
+grF_parse_ds := proc(ds_in, coord)
+option trace;
+local ds, metric, tList, term, j, component, symfac, gdim;
+
+	gdim := nops(coord):
+
+	metric := array(1..gdim,1..gdim,[seq([seq(0,i=1..gdim)],i=1..gdim)]);
+
+	#
+	# now expand ds^2 and sift through picking out terms
+	# and putting them in the metric array
+	#
+	ds := expand(ds_in):
+  	if type ( ds, `*` ) or type ( ds, `^` ) then
+		tlist := [ds]:
+	else
+		tlist := [op(ds)]:
+  	fi:
+
+  	# scan term by term to find d[] elements and infer
+  	# the metric component
+  	for term in tlist do
+    	divby := 2;
+		component := NULL:
+		for j to gdim do
+			if has(term, d[coord[j]]) then
+				if has ( term, d[coord[j]]^2 ) then
+					component := component, j, j:
+					symfac := 1:
+				else
+					component := component, j;
+					symfac := 1/2:
+				fi:
+			fi:
+		od:
+		if nops ( [component] ) <> 2 then
+			ERROR(`Error - the following term is not quadratic in d[]: %a\n`, i );
+		else
+			metric[component] := metric[component] + symfac*term/(d[coord[op(1,[component])]]*d[coord[op(2,[component])]]);
+			if op(1,[component])<>op(2,[component]) then
+				# fill in the symmetric element
+				metric[op(2,[component]),op(1,[component])] := metric[component]:
+			fi:
+		fi:
+	od:
+
+	RETURN(metric):
+end proc:
 
 
 #-------------------------------------------------------------------

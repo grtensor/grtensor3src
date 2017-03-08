@@ -58,12 +58,27 @@
 #-------------------------------------------------------------------
 # grload
 #-------------------------------------------------------------------
-grload := proc ( gname, gfile )
+grload := proc()
+  if nargs = 0 then:
+    grload_maplet();
+    RETURN():
+  else:
+    grF_loadMetric(args[1], args[2]):
+  fi:
+
+end proc:
+
+#-------------------------------------------------------------------
+# grF_loadMetric
+#-------------------------------------------------------------------
+grF_loadMetric := proc (gname, gfile)
 # need Ndim_ global since can be read from metric file (typically will be)
 global  Ndim, Ndim_, constraint_,
   grG_metricName, Info_, sig_, grG_sig_, grG_complexSet_, 
   grG_metricSet, gr_data;
-local  a, b, cons,  i, j, ndim, gtype, ip, npip, g, bu, bd, bup, bdn, grinit, stsig, underscore:
+local  a, b, cons,  i, j, ndim, gtype, ip, npip, g,  
+       bu, bd, bup, bdn, grinit, stsig, underscore:
+
   if member ( gname, grG_metricSet ) then
     grmetric (gname):
     RETURN():
