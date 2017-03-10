@@ -55,19 +55,26 @@ grtransform := proc ()
   grF_check_xform_errors (oldmetric, newmetric, xform, ndim):
   oldcoords := grF_set_old_coords (oldmetric, ndim):
   newcoords := grF_find_new_coords (oldmetric, oldcoords, xform, ndim):
+  # xfdir => xform direction 
   xfdir := newcoords[0]:
 
   if xfdir=1 then 
+    printf("transform is x_new(x_old)\n"):
     dcoord := oldcoords:
   else
+    printf("transform is x_old(x_new)\n"):
     dcoord := newcoords:
   fi:
   J := linalg[matrix](ndim,ndim):
   for a to ndim do
     for b to ndim do
       J[a,b] := simplify ( diff(rhs(xform[a]),dcoord[b]), hypergeom ):
+      if J[a,b] <> 0 then
+        printf("Jacobian[%d,%d]: %a\n", a, b, J[a,b]);
+      fi:
     od:
   od:
+
   if xfdir=1 then
     iJ := eval (J):
     J := linalg[inverse] (J):
@@ -154,6 +161,8 @@ grtransform := proc ()
 
   grF_initMetric ( newmetric ):
   printf ("The new default metric is: %a\n", newmetric):
+  grdisplay(x(up));
+  grdisplay(ds);
 end:
 
 #---------------------------------------------------------
@@ -192,55 +201,68 @@ end:
 
 #----------------------------------------------------------
 # find_new_coords: Build a list of new coordinates.
+#
+# Returns:
+#  element[0] = +1  functions give new coords
+#               -1  function give old coords
 #---------------------------------------------------------
 grF_find_new_coords := proc (oldmetric, oldcoords, xform, ndim)
-local a, b, c, funcname, funcnames, funcnamev, fargname, fargnames,
+local a, b, c, cname, funcname, funcnames, funcnamev, fargname, fargnames,
   fargnamev:
   funcnames := {}:
   fargnames := {}:
   c := 0:
+  #
+  # scan LHS of xform list to get function names
+  # these will be either new or old coords
+  #
   for b to ndim do
-    funcname := op(0, lhs(xform[b])):
-    funcnames := funcnames union {funcname}:
-    funcnamev[b] := funcname:
-    for a in lhs(xform[b]) do
-      fargname := a:
-      if not member(fargname, fargnames) then
-        fargnames := fargnames union {fargname}:
+    if type(lhs(xform[b]), name) and lhs(xform[b]) = rhs(xform[b]) then
+      cname := lhs(xform[b]):
+      printf("identity for %a\n", cname):
+      # allow e.g. theta=theta
+      # add to both new and old coord list
+      funcnames := funcnames union {cname}:
+      funcnamev[b] := cname:
+      if not member(cname, fargnames) then
+        fargnames := fargnames union {cname}:
         c := c + 1:
-        fargnamev[c] := fargname:
+        fargnamev[c] := cname:
       fi:
-    od:
+    else
+      # e.g. u(r,t) = <expression>
+      funcname := op(0, lhs(xform[b])):
+      funcnames := funcnames union {funcname}:
+      funcnamev[b] := funcname:
+      for a in lhs(xform[b]) do
+        fargname := a:
+        if not member(fargname, fargnames) then
+          fargnames := fargnames union {fargname}:
+          c := c + 1:
+          fargnamev[c] := fargname:
+        fi:
+      od:
+    fi:
   od:
+
+  # dimension check
   if c <> ndim then
     ERROR(`Dimension is`, ndim, 
       `but number of distinct arguments to transformation is`,c):
   fi:
-  for a to ndim do
-    if not member(oldcoords[a], funcnames) then
-      if a <> 1 then
-        ERROR(`Coordinate`, oldcoords[a-1],
-          `is a function name but`, oldcoords[a],
-          `is not.`):
-      fi:
-      for b to ndim do
-        if not member(oldcoords[b], fargnames) then
-          ERROR(`Coordinate`, oldcoords[a], 
-            `is not a function name and`, oldcoords[b], 
-            `is not an argument.`):
-        fi:
-      od:
-      funcnamev[0] := 1:
-      RETURN(eval(funcnamev)):
-    fi:
-  od:
-  for a to ndim do
-    if funcnamev[a] <> oldcoords[a] then
-      ERROR(`Coordinate`, oldcoords[a], 
-        `does not match function name`, funcnamev[a]):
-    fi:
-  od:
-  fargnamev[0] := -1:
-  RETURN (eval(fargnamev)):
+
+  # Are function names new coords?
+  oldcoord_set := {ops(oldcoords)}:
+  if nops(funcnames minus oldcoord_set) > 0 then
+    # use function names as new coords
+    funcnamev[0] := 1:
+    RETURN (eval(funcnamev)):
+  else
+    # use function args as new coords
+    fargnamev[0] := -1:
+    RETURN (eval(fargnamev)):
+  fi:
+
+
 end:
 
