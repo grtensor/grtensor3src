@@ -59,19 +59,19 @@ grtransform := proc ()
   xfdir := newcoords[0]:
 
   if xfdir=1 then 
-    printf("transform is x_new(x_old)\n"):
+    #printf("transform is x_new(x_old)\n"):
     dcoord := oldcoords:
   else
-    printf("transform is x_old(x_new)\n"):
+    #printf("transform is x_old(x_new)\n"):
     dcoord := newcoords:
   fi:
   J := linalg[matrix](ndim,ndim):
   for a to ndim do
     for b to ndim do
       J[a,b] := simplify ( diff(rhs(xform[a]),dcoord[b]), hypergeom ):
-      if J[a,b] <> 0 then
-        printf("Jacobian[%d,%d]: %a\n", a, b, J[a,b]);
-      fi:
+#      if J[a,b] <> 0 then
+#        printf("Jacobian[%d,%d]: %a\n", a, b, J[a,b]);
+#      fi:
     od:
   od:
 
@@ -152,6 +152,11 @@ grtransform := proc ()
         od:
       od:
     od:
+    for a to ndim do 
+      for b from a to ndim do
+        metric[a,b] := simplify(metric[a,b]):
+      od:
+    od:
     grG_default_metricName := newmetric:
     grG_metricName := newmetric:
     grF_initg ( ndim, metric, newmetric ):
@@ -219,7 +224,7 @@ local a, b, c, cname, funcname, funcnames, funcnamev, fargname, fargnames,
   for b to ndim do
     if type(lhs(xform[b]), name) and lhs(xform[b]) = rhs(xform[b]) then
       cname := lhs(xform[b]):
-      printf("identity for %a\n", cname):
+      # printf("identity for %a\n", cname):
       # allow e.g. theta=theta
       # add to both new and old coord list
       funcnames := funcnames union {cname}:

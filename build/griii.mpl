@@ -77,6 +77,7 @@ export
 	kdelta,
 	KillingCoords,
 	makeg, 
+	metric,
 	nprotate,
 	nptetrad,
 	PetrovReport,
@@ -158,6 +159,7 @@ $include  "src/initFn.mpl"
 $include  "src/inputFn.mpl"):
 $include  "src/killing.mpl"
 $include  "src/makeg.mpl"):
+$include  "src/metric.mpl"
 $include  "src/miscfn.mpl"
 $include  "src/newmetric.mpl"
 $include  "src/normalize.mpl"

@@ -48,17 +48,60 @@ SYNOPSIS:
 -------------------------------------------------------------------------------
 EXAMPLES:
 
-> qload ( schw ):
+> qload(schw);
+Calculated ds for schw (0.000000 sec.)
+Assigning info `The Schwarzschild metric in curvature coordinates`
+                           Default spacetime = schw
 
-> xform := [ u(r,t) = sqrt(r/(2*m)-1)*exp(r/(4*m))*cosh(t/(4*m)),
->            v(r,t) = sqrt(r/(2*m)-1)*exp(r/(4*m))*sinh(t/(4*m)),
->            Theta(theta) = theta,
->            Phi(phi) = phi ];
+                            For the schw spacetime:
 
-> grtransform ( schw, kruskal, xform ):
+                                  Coordinates
 
-   The new default metric is: kruskal
+                                     x(up)
 
+                             a
+                           x   = [r, theta, phi, t]
+
+                                 Line element
+
+            2
+    2    d r       2         2     2           2       2    /     2 m\     2
+  ds  = ------- + r   d theta   + r  sin(theta)   d phi   + |-1 + ---|  d t
+            2 m                                             \      r /
+        1 - ---
+             r
+
+               The Schwarzschild metric in curvature coordinates
+
+> rstar := int(1/(1-2*m/r), r);
+  rstar := r + 2 m ln(r - 2 m)
+
+> xform := [u(r, t) = t-rstar, r = r, theta = theta, phi = phi];
+   xform := [u(r, t) = t - r - 2 m ln(r - 2 m), r = r, theta = theta, phi = phi]
+
+> grtransform(schw, schw_EF, xform);
+transform is x_new(x_old)
+Calculated ds for schw_EF (0.000000 sec.)
+The new default metric is: schw_EF
+                              For the schw_EF spacetime:
+
+                                      Coordinates
+
+                                         x(up)
+
+                                 a
+                               x   = [u, r, theta, phi]
+
+                              For the schw_EF spacetime:
+
+                                     Line element
+
+                        2
+     2   (-r + 2 m)  d u                      2         2     2           2       2
+   ds  = ----------------- - 2  d u  d  r  + r   d theta   + r  sin(theta)   d phi
+                 r
+
+> 
 -------------------------------------------------------------------------------
 SEE ALSO: makeg, grsaveg, grmap, grconstraint, nptetrad, nprotate.
 ===============================================================================

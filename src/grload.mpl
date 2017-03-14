@@ -256,7 +256,7 @@ local  a, b, cons,  i, j, ndim, gtype, ip, npip, g,
     # awkward, since use constraint_ as tag
     cons := constraint_;
     constraint_ := 'constraint_':
-    printf("Loaded constraint: %a\n", cons):
+    #printf("Loaded constraint: %a\n", cons):
     gr_data[constraint_,gname] := [op(cons)]:
     grF_assignedFlag ( constraint, set, gname ):
   fi:
@@ -264,7 +264,6 @@ local  a, b, cons,  i, j, ndim, gtype, ip, npip, g,
 # initialize text information field, if it exists.
 #
   if assigned ( Info_ ) then
-    printf("Assigning info %a\n", Info_);
     gr_data[Text_,gname] := Info_:
     grF_assignedFlag ( Info, set, gname ):
     Info_ := 'Info_':
@@ -288,6 +287,9 @@ local  a, b, cons,  i, j, ndim, gtype, ip, npip, g,
 #
   grF_initMetric ( gname ):
   grF_displaymetric ( gname, gtype ):
+  if grF_assignedFlag( constraint, test, gname ) then
+    grdisplay(constraint);
+  fi:
 end:
 
 #---------------------------------------------------------------

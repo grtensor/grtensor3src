@@ -407,12 +407,11 @@ local	ds, metric, happy, divby, s:
 end:
 
 grF_parse_ds := proc(ds_in, coord)
-option trace;
-local ds, metric, tList, term, j, component, symfac, gdim;
+local ds, metricArray, tList, term, j, component, symfac, gdim;
 
 	gdim := nops(coord):
 
-	metric := array(1..gdim,1..gdim,[seq([seq(0,i=1..gdim)],i=1..gdim)]);
+	metricArray := array(1..gdim,1..gdim,[seq([seq(0,i=1..gdim)],i=1..gdim)]);
 
 	#
 	# now expand ds^2 and sift through picking out terms
@@ -444,15 +443,15 @@ local ds, metric, tList, term, j, component, symfac, gdim;
 		if nops ( [component] ) <> 2 then
 			ERROR(`Error - the following term is not quadratic in d[]: %a\n`, i );
 		else
-			metric[component] := metric[component] + symfac*term/(d[coord[op(1,[component])]]*d[coord[op(2,[component])]]);
+			metricArray[component] := metricArray[component] + symfac*term/(d[coord[op(1,[component])]]*d[coord[op(2,[component])]]);
 			if op(1,[component])<>op(2,[component]) then
 				# fill in the symmetric element
-				metric[op(2,[component]),op(1,[component])] := metric[component]:
+				metricArray[op(2,[component]),op(1,[component])] := metricArray[component]:
 			fi:
 		fi:
 	od:
 
-	RETURN(metric):
+	RETURN(metricArray):
 end proc:
 
 
@@ -605,8 +604,8 @@ end:
 # getbasisip.
 #-------------------------------------------------------------------
 grF_getbasisip := proc ( gdim, gtype )
-local a, b, diag, metric:
-	metric := array ( 1..gdim, 1..gdim ):
+local a, b, diag, metricArray:
+	metricArray := array ( 1..gdim, 1..gdim ):
 	while not assigned ( diag ) do
 		s := sprintf ( `Is the basis inner product:\n`):
 		s := cat(s, sprintf(` 1) Diagonal\n` )):
@@ -620,28 +619,28 @@ local a, b, diag, metric:
 	if diag = 1 then
 		for a  to gdim do
 			for b from a+1 to gdim do
-				metric[a,b] := 0:
-				metric[b,a] := 0:
+				metricArray[a,b] := 0:
+				metricArray[b,a] := 0:
 			od:
 		od:
 		for a to gdim do
-			metric[a,a] := grF_getipelement ( a, a ):
+			metricArray[a,a] := grF_getipelement ( a, a ):
 		od:
 	else
 		for a to gdim do
 			for b from a to gdim do
-				metric[a,b] := grF_getipelement ( a, b ):
-				metric[b,a] := metric[a,b]:
+				metricArray[a,b] := grF_getipelement ( a, b ):
+				metricArray[b,a] := metricArray[a,b]:
 			od:
 		od:
 	fi:
-RETURN ( metric ):
+RETURN ( metricArray ):
 end:
 
 #-------------------------------------------------------------------
 # correctmetric.
 #-------------------------------------------------------------------
-grF_correctmetric := proc ( metric, coord )
+grF_correctmetric := proc ( metricArray, coord )
 local	a, e1, e2, new_element, val, etype, enops:
 	new_element := 'new_element':
 	while not assigned ( new_element ) do
@@ -681,9 +680,9 @@ local	a, e1, e2, new_element, val, etype, enops:
 	od:
 	printf ( `Current value:\n` ):
 	print  ( g[new_element[1]]*``[new_element[2]] = metric[e1,e2] ):
-	metric[e1,e2] := grF_makeg_input ( `New value:`, [] ):
-	metric[e2,e1] := metric[e1,e2]:
-RETURN ( metric ):
+	metricArray[e1,e2] := grF_makeg_input ( `New value:`, [] ):
+	metricArray[e2,e1] := metricArray[e1,e2]:
+RETURN ( metricArray ):
 end:
 
 #-------------------------------------------------------------------
@@ -883,7 +882,7 @@ grF_usemetric := proc ( G_gdim,
 						G_sig, 
 						G_basisd,
 						G_basisu)
-global  Ndim, grG_Ndim, grG_metricName, grG_default_metricName, grG_sig_, grG_complexSet_, gr_data:
+global  Ndim, grG_metricName, grG_default_metricName, grG_sig_, grG_complexSet_, gr_data:
 local 	i, btype:
 	Ndim[(G_gname)] := G_gdim:
 	grG_metricName := G_gname:
@@ -1249,8 +1248,10 @@ end:
 # grF_initg.
 #-------------------------------------------------------------------
 grF_initg := proc ( ndim, metric, gname )
-global 	grG_calc, grG_fnCode, gr_data:
+global 	grG_calc, grG_fnCode, gr_data, Ndim, grG_metricName:
 local	a, b:
+	Ndim[gname] := ndim;
+	grG_metricName := gname;
 	for a to ndim do
 		for b from a to ndim do
 			gr_data[gdndn_,gname,b,a] := gr_data[gdndn_,gname,a,b]:
