@@ -34,7 +34,7 @@ I. Differential operators:
 
   The standard GRTensorII differential operators are:
 ===============================================================================
-GRTensorII name         Description
+GRTensorIII name         Description
 -------------------------------------------------------------------------------
   LieD[vector,object] - Lie derivative of `object' along `vector'
 
@@ -73,12 +73,13 @@ II. Vector operators
 
 The vector operators are:
 ===============================================================================
-GRTensorII name         Description
+GRTensorIII name         Description
 -------------------------------------------------------------------------------
   h[v](dn,dn)         - projection of the metric onto the subspace orthogonal
                         to v
-  acc[v](up)          - acceleration vector
-  expsc[v]            - expansion scalar
+  acc[v](up)          - acceleration vector (v{a;b} v{^b})
+  expsc[v]            - expansion scalar (v{a;a})
+  vnorm[v]            - norm (v{a} v{^a})
   vor[v](dn,dn)       - vorticity tensor
   vor[v](up)          - vorticity vector
   vor[v]              - vorticity scalar

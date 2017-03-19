@@ -77,7 +77,7 @@ export
 	kdelta,
 	KillingCoords,
 	makeg, 
-	metric,
+	spacetime,
 	nprotate,
 	nptetrad,
 	PetrovReport,
@@ -273,7 +273,7 @@ global grG_metricSet, grG_ObjDef;
 	load_hypers_objects():
     grF_gen_rootSet():
 	grF_gen_calcFnSet():
-	print("GRTensor III v2.0.2 Feb 20, 2017"):
+	print("GRTensor III v2.0.2+ Debug"):
 	print("Copyright 2017, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://github.com/grtensor/grtensor");
 	print("For help ?grtensor");

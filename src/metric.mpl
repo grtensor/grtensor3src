@@ -7,7 +7,9 @@ $undef DEBUG
 #define DEBUG option trace;
 $define DEBUG 
 
-metric_params := {coord, ds, type, cons, bdn, bup, info};
+metric_params := {coord, ds, type, cons, info};
+
+allowed_symbols := {edn, eup, g, l, n, m, mbar};
 
 metric_validate[type] := proc(name, stype)
 DEBUG
@@ -50,6 +52,27 @@ DEBUG
 
 end proc:
 
+# used for any of allowed symbols
+metric_validate[symbol] := proc(pname, stype)
+DEBUG
+  local errorStr;
+  local s;
+
+  errorStr := "ok"; 
+  # get root symbol name
+  if type(op(0,name), symbol) then 
+  	s := op(0, pname);
+  	if not member(s, allowed_symbols) then
+  		errorStr := "Symbol not recognized: "||s; 
+  	fi:
+  else
+  	errorStr := "Could not get root name for "||op(0,pname):
+  fi:
+
+  RETURN(errorStr):
+
+end proc:
+
 #--------------------------------------------
 # metric_checkargs 
 #--------------------------------------------
@@ -65,6 +88,12 @@ DEBUG
     if not type(args[i], equation) then
       printf("arg=%a\n", args[i]);
       ERROR("Arguments must be equations. See ?metric")
+#    elif not type(args[i], symbol) then
+#      # could be a metric, basis, eta or NP entry
+#      errString := metric_validate[symbol](lhs(args[i]), rhs(args[i]));
+#      if errString <> "ok" then
+#         ERROR(errString);
+#      fi:
     elif not member(lhs(args[i]), metric_params) then
       printf("parameter %a\n", lhs(args[i]));
       printf("Not in parameter list: %a\n", metric_params);
@@ -91,7 +120,7 @@ end proc:
 # metric
 #--------------------------------------------
 
-metric := proc()
+spacetime := proc()
 DEBUG
   local args_by_name, metricName, metricArray, ndim; 
   global grG_default_metricName, grG_metricName, gr_data, Ndim, 

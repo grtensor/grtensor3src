@@ -94,6 +94,39 @@ global gr_data, grG_ObjDef, grG_metricName;
 end:
 
 #------------------------------------------------------------------------------
+# geodesic[param, v](up) = v{^a} v{^b ; a}
+#------------------------------------------------------------------------------
+grG_ObjDef[geodesic(up)][grC_header] := `Geodesic equation w.r.t parameter`:
+grG_ObjDef[geodesic(up)][grC_root] := geod_:
+grG_ObjDef[geodesic(up)][grC_rootStr] := `geod`:
+grG_ObjDef[geodesic(up)][grC_indexList] := [up]:
+grG_ObjDef[geodesic(up)][grC_calcFn] := grF_calc_geodesic:
+grG_ObjDef[geodesic(up)][grC_symmetry] := grF_sym_vector:
+grG_ObjDef[geodesic(up)][grC_operandSeq] := grVector, param:
+grG_ObjDef[geodesic(up)][grC_depends] := { grG_grVector(up), Chr(dn,dn,up) }:
+
+grF_calc_geodesic := proc( object, list)
+option trace;
+local a, s, s1, s2, v, vRoot:
+global gr_data, grG_ObjDef, grG_metricName, grG_param, Ndim;
+
+  v := grG_grVector:
+  p := grG_param:
+  vRoot := grG_ObjDef[v(up)][grC_root]:
+
+  s := diff(gr_data[vRoot,grG_metricName, a1_], p, p):
+  for s1 to Ndim[grG_metricName] do
+    for s2 to Ndim[grG_metricName] do
+      s := s + gr_data[Chrdndnup_,grG_metricName, s1, s2, a1_ ]
+          *diff(gr_data[vRoot,grG_metricName, s1],p)
+          *diff(gr_data[vRoot,grG_metricName, s2],p);
+    od:
+  od:
+
+  RETURN(s):
+end:
+
+#------------------------------------------------------------------------------
 # expansion = v^a_;a
 #------------------------------------------------------------------------------
 grG_ObjDef[expsc][grC_header] := `Expansion scalar`:

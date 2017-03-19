@@ -98,12 +98,6 @@ grG_indexFnSet := {up,dn,bup,bdn,pup,pdn,cup,cdn,cbup,cbdn,pbup,pbdn}:
 # set of substitutions for the old GRtensor object names
 # (misnomer they're really sequences)
 #
-grG_subList[metric] := g(dn,dn):
-grG_subList[invmetric] := g(up,up):
-grG_subList[d1metric] := g(dn,dn,dn):
-grG_subList[Chr1] := Chr(dn,dn,dn):
-grG_subList[Chr2] := Chr(dn,dn,up):
-grG_subList[coordinates] := x(up):
 grG_subList[Riemann] := R(dn,dn,dn,dn):
 grG_subList[NRiemann] := R(up,dn,dn,dn):
 grG_subList[MRiemann] := R(up,up,dn,dn):

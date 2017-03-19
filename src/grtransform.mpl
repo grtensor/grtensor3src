@@ -65,7 +65,7 @@ grtransform := proc ()
     #printf("transform is x_old(x_new)\n"):
     dcoord := newcoords:
   fi:
-  J := linalg[matrix](ndim,ndim):
+  J := Matrix(ndim,ndim):
   for a to ndim do
     for b to ndim do
       J[a,b] := simplify ( diff(rhs(xform[a]),dcoord[b]), hypergeom ):
@@ -75,11 +75,23 @@ grtransform := proc ()
     od:
   od:
 
+  # check for singluar xform and print matrix
+  if LinearAlgebra[Determinant](J) = 0 then
+    printf("Xform has zero determinant (non-zero entries):\n"):
+    for a to ndim do
+      for b to ndim do
+        if J[a,b] <> 0 then
+          printf("Jacobian[%d,%d]: %a\n", a, b, J[a,b]);
+        fi:
+      od:
+    od:
+  fi:
+
   if xfdir=1 then
     iJ := eval (J):
-    J := linalg[inverse] (J):
+    J := LinearAlgebra[MatrixInverse](J):
   else
-    iJ := linalg[inverse] (J):
+    iJ := LinearAlgebra[MatrixInverse](J):
   fi:
   grG_Ndim[newmetric] := ndim:
   Ndim[newmetric] := ndim:
