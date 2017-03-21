@@ -407,6 +407,7 @@ local	ds, metric, happy, divby, s:
 end:
 
 grF_parse_ds := proc(ds_in, coord)
+#option trace;
 local ds, metricArray, tList, term, j, component, symfac, gdim;
 
 	gdim := nops(coord):

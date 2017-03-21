@@ -656,7 +656,7 @@ end:
 #********************************************************************
 
 grmap :=  proc()
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
+#option trace;
 global  grG_preSeq, grG_postSeq, grG_simpHow, grG_calc, 
         grG_simp, grG_callComp, grG_fnCode, grOptionAlterSize;
 local i, j, funct, k, new_args, argSeq, pStart;

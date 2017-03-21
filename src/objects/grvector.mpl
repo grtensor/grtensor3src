@@ -106,7 +106,7 @@ grG_ObjDef[geodesic(up)][grC_operandSeq] := grVector, param:
 grG_ObjDef[geodesic(up)][grC_depends] := { grG_grVector(up), Chr(dn,dn,up) }:
 
 grF_calc_geodesic := proc( object, list)
-option trace;
+#option trace;
 local a, s, s1, s2, v, vRoot:
 global gr_data, grG_ObjDef, grG_metricName, grG_param, Ndim;
 

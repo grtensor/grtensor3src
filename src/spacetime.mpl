@@ -1,10 +1,10 @@
 #
-# Metric.mpl
+# Spacetime.mpl
 #
 # Command line metric creation
 #
 $undef DEBUG
-#define DEBUG option trace;
+#$define DEBUG option trace;
 $define DEBUG 
 
 metric_params := {coord, ds, type, cons, info};
@@ -82,18 +82,24 @@ DEBUG
 
   # screen all the input attributes
   # first arg is the metric name
-
+  args_by_name[indexed] := []; 
 
   for i from 2 to nargs do
     if not type(args[i], equation) then
       printf("arg=%a\n", args[i]);
       ERROR("Arguments must be equations. See ?metric")
-#    elif not type(args[i], symbol) then
-#      # could be a metric, basis, eta or NP entry
-#      errString := metric_validate[symbol](lhs(args[i]), rhs(args[i]));
-#      if errString <> "ok" then
-#         ERROR(errString);
-#      fi:
+    elif type(lhs(args[i]), indexed) then
+      #
+      # could be a metric, basis, eta or NP entry
+      # indexed entries are added to the indexed list and treated as 
+      # a standard argument
+      #
+      errString := metric_validate[symbol](lhs(args[i]), rhs(args[i]));
+      if errString <> "ok" then
+         ERROR(errString);
+      fi:
+      args_by_name[indexed] := [op(args_by_name[indexed]), lhs(args[i])];
+      args_by_name[lhs(args[i])] := rhs(args[i]):
     elif not member(lhs(args[i]), metric_params) then
       printf("parameter %a\n", lhs(args[i]));
       printf("Not in parameter list: %a\n", metric_params);
@@ -117,7 +123,47 @@ DEBUG
 end proc:
 
 #--------------------------------------------
-# metric
+# grF_parse_g
+# Extract the metric elements from the arg list
+# and put in an array. 
+#--------------------------------------------
+
+grF_parse_g := proc(args_by_name)
+DEBUG
+local c, cnum, coordNum, entry, indexList, gdim, metricArray; 
+
+  gdim := nops(args_by_name[coord]):
+
+  # build a list of coord -> num
+  cnum := 1;
+  for c in args_by_name[coord] do
+    coordNum[c] := cnum:
+    cnum := cnum + 1;
+  od:
+
+  metricArray := array(1..gdim,1..gdim,[seq([seq(0,i=1..gdim)],i=1..gdim)]);
+
+  for entry in args_by_name[indexed] do
+    if nops(entry) <> 2 then
+      ERROR( "entry" || entry || " does not have 2 arguments"):
+    fi:
+    # get number of entry in list
+    indexList := [];
+    for index in op(entry) do
+      if not member(index, args_by_name[coord]) then
+         ERROR("Unknown co-ordinate " || index || " not in " || args_by_name[coord]);
+      fi:
+      indexList := [op(indexList), coordNum[index]]:
+    od:
+    metricArray[op(indexList)] := args_by_name[entry]:
+  od:
+
+  RETURN(metricArray):
+
+end proc:
+
+#--------------------------------------------
+# spacetime
 #--------------------------------------------
 
 spacetime := proc()
@@ -140,15 +186,24 @@ DEBUG
     # metric is specified as a line element
     metricArray := grF_parse_ds( args_by_name[ds], args_by_name[coord]):
     grF_initg( ndim, metricArray, metricName)
+
+  elif nops(args_by_name[indexed]) > 0 then
+    #
+    # extract the metric from arguments
+    #
+    metricArray := grF_parse_g(args_by_name):
+    grF_initg( ndim, metricArray, metricName)
   fi:
 
   # assign the co-ords
   grG_default_metricName := grG_metricName:
   for i to ndim do
-	gr_data[xup_,grG_metricName,i] := args_by_name[coord][i]:
+	    gr_data[xup_,grG_metricName,i] := args_by_name[coord][i]:
   od:
+  grF_assignedFlag ( x(up), set, grG_metricName ):
   grG_metricSet := {ops(grG_metricSet), metricName};
 
+  grcalc(ds);
   grdisplay(ds):
 
  end proc:
