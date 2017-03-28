@@ -31,7 +31,7 @@
 #
 
 jdiff := proc(expr, diffBy)
-option trace;
+#option trace;
 global grG_metricName, gr_data;
 local newExpr, a, fun, totalVar:
 

@@ -180,7 +180,6 @@ DEBUG
   args_by_name := metric_checkargs(args);
 
   ndim := nops(args_by_name[coord]):
-  printf("ndim=%a\n", ndim):
 
   if assigned(args_by_name[ds]) then
     # metric is specified as a line element
@@ -201,7 +200,7 @@ DEBUG
 	    gr_data[xup_,grG_metricName,i] := args_by_name[coord][i]:
   od:
   grF_assignedFlag ( x(up), set, grG_metricName ):
-  grG_metricSet := {ops(grG_metricSet), metricName};
+  grG_metricSet := grG_metricSet union {metricName}:
 
   grcalc(ds);
   grdisplay(ds):

@@ -303,60 +303,87 @@ global  grG_metricName, grG_metricName1, grG_metricName2, grG_metricName3,
 end:
 *)
 
-
-
 #----------------------------------------------------------
 # grundef - set object definition to null
 #----------------------------------------------------------
 grundef := proc(object)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
-global  grG_ObjDef;
-local a, b, ilist, idxn, oname, cleared, gname:
+option trace; 
+global  grG_ObjDef, gr_data, grG_rootSet;
+local a, b, c, per_index, index, objects:
   if grF_checkIfDefined (object, check) <> NULL then
     ERROR(`This object is not defined`);
   fi:
   #
-  # make sure all instances of this object in any loaded
-  # metrics have been deleted
+  # create a list of all index permutations of this object 
+  # - need to delete them all 
+  # TODO: if any derivitive extensions exist, those have not
+  # been deleted
   #
-  gname := grG_metricName:
-  
-  if type ( object, function ) then
-    ilist := NULL:
-    idxn := nops ( object ):
-    oname := op(0,object):
-    for a to idxn do
-      ilist := ilist, dn, up, bdn, bup:
+  if nops(object) <> 0 then
+    # build a per-index location list of each possible permuation
+    for a to nops(object) do
+      if member(op(a,object), {up,dn}) then
+        per_index[a] := [up,dn];
+      elif member(op(a,object), {bup,bdn}) then
+        per_index[a] := [bup,bdn];
+      elif member(op(a,object), {cup,cdn}) then
+        per_index[a] := [cup,cdn];
+      fi:
     od:
-    for a in combinat[permute] ( [ilist], idxn ) do
-      if (traperror (grF_checkIfDefined (oname (op(a)), check)) <>
-        lasterror) then
-	cleared := false:
-        for b in grG_metricSet do
-          if grF_checkIfAssigned ( oname(op(a)), b ) then
-            grclear(b, oname(op(a))):
-	    cleared := true:
-          fi:
+    # build a list of every perm: eg: gdndn_ gdnup_, gupdn_ ...
+    new_list := [[]]:
+    for b to nops(object) do
+      list := new_list;
+      new_list := [];
+      for e in list do
+        for c in per_index[b] do
+          new_list := [op(new_list), [op(e), c]]:
         od:
-        if cleared then
-          grG_ObjDef[oname(op(a))] := grG_deleted:
-          printf ( `Removed definition of object %a\n`, oname(op(a)) ):
-	fi:
-      fi:
+      od:
     od:
+    list := new_list:
+    new_list := []:
+    for a in list do
+      new_list := [op(new_list), op(0,object)(op(a))]:
+    od:
+
   else
-    for a in grG_metricSet do
-      if grF_checkIfAssigned (object, a) then
-        grclear(a, object);
-      fi:
-    od:
-    grG_ObjDef[object] := grG_deleted:
-    printf( `Removed definition of object %a\n`, object);
+    # object is a scalar
+    objects := object:
   fi:
 
-  grF_setmetric (gname):
-  grF_gen_rootSet(); # regenerate root set
-end:
+  #
+  # clear each combination of the object in all metrics
+  #
+  for e in new_list do
+    if grF_checkIfDefined (e, check) <> NULL then
+      grclear(e):
+    fi:
+  od:
+  #
+  # remove the definition of each combination of indices
+  #
+  for e in new_list do
+    printf("object %a\n", e):
+    if assigned(grG_ObjDef[e]) then
+      for a in indices(grG_ObjDef[e]) do
+        # cannot use unassign (requires iname to be table, rtable or array)
+        entry := op(a):
+        s := sprintf("grG_ObjDef[%a][%a] := \'grG_ObjDef[%a][%a]\'", e, entry, e, entry):
+        printf("exec: %s\n",s);
+        parse(s, 'statement');
+        printf("parse done\n"):
+      od:
+      printf("Definition for %a has been removed.\n", e);
+    fi:
+  od:
+  baseObj := cat(grG_,op(0,object),"_", nops(object)):
+  grG_rootSet := grG_rootSet minus {baseObj}:
+
+  printf("done\n");
+
+end proc:
+
 
 grundefine := proc(object)
   grundef(object):

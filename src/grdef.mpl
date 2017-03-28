@@ -146,6 +146,8 @@ global	grG_parseAuxMetrics, grF_DIFF, grF_INT, grG_Object, grG_metricName,
 	grF_symFn_, grG_rootSet, grG_ObjDef, grG_usedNameSet, gr_data:
 local	b, i, newObject, indexList, newRoot, newObj, newISeq, subList,
 	freeIndexNbr, obj_lhs, obj_rhs, name_lhs, name_rhs:
+option trace;
+
 #  newTensor := op ( newTensorList ):
 #  newTensorDef := op ( newTensorDefList ):
 

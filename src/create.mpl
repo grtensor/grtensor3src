@@ -58,7 +58,7 @@
 #----------------------------------------------------------
 
 grF_newIndices := proc(object)
-#option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
+option trace;
 global  grG_ObjDef, grG_metricName, grF_contractFn, gr_data;
 local a,b,c,i, cousins,root, newList, baseObj, objIndices, dependSet,
       dist, nearest, nearList,expr, exprProd, objSeq, numUp, numDn,

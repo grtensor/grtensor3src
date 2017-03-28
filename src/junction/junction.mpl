@@ -371,6 +371,7 @@ global gr_data, grG_metricName,
 
  for a in {outside, inside} do
    if not member( a, grG_metricSet) then
+      printf("%a not in %a\n", a, grG_metricSet);
      ERROR(a, ` is not a metric`):
    elif not assigned( gr_data[partner_,a]) then
      ERROR(outside, ` does not have an associated metric`):

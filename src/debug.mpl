@@ -5,17 +5,12 @@
 grdebug := proc( name)
 global grG_ObjDef; 
 
-	printf("symmetry : %a\n", grG_ObjDef[name][grC_symmetry]);
-	printf("root : %a\n", grG_ObjDef[name][grC_root]);
 	interface(verboseproc=3);
-	printf("Symmetry:\n");
-	print(grG_ObjDef[name][grC_symmetry]);
-	printf("CalcFn:\n");
-	print(grG_ObjDef[name][grC_calcFn]);
-	printf("CalcFnParms:\n");
-	print(grG_ObjDef[name][grC_calcFnParms]);
-	printf("Depends:\n");
-	print(grG_ObjDef[name][grC_depends]);
+	for i in indices(grG_ObjDef[name]) do
+		index := op(i):
+		printf("[%a]:\n", index);
+		print(grG_ObjDef[name][index]):
+	od:
 
 end proc:
 

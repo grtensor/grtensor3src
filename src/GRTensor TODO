@@ -1,6 +1,15 @@
 GRTensor TODO
 ==============
 
+New in 2.1
+- grload() is interactive
+- spacetime()
+- grtransform() fixes
+- grundef() fixes
+
+Debug:
+- need to look at code that auto-generates the index raise. It is botching the symmetry assignement (or grundef failed to clear something)
+
 
 Junction
 ========
