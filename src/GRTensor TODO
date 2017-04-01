@@ -6,9 +6,15 @@ New in 2.1
 - spacetime()
 - grtransform() fixes
 - grundef() fixes
+- grdef allow subexpression e.g. del in definition
+
+
+Redo all worksheets in spacetime/ (some had debug output)
 
 Debug:
 - need to look at code that auto-generates the index raise. It is botching the symmetry assignement (or grundef failed to clear something)
+- debug in grF_newINdices to see grundef 
+- grdef does not find Ricciscalar as a tensor in definition
 
 
 Junction

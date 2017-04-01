@@ -7,23 +7,28 @@
 # Date:       18 October 1995
 #==============================================================================
 
-grG_indices := {a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
+# define used in debugging
+#$define DEBUG option trace;
+$define DEBUG 
+
+grG_indices := {"a","b","c","d","e","f","g","h","i","j","k",l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
 		A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }:
-grG_braces := {`(`, `)`, `[`, `]`, `|`}:
+grG_braces := {"(", ")", "[", "]", "|"}:
 
 #------------------------------------------------------------------------------
 # symlist
 #------------------------------------------------------------------------------
 
 grF_determineIndexSymmetries := proc ( tensorDefStr )
+DEBUG
 local	indexStr, indexList, updnList, upList, dnList, upSymSets, dnSymSets,
 	symSet, asymSet, startpos, endpos:
 
-startpos := searchtext ( `{`, tensorDefStr ):
-endpos   := searchtext ( `}`, tensorDefStr ):
+startpos := searchtext ( "{", tensorDefStr ):
+endpos   := searchtext ( "}", tensorDefStr ):
 
 if startpos > 0 and endpos > startpos then
-	indexStr := substring ( tensorDefStr, startpos+1 .. endpos ):
+	indexStr := substring ( tensorDefStr, startpos+1 .. endpos-1 ):
 fi:
 
 indexList := grF_stringify ( indexStr ):
@@ -61,28 +66,28 @@ for i to tensorName[0] do
     if not member ( tensorName[i], grG_braces ) then
         newtensorName[j] := tensorName[i]:
         j := j + 1:
-    elif tensorName[i] = `(` then
-        if tensorName[i+2] =`)` or 
-            (tensorName[i+1] = `^` and tensorName[i+3] = `)` ) then
-            newtensorName[j] := `(`:
+    elif tensorName[i] = "(" then
+        if tensorName[i+2] = ")" or 
+            (tensorName[i+1] = "^" and tensorName[i+3] = ")" ) then
+            newtensorName[j] := "(":
             j := j + 1:
         fi:
-    elif tensorName[i] = `)` then
-        if tensorName[i-2] = `(` or 
-            ( tensorName[i-2] = `^` and tensorName[i-3] = `)` ) then
-            newtensorName[j] := `)`:
+    elif tensorName[i] = ")" then
+        if tensorName[i-2] =  "(" or 
+            ( tensorName[i-2] = "^" and tensorName[i-3] = ")" ) then
+            newtensorName[j] := ")":
             j := j + 1:
         fi:
     fi:
 od:
 
-newtensorNameStr := ``:
+newtensorNameStr := "":
 for i to j-1 do
-    newtensorNameStr := ``||newtensorNameStr||(newtensorName[i]):
-    if newtensorName[i] <> `(` 
-      and newtensorName[i] <> `^`
-      and newtensorName[i+1] <> `)` then
-        newtensorNameStr := ``||newtensorNameStr||` `:
+    newtensorNameStr := cat(newtensorNameStr,newtensorName[i]):
+    if newtensorName[i] <> "(" 
+      and newtensorName[i] <> "^"
+      and newtensorName[i+1] <> ")" then
+        newtensorNameStr := cat(newtensorNameStr, " "):
     fi:
 od:
 
@@ -106,15 +111,15 @@ for i to symList[0] do
 			upList := [op(upList), symList[i]]:
 		fi:
 	elif member ( symList[i], grG_braces ) then
-		if symList[i] = `(` or symList[i] = `[` 
-		  or symList[i] = `|` then
+		if symList[i] = "(" or symList[i] = "[" 
+		  or symList[i] = "|" then
 			for j from i to symList[0] while not type ( symList[j], numeric ) do od:
 			if symList[j] < 0 then
 				dnList := [op(dnList), symList[i]]:
 			else
 				upList := [op(upList), symList[i]]:
 			fi:
-		elif symList[i] = `)` or symList[i] = `]` then
+		elif symList[i] = ")" or symList[i] = "]" then
 			for j from i to 1 by -1 while not type ( symList[j], numeric ) do od:
 			if symList[j] < 0 then
 				dnList := [op(dnList), symList[i]]:
@@ -136,13 +141,19 @@ end:
 #------------------------------------------------------------------------------
 
 grF_numberIndices := proc ( indexList )
-local	indexNbr, i, updn, tmpList:
+DEBUG
+local	indexNbr, i, index, isIndex, updn, tmpList:
 
 indexNbr := 1:
 tmpList := []:
 for i to indexList[0] do
-	if member ( indexList[i], grG_indices ) then
-		if indexList[i-1] = `^` then
+	# check if this is an index
+	index := sscanf( indexList[i],
+			`%[qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_]`):
+	# if sscanf misses it returns [""]
+	if nops(index) > 0 and index[1] <> "" then
+#	if member ( indexList[i], grG_indices ) then
+		if indexList[i-1] = "^" then
 			updn := 1:
 		else
 			updn := -1:
@@ -160,21 +171,23 @@ end:
 
 #------------------------------------------------------------------------------
 # removeBasisBrackets
+# - remove brackets that wrap a single index
+# - if more than one index in the brackets or not immediatly matched, then 
+#   it's a sym bracket and is left in place
 #------------------------------------------------------------------------------
 
 grF_removeBasisBrackets := proc ( symList )
-local	i, tmpList:
+DEBUG
+local	i, len, tmpList:
 
 tmpList := []:
-for i to symList[0] do
-	if symList[i] = `(` then
-		if symList[i+2] <> `)` then
-			tmpList := [op(tmpList),symList[i]]:
-		fi:
-	elif symList[i] = `)` then
-		if symList[i-2] <> `(` then
-			tmpList := [op(tmpList),symList[i]]:
-		fi:
+len := symList[0]:
+
+for i to len do
+	if symList[i] = "(" and (i+2) <= len and symList[i+2] <> ")" then
+		tmpList := [op(tmpList),symList[i]]:
+	elif symList[i] = ")" and symList[i-2] <> "(" then
+		tmpList := [op(tmpList),symList[i]]:
 	else
 		tmpList := [op(tmpList), symList[i]]:
 	fi:
@@ -213,27 +226,27 @@ symIn[0] := 0:
 symType[symNbr] := `none`:
 
 for i to indexList[0] do
-	if indexList[i] = `(` then
+	if indexList[i] = "(" then
 		symNbr := symNbr + 1:
 		symType[symNbr] := `sym`:
 		symIn[symNbr] := currentSymNbr:
 		currentSymNbr := symNbr:
-	elif indexList[i] = `[` then
+	elif indexList[i] = "[" then
 		symNbr := symNbr + 1:
 		symType[symNbr] := `asym`:
 		symIn[symNbr] := currentSymNbr:
 		currentSymNbr := symNbr:
-	elif indexList[i] = `)` then
+	elif indexList[i] = ")" then
 		if symType[currentSymNbr] <> `sym` then
 			ERROR ( `Invalid symmetry specification on left-hand side of tensor definition.` ):
 		fi:
 		currentSymNbr := symIn[currentSymNbr]:
-	elif indexList[i] = `]` then
+	elif indexList[i] = "]" then
 		if symType[currentSymNbr] <> `asym` then
 			ERROR ( `Invalid symmetry specification on left-hand side of tensor definition.` ):
 		fi:
 		currentSymNbr := symIn[currentSymNbr]:
-	elif indexList[i] = `|` then
+	elif indexList[i] = "|" then
 		if symType[symNbr] <> `none` then
 			symNbr := symNbr + 1:
 			symType[symNbr] := `none`:
@@ -271,3 +284,4 @@ RETURN ( [symSet, asymSet] ):
 
 end:
 
+$undef DEBUG

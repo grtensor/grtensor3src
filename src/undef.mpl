@@ -1,32 +1,9 @@
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #
-# GRTENSOR II MODULE: define.mpl
+# GRTENSOR III MODULE: undef.mpl
 #
 # (C) 1992-1994 Peter Musgrave and Kayll Lake
 #
-# File Created By: Peter Musgrave
-#            Date: Long ago
-#
-#
-# Purpose: Use routines for defining, saving and loading new objects.
-#
-#
-# Revisions:
-#
-# Dec 31 1993   Add calls to allow string definitions.
-# Feb 20 1994   Change to use Tensor_ internals
-# Jun 20 1994   Add loadobj/saveobj
-# Jun 25 1994   Support new style aux metrics
-# Sep 18 1994   Code inspection changes [pm]
-# Dec 14 1994   Check to see if auto-object creation can create the
-#               required object [pm]
-# Jun  7 1996	Added grundef and grundefine wrapper. [dp]
-# Jul 29 1996	grsaveobj now saves sym-functions; also cleaned up output. [dp]
-# Sep 16 1997	removed R3 type specifiers in proc headers [dp]
-# Feb 14 1997   Switch convert(x,string) to convert(x,name) for R5 [dp]
-# Feb 14 1997	Fixed parse of scalars on LHS of grdef expr [dp]
-# Feb 24 1997	Fixed grundef() to clear calced obj, remove all indices [dp]
-# Oct 18 1998	Changed savedef/loaddef to save grdef statements [dp]
 #
 #**********************************************************
 

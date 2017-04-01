@@ -147,7 +147,6 @@ $include  "src/contract.mpl"
 $include  "src/core.mpl"
 $include  "src/create.mpl"
 $include  "src/dalias.mpl"
-$include  "src/define.mpl"
 $include  "src/def_fns.mpl"
 $include  "src/diffAlias.mpl"):
 $include  "src/expandsqrt.mpl"
@@ -172,6 +171,7 @@ $include  "src/str2def.mpl"
 $include  "src/symfn.mpl"
 $include  "src/symmetry.mpl"
 $include "src/objects/basis/PetrovReport.mpl"
+$include  "src/undef.mpl"
 
 $include "src/tools/difftool.mpl"
 

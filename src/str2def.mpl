@@ -197,9 +197,9 @@ local i,j,k, symList, symOver, sList, start, last,
 
  inOp := false:
  for i to inStr[0] do
-	 if convert (inStr[i], name) = `[` and typeArray[i] = [] then
+	 if convert (inStr[i], name) = "[" and typeArray[i] = [] then
 		 inOp := true:
-	 elif convert (inStr[i], name) = `]` and typeArray[i] = [] then
+	 elif convert (inStr[i], name) = "]" and typeArray[i] = [] then
 		 inOp := false:
 		 typeArray[i] := [operatorType]:
 	 fi:
@@ -215,11 +215,11 @@ local i,j,k, symList, symOver, sList, start, last,
  #  e.g. LieD[ a, R{a [b}] X{c] d} )
  #
  if symFn = Sym then
-	 openStr := `(`:
-	 closeStr := `)`:
+	 openStr := "(":
+	 closeStr := ")":
  else
-	 openStr := `[`:
-	 closeStr := `]`:
+	 openStr := "[":
+	 closeStr := "]":
  fi:
 
  openList := array(1..50):
@@ -327,19 +327,20 @@ local i,j,k, symList, symOver, sList, start, last,
 				if indices[k] <> 0 and not inBachBar then
 					indexType := eval(subs( cdn=dn, pdn=dn, cup=up, pup=up, indices[k])):
 
+					# convert index to name for eval of Sym/Asym
 					if symList = [] then
 						symType := indexType:
-						symList := [ inStr[k] ]:
+						symList := [ convert(inStr[k],name) ]:
 					elif indexType = symType then
-						symList := [ op(symList), inStr[k] ]:
+						symList := [ op(symList), convert(inStr[k],name) ]:
 					fi:
 
-				elif convert (inStr[k], name) = `|` then
+				elif inStr[k] = "|" then
 					#
 					# found a Bach bar
 					#
 					inBachBar := not inBachBar:
-					inStr[k] := ``:
+					inStr[k] := "":
 				fi:
 			od: # for k
 
@@ -349,14 +350,14 @@ local i,j,k, symList, symOver, sList, start, last,
 		 # it's a tetrad index, e.g. (a) )
 		 #
 		 if nops(symList) > 1 then
-				inStr[ start] := cat( symFn,`(`,convert(symList, name),
-							 `,`, inStr[start] ):
-				inStr[ last] := cat( inStr[last], `)` ):
+				inStr[ start] := cat( symFn,"(",convert(symList, name),
+							 ",", inStr[start] ):
+				inStr[ last] := cat( inStr[last], ")" ):
 				#
 				# remove the sym brackets
 				#
-				inStr[ i[1] ] := ``:
-				inStr[ i[2] ] := ``:
+				inStr[ i[1] ] := "":
+				inStr[ i[2] ] := "":
 		 fi:
 
  od: # for i
@@ -398,13 +399,13 @@ DEBUG
 		 # if we encounter a ; or , then EVERY index from that point
 		 # is a cdn or pdn
 		 #
-		 if convert (inStr[j], name) = `;` then
+		 if inStr[j] = ";" then
 			 attrib_default := {CoD}:
-			elif convert (inStr[j], name) = `,` then
+			elif inStr[j] = "," then
 				attrib_default := {Partial}:
 		 fi:
-		 if not member( convert (inStr[j], name),
-									 {`'`,`^`,`(`,`)`,`;`,`,`,`|`,``,`$`,`[`,`]`} ) then
+		 if not member( inStr[j],
+									 { "'", "^", "(", ")", ";" ,",", "|", "", "$", "[", "]" } ) then
 				#
 				# if it's not a special character then it must be an index
 				# name
@@ -425,25 +426,25 @@ DEBUG
 					fi:
 				fi:
 				explicit := false:
-				if convert (inStr[preChar], name) = `$` then
+				if inStr[preChar] = "$" then
 					explicit := true:
 					preChar := preChar - 1:
 				fi:
 				 
-				if convert (inStr[preChar], name) = `^` then
+				if inStr[preChar] = "^" then
 					attribSet := attribSet union { Up }:
 					preChar := preChar - 1:
 				fi:
 		
-				if convert (inStr[preChar], name) = `(`
-					 and convert (inStr[j+1], name) = `)` then
+				if inStr[preChar] = "("
+					 and inStr[j+1] = ")" then
 					 attribSet := attribSet union { Tetrad }:
-					if convert (inStr[preChar-1], name) = `^` then
+					if inStr[preChar-1] = "^" then
 							attribSet := attribSet union { Up }:
 					fi:
 			 fi:
 
-			 if convert (inStr[j+1], name) = `'` then
+			 if inStr[j+1] = "'" then
 				 attribSet := attribSet union { Prime }
 			 fi:
 
@@ -560,10 +561,6 @@ DEBUG
  outStr := array(0..nops(charList) ):
  outStr[0] := nops(charList):
  for i to outStr[0] do
- # DEBUG: Why is this being converted to a name?
-#   outStr[i] := convert(op(i,charList),string): # this breaks l{^a} in grdef_kerr
-#   outStr[i] := convert(op(i,charList),name):  # works
-#   printf("convert %a type %a to name result =%a type=%a\n", op(i,charList), whattype(op(i,charList)), outStr[i], whattype(outStr[i]) ):
 		outStr[i] := op(i,charList):
  od:
  RETURN(outStr):
@@ -849,6 +846,14 @@ end:
 # Return a functional definition for sdef.
 # defLHS is true if the string is the LHS of
 # the tensordefinition.
+#
+# Basic idea:
+# Find tensors based on {} and map these into a
+# Tensor_() expression of the form:
+#   Tensor_( name, [indices], [index_types], aux_metric)
+#			- aux_metric is usually zero
+# Sym and Asym operators are applied on exit to expand functions
+#	- these are defined in def_fns.mpl
 #------------------------------------------
 
 grF_strToDef := proc( sdef, defLHS )
@@ -875,7 +880,7 @@ global grG_symList, grG_asymList;
  # (We need this since grdef now calls this routine directly)
  #
  #workTrim := StringTools:-Trim(workStr):
- if convert (workStr[1], name) = `[` then
+ if workStr[1] = "[" then
 		 if traperror( parse( sdef)) <> lasterror then
 			 # parse ok, so it is Maple syntax
 			 RETURN( parse( sdef)):  # Exit here
@@ -893,10 +898,11 @@ global grG_symList, grG_asymList;
  #
  # Why are these commands repeated so many times??? Surely there
  # is a more sensible way to do this. DP.
- # Confusing - tried to remove second clause and 
- # 		"A{(a b)(c d)}" fails (grdef_book_regres)
  #
- brktList := grF_brktFind( workStr, `{`, `}`):
+ # pass 1 does Sym expansions of tensors
+ # pass 2 does Asym
+ #
+ brktList := grF_brktFind( workStr, "{", "}"):
  indices := grF_indexFind( workStr, brktList):
 
  # operates on workStr (awkward use returnable param)
@@ -1009,18 +1015,18 @@ global grG_symList, grG_asymList;
 	 # picked up as an operator. Actually any array reference
 	 # will get treated like an operator...
 	 #
-	 elif convert (workStr[i], name) = `[`
-		 and convert (workStr[i-1], name) <> `(` then
-		 workStr[i-1] := convert( cat(`Operator_(`,workStr[i-1]), name):
-		 workStr[i] := `,`:
+	 elif workStr[i] = "["
+		 and workStr[i-1] <> "(" then
+		 workStr[i-1] := cat(`Operator_(`,workStr[i-1]):
+		 workStr[i] := ",":
 
-	 elif convert (workStr[i], name) = `]` then
-		 if not (workStr[0] > i and convert (workStr[i+1], name) = `,`) then
-			 if i < workStr[0] and convert (workStr[i+1], name) = `{` then
+	 elif workStr[i] = "]" then
+		 if not (workStr[0] > i and workStr[i+1] = ",") then
+			 if i < workStr[0] and workStr[i+1] = "{" then
 				 addToOperator := true:
-				 workStr[i] := `,`:
+				 workStr[i] := ",":
 			 else
-				 workStr[i] := `,[],[])`: # no indices
+				 workStr[i] := ",[],[])": # no indices
 			 fi:
 		 fi:
 
@@ -1029,13 +1035,13 @@ global grG_symList, grG_asymList;
 	 # test if next char [if it exists] is a { )
 	 #
 	 elif not inTensor then
-		 if traperror (grF_checkIfDefined (workStr[i], create)) = NULL then
+		 if traperror (grF_checkIfDefined (convert(workStr[i],name), create)) = NULL then
 			 #
 			 # check not followed by { (i.e. R{;a}) or [ (i.e. operator)
 			 #
 			 if not( (i < workStr[0]) and
-							(convert (workStr[i+1], name) = `[` 
-				or convert (workStr[i+1], name) = `{`)) then
+							(workStr[i+1] = "[" 
+						or workStr[i+1] = "{")) then
 				 #
 				 # found a GRT scalar
 				 #
@@ -1060,8 +1066,8 @@ global grG_symList, grG_asymList;
 	 # may be tidier to just convert these to grF_DIFF here and
 	 # remove the code to do this from parseExpr.
 	 #
-	 if convert (workStr[i], name) = `diff` then workStr[i] := `DIFF`: fi:
-	 if convert (workStr[i], name) = `int` then workStr[i] := `INT`: fi:
+	 if workStr[i] = "diff" then workStr[i] := "DIFF": fi:
+	 if workStr[i] = "int" then workStr[i] := "INT": fi:
 
 	 #
 	 # clear all the junk inside {} and accumulate indices
