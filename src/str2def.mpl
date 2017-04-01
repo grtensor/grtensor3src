@@ -903,6 +903,7 @@ global grG_symList, grG_asymList;
  # pass 2 does Asym
  #
  brktList := grF_brktFind( workStr, "{", "}"):
+
  indices := grF_indexFind( workStr, brktList):
 
  # operates on workStr (awkward use returnable param)
@@ -923,6 +924,15 @@ global grG_symList, grG_asymList;
  workStr := grF_stringify( grF_unstringify( workStr)):
  brktList := grF_brktFind( workStr, "{", "}"):
  indices := grF_indexFind( workStr, brktList):
+
+ # build a set of index names for screening below
+ # failed idea -> remove?
+ indexSet := {}:
+ for i to workStr[0] do
+ 		if indices[i] <> 0 then
+ 			indexSet := indexSet union {convert(workStr[i],name)}:
+ 		fi:
+ 	od:
 
  inTensor := false:
  addToOperator := false:
@@ -991,7 +1001,7 @@ global grG_symList, grG_asymList;
 						 if type(index, integer) then
 								newiList := [op(newiList), index]
 						 else
-								newiList := [op(newiList), convert(index, name)]
+								newiList := [op(newiList), convert(index, name)]:
 						 fi:
 				 od:
 				 # breaks in Maple 18?
@@ -1059,6 +1069,14 @@ global grG_symList, grG_asymList;
 					 `[],[],`, convert(gnum,string),`)` ), name):  
 			 fi:
 		 fi:
+		 #
+		 # PM2016 - check if indices appear in expressions - make user pick new ones
+		 # failed idea...
+		 #expr := eval(convert(workStr[i], name)):
+		 #printf("check expr %a for %a\n", expr, indexSet):
+		 #if has(expr, indexSet) then
+		 #		ERROR(sprintf("The expression %a contains one of the indices %a\nPlease choose a different index.\n", expr, indexSet)):
+		 #fi:
 
 	 fi:
 

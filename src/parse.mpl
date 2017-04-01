@@ -36,6 +36,10 @@
 #
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+# define used in debugging
+#$define DEBUG option trace;
+$define DEBUG 
+
 #----------------------------------------------------------
 # grF_buildCalcFn
 #       expr            - the expression to build a fn for
@@ -50,6 +54,7 @@
 #----------------------------------------------------------
 
 grF_buildCalcFn := proc( expr, newObject, indexList, listingSub, subRanges)
+DEBUG
 global  grG_ObjDef, 
         grG_firstTerm: # if true, then carry out init in grF_parse
 
@@ -131,12 +136,12 @@ local a,b,i, body, s, loopStmt, exStmt,
 	   termExpr := op(b, sumExpr):
 	fi:
 	#
-        # PARSE
-        #
+    # PARSE
+    #
 	# parse, converting DIFF->grF_DIFF, returned result has internal names
 	# of GRT objects in place of tensor notation
 	# (there is a LOT of stuff going on in here, including the setting of
-        #  index information via globals)
+    #  index information via globals)
 	#
  	termExpr := grF_parse( termExpr );
 
@@ -147,7 +152,7 @@ local a,b,i, body, s, loopStmt, exStmt,
 	# keep track of the term with the largest number of sums as we go
 	maxSum := max( nops(dummySet), maxSum):
 	numDummy := nops(dummySet):
-        #
+    #
 	# relabel the dummy indices s1_ .. sn_
 	# and verify they occur in both up and down lists
 	#
@@ -173,8 +178,8 @@ local a,b,i, body, s, loopStmt, exStmt,
   	#
 	# now do index substitutions.
 	#
-	termExpr := subs( dummySub, termExpr ):
-	termExpr := subs( listingSub, termExpr):
+	termExpr := grF_data_subs( termExpr, [dummySub] ):
+	termExpr := grF_data_subs( termExpr, listingSub):
 
 	#
 	# handle any subranged indices
@@ -274,6 +279,26 @@ local a,b,i, body, s, loopStmt, exStmt,
  RETURN( procmake( body ) );
 
 end:
+
+#--------------------------------------------------
+# grF_data_subs
+# - only want to sub into expressions that are grdata
+#   terms in case a param conflicts with a index
+#   eg: a*gr_data[gdndn_,a] 
+#--------------------------------------------------
+
+grF_data_subs := proc(expr, subvalues)
+DEBUG
+	if op(0,expr) = gr_data then
+		RETURN( subs(subvalues,expr));
+	elif member(whattype(expr), {fraction}) then 
+		RETURN(expr);
+	elif nops(expr) > 1 then 
+		RETURN(map(grF_data_subs, expr, subvalues)):
+	else
+		RETURN(expr);
+	fi:
+end proc:
 
 #--------------------------------------------------
 # grF_filterSum
@@ -699,3 +724,4 @@ local value,i,top,bot:
 
 end:
 
+$undef DEBUG
