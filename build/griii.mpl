@@ -92,6 +92,7 @@ $endif
 	grdebug, # debug fn
 	grdata, # debug fn
 	grdump, # debug fn
+	grF_strToDef, #debug
 	Asym, 
 	Sym;
 

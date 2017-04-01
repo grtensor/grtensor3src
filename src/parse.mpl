@@ -102,9 +102,9 @@ local a,b,i, body, s, loopStmt, exStmt,
  grG_firstTerm := true:
 
  if grF_sumInFunk ( expr ) then
-   printf ("grdefine encountered a summation within a function\n"):
+   printf ("grdef encountered a summation within a function\n"):
    printf ("you will need to define the expression in multiple steps\n"):
-   ERROR(`grdefine aborted`):
+   ERROR(`grdef aborted`):
  fi:
 
  listingSet := {op(indexList)}:
