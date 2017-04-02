@@ -64,7 +64,7 @@ local a, b, c, per_index, index, objects:
   # clear each combination of the object in all metrics
   #
   for e in new_list do
-    if grF_checkIfDefined (e, check) <> NULL then
+    if grF_checkIfAssigned (e) then
       grclear(e):
     fi:
   od:
@@ -77,10 +77,12 @@ local a, b, c, per_index, index, objects:
       for a in indices(grG_ObjDef[e]) do
         # cannot use unassign (requires iname to be table, rtable or array)
         entry := op(a):
-        s := sprintf("grG_ObjDef[%a][%a] := \'grG_ObjDef[%a][%a]\'", e, entry, e, entry):
+        # s := sprintf("grG_ObjDef[%a][%a] := `grG_ObjDef[%a][%a]`", e, entry, e, entry):
+        s := sprintf("grG_ObjDef[%a][%a] := evaln(grG_ObjDef[%a][%a]);", e, entry, e, entry):
         printf("exec: %s\n",s);
         parse(s, 'statement');
         printf("parse done\n"):
+        printf("check assigned %a: %a\n", grG_ObjDef[e][entry], assigned(grG_ObjDef[e][entry])):
       od:
       printf("Definition for %a has been removed.\n", e);
     fi:

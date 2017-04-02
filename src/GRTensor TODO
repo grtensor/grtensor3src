@@ -11,11 +11,15 @@ New in 2.1
 
 Redo all worksheets in spacetime/ (some had debug output)
 
+Regression Failures:
+grdef_2_metrics regression (minor)
+grdef_book - undef of B(dn,dn) has issues
+grdef_tests - Asym failure - serious
+operator_regress - existed?
+
 Debug:
 - need to look at code that auto-generates the index raise. It is botching the symmetry assignement (or grundef failed to clear something)
 - debug in grF_newINdices to see grundef 
-- grdef does not find Ricciscalar as a tensor in definition
-
 
 Junction
 ========

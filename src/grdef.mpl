@@ -152,9 +152,6 @@ global	grG_parseAuxMetrics, grF_DIFF, grF_INT, grG_Object, grG_metricName,
 local	b, i, newObject, indexList, newRoot, newObj, newISeq, subList,
 	freeIndexNbr, obj_lhs, obj_rhs, name_lhs, name_rhs:
 
-#  newTensor := op ( newTensorList ):
-#  newTensorDef := op ( newTensorDefList ):
-
 	if nops(newTensor) > 1 then
 		#
 		# got back a tensor

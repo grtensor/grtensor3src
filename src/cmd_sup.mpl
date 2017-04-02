@@ -662,7 +662,8 @@ global grG_metricName, grG_operands, grG_checkObjects_Cache, grG_multipleDef:
              dependSet := grG_ObjDef[objectName][grC_depends]:
 
           else
-             ERROR(`Bogus definition for `||objectName||` depends must be set or proc.`):
+             ERROR(sprintf("Bogus definition for %a: depends must be set or proc. Got %a\n", 
+                    objectName, grG_ObjDef[objectName][grC_depends])):
           fi:
 
           actual2 := actual2, newMetric,
