@@ -122,19 +122,19 @@ DEBUG
  brktList := []:
 
  for i to s[0] do
-	 if s[i] = openStr then
-	 openCnt := openCnt + 1:
-	 openList[ openCnt] := i:
-	 elif s[i] = closeStr then
-				 if openCnt = 0 then
-					 ERROR(`Mismatched {}'s`);
-				 fi:
-	 brktList := [ op(brktList), [ openList[ openCnt], i]]:
-	 openCnt := openCnt - 1:
-	 if openCnt < 0 then
-		 ERROR(`Too many `.closeStr):
-	 fi:
-	 fi:
+	if s[i] = openStr then
+	 	openCnt := openCnt + 1:
+	 	openList[ openCnt] := i:
+	elif s[i] = closeStr then
+		if openCnt = 0 then
+			ERROR(`Mismatched {}'s`);
+		fi:
+		brktList := [ op(brktList), [ openList[ openCnt], i]]:
+		openCnt := openCnt - 1:
+		if openCnt < 0 then
+			ERROR(`Too many `.closeStr):
+		fi:
+	fi:
  od:
 
  if openCnt > 0 then
@@ -544,7 +544,8 @@ DEBUG
 			# Skip whitespace
 			if substring( leftover, 1..1) <> ` ` and 
 				substring( leftover, 1..1) <> " " then
-				charList := [ op(charList), substring( leftover, 1..1) ]:
+				# make sure get a string and not a char
+				charList := [ op(charList), convert(substring( leftover, 1..1), string) ]:
 			fi:
 			# remove what was parsed from the string
 			leftover := substring( leftover, 2..length(leftover) ):
@@ -909,14 +910,13 @@ global grG_symList, grG_asymList;
  # operates on workStr (awkward use returnable param)
  grF_doSym( workStr, indices, brktList, `Sym`):
 
- # now need to re-detect the brkt
+ # now need to re-detect the brkt to do Asym
  work := grF_unstringify( workStr):
  workStr := grF_stringify( work):
  brktList := grF_brktFind( workStr, "{", "}"):
  indices := grF_indexFind( workStr, brktList):
  grF_doSym( workStr, indices, brktList, `Asym`):
  work := grF_unstringify( workStr):
-
 
  #
  # tidy up the string and find the indices
@@ -971,21 +971,21 @@ global grG_symList, grG_asymList;
 			# [trailing integer indicates auxilaary metric number]
 			#
 			if not addToOperator then
-				workStr[i] := ``:
+				workStr[i] := "":
 				inTensor := false:
-				if workStr[start-1] = `>` then
-					 if workStr[start-3] <> `<` then
+				if workStr[start-1] = ">" then
+					 if workStr[start-3] <> "<" then
 						 ERROR(`Error in angle brackets.`):
 					 fi:
 					 #
 					 # not for the default metric
 					 #
 					 gnum := parse( workStr[start-2]): # convert string to integer
-					 workStr[start-1] := ``;
-					 workStr[start-2] := ``;
-					 workStr[start-3] := ``;
+					 workStr[start-1] := "";
+					 workStr[start-2] := "";
+					 workStr[start-3] := "";
 					 tName := workStr[start-4]:
-					 workStr[start-4] := ``:
+					 workStr[start-4] := "":
 				 else
 					 tName := workStr[start-1]:
 					 gnum := 0:
@@ -1056,7 +1056,7 @@ global grG_symList, grG_asymList;
 				 # found a GRT scalar
 				 #
 				 gnum := 0:
-				 if i+2 < workStr[0] and  convert (workStr[i+1], name) = `<` then
+				 if i+2 < workStr[0] and  workStr[i+1] = "<" then
 					 #
 					 # not for the default metric
 					 #
@@ -1097,12 +1097,12 @@ global grG_symList, grG_asymList;
 	 #
 	 iTypeSeq := iTypeSeq, indices[i]:
 	 iListSeq := iListSeq, workStr[i]:
-	 workStr[i] := ``:
+	 workStr[i] := "":
 
 	 fi: # if an index
 
 	 if inTensor then
-	 workStr[i] := ``:
+	 workStr[i] := "":
 	 fi:
 
  od:

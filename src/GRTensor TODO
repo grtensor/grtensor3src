@@ -13,8 +13,6 @@ Redo all worksheets in spacetime/ (some had debug output)
 
 Regression Failures:
 grdef_2_metrics regression (minor)
-grdef_book - undef of B(dn,dn) has issues
-grdef_tests - Asym failure - serious
 operator_regress - existed?
 
 Debug:
