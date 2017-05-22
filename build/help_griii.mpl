@@ -86,7 +86,8 @@ makehelp( hypersurf, "help/hypersurf.help", "lib/maple.help"):
 
 makehelp( join, "help/join.help", "lib/maple.help"):
 
-makehelp( hyper_objects, "help/hyper_objects.help", "lib/hyper_objects.help"):
+makehelp( hyper_objects, "help/hyper_objects.help", "lib/maple.help"):
 
+makehelp( spacetime, "help/spacetime.help", "lib/maple.help"):
 
 

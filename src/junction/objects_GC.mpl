@@ -82,7 +82,7 @@ global gr_data, grG_metricName, Ndim:
 local s:
 
 s := gr_data[Rdndndndn_, gname, a1_, a2_, a3_, a4_] + 
-     gr_data[nsign_, gname] * 
+     gr_data[ntype_, gname] * 
      (gr_data[Kdndn_, gname, a1_, a4_] * gr_data[Kdndn_, gname, a2_, a3_] -
       gr_data[Kdndn_, gname, a1_, a3_] * gr_data[Kdndn_, gname, a2_, a4_]):
 
@@ -278,7 +278,7 @@ end:
 # Hamiltonian constraint equation on Sigma (G version)
 # Toolkit (3.41)
 #----------------------------
-grG_ObjDef[C1Geqn][grC_header] := `-2 nsign G{a b} n{^a} n{^b} = R + nsign(K^2  - K_{ij} K^{ij})`:
+grG_ObjDef[C1Geqn][grC_header] := `-2 ntype G{a b} n{^a} n{^b} = R + ntype(K^2  - K_{ij} K^{ij})`:
 grG_ObjDef[C1Geqn][grC_root] := C1Geqn_:
 grG_ObjDef[C1Geqn][grC_rootStr] := `C1Geqn `:
 grG_ObjDef[C1Geqn][grC_indexList] := []:
@@ -293,7 +293,7 @@ local s, M:
 
  	M := gr_data[partner_,grG_metricName]:
 
-	s := -2*gr_data[nsign_, M]*gr_data[Gnn_,M] = 
+	s := -2*gr_data[ntype_, M]*gr_data[Gnn_,M] = 
                     gr_data[C1eqnRHS_,grG_metricName]:
 
     RETURN(s):
@@ -305,7 +305,7 @@ end proc:
 # Hamiltonian constraint equation on Sigma (G version)
 # Toolkit (3.41)
 #----------------------------
-grG_ObjDef[C1Teqn][grC_header] := `16 pi T{a b} n{^a} n{^b} = R + nsign(K^2 - K_{ij} K^{ij})`:
+grG_ObjDef[C1Teqn][grC_header] := `16 pi T{a b} n{^a} n{^b} = R + ntype(K^2 - K_{ij} K^{ij})`:
 grG_ObjDef[C1Teqn][grC_root] := C1Teqn_:
 grG_ObjDef[C1Teqn][grC_rootStr] := `C1Teqn `:
 grG_ObjDef[C1Teqn][grC_indexList] := []:
@@ -345,7 +345,7 @@ local s, M:
 
 	M := gr_data[partner_, grG_metricName]:
 
-	s := gr_data[scalarR_,grG_metricName] + gr_data[nsign_, M] *
+	s := gr_data[scalarR_,grG_metricName] + gr_data[ntype_, M] *
                        (gr_data[Ksq_,grG_metricName] - gr_data[trK_,grG_metricName]^2) :
 
 RETURN(s):

@@ -377,6 +377,10 @@ local mfile, m;
     if not assigned ( grOptionMetricPath ) then
       printf ( `Warning: grOptionMetricPath has not been assigned.\n` ):
     else
+      if not type(grOptionMetricPath, string) then
+        printf("%a is not of type string. Please use double quotes\n", grOptionMetricPath);
+        RETURN();
+      fi:
       mpath := FileTools:-JoinPath([grOptionMetricPath, mfile]);
       if grF_testLoad( mpath) then
         grload( metric, mpath);
@@ -391,6 +395,10 @@ local mfile, m;
     #
     if assigned(grOptionqloadPath) then
       for m in [grOptionqloadPath] do
+        if not type(m, string) then
+          printf("%a is not of type string. Please use double quotes\n", m);
+          RETURN():
+        fi:
          mpath := FileTools:-JoinPath([m, mfile]);
          if not grF_testLoad( mpath) then
            mfile := NULL:

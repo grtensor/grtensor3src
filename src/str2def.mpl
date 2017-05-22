@@ -1110,7 +1110,9 @@ global grG_symList, grG_asymList;
  # now take the string, make it into an expression
  # and parse it (catching errors if necessary)
  #
- work := grF_unstringify( workStr):
+ work := StringTools:-DeleteSpace(grF_unstringify( workStr)):
+ #work := grF_unstringify( workStr):
+
  retExpr := traperror( parse( work) ):
  if retExpr = lasterror then
 	#

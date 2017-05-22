@@ -3,7 +3,12 @@
 HELP FOR: grload
 ===============================================================================
 
-CALLING SEQUENCE:  grload ( metricName, pathString )
+CALLING SEQUENCE:   grload ( metricName, pathString )
+
+                    grload()
+
+      If no parameter is provided a file chooser dialog will open and the
+      metric file may be selected. 
 
       PARAMETERS:  metricName - name to be assigned to the metric for the
                                 current session

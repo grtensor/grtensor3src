@@ -11,7 +11,7 @@ grG_ObjDef[n(dn)][grC_rootStr] := `n `:
 grG_ObjDef[n(dn)][grC_indexList] := [dn]:
 grG_ObjDef[n(dn)][grC_preCalcFn] := grF_calc_ndn: # preCalc since we need to normalize
 grG_ObjDef[n(dn)][grC_symmetry] := grF_sym_vector:
-grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, nsign}:
+grG_ObjDef[n(dn)][grC_depends] := {g(up,up),surface, ntype}:
 
 grF_calc_ndn := proc( object, iList)
 
@@ -30,7 +30,7 @@ local gname;
   # so multiply normalization factor by ntype
   #
   for a to Ndim[gname] do
-    gr_data[ndn_,gname,a] :=  gr_data[nsign_,gname]*
+    gr_data[ndn_,gname,a] :=  gr_data[ntype_,gname]*
            gr_data[ndn_,gname,a];
   od:
 

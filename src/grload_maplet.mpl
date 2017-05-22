@@ -8,15 +8,25 @@
 grload_maplet := proc()
 
 global grOptionMetricPath, grOptionqloadPath;
-local maplet1, metricName, fullname; 
+
+local maplet1, metricName, fullname, startDir; 
 
 uses Maplets[Elements];
+
+if assigned(grOptionMetricPath) then
+    startDir := grOptionMetricPath;
+elif assigned(grOptionqloadPath) then
+    startDir := grOptionqloadPath;
+else
+    startDir := currentdir();
+end if:
+
 
 # Define the get file Maplet application. Define an abnormal
 # shutdown as one that returns FAIL.
 maplet1 := Maplet( 'abnormalshutdown' = "FAIL",
     FileDialog['FD1'](
-        'directory' = grOptionMetricPath,
+        'directory' = startDir,
 
         # Specify the Maplet application title.
         'title' = "Read File",

@@ -389,7 +389,7 @@ DEBUG
   # Set the surface tangent and normal type
   # timelike means surface is timelike => normal is spacelike
   #....................................................
-  gr_data[nsign_, grG_metricName] := 0:
+  gr_data[ntype_, grG_metricName] := 0:
   gr_data[utype_, grG_metricName] := -1:
 
   #....................................................

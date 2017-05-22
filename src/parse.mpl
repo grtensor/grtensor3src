@@ -291,7 +291,7 @@ grF_data_subs := proc(expr, subvalues)
 DEBUG
 	if op(0,expr) = gr_data then
 		RETURN( subs(subvalues,expr));
-	elif member(whattype(expr), {fraction}) then 
+	elif member(whattype(expr), {fraction,float,integer}) then 
 		RETURN(expr);
 	elif nops(expr) > 1 then 
 		RETURN(map(grF_data_subs, expr, subvalues)):

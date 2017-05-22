@@ -3,7 +3,7 @@
 #
 # - save all the objects associated with a surface:
 #     Sigma: g(dn,dn) x(up) K(dn,dn)
-#         M: g(dn,dn) n(dn) n(up) xform(up) nsign x(up)
+#         M: g(dn,dn) n(dn) n(up) xform(up) ntype x(up)
 #
 #************************************************
 
@@ -22,7 +22,7 @@ jsave := proc( sName, fileName)
  #
  oldDefault := grG_default_metricName:
  grG_default_metricName := gr_data[partner_,sName]:
- grsaveobj( g(dn,dn), x(up), xform(up), n(dn), n(up), nsign):
+ grsaveobj( g(dn,dn), x(up), xform(up), n(dn), n(up), ntype):
  appendto(fileName);
  printf(`gr_data[partner_,grG_metricName] := %a:\n`,
            gr_data[partner_,grG_metricName]):
