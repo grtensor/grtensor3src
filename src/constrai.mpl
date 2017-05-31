@@ -43,19 +43,31 @@ global grG_constraint, gr_data, grG_metricName:
     if args[1] = add then
        # take remaining args and add then 
        # TODO allow second arg to be a metric name
-       newEqn := args[2]:
+       newEqn := []:
+       if type(args[2], equation) then
+         newEqn := [args[2]];
+       elif type(args[2],list) then
+         # check each entry is an equation
+         for i to nops(args[2]) do
+           if not type(args[2][i], equation) then
+             ERROR("Entry %a is not an equation", args[2][i]):
+           fi:
+         od:
+         newEqn := args[2]:
+       fi:
        if assigned( gr_data[constraint_,grG_metricName]) then
             gr_data[constraint_,grG_metricName]  :=
-                  [op(gr_data[constraint_,grG_metricName]),newEqn];
+                  [op(gr_data[constraint_,grG_metricName]),op(newEqn)];
        else
          # assign to reference
-         gr_data[constraint_,grG_metricName]  := [newEqn];
+         gr_data[constraint_,grG_metricName]  := newEqn;
          grF_assignedFlag ( constraint, set ):
        fi:
     else
       printf("Command %a not supported\n", args[1]);
       ERROR("Command not supported");
     fi:
+    grdisplay(constraint);
  else
     # interactive
 

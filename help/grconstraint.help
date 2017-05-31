@@ -14,8 +14,8 @@ SYNOPSIS:
   satisfied by functions in the metric or basis.
 
 - Constraint equations may be added to a spacetime, removed or re-arranged 
-  using this command. grconstraint() is menu driven and prompts for 
-  addition/modification/deletion of constraint equations.
+  using this command. grconstraint() may be used with arguments or 
+  interactivly
 
 - Constraints can be applied to an object calculated from a metric or basis
   by using gralter().
@@ -27,7 +27,19 @@ SYNOPSIS:
   automatically as the spacetime is loaded.
 
 -------------------------------------------------------------------------------
-EXAMPLE:
+Non-Interactive example:
+# add the contraint to the current metric
+>grconstraint(add, diff(a(t),t) = H*a(t));
+# apply the constraint
+>gralter(R(dn,dn), cons); 
+# display the constraint
+>grdisplay(constraint);
+
+# to add multiple constraints use a list the second argument:
+grconstraint(add, [m(r,v)=C, c(r,v)=C]);
+
+
+INTERACTIVE EXAMPLE:
 # In the following example, the bondi metric is loaded and the constraints
 #           m(r,v) = M,  and  c(r,v) = C
 # are specified. The Ricci tensor is calculated for the metric in terms

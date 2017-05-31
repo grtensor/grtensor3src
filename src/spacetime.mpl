@@ -41,6 +41,21 @@ DEBUG
 
 end proc:
 
+metric_validate[cons] := proc(name, stype)
+DEBUG
+  local errorStr;
+  local validTypes;
+
+  if not type(stype, list) then
+    errorStr := "Please enter constraint as a list of equation: e.g. cons=[diff(m(u,v),u)=0, ]":
+  else
+    # check each element in the constraint list is an equation
+    errorStr := "ok"; 
+  fi:
+  RETURN(errorStr):
+
+end proc:
+
 metric_validate[ds] := proc(name, stype)
 DEBUG
   local errorStr;
