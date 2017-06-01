@@ -274,7 +274,7 @@ global grG_metricSet, grG_ObjDef;
 	load_hypers_objects():
     grF_gen_rootSet():
 	grF_gen_calcFnSet():
-	print("GRTensor III v2.1.4 May 30, 2017"):
+	print("GRTensor III v2.1.5 June 1, 2017"):
 	print("Copyright 2017, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://github.com/grtensor/grtensor");
 	print("For help ?grtensor");

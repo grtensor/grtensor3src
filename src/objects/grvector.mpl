@@ -301,39 +301,40 @@ end:
 
 #------------------------------------------------------------------------------
 # Raychaudhuri's equation
+# PM - 2017 - This looks wrong - missing 1/3, shear squared seems wrong (should contract)
 #------------------------------------------------------------------------------
-grG_ObjDef[RayEqn][grC_header] := `Raychaudhuri Equation`:
-grG_ObjDef[RayEqn][grC_root] := RayEqn_:
-grG_ObjDef[RayEqn][grC_rootStr] := `RayEqn`:
-grG_ObjDef[RayEqn][grC_indexList] := []:
-grG_ObjDef[RayEqn][grC_calcFn] := grF_calc_RayEqn:
-grG_ObjDef[RayEqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[RayEqn][grC_operandSeq] := grVector:
-grG_ObjDef[RayEqn][grC_depends] := { R(dn,dn), grG_grVector(up), grG_grVector(up,cdn),
-                     expsc[grG_grVector], acc[grG_grVector](up,cdn),
-                     shear[grG_grVector], vor[grG_grVector] }:
-
-grF_calc_RayEqn := proc( object, list)
-local	a, b, ls, rs, v, vRoot:
-global gr_data, grG_ObjDef, grG_metricName;
-
-  v := grG_grVector:
-  vRoot := grG_ObjDef[v(up)][grC_root]:
-
-  ls := 0:
-  rs := 0:
-  for a to Ndim[grG_metricName] do
-    for b to Ndim[grG_metricName] do
-      ls := ls - gr_data[Rdndn_,grG_metricName,a,b]*gr_data[vRoot,grG_metricName,a]*
-            gr_data[vRoot,grG_metricName,b]:
-    od:
-    rs := rs + diff( gr_data[expsc_,grG_metricName,v], gr_data[xup_,grG_metricName,a] )*
-          gr_data[vRoot,grG_metricName,a] - gr_data[accupcdn_,grG_metricName,grG_grVector,a,a]:
-  od:
-  rs := rs + (gr_data[expsc_,grG_metricName, v]^2) + (gr_data[shear_,grG_metricName, v]^2 -
-        gr_data[vor_,grG_metricName, v]^2):
-  RETURN ( ls = rs ):
-end:
+#grG_ObjDef[RayEqn][grC_header] := `Raychaudhuri Equation`:
+#grG_ObjDef[RayEqn][grC_root] := RayEqn_:
+#grG_ObjDef[RayEqn][grC_rootStr] := `RayEqn`:
+#grG_ObjDef[RayEqn][grC_indexList] := []:
+#grG_ObjDef[RayEqn][grC_calcFn] := grF_calc_RayEqn:
+#grG_ObjDef[RayEqn][grC_symmetry] := grF_sym_scalar:
+#grG_ObjDef[RayEqn][grC_operandSeq] := grVector:
+#grG_ObjDef[RayEqn][grC_depends] := { R(dn,dn), grG_grVector(up), grG_grVector(up,cdn),
+#                     expsc[grG_grVector], acc[grG_grVector](up,cdn),
+#                     shear[grG_grVector], vor[grG_grVector] }:
+#
+#grF_calc_RayEqn := proc( object, list)
+#local	a, b, ls, rs, v, vRoot:
+#global gr_data, grG_ObjDef, grG_metricName;
+#
+#  v := grG_grVector:
+#  vRoot := grG_ObjDef[v(up)][grC_root]:
+#
+#  ls := 0:
+#  rs := 0:
+#  for a to Ndim[grG_metricName] do
+#    for b to Ndim[grG_metricName] do
+#      ls := ls - gr_data[Rdndn_,grG_metricName,a,b]*gr_data[vRoot,grG_metricName,a]*
+#            gr_data[vRoot,grG_metricName,b]:
+#    od:
+#    rs := rs + diff( gr_data[expsc_,grG_metricName,v], gr_data[xup_,grG_metricName,a] )*
+#          gr_data[vRoot,grG_metricName,a] - gr_data[accupcdn_,grG_metricName,grG_grVector,a,a]:
+#  od:
+#  rs := rs + (gr_data[expsc_,grG_metricName, v]^2) + (gr_data[shear_,grG_metricName, v]^2 -
+#        gr_data[vor_,grG_metricName, v]^2):
+#  RETURN ( ls = rs ):
+#end:
 
 #------------------------------------------------------------------------------
 # optical shear scalar, sigma*sigmabar
@@ -425,39 +426,40 @@ end:
 
 #------------------------------------------------------------------------------
 # optical Raychaudhuri's equation
+# TODO - double check
 #------------------------------------------------------------------------------
-grG_ObjDef[OpRayEqn][grC_header] := `Optical Raychaudhuri equation`:
-grG_ObjDef[OpRayEqn][grC_root] := OpRayEqn_:
-grG_ObjDef[OpRayEqn][grC_rootStr] := `OpRayEqn`:
-grG_ObjDef[OpRayEqn][grC_indexList] := []:
-grG_ObjDef[OpRayEqn][grC_calcFn] := grF_calc_OpRayEqn:
-grG_ObjDef[OpRayEqn][grC_symmetry] := grF_sym_scalar:
-grG_ObjDef[OpRayEqn][grC_operandSeq] := grVector:
-grG_ObjDef[OpRayEqn][grC_depends] := { Opexpsc[grG_grVector], Opvor[grG_grVector],
-                     Opshear[grG_grVector] }:
-
-grF_calc_OpRayEqn := proc( object, list)
-local	a, b, ls, rs, v, vRoot:
-global gr_data, grG_ObjDef, grG_metricName;
-
-  v := grG_grVector:
-  vRoot := grG_ObjDef[v(up)][grC_root]:
-
-  ls := 0:
-  rs := 0:
-  for a to Ndim[grG_metricName] do
-    for b to Ndim[grG_metricName] do
-      ls := ls + gr_data[Rdndn_,grG_metricName,a,b]*gr_data[vRoot,grG_metricName,a]*gr_data[vRoot,grG_metricName,b]:
-    od:
-    rs := rs + diff( gr_data[Opexpsc_,grG_metricName,v], gr_data[xup_,grG_metricName,a] )*
-          gr_data[vRoot,grG_metricName,a]:
-  od:
-  rs := rs + gr_data[Opexpsc_,grG_metricName,v]^2 + gr_data[Opshear_,grG_metricName,v] -
-             gr_data[Opvor_,grG_metricName,v]:
-  ls := -ls/2:
-
-  RETURN( ls = rs ):
-end:
+#grG_ObjDef[OpRayEqn][grC_header] := `Optical Raychaudhuri equation`:
+#grG_ObjDef[OpRayEqn][grC_root] := OpRayEqn_:
+#grG_ObjDef[OpRayEqn][grC_rootStr] := `OpRayEqn`:
+#grG_ObjDef[OpRayEqn][grC_indexList] := []:
+#grG_ObjDef[OpRayEqn][grC_calcFn] := grF_calc_OpRayEqn:
+#grG_ObjDef[OpRayEqn][grC_symmetry] := grF_sym_scalar:
+#grG_ObjDef[OpRayEqn][grC_operandSeq] := grVector:
+#grG_ObjDef[OpRayEqn][grC_depends] := { Opexpsc[grG_grVector], Opvor[grG_grVector],
+#                     Opshear[grG_grVector] }:
+#
+#grF_calc_OpRayEqn := proc( object, list)
+#local	a, b, ls, rs, v, vRoot:
+#global gr_data, grG_ObjDef, grG_metricName;
+#
+#  v := grG_grVector:
+#  vRoot := grG_ObjDef[v(up)][grC_root]:
+#
+#  ls := 0:
+#  rs := 0:
+#  for a to Ndim[grG_metricName] do
+#    for b to Ndim[grG_metricName] do
+#      ls := ls + gr_data[Rdndn_,grG_metricName,a,b]*gr_data[vRoot,grG_metricName,a]*gr_data[vRoot,grG_metricName,b]:
+#    od:
+#    rs := rs + diff( gr_data[Opexpsc_,grG_metricName,v], gr_data[xup_,grG_metricName,a] )*
+#          gr_data[vRoot,grG_metricName,a]:
+#  od:
+#  rs := rs + gr_data[Opexpsc_,grG_metricName,v]^2 + gr_data[Opshear_,grG_metricName,v] -
+#             gr_data[Opvor_,grG_metricName,v]:
+#  ls := -ls/2:
+#
+#  RETURN( ls = rs ):
+#end:
 
 #------------------------------------------------------------------------------
 # Electric part of Weyl
