@@ -193,8 +193,8 @@ end:
 #
 #----------------------------------------------------------
 
+
 gralter := proc()
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 global  grG_calc, grG_simp, grG_callComp, grG_fnCode, grOptionMessageLevel, grOptionAlterSize;
 local i, howSeq, lastObj, gname, new_args;
      #
@@ -206,12 +206,12 @@ local i, howSeq, lastObj, gname, new_args;
      gname := grG_metricName:
      howSeq := NULL:
      for i from nargs by -1
-         while (type(args[i], {integer,procedure}) 
+        while (type(args[i], {integer,procedure}) 
                or member(args[i], grG_simpHowSet)) do
-	howSeq := args[i], howSeq:
-     od:
+	         howSeq := args[i], howSeq:
+        od:
      if grOptionMessageLevel > 0 then
-       printf("Component simplification of a GRTensorIII object:\n\n"):
+        printf("Component simplification of a GRTensorIII object:\n\n"):
      fi:
 
      # set globals for the core
@@ -220,6 +220,37 @@ local i, howSeq, lastObj, gname, new_args;
      grG_callComp := grOptionAlterSize:
      grG_fnCode := grC_ALTER:
      gralterGuts(new_args,[howSeq],grC_ALTER):
+end:
+
+# C&P - Booo
+# alter & display - need seperation or args
+gralterd := proc()
+global  grG_calc, grG_simp, grG_callComp, grG_fnCode, grOptionMessageLevel, grOptionAlterSize;
+local i, howSeq, lastObj, gname, new_args;
+     #
+     # allow multiple objects and multiple simplification routines
+     # scan backwards from end of the list to determine how many
+     # simplification codes were specified
+     #
+     new_args := grF_screenArgs( [args], true, false);
+     gname := grG_metricName:
+     howSeq := NULL:
+     for i from nargs by -1
+        while (type(args[i], {integer,procedure}) 
+               or member(args[i], grG_simpHowSet)) do
+           howSeq := args[i], howSeq:
+        od:
+     if grOptionMessageLevel > 0 then
+        printf("Component simplification of a GRTensorIII object:\n\n"):
+     fi:
+
+     # set globals for the core
+     grG_calc := false:
+     grG_simp := true:
+     grG_callComp := grOptionAlterSize:
+     grG_fnCode := grC_ALTER:
+     gralterGuts(new_args,[howSeq],grC_ALTER):
+     grdisplay(op(new_args));
 end:
 
 #----------------------------------------------------------

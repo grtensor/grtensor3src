@@ -50,6 +50,7 @@ export
     autoAlias,
     difftool,
 	gralter,
+	gralterd,
 	grapply,
 	grarray,
 	grdisplay,
