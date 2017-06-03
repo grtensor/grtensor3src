@@ -148,19 +148,19 @@ grG_subList[M6] := M6R, M6I:
 grG_metricSet := {}:
 
 # set defaults
-grOptionDisplayLimit := 5000:
-grOptionAlterSize := false:
-grOptionCoordNames := true:
-grOptionTrace := true:
-grOptionVerbose := false:
-grOptionDefaultSimp := 8:
-grOptionTermSize := 100:
-grOptionTimeStamp := true:
-grOptionWindows := true:
-grOptionProfile := false:
-grOptionLLSC := true:
-grOptionMessageLevel := 1:
-grOptionMapletInput := true:
+if not assigned(grOptionDisplayLimit) then grOptionDisplayLimit := 5000: fi:
+if not assigned(grOptionAlterSize) then grOptionAlterSize := false: fi:
+if not assigned(grOptionCoordNames) then grOptionCoordNames := true:  fi:
+if not assigned(grOptionTrace) then grOptionTrace := true:  fi:
+if not assigned(grOptionVerbose) then grOptionVerbose := false:  fi:
+if not assigned(grOptionDefaultSimp) then grOptionDefaultSimp := 8:  fi:
+if not assigned(grOptionTermSize) then grOptionTermSize := 100:  fi:
+if not assigned(grOptionTimeStamp) then grOptionTimeStamp := true:  fi:
+if not assigned(grOptionWindows) then grOptionWindows := true:  fi:
+if not assigned(grOptionProfile) then grOptionProfile := false:  fi:
+if not assigned(grOptionLLSC) then grOptionLLSC := true:  fi:
+if not assigned(grOptionMessageLevel) then grOptionMessageLevel := 1:  fi:
+if not assigned(grOptionMapletInput) then grOptionMapletInput := true:  fi:
 
 # grG_rootSet
 # List of the root function name concatenated with the
