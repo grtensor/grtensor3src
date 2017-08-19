@@ -1009,8 +1009,17 @@ global grG_symList, grG_asymList;
 							convert( [iTypeSeq], string),`,`,
 							convert(newiList,string),`,`,gnum,`)`) ,name):
 			else # add indices to the end of an Operator
+				 # PM2017 - convert indices to names
+				 newiList := []:
+				 for index in iListSeq do
+						 if type(index, integer) then
+								newiList := [op(newiList), index]
+						 else
+								newiList := [op(newiList), convert(index, name)]:
+						 fi:
+				 od:
 				 workStr[i] := convert( cat( convert( [iTypeSeq], string),`,`,
-								convert( [iListSeq], string),`)`), name):
+								convert( newiList, string),`)`), name):
 				 addToOperator := false:
 				 inTensor := false:
 
