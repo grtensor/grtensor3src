@@ -631,7 +631,11 @@ local root2, gname, object, opSeq:
      # ASSUMPTION: operandSeq has one and only one Tensor_() stmt
      #
      opSeq := eval(subs( Tensor_=tensorOperand_, [opSeq])):
-     opSeq := op(opSeq), grG_tensorOp:
+     if assigned(grG_tensorOp) then
+     	opSeq := op(opSeq), grG_tensorOp:
+     else
+     	opSeq := op(opSeq):
+     fi:
    fi:
 
  fi:
