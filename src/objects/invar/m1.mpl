@@ -140,7 +140,7 @@ end:
 grG_ObjDef[M1R_SPINOR][grC_displayName] := M1R:
 grG_ObjDef[M1R_SPINOR][grC_calcFn] := grF_calc_M1R_SPINOR:
 grG_ObjDef[M1R_SPINOR][grC_useWhen] := grF_when_SpinorInvar:
-gr[grC_depends] := { M1_SPINOR }:
+grG_ObjDef[M1R_SPINOR][grC_depends] := { M1_SPINOR }:
 
 grF_calc_M1R_SPINOR := proc(object, index)
 global gr_data, Ndim, grG_metricName;

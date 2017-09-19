@@ -1296,16 +1296,21 @@ end:
 # grF_checkNullTetrad
 #----------------------------------------------------------------------
 grF_checkNullTetrad := proc ( gname )
+#option trace;
 local	nullt, ip, a, b:
 global gr_data:
 
 	nullt := true:
-	if Ndim[gname]=4 and grF_checkIfAssigned ( eta(bup,bup), test ) then
+	printf("Ndim[gname]=%d\n", Ndim[gname]);
+	printf("eta assigned=%s\n", grF_checkIfAssigned ( eta(bup,bup), test ) );
+	if Ndim[gname]=4 and grF_checkIfAssigned ( eta(bup,bup) ) then
+		printf("checking eta\n");
 		ip := array ( 1..4, 1..4, 
 			[[0,1,0,0],[1,0,0,0],[0,0,0,-1],[0,0,-1,0]] ):
 		for a to 4 while nullt = true do
 			for b to 4 while nullt = true do
 				if gr_data[etabupbup_,gname,a,b] <> ip[a,b] then
+					printf("failed on %d %d\n", a, b);
 					nullt := false:
 				fi:
 			od:
