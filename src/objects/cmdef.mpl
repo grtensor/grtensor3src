@@ -43,6 +43,36 @@ grG_multipleDef[ M5S] := [ M5_SPINOR,  M5S_BASIS, M5S]:
 grG_multipleDef[ M6R] := [ M6R_SPINOR, M6R_BASIS, M6R]:
 grG_multipleDef[ M6I] := [ M6I_SPINOR, M6I_BASIS, M6I]:
 
+#grG_multipleDef[ R1] := [ R1_SPINOR, R1]:
+#grG_multipleDef[ R2] := [ R2_SPINOR, R2]:
+#grG_multipleDef[ R3] := [ R3_SPINOR, R3]:
+#
+#grG_multipleDef[ W1R] := [ W1R_SPINOR,  W1R]:
+#grG_multipleDef[ W1I] := [ W1I_SPINOR,  W1I]:
+#grG_multipleDef[ W2R] := [ W2R_SPINOR,  W2R]:
+#grG_multipleDef[ W2I] := [ W2I_SPINOR,  W2I]:
+#
+#grG_multipleDef[ M1R] := [ M1R_SPINOR,  M1R]:
+#grG_multipleDef[ M1I] := [ M1I_SPINOR,  M1I]:
+#grG_multipleDef[ M2a] := [              M2a]:
+#grG_multipleDef[ M2b] := [              M2b]:
+#grG_multipleDef[ M2R] := [ M2R_SPINOR,  M2R]:
+#grG_multipleDef[ M2I] := [ M2I_SPINOR,  M2I]:
+#grG_multipleDef[ M2S] := [ M2_SPINOR,   M2S]:
+#grG_multipleDef[ M3 ] := [ M3_SPINOR,   M3]:
+#grG_multipleDef[ M4a] := [              M4a]:
+#grG_multipleDef[ M4b] := [              M4b]:
+#grG_multipleDef[ M4 ] := [ M4_SPINOR,   M4]:
+#grG_multipleDef[ M5a] := [              M5a]:
+#grG_multipleDef[ M5b] := [              M5b]:
+#grG_multipleDef[ M5c] := [              M5c]:
+#grG_multipleDef[ M5d] := [              M5d]:
+#grG_multipleDef[ M5R] := [ M5R_SPINOR,  M5R]:
+#grG_multipleDef[ M5I] := [ M5I_SPINOR,  M5I]:
+#grG_multipleDef[ M5S] := [ M5_SPINOR,   M5S]:
+#grG_multipleDef[ M6R] := [ M6R_SPINOR,  M6R]:
+#grG_multipleDef[ M6I] := [ M6I_SPINOR,  M6I]:
+
 #----------------------------------------
 # grF_useWhen_tetrad
 #----------------------------------------

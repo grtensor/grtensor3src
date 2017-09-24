@@ -166,4 +166,14 @@ BUGS
 grC_ZERO will be broken - use $define?
 schwbasis.mws also
 
+Sussman Bug
+============
+grdef(`shearacc{a}:=shear[u]{a b}*acc[u]{^b}`);
+Indices in name: [[], [a]]
+Indices in definition: [[], ["a"]]
+
+Seems that having an operator in the definition we end up with a string index and not a name:
+grF_strToDef("shear[u]{a}")
+Operator_(shear, u, [dn], ["a"])
+
 

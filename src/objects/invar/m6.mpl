@@ -159,10 +159,10 @@ end:
 #------------------------------------------------------------------------------
 # M6R_SPINOR - Spinor representation
 #------------------------------------------------------------------------------
-gr[grC_displayName] := M6R:
-gr[grC_calcFn] := grF_calc_M6R_SPINOR:
-gr[grC_useWhen] := grF_when_SpinorInvar:
-gr[grC_depends] := { M6_SPINOR }:
+grG_ObjDef[M6R_SPINOR][grC_displayName] := M6R:
+grG_ObjDef[M6R_SPINOR][grC_calcFn] := grF_calc_M6R_SPINOR:
+grG_ObjDef[M6R_SPINOR][grC_useWhen] := grF_when_SpinorInvar:
+grG_ObjDef[M6R_SPINOR][grC_depends] := { M6_SPINOR }:
 
 grF_calc_M6R_SPINOR := proc(object, index)
 global gr_data, Ndim, grG_metricName;
@@ -174,10 +174,10 @@ end:
 #------------------------------------------------------------------------------
 # M6I_SPINOR - Spinor representation
 #------------------------------------------------------------------------------
-gr[grC_displayName] := M6I:
-gr[grC_calcFn] := grF_calc_M6I_SPINOR:
-gr[grC_useWhen] := grF_when_SpinorInvar:
-gr[grC_depends] := { M6_SPINOR }:
+grG_ObjDef[M6I_SPINOR][grC_displayName] := M6I:
+grG_ObjDef[M6I_SPINOR][grC_calcFn] := grF_calc_M6I_SPINOR:
+grG_ObjDef[M6I_SPINOR][grC_useWhen] := grF_when_SpinorInvar:
+grG_ObjDef[M6I_SPINOR][grC_depends] := { M6_SPINOR }:
 
 grF_calc_M6I_SPINOR := proc(object, index)
 global gr_data, Ndim, grG_metricName;

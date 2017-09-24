@@ -1301,10 +1301,7 @@ local	nullt, ip, a, b:
 global gr_data:
 
 	nullt := true:
-	printf("Ndim[gname]=%d\n", Ndim[gname]);
-	printf("eta assigned=%s\n", grF_checkIfAssigned ( eta(bup,bup), test ) );
 	if Ndim[gname]=4 and grF_checkIfAssigned ( eta(bup,bup) ) then
-		printf("checking eta\n");
 		ip := array ( 1..4, 1..4, 
 			[[0,1,0,0],[1,0,0,0],[0,0,0,-1],[0,0,-1,0]] ):
 		for a to 4 while nullt = true do
