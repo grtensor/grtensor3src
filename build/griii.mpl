@@ -48,6 +48,7 @@ grtensor := module()
 option package;
 export
     autoAlias,
+    cmcompare,
     difftool,
 	gralter,
 	gralterd,
@@ -74,6 +75,7 @@ export
 	groptions,
 	grsaveg,
 	grtransform,
+	grt2DG,
 	grundef,
 	kdelta,
 	KillingCoords,
@@ -156,6 +158,7 @@ $include  "src/grdef.mpl"
 $include  "src/grload.mpl"
 $include  "src/grload_maplet.mpl"
 $include  "src/grtransform.mpl"
+$include  "src/grt2DG.mpl"
 $include  "src/initFn.mpl"
 $include  "src/inputFn.mpl"):
 $include  "src/killing.mpl"
