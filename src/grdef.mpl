@@ -507,14 +507,15 @@ symFn := `&statseq`( symFn, symCoreLoop, `&function`(RETURN,`&expseq`()) ):
 # Wrap the function body in a proc-statment:
 #
 symFn := `&proc`(
-	`&expseq`(objectName, root, calcFn), 
-	`&expseq`(), 
-	`&expseq`(), 
-	`&expseq`(), 
-	`&statseq`(symFn), 
-	`&expseq`(), 
-	`&expseq`(freeIndexSeq),
-	`&expseq`()
+	`&expseq`(objectName, root, calcFn),  # parameters
+	`&expseq`(), 						  # locals
+	`&expseq`(),                          # options
+#	`&expseq`(trace),                          # options
+	`&expseq`(),                          # remember table
+	`&statseq`(symFn),                    # body
+	`&expseq`(),                          # description
+	`&expseq`(freeIndexSeq),              # globals
+	`&expseq`()                           # empty expr seq of scoped variables
 ):
 
 RETURN ( procmake ( symFn ) ):

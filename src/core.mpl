@@ -222,6 +222,9 @@ local a,  t, toc, root, entry, objectName, objectNameString,
 	and not assigned ( grG_ObjDef[objectName][grC_displayFn] )
 	and ( nops(objectName)=1 or nops(objectName)=2 ) then
 	    grG_fnCode := grF_slickdisplay ( objectName ):
+      if (grG_fnCode = grC_tmpNoDISP) then 
+        RETURN():
+      fi:
   fi:
 
   #
