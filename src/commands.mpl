@@ -700,12 +700,13 @@ local i, j, funct, k, new_args, argSeq, pStart;
   #
   pStart := 0:
   for k from 2 to nargs do
-    if type( args[k], procedure) then
+    if type( args[k], procedure) or type(args[k],mathfunc) then
        pStart := k:
        funct := args[k]:
        break:
     fi:
   od:
+  printf("Procedure name:%s", funct);
   if pStart = 0 then
     ERROR(`Cannot find a procedure name in parameters to grmap().`):
   fi:

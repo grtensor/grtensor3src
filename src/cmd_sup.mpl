@@ -318,11 +318,18 @@ local a, b, i, actual, actual2, start, calced,
         #
         break;
      elif type( argList[a], procedure) then
-	#
-	# check for a grmap procedure call. (this will also be a
-	# name so do this first).
-	#
-	break;
+      	#
+      	# check for a grmap procedure call. (this will also be a
+      	# name so do this first).
+      	#
+      	break;
+
+    elif type( argList[a], mathfunc) then
+        #
+        # check for a grmap procedure call. (this will also be a
+        # name so do this first).
+        #
+        break;
 
      elif type(argList[a], equation) then
         #
