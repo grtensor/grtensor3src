@@ -223,6 +223,7 @@ local a,  t, toc, root, entry, objectName, objectNameString,
 	and ( nops(objectName)=1 or nops(objectName)=2 ) then
 	    grG_fnCode := grF_slickdisplay ( objectName ):
       if (grG_fnCode = grC_tmpNoDISP) then 
+        printf("Early exit");
         RETURN():
       fi:
   fi:

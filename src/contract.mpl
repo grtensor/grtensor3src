@@ -113,8 +113,8 @@ local contractFn, a, globalSeq:
   # core of the contraction routine:
   #   s := s + grG_ObjDef [object][grC_calcFnParms]
   #
-#  contractFn := `&statseq`(`&:=` (`&local`[1], `&local`[1] +
-#    grG_ObjDef[`&args`[1]]['grC_calcFnParms'])):
+  #  contractFn := `&statseq`(`&:=` (`&local`[1], `&local`[1] +
+  #    grG_ObjDef[`&args`[1]]['grC_calcFnParms'])):
 
   contractFn := 
   _Inert_STATSEQ(_Inert_ASSIGN(_Inert_LOCAL(1), 

@@ -58,7 +58,7 @@
 #----------------------------------------------------------
 
 grF_newIndices := proc(object)
-#option trace;
+option trace;
 global  grG_ObjDef, grG_metricName, grF_contractFn, gr_data;
 local a,b,c,i, cousins,root, newList, baseObj, objIndices, dependSet,
       dist, nearest, nearList,expr, exprProd, objSeq, numUp, numDn,
@@ -369,7 +369,7 @@ end:
 #----------------------------------------------------------
 
 grF_newSymmetry := proc(newObject,oldObject, newIndex)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
+option trace;
 local a, b, oldPerms, newPerm, permList, okay, symSet, asymSet, itype,
   oldIndex:
 global grG_ObjDef:
@@ -398,7 +398,7 @@ global grG_ObjDef:
         # from the index in this position then must reject this perm
         #
         if newIndex[b] <> newIndex[ permList[b]] then
-	  okay := false
+	         okay := false
         fi:
       od:
       if okay then

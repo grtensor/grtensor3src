@@ -258,7 +258,6 @@ end:
 #----------------------------------------------------------
 
 grF_screenArgs := proc(argParm, reqCalced, reqUncalced)
-#option trace;
 global  grG_metricName, object, grG_lastObjectSeq, grG_checkObjects_Cache, 
         grG_default_metricName:
 
@@ -545,7 +544,6 @@ end:
 #----------------------------------------------------------
 
 grF_checkObjects := proc( objList, reqCalced, reqUncalced)
-#option trace;
 local a, b, i, x, actual, actual2, start, calced,
       subMe, indexStuff,
       compound, operands, item, dependSet, objectName, returnSeq,
@@ -806,7 +804,6 @@ end:
 #----------------------------------------------------------
 
 grF_checkIfDefined := proc(objectParm, act)
-#option trace;
 local  a, objRoot, i, baseObj, object, c, p, cb, pb;
 global grG_metricName;
  #

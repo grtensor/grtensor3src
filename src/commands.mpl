@@ -400,6 +400,7 @@ end:
 # calcObj - calculate object without time header
 #------------------------------------------------------------------------------
 grF_calcObj := proc ( )
+option trace;
 global  grG_fnCode, grG_simp, grG_metricName, grG_calc, grG_callComp, 
         grOptionDefaultSimp, grG_default_metricName:
 local	i, metric:

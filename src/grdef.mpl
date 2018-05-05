@@ -38,8 +38,8 @@
 #============================================================================
 
 # define used in debugging
-#$define DEBUG option trace;
-$define DEBUG 
+$define DEBUG option trace;
+#$define DEBUG 
 
 #----------------------------------------------------------------------------
 # grdef
