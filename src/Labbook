@@ -1,0 +1,48 @@
+Labbook
+=======
+
+April 26
+- Eric reported an issue with grmap, fixed by adding a check for mathfunc in addition to procedure. 
+- after the grmap the defined object displays, but also shows an error
+
+Is this a result of my change, or just something that was never seen before (map impacting display) ??
+
+Issue is specific to the use of int(). diff wrt phi and factor do not have this effect. 
+
+FWIW: Procmake has been deprecated and should be re-written in ToInert/FromInert calls.
+
+
+MAPLE 2018
+==========
+
+Initial issue is in grF_build_contractFn (but likely a generic procmake issue. )
+
+Need to make this public so can experiment directly with the FromInert formulation. Start by making a procedure and calling ToInsert on it?
+
+
+test := proc (n) local a, s; global Ndim, gr_data; s := 0; for a to 4 do s := s+gr_data[o1, a] end do; gr_data[o2] := s end proc;
+
+inert_test := 
+_Inert_PROC(
+  _Inert_PARAMSEQ(_Inert_NAME("n")), 
+  _Inert_LOCALSEQ(_Inert_NAME("a"), _Inert_NAME("s")), 
+  _Inert_OPTIONSEQ(), 
+  _Inert_EXPSEQ(), 
+  _Inert_STATSEQ( _Inert_ASSIGN(_Inert_LOCAL(2), _Inert_INTPOS(0)), 
+  	_Inert_FORFROM(_Inert_LOCAL(1), _Inert_INTPOS(1), _Inert_INTPOS(1), _Inert_INTPOS(4), 
+  		_Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+
+  		_Inert_STATSEQ(_Inert_ASSIGN(_Inert_LOCAL(2), _Inert_SUM(_Inert_LOCAL(2), 
+			_Inert_TABLEREF(_Inert_NAME("gr_data"), _Inert_EXPSEQ(_Inert_NAME("o1"), _Inert_LOCAL(1)))))), 
+
+  		_Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
+	), 
+  _Inert_ASSIGN(
+		_Inert_TABLEREF(_Inert_NAME("gr_data"), _Inert_EXPSEQ(_Inert_NAME("o2"))), _Inert_LOCAL(2))
+   ), 
+
+  _Inert_DESCRIPTIONSEQ(), 
+  _Inert_GLOBALSEQ(_Inert_NAME("Ndim"), _Inert_NAME("gr_data")), 
+  _Inert_LEXICALSEQ(), 
+  _Inert_EOP(_Inert_EXPSEQ())
+)

@@ -83,7 +83,7 @@ grF_core := proc(objectParm, externalCall)
 global  grG_displayZero, grG_objectName, grG_metricName, 
         grG_operands, grG_baseObject, grG_fnCode, grG_firstObj,
 	      grG_profileList, grG_profileTimer, grG_profileCount, grG_profileSize,
-        grG_lastHeader, grG_ObjDef:
+        grG_lastHeader, grG_ObjDef, grG_symmetry:
 
 local a,  t, toc, root, entry, objectName, objectNameString,
       operandSeq, dependSet, calcFn, preCalcFn, symFn,

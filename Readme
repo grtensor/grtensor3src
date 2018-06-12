@@ -25,3 +25,21 @@ some old notes describing GRTensorII source in the file doc/grtensor.notes.
 
 The code structure has changed into a single module, but much of the structure
 of the code as described there is still relevant. 
+
+
+Maple 2018 Branch
+=================
+
+GRIII breaks under Maple2018. This is a consequence of the use of a deprecated API (procmake) to synthesize Maple code
+within GRIII. The new API makes use of Inert expressions and FromInert. 
+
+The routine grF_build_contractFn in contract.mpl has been converted (with the old code left commented in place). This can be run stand-alone if it
+is made visible in the build/griii.mpl file. It seems to be working. 
+
+What remains is to find the other uses of procmake and make a similar conversion. 
+
+To build, a worksheet has been added to worksheets/Maple2018. (Need to adjust paths for your system).
+
+This dir also contains some experiments with ToInert. 
+
+
