@@ -54,6 +54,7 @@ export
 	gralterd,
 	grapply,
 	grarray,
+	grassign,
 	grdisplay,
 	grcalc, 
 	grcalc1,

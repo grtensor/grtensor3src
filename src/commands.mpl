@@ -536,6 +536,74 @@ local i, howSeq, new_args;
 end:
 
 #----------------------------------------------------------
+# grassign( object, iList, value)
+#
+#    object     generic object name
+#    iList      index list
+#               may be in coord number of name
+#    value      value to be assigned
+#
+# Return the value of the component of the object with
+# indices as given (numerical or coord Name) in iList.
+#
+# If the object is a scalar, iList is not required.
+#----------------------------------------------------------
+grassign := proc()
+local object, objectName, iList, coordNum_seq,  a, b, operands,
+      newArgs, gname:
+global gr_data;
+
+  iList := []:
+  #
+  # use screenArgs so that e.g. Ricci -> R(dn,dn)
+  #
+  newArgs := grF_screenArgs( [args[1]], false, false):
+
+  value := args[3];
+
+  #
+  # if object is not from the default metric screenArgs will
+  # return e.g. schw, rw, R(dn,dn), schw
+  #
+  # if it is from the default metric it will return
+  #  e.g. schw, R(dn,dn)
+  #
+  if member(newArgs[ nops(newArgs)], grG_metricSet) then
+     object := newArgs[nops( newArgs)-1]:  # e.g. R[schw](dn,dn)
+     gname := newArgs[nops(newArgs)-2]:
+  else
+     object := newArgs[nops( newArgs)]:  # e.g. R[schw](dn,dn)
+     gname := newArgs[nops(newArgs)-1]:
+  fi:
+
+  objectName := grF_objectName(object):  # e.g. R(dn,dn)
+
+  iList := args[2]:
+
+  coordNum_seq := grF_coordNumbers ( gname, iList ):
+  #
+  # OPERATOR ?
+  #
+  # if do then need to build the operand sequence
+  #
+  grF_expandOperands( object ): # need to assign grG_metricName
+
+  if assigned( grG_ObjDef[objectName][grC_operandSeq]) then
+    operands := gname, grF_objectOperands( object):
+  else
+    operands := gname:
+  fi:
+  if not assigned(
+    gr_data[(grG_ObjDef[objectName][grC_root]),operands, coordNum_seq]) then
+      # TODO: Need to zero all objects (up to symmetry)
+      printf("TODO: Should zero all components up to symmetry. For now make user do this.");
+      grF_assignedFlag(objectName, set);
+  fi:
+  gr_data[(grG_ObjDef[objectName][grC_root]),operands, coordNum_seq] := value;
+
+end:
+
+#----------------------------------------------------------
 # grcomponent( object, iList)
 #
 #    object     generic object name
