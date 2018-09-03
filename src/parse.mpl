@@ -37,8 +37,8 @@
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 # define used in debugging
-#$define DEBUG option trace;
-$define DEBUG 
+$define DEBUG option trace;
+#$define DEBUG 
 
 #----------------------------------------------------------
 # grF_buildCalcFn
@@ -247,36 +247,81 @@ local a,b,i, body, s, loopStmt, exStmt,
  # now put together the rest around the loop sequence
  #
  loopStmt := NULL:
- localSeq := s:
+ localSeq := _Inert_NAME("s"):
  #
  # build a sequence of local variables
  #
  for a in grG_parseSet[grC_explicit] do
-    localSeq := localSeq, explicit_||a;
+    localSeq := localSeq, _Inert_NAME(cat("explicit_",a));
  od:
  for a to maxSum do
-   localSeq := localSeq, s||a||_:
+   localSeq := localSeq, _Inert_NAME(cat("s", a, "_"));
  od:
  for a to maxsubSum do
-   localSeq := localSeq, sd||a||_:
+   localSeq := localSeq, _Inert_NAME(cat("sd", a, "_"));
  od:
  #
  # generate stmts to test explicit coords (if any)
  #
  exStmt := NULL:
  for a in grG_parseSet[grC_explicit] do
-    exStmt := exStmt,`&:=`(explicit_||a,grF_checkExplicitIndex(grG_metricName,a)):
+ #   exStmt := exStmt,`&:=`(explicit_||a,grF_checkExplicitIndex(grG_metricName,a)):
+ 	 exStmt := exStmt, 
+ 	 			_Inert_ASSIGN(
+ 	 				_Inert_NAME(cat("explicit_", a)),
+ 	 				_Inert_FUNCTION("grF_checkExplicitIndex", 
+ 	 					_Inert_EXPSEQ(_Inert_NAME(a))
+ 	 				)
+ 	 			):
  od:
  #
  # generate the loops to do implied summations
  #
+# for a from maxSum by -1 to 1 do
+#	loopStmt := `&for`( s||a||_, 1, 1, Ndim['grG_metricName'], true,
+#	`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt) ):
+# od:
+
  for a from maxSum by -1 to 1 do
-	loopStmt := `&for`( s||a||_, 1, 1, Ndim['grG_metricName'], true,
-	`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt) ):
+	loopStmt :=
+	    _Inert_FORFROM(
+	      _Inert_NAME(cat("s",a,"_")),   # loop variable
+	      _Inert_INTPOS(1),         # from 
+	      _Inert_INTPOS(1),         # step
+	      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
+	        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
+	      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
+	         _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+	      # statement inside the loop
+	      _Inert_STATSEQ(
+	      	_Inert_ASSIGN( _Inert_NAME("s"), 
+	      		Inert_SUM( _Inert_NAME("s"),
+	      			ToInert(sumTerms[a])
+	      		)
+	      	)
+	      ), 
+	      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
+	         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
+	    ), loopStmt: 
  od:
- body := `&proc`( [object, iList], [localSeq], [],
-	 `&statseq`( exStmt, `&:=`(s, sumTerms[0]), loopStmt) ):
- RETURN( procmake( body ) );
+
+# body := `&proc`( [object, iList], [localSeq], [],
+#	 `&statseq`( exStmt, `&:=`(s, sumTerms[0]), loopStmt) ):
+
+  procBody := _Inert_PROC(
+    _Inert_PARAMSEQ(_Inert_NAME("object"), _Inert_NAME("iList")),
+    _Inert_LOCALSEQ(localSeq),
+    _Inert_OPTIONSEQ(), 
+    _Inert_EXPSEQ(), 
+    _Inert_STATSEQ(loopStmt), 
+    _Inert_DESCRIPTIONSEQ(), 
+    _Inert_GLOBALSEQ(), 
+    _Inert_LEXICALSEQ(), 
+    _Inert_EOP(_Inert_EXPSEQ())
+  ):
+  RETURN (FromInert(procBody)):
+
+# RETURN( procmake( body ) );
 
 end:
 
