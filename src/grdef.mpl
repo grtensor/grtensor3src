@@ -38,8 +38,8 @@
 #============================================================================
 
 # define used in debugging
-$define DEBUG option trace;
-#$define DEBUG 
+#$define DEBUG option trace;
+$define DEBUG 
 
 #----------------------------------------------------------------------------
 # grdef
@@ -369,6 +369,7 @@ end:
 #----------------------------------------------------------------------------
 
 grF_create_symFn := proc ( freeIndexNbr, symSet, asymSet )
+option trace;
 local a, i, j, k, l, symFn, freeIndexSeq, symIndexSeq, symIndices, asymIndices,
 		loopNbr, found, asymNbr, replaceSeq, permNbr, sym1, sym2, perm1, perm2,
 		sym, loopParms, permList, lastLoopIndex, permsign1, permsign2,
@@ -406,26 +407,81 @@ fi:
 # Heart of the symmetry routine, calls the calc function and assigns to
 # tensor standard component [a1_,a2_,a3_,...]:
 #
-symFn := `&:=`( 'gr_data'[
-	`&expseq`(`&args`[2],'grG_metricName','grG_operands',freeIndexSeq)], 
-	`&function`(`&args`[3], `&expseq`(`&args`[1], [freeIndexSeq] ) ) ):
+#symFn := `&:=`( 'gr_data'[
+#	`&expseq`(`&args`[2],'grG_metricName','grG_operands',freeIndexSeq)], 
+#	`&function`(`&args`[3], `&expseq`(`&args`[1], [freeIndexSeq] ) ) ):
+# Inert form of gr_data[symSet, grG_metricName, grG_operands, freeIndexSeq] := 
+freeIndexSeqInert := NULL;
+for a in freeIndexSeq do
+	freeIndexSeqInert := freeIndexSeqInert, ToInert(a):
+od:
+symFn := _InertSTATSEQ(
+		  _Inert_ASSIGN(             
+			_Inert_TABLEREF(
+				_Inert_NAME("gr_data"), 
+				_Inert_EXPSEQ( _Inert_PARAM(2),  # args[2]
+								_Inert_NAME("grG_metricName"), 
+								_Inert_NAME("grG_operands"), 
+								freeIndexSeqInert
+							)
+			),
+			_Inert_FUNCTION(_Inert_NAME(args[3]), _Inert_EXPSEQ(args[1], ToInert([freeIndexSeq])))
+		  )
+		);
 
 xrefs := NULL:
 zeros := NULL:
 for a to nops ( idxList ) do
 	symIndexSeq := op ( grF_createIdxNameList ( idxList[a] ) ):
 	if symIndexSeq <> freeIndexSeq then
-		xrefs := `&:=`(
-			'gr_data'[
-			`&expseq`(`&args`[2],'grG_metricName','grG_operands', symIndexSeq)], 
-			idxSign[a]*'gr_data'[
-			`&expseq`(`&args`[2],'grG_metricName', 'grG_operands', freeIndexSeq)] ),
-			xrefs:
-		zeros := `&:=`(
-			'gr_data'[
-			`&expseq`(`&args`[2],'grG_metricName','grG_operands', symIndexSeq)],
-			0 ),
-			zeros:
+	symIndexSeqInert := NULL:
+	for b in symIndexSeqInert do
+		symIndexSeqInert := symIndexSeqInert, ToInert(b):
+	od:
+#		xrefs := `&:=`(
+#			'gr_data'[
+#			`&expseq`(`&args`[2],'grG_metricName','grG_operands', symIndexSeq)], 
+#			idxSign[a]*'gr_data'[
+#			`&expseq`(`&args`[2],'grG_metricName', 'grG_operands', freeIndexSeq)] ),
+#			xrefs:
+		xrefs := _Inert_ASSIGN(             
+					_Inert_TABLEREF(
+						_Inert_NAME("gr_data"), 
+						_Inert_EXPSEQ( _Inert_PARAM(2),
+										_Inert_NAME("grG_metricName"), 
+										_Inert_NAME("grG_operands"), 
+										symIndexSeqInert
+									)
+					),
+						_Inert_PROD(
+							ToInert(idxSign[a]),
+							_Inert_TABLEREF(
+								_Inert_NAME("gr_data"), 
+								_Inert_EXPSEQ( _Inert_PARAM(2),
+												_Inert_NAME("grG_metricName"), 
+												_Inert_NAME("grG_operands"), 
+												freeIndexSeqInert
+											)
+							)
+						)
+				), xrefs;
+
+#		zeros := `&:=`(
+#			'gr_data'[
+#			`&expseq`(`&args`[2],'grG_metricName','grG_operands', symIndexSeq)],
+#			0 ),
+#			zeros:
+		zeros := _Inert_ASSIGN(             
+					_Inert_TABLEREF(
+						_Inert_NAME("gr_data"), 
+						_Inert_EXPSEQ( _Inert_PARAM(2),
+										_Inert_NAME("grG_metricName"), 
+										_Inert_NAME("grG_operands"), 
+										symIndexSeqInert
+									)
+					),
+					ToInert(0)
+				), zeros:
 	fi:
 od:
 
@@ -445,19 +501,50 @@ if asymSet <> {} then
 		od:
 	od:
 
-	zeroCond[1] := `&function`(nops, `&expseq`( replaceSet[1] ) ) 
-		< nops(replaceSet[1]):
+#	zeroCond[1] := `&function`(nops, `&expseq`( replaceSet[1] ) ) 
+#		< nops(replaceSet[1]):
+	zeroCond[1] := _Inert_LESSTHAN(_Inert_FUNCTION(_Inert_NAME("nops"), _Inert_EXPSEQ(replaceSet[1])),  
+						ToInert(nops(replaceSet[1])) 
+					):
 	for i from 2 to asymNbr do
-		zeroCond[i] := zeroCond[i-1] or 
-			`&function`(nops, `&expseq`( replaceSet[i] ) ) < nops(replaceSet[i]):
+#		zeroCond[i] := zeroCond[i-1] or 
+#			`&function`(nops, `&expseq`( replaceSet[i] ) ) < nops(replaceSet[i]):
+		zeroCond[i] := _Inert_OR( zeroCond[i-1],  
+							_Inert_LESSTHAN(_Inert_FUNCTION(_Inert_NAME("nops"), _Inert_EXPSEQ(replaceSet[i])),  
+								ToInert(nops(replaceSet[i])) 
+							)
+					):	
 	od:
 
-	symFn := `&if`( zeroCond[asymNbr],
-		`&statseq`(zeros,`&:=`('gr_data'
-		[`&expseq`(`&args`[2],'grG_metricName','grG_operands',freeIndexSeq)], 0 ) ),
-		`&statseq`( xrefs, symFn ) ):
+#	symFn := `&if`( zeroCond[asymNbr],
+#		`&statseq`(zeros,`&:=`('gr_data'
+#		[`&expseq`(`&args`[2],'grG_metricName','grG_operands',freeIndexSeq)], 0 ) ),
+#		`&statseq`( xrefs, symFn ) ):
+# Need to use somthing like
+# _Inert_IF(
+#	_Inert_CONDPAIR(_Inert_OR(
+#		_Inert_LESSTHAN(_Inert_PARAM(1), _Inert_INTPOS(2)), 
+#		_Inert_LESSTHAN(_Inert_INTPOS(5), _Inert_PARAM(1))), 
+#	_Inert_STATSEQ(_Inert_ASSIGN(_Inert_LOCAL(1), _Inert_INTPOS(2)))))
+#	ORs need to nest
+	symFn := _Inert_IF( 
+		zeroCond[asymNbr],
+		_Inert_STATSEQ(_InertASSIGN(					
+						_Inert_TABLEREF(
+							_Inert_NAME("gr_data"), 
+							_Inert_EXPSEQ( ToInert(args[2]),
+								_Inert_NAME("grG_metricName"), 
+								_Inert_NAME("grG_operands"), 
+								ToInert(freeIndexSeq)
+						)
+					),
+					ToInert(0)
+				)
+		)
+	);
 else
-	symFn := `&statseq`( xrefs, symFn ):
+#	symFn := `&statseq`( xrefs, symFn ):
+	symFn := _Inert_STATSEQ( xrefs, symFn):
 fi:
 
 #
@@ -506,19 +593,31 @@ symFn := `&statseq`( symFn, symCoreLoop, `&function`(RETURN,`&expseq`()) ):
 #
 # Wrap the function body in a proc-statment:
 #
-symFn := `&proc`(
-	`&expseq`(objectName, root, calcFn),  # parameters
-	`&expseq`(), 						  # locals
-	`&expseq`(),                          # options
+#symFn := `&proc`(
+#	`&expseq`(objectName, root, calcFn),  # parameters
+#	`&expseq`(), 						  # locals
+#	`&expseq`(),                          # options
 #	`&expseq`(trace),                          # options
-	`&expseq`(),                          # remember table
-	`&statseq`(symFn),                    # body
-	`&expseq`(),                          # description
-	`&expseq`(freeIndexSeq),              # globals
-	`&expseq`()                           # empty expr seq of scoped variables
-):
+#	`&expseq`(),                          # remember table
+#	`&statseq`(symFn),                    # body
+#	`&expseq`(),                          # description
+#	`&expseq`(freeIndexSeq),              # globals
+#	`&expseq`()                           # empty expr seq of scoped variables
+#):
+#RETURN ( procmake ( symFn ) ):
 
-RETURN ( procmake ( symFn ) ):
+  procFn := _Inert_PROC(
+    _Inert_PARAMSEQ(_Inert_NAME("objectName"), _Inert_NAME("root"), _Inert_NAME("calcFn")),
+    _Inert_LOCALSEQ(_Inert_NAME("s")),
+    _Inert_OPTIONSEQ(), 
+    _Inert_EXPSEQ(), 
+    _Inert_STATSEQ(symFn),
+    _Inert_DESCRIPTIONSEQ(), 
+    _Inert_GLOBALSEQ(freeIndexSeq), 
+    _Inert_LEXICALSEQ(), 
+    _Inert_EOP(_Inert_EXPSEQ())
+  ):
+  RETURN (FromInert(procFn)):
 
 end:
 
@@ -548,7 +647,20 @@ local i, symFn, fromval:
 symFn := loopStmts:
 for i to freeIndexNbr do
 		if not member ( i, symIndices union asymIndices ) then
-				symFn := `&for`( a||i||_, 1, 1, Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+			#symFn := `&for`( a||i||_, 1, 1, Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+			symFn :=
+				    _Inert_FORFROM(
+				      _Inert_NAME(cat("a",i,"_")),   # loop variable
+				      _Inert_INTPOS(1),         # from 
+				      _Inert_INTPOS(1),         # step
+				      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
+				        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
+				      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
+				         _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+				      _InertSTATSEQ(symFn), 
+				      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
+				         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
+				    ):  
 		fi:
 od:
 
@@ -557,11 +669,35 @@ for i from loopNbr to 1 by -1 do
 		if member ( loopParms[i][1], symIndices ) or 
 			( member ( loopParms[i][1], asymIndices ) and not asymmetrize ) then
 				if loopParms[i][2] = -1 then
-						symFn := `&for`( a||(loopParms[i][1])||_, 1, 1, Ndim['grG_metricName'],
-								true, `&statseq`(symFn) ):
+#						symFn := `&for`( a||(loopParms[i][1])||_, 1, 1, Ndim['grG_metricName'],
+#								true, `&statseq`(symFn) ):
+						symFn :=
+							    _Inert_FORFROM(
+							      _Inert_NAME(cat("a",loopParms[i][1],"_")),   # loop variable
+							      _Inert_INTPOS(1),         # from 
+							      _Inert_INTPOS(1),         # step
+							      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
+							        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
+							      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+							      _InertSTATSEQ(symFn), 
+							      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
+							         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
+							    ):  
 				else
-						symFn := `&for`( a||(loopParms[i][1])||_, a||(loopParms[i][2])||_, 1,
-								Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+#						symFn := `&for`( a||(loopParms[i][1])||_, a||(loopParms[i][2])||_, 1,
+#								Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+						symFn :=
+							    _Inert_FORFROM(
+							      _Inert_NAME(cat("a",loopParms[i][1],"_")),   # loop variable
+							      _Inert_NAME(cat("a",loopParms[i][2],"_")),         # from 
+							      _Inert_INTPOS(1),         # step
+							      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
+							        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
+							      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+							      _InertSTATSEQ(symFn), 
+							      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
+							         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
+							    ):  
 				fi:
 		else
 				if loopParms[i][2] = -1 and asymmetrize then
@@ -569,8 +705,20 @@ for i from loopNbr to 1 by -1 do
 				else
 						fromval := a||(loopParms[i][2])||_ + 1:
 				fi:
-				symFn := `&for`( a||(loopParms[i][1])||_, fromval, 1,
-						Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+#				symFn := `&for`( a||(loopParms[i][1])||_, fromval, 1,
+#						Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+				symFn :=
+					    _Inert_FORFROM(
+					      _Inert_NAME(cat("a",loopParms[i][1],"_")),   # loop variable
+					      _Inert_NAME(fromVal),         # from 
+					      _Inert_INTPOS(1),         # step
+					      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
+					        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
+					      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+					      _InertSTATSEQ(symFn), 
+					      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
+					         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
+					    ):  
 		fi:
 od:
 
