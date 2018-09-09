@@ -97,6 +97,7 @@ $endif
 	grdump, # debug fn
 	grF_strToDef, #debug
 	grF_create_symFn, #debug
+	grF_build_contractFn,
 	Asym, 
 	Sym;
 

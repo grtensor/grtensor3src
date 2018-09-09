@@ -425,9 +425,13 @@ symFn := _InertSTATSEQ(
 								freeIndexSeqInert
 							)
 			),
-			_Inert_FUNCTION(_Inert_NAME(args[3]), _Inert_EXPSEQ(args[1], ToInert([freeIndexSeq])))
+			_Inert_INTPOS(1)
+#			_Inert_FUNCTION(_Inert_PARAM(3), _Inert_EXPSEQ(_Inert_PARAM(1), _Inert_LIST(freeIndexSeqInert)))
 		  )
 		);
+
+printf("line 432\n");
+x0 := FromInert(symFn);
 
 xrefs := NULL:
 zeros := NULL:
@@ -528,14 +532,14 @@ if asymSet <> {} then
 #	_Inert_STATSEQ(_Inert_ASSIGN(_Inert_LOCAL(1), _Inert_INTPOS(2)))))
 #	ORs need to nest
 	symFn := _Inert_IF( 
-		zeroCond[asymNbr],
+		_Inert_CONDPAIR(zeroCond[asymNbr]),
 		_Inert_STATSEQ(_InertASSIGN(					
 						_Inert_TABLEREF(
 							_Inert_NAME("gr_data"), 
-							_Inert_EXPSEQ( ToInert(args[2]),
+							_Inert_EXPSEQ( _Inert_PARAM(2),
 								_Inert_NAME("grG_metricName"), 
 								_Inert_NAME("grG_operands"), 
-								ToInert(freeIndexSeq)
+								freeIndexSeqInert
 						)
 					),
 					ToInert(0)
@@ -546,6 +550,9 @@ else
 #	symFn := `&statseq`( xrefs, symFn ):
 	symFn := _Inert_STATSEQ( xrefs, symFn):
 fi:
+
+printf("line 550\n");
+x1 := FromInert(symFn);
 
 #
 # Set up loop parameters ( loopParms[i] = loop-variable, `from'-value )
@@ -575,20 +582,48 @@ loopNbr := loopNbr - 1:
 symFn := grF_setUpDoLoops ( `&statseq`(symFn), freeIndexNbr, symIndices, 
 	asymIndices, loopParms, loopNbr, false ):
 
+printf("Loops\n");
+x1 := FromInert(symFn);
+
 #
 # add `if grG_calc and assigned ( calcFn )` and call to grF_symCore:
 #
-symFn := `&if`(  grG_calc and `&function`(assigned,`&expseq`(`&args`[3])), 
-				`&statseq`( symFn ) ):
+#symFn := `&if`(  grG_calc and `&function`(assigned,`&expseq`(`&args`[3])), 
+#				`&statseq`( symFn ) ):
+
+symFn :=_Inert_STATSEQ( 
+		  _Inert_IF(
+			_Inert_CONDPAIR( 
+				_Inert_AND( 
+					_Inert_NAME("grG_calc"), 
+					_Inert_FUNCTION(_Inert_ASSIGNEDNAME("assigned", "PROC", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
+						_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), _Inert_EXPSEQ(_Inert_PARAM(3)))
+				),
+				_Inert_STATSEQ(symFn)
+			)
+		  )
+		);
+
+x2 := FromInert(symFn);
 
 #
 # add a loop which calls grF_symCore:
 #
+#symCoreLoop := grF_setUpDoLoops (
+#		`&function`(grF_symCore, `&expseq`(`&args`[1],[freeIndexSeq],`&args`[2])),
+#		freeIndexNbr, symIndices, asymIndices, loopParms, loopNbr, true ):
+
 symCoreLoop := grF_setUpDoLoops (
-		`&function`(grF_symCore, `&expseq`(`&args`[1],[freeIndexSeq],`&args`[2])),
+		_Inert_FUNCTION(_Inert_NAME("grF_symCore"), _Inert_EXPSEQ( _Inert_PARAM(1), _Inert_LIST(freeIndexSeqInert), _Inert_PARAM(2))),
 		freeIndexNbr, symIndices, asymIndices, loopParms, loopNbr, true ):
 
-symFn := `&statseq`( symFn, symCoreLoop, `&function`(RETURN,`&expseq`()) ):
+
+x3 := FromInert(symCoreLoop);
+
+#symFn := `&statseq`( symFn, symCoreLoop, `&function`(RETURN,`&expseq`()) ):
+# change - leave return as implicit
+
+symFn := _Inert_STATSEQ( symFn, symCoreLoop);
 
 #
 # Wrap the function body in a proc-statment:
