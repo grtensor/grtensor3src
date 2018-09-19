@@ -524,13 +524,6 @@ if asymSet <> {} then
 #		`&statseq`(zeros,`&:=`('gr_data'
 #		[`&expseq`(`&args`[2],'grG_metricName','grG_operands',freeIndexSeq)], 0 ) ),
 #		`&statseq`( xrefs, symFn ) ):
-# Need to use somthing like
-# _Inert_IF(
-#	_Inert_CONDPAIR(_Inert_OR(
-#		_Inert_LESSTHAN(_Inert_PARAM(1), _Inert_INTPOS(2)), 
-#		_Inert_LESSTHAN(_Inert_INTPOS(5), _Inert_PARAM(1))), 
-#	_Inert_STATSEQ(_Inert_ASSIGN(_Inert_LOCAL(1), _Inert_INTPOS(2)))))
-#	ORs need to nest
 	symFn := _Inert_IF( 
 		_Inert_CONDPAIR(zeroCond[asymNbr]),
 		_Inert_STATSEQ(_InertASSIGN(					
@@ -648,7 +641,7 @@ symFn := _Inert_STATSEQ( symFn, symCoreLoop);
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(symFn),
     _Inert_DESCRIPTIONSEQ(), 
-    _Inert_GLOBALSEQ(freeIndexSeq), 
+    _Inert_GLOBALSEQ(), # define globals? Or rely on scoping 
     _Inert_LEXICALSEQ(), 
     _Inert_EOP(_Inert_EXPSEQ())
   ):
