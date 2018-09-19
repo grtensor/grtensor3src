@@ -1,0 +1,11 @@
+Maple 2018 Conversion Notes
+===========================
+
+Working on grF_createSymFn
+
+Using 2017 as a template:
+
+grF_createSymFn(0,{},{}):
+proc (objectName, root, calcFn) local gr_data; if grG_calc and assigned(calcFn) then gr_data[root, grG_metricName, grG_operands] := calcFn(objectName, []) end if; grF_symCore(objectName, [], root); RETURN() end proc
+
+Want Maple 2018 to produce the same thing:

@@ -417,16 +417,8 @@ for a in freeIndexSeq do
 od:
 symFn := _Inert_STATSEQ(
 		  _Inert_ASSIGN(             
-#			_Inert_TABLEREF(
-#				_Inert_NAME("gr_data"), 
-#				_Inert_EXPSEQ(_Inert_NAME("args2"),  
-#								_Inert_NAME("grG_metricName"), 
-#								_Inert_NAME("grG_operands"), 
-#								freeIndexSeqInert
-#							)
-				ToInert(gr_data[ args2, grG_metricName, grG_operands, freeIndexSeq]),
-				ToInert(`args[3]`(args1, [freeIndexSeq]))
-#			_Inert_FUNCTION(_Inert_NAME("arg3"), _Inert_EXPSEQ(_Inert_NAME("arg1"), _Inert_LIST(freeIndexSeqInert)))
+				ToInert(gr_data[ root, grG_metricName, grG_operands, freeIndexSeq]),
+				ToInert(calcFn(objectName, [freeIndexSeq]))
 		  )
 		);
 
@@ -451,7 +443,7 @@ for a to nops ( idxList ) do
 		xrefs := _Inert_ASSIGN(             
 					_Inert_TABLEREF(
 						_Inert_NAME("gr_data"), 
-						_Inert_EXPSEQ( _Inert_NAME("arg2"),
+						_Inert_EXPSEQ( _Inert_NAME("root"),
 										_Inert_NAME("grG_metricName"), 
 										_Inert_NAME("grG_operands"), 
 										symIndexSeqInert
@@ -461,7 +453,7 @@ for a to nops ( idxList ) do
 							ToInert(idxSign[a]),
 							_Inert_TABLEREF(
 								_Inert_NAME("gr_data"), 
-								_Inert_EXPSEQ( _Inert_NAME("arg2"),
+								_Inert_EXPSEQ( _Inert_NAME("root"),
 												_Inert_NAME("grG_metricName"), 
 												_Inert_NAME("grG_operands"), 
 												freeIndexSeqInert
@@ -478,7 +470,7 @@ for a to nops ( idxList ) do
 		zeros := _Inert_ASSIGN(             
 					_Inert_TABLEREF(
 						_Inert_NAME("gr_data"), 
-						_Inert_EXPSEQ( _Inert_NAME("arg2"),
+						_Inert_EXPSEQ( _Inert_NAME("root"),
 										_Inert_NAME("grG_metricName"), 
 										_Inert_NAME("grG_operands"), 
 										symIndexSeqInert
@@ -529,7 +521,7 @@ if asymSet <> {} then
 		_Inert_STATSEQ(_InertASSIGN(					
 						_Inert_TABLEREF(
 							_Inert_NAME("gr_data"), 
-							_Inert_EXPSEQ( _Inert_NAME("arg2"),
+							_Inert_EXPSEQ( _Inert_NAME("root"),
 								_Inert_NAME("grG_metricName"), 
 								_Inert_NAME("grG_operands"), 
 								freeIndexSeqInert
@@ -590,7 +582,7 @@ symFn :=_Inert_STATSEQ(
 				_Inert_AND( 
 					_Inert_NAME("grG_calc"), 
 					_Inert_FUNCTION(_Inert_ASSIGNEDNAME("assigned", "PROC", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
-						_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), _Inert_EXPSEQ(_Inert_NAME("arg3")))
+						_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), _Inert_EXPSEQ(_Inert_NAME("calcFn")))
 				),
 				_Inert_STATSEQ(symFn)
 			)
@@ -607,7 +599,7 @@ x2 := FromInert(symFn);
 #		freeIndexNbr, symIndices, asymIndices, loopParms, loopNbr, true ):
 
 symCoreLoop := grF_setUpDoLoops (
-		_Inert_FUNCTION(_Inert_NAME("grF_symCore"), _Inert_EXPSEQ( _Inert_NAME("arg1"), freeIndexSeqInert, _Inert_NAME("arg2"))),
+		_Inert_FUNCTION(_Inert_NAME("grF_symCore"), _Inert_EXPSEQ( _Inert_NAME("objectName"), ToInert([freeIndexSeq]), _Inert_NAME("root"))),
 		freeIndexNbr, symIndices, asymIndices, loopParms, loopNbr, true ):
 
 
@@ -618,25 +610,9 @@ x3 := FromInert(symCoreLoop);
 
 symFn := _Inert_STATSEQ( symFn, symCoreLoop);
 
-#
-# Wrap the function body in a proc-statment:
-#
-#symFn := `&proc`(
-#	`&expseq`(objectName, root, calcFn),  # parameters
-#	`&expseq`(), 						  # locals
-#	`&expseq`(),                          # options
-#	`&expseq`(trace),                          # options
-#	`&expseq`(),                          # remember table
-#	`&statseq`(symFn),                    # body
-#	`&expseq`(),                          # description
-#	`&expseq`(freeIndexSeq),              # globals
-#	`&expseq`()                           # empty expr seq of scoped variables
-#):
-#RETURN ( procmake ( symFn ) ):
-
   procFn := _Inert_PROC(
     _Inert_PARAMSEQ(_Inert_NAME("objectName"), _Inert_NAME("root"), _Inert_NAME("calcFn")),
-    _Inert_LOCALSEQ(_Inert_NAME("s")),
+    _Inert_LOCALSEQ(_Inert_NAME("gr_data")),
     _Inert_OPTIONSEQ(), 
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(symFn),
