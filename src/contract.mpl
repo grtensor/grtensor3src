@@ -145,6 +145,8 @@ local contractFn, a, globalSeq:
     contractFn := grF_inertFor(cat("s",a), _Inert_STATSEQ(contractFn));
   od:  
 
+  x1 := FromInert(contractFn);
+
   #
   # Add s:=0 initialisation, and return s at the end
   #
