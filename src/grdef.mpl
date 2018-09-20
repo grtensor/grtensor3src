@@ -369,7 +369,7 @@ end:
 #----------------------------------------------------------------------------
 
 grF_create_symFn := proc ( freeIndexNbr, symSet, asymSet )
-option trace;
+#option trace;
 local a, i, j, k, l, symFn, freeIndexSeq, symIndexSeq, symIndices, asymIndices,
 		loopNbr, found, asymNbr, replaceSeq, permNbr, sym1, sym2, perm1, perm2,
 		sym, loopParms, permList, lastLoopIndex, permsign1, permsign2,
@@ -422,8 +422,8 @@ symFn := _Inert_STATSEQ(
 		  )
 		);
 
-printf("line 432\n");
-x0 := FromInert(symFn);
+#printf("line 432\n");
+#x0 := FromInert(symFn);
 
 xrefs := NULL:
 zeros := NULL:
@@ -536,8 +536,8 @@ else
 	symFn := _Inert_STATSEQ( xrefs, symFn):
 fi:
 
-printf("line 550\n");
-x1 := FromInert(symFn);
+#printf("line 550\n");
+#x1 := FromInert(symFn);
 
 #
 # Set up loop parameters ( loopParms[i] = loop-variable, `from'-value )
@@ -567,8 +567,8 @@ loopNbr := loopNbr - 1:
 symFn := grF_setUpDoLoops ( symFn, freeIndexNbr, symIndices, 
 	asymIndices, loopParms, loopNbr, false ):
 
-printf("Loops\n");
-x1 := FromInert(_Inert_STATSEQ(symFn));
+#printf("Loops\n");
+#x1 := FromInert(_Inert_STATSEQ(symFn));
 
 #
 # add `if grG_calc and assigned ( calcFn )` and call to grF_symCore:
@@ -614,7 +614,7 @@ symFn := _Inert_STATSEQ( symFn, symCoreLoop, _Inert_RETURN(_Inert_NAME("NULL")))
 
   procFn := _Inert_PROC(
     _Inert_PARAMSEQ(_Inert_NAME("objectName"), _Inert_NAME("root"), _Inert_NAME("calcFn")),
-    _Inert_LOCALSEQ(_Inert_NAME("gr_data")),
+    _Inert_LOCALSEQ(),
     _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(symFn),
@@ -647,7 +647,7 @@ end:
 grF_setUpDoLoops := proc ( loopStmts, freeIndexNbr, symIndices, asymIndices, 
 	loopParms, loopNbr, asymmetrize )
 local i, symFn, fromval, loopVar:
-option trace; 
+#option trace; 
 # Set up the do-loops for indices not involved in any symmetrizations:
 
 symFn := loopStmts:
@@ -656,12 +656,12 @@ for i to freeIndexNbr do
 			#symFn := `&for`( a||i||_, 1, 1, Ndim['grG_metricName'], true, `&statseq`(symFn) ):
 			loopVar := cat("a",i,"_");
 			symFn := grF_inertFor(loopVar, _Inert_INTPOS(1),_Inert_STATSEQ(symFn));
-			printf("loops0\n");
-			x1 := FromInert(symFn);
+#			printf("loops0\n");
+#			x1 := FromInert(symFn);
 		fi:
 od:
-printf("loops1\n");
-x1 := FromInert(symFn);
+#printf("loops1\n");
+#x1 := FromInert(symFn);
 
 # Set up the do-loops for symmetrized indices using the loopParms list:
 for i from loopNbr to 1 by -1 do
@@ -690,8 +690,8 @@ for i from loopNbr to 1 by -1 do
 #						Ndim['grG_metricName'], true, `&statseq`(symFn) ):
 						loopVar := cat("a",loopParms[i][1],"_");
 						symFn := grF_inertFor(loopVar, _Inert_NAME(fromVal), _Inert_STATSEQ(symFn));
-printf("loops2\n");
-		x1 := FromInert(symFn);
+#		printf("loops2\n");
+#		x1 := FromInert(symFn);
 		fi:
 od:
 

@@ -105,7 +105,7 @@ end:
 # (procmake was deprecated and has finally stopped working)
 #==================================================================
 grF_build_contractFn := proc (n)
-option trace:
+#option trace:
 global Ndim, grG_metricName, grG_ObjDef, gr_data:
 local contractFn, a, globalSeq:
 
