@@ -78,7 +78,7 @@ local contractFn, a, globallist:
   RETURN (procmake (contractFn)):
 end:
 
-grF_inertFor := proc(loopVarName, body)
+grF_inertFor := proc(loopVarName, inertFrom, body)
 # loopVarName - global variable name
 # toName   - name of global for to limit
 # body     - inert form of body of for loop (_Inert_STATSEQ() )
@@ -86,7 +86,7 @@ grF_inertFor := proc(loopVarName, body)
   RETURN(
     _Inert_FORFROM(
       _Inert_NAME(loopVarName),   # loop variable
-      _Inert_INTPOS(1),         # from 
+      inertFrom,                # from 
       _Inert_INTPOS(1),         # step
       _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
         _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
@@ -142,7 +142,7 @@ local contractFn, a, globalSeq:
 #  od:
 
   for a from n to 1 by -1 do
-    contractFn := grF_inertFor(cat("s",a), _Inert_STATSEQ(contractFn));
+    contractFn := grF_inertFor(cat("s",a), _Inert_INTPOS(1), _Inert_STATSEQ(contractFn));
   od:  
 
   x1 := FromInert(contractFn);

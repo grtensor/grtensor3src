@@ -608,20 +608,22 @@ x3 := FromInert(symCoreLoop);
 #symFn := `&statseq`( symFn, symCoreLoop, `&function`(RETURN,`&expseq`()) ):
 # change - leave return as implicit
 
-symFn := _Inert_STATSEQ( symFn, symCoreLoop);
+# symmetry function must return null, 
+
+symFn := _Inert_STATSEQ( symFn, symCoreLoop, _Inert_RETURN(_Inert_NAME("NULL")));
 
   procFn := _Inert_PROC(
     _Inert_PARAMSEQ(_Inert_NAME("objectName"), _Inert_NAME("root"), _Inert_NAME("calcFn")),
     _Inert_LOCALSEQ(_Inert_NAME("gr_data")),
-    _Inert_OPTIONSEQ(), 
+    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(symFn),
     _Inert_DESCRIPTIONSEQ(), 
     _Inert_GLOBALSEQ(), # define globals? Or rely on scoping 
     _Inert_LEXICALSEQ(), 
     _Inert_EOP(_Inert_EXPSEQ())
-  ):
-  RETURN (FromInert(procFn)):
+  );
+  RETURN (FromInert(procFn));
 
 end:
 
@@ -653,7 +655,7 @@ for i to freeIndexNbr do
 		if not member ( i, symIndices union asymIndices ) then
 			#symFn := `&for`( a||i||_, 1, 1, Ndim['grG_metricName'], true, `&statseq`(symFn) ):
 			loopVar := cat("a",i,"_");
-			symFn := grF_inertFor(loopVar, _Inert_STATSEQ(symFn));
+			symFn := grF_inertFor(loopVar, _Inert_INTPOS(1),_Inert_STATSEQ(symFn));
 			printf("loops0\n");
 			x1 := FromInert(symFn);
 		fi:
@@ -669,23 +671,14 @@ for i from loopNbr to 1 by -1 do
 #						symFn := `&for`( a||(loopParms[i][1])||_, 1, 1, Ndim['grG_metricName'],
 #								true, `&statseq`(symFn) ):
 						loopVar := cat("a",loopParms[i][1],"_");
-						symFn := grF_inertFor(loopVar, _Inert_STATSEQ(symFn));
+						symFn := grF_inertFor(loopVar, _Inert_INTPOS(1), _Inert_STATSEQ(symFn));
 
 				else
 #						symFn := `&for`( a||(loopParms[i][1])||_, a||(loopParms[i][2])||_, 1,
 #								Ndim['grG_metricName'], true, `&statseq`(symFn) ):
-						symFn :=
-							    _Inert_FORFROM(
-							      _Inert_NAME(cat("a",loopParms[i][1],"_")),   # loop variable
-							      _Inert_NAME(cat("a",loopParms[i][2],"_")),         # from 
-							      _Inert_INTPOS(1),         # step
-							      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
-							        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
-							      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
-							      _InertSTATSEQ(symFn), 
-							      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
-							         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
-							    ):  
+						loopVar := cat("a",loopParms[i][1],"_");
+						fromVar := cat("a",loopParms[i][2],"_");
+						symFn := grF_inertFor(loopVar, _Inert_NAME(fromVar), _Inert_STATSEQ(symFn));
 				fi:
 		else
 				if loopParms[i][2] = -1 and asymmetrize then
@@ -695,18 +688,8 @@ for i from loopNbr to 1 by -1 do
 				fi:
 #				symFn := `&for`( a||(loopParms[i][1])||_, fromval, 1,
 #						Ndim['grG_metricName'], true, `&statseq`(symFn) ):
-				symFn :=
-					    _Inert_FORFROM(
-					      _Inert_NAME(cat("a",loopParms[i][1],"_")),   # loop variable
-					      _Inert_NAME(fromVal),         # from 
-					      _Inert_INTPOS(1),         # step
-					      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
-					        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
-					      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
-					      _InertSTATSEQ(symFn), 
-					      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
-					         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
-					    ):  
+						loopVar := cat("a",loopParms[i][1],"_");
+						symFn := grF_inertFor(loopVar, _Inert_NAME(fromVal), _Inert_STATSEQ(symFn));
 printf("loops2\n");
 		x1 := FromInert(symFn);
 		fi:
