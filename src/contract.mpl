@@ -28,55 +28,8 @@ global grG_ObjDef:
 end:
 
 #------------------------------------------------------------------------------
-# build_contractFn: Automatically build a function which carries out index
-#   contractions of an object.
-# Argument: n - the number of contractions
-# Returns:  a procedure which carries out the index contraction
+# Build an inert for loop
 #------------------------------------------------------------------------------
-grF_build_contractFn_old := proc (n)
-option trace:
-global Ndim, grG_metricName, grG_ObjDef, gr_data:
-local contractFn, a, globallist:
-
-  #
-  # core of the contraction routine:
-  #   s := s + grG_ObjDef [object][grC_calcFnParms]
-  #
-  contractFn := `&statseq`(`&:=` (`&local`[1], `&local`[1] +
-    grG_ObjDef[`&args`[1]]['grC_calcFnParms'])):
-
-  #
-  # build a loop for each index contraction using the
-  # global variables s1_ ... s.n._ 
-  # 
-  for a from n to 1 by -1 do
-    contractFn := `&for` (s||a||_, 1, 1, 'Ndim[grG_metricName]', true,
-      `&statseq` (contractFn));
-  od:
-  
-  #
-  # Add s:=0 initialisation, and return s at the end
-  #
-  contractFn := `&statseq`( `&:=` (`&local`[1], 0), contractFn,
-    `&function`(RETURN,`&expseq`(s))):
-  
-  #
-  # build the procecture
-  #  
-  globallist := seq (s||a||_, a=1..n):
-
-  contractFn := `&proc`(
-    `&expseq`(object, iList),
-    `&expseq`(s),
-    `&expseq`(),
-    `&expseq`(),
-    `&statseq`(contractFn), 
-    `&expseq`(),
-    `&expseq`(globallist),
-    `&expseq`()
-  ):
-  RETURN (procmake (contractFn)):
-end:
 
 grF_inertFor := proc(loopVarName, inertFrom, body)
 # loopVarName - global variable name
@@ -100,13 +53,19 @@ grF_inertFor := proc(loopVarName, inertFrom, body)
   
 end:
 
+#------------------------------------------------------------------------------
+# build_contractFn: Automatically build a function which carries out index
+#   contractions of an object.
+# Argument: n - the number of contractions
+# Returns:  a procedure which carries out the index contraction
+#------------------------------------------------------------------------------
 #==================================================================
 # Update in Maple 2018 to use FromInert
 # (procmake was deprecated and has finally stopped working)
 #==================================================================
 grF_build_contractFn := proc (n)
-#option trace:
-global Ndim, grG_metricName, grG_ObjDef, gr_data:
+option trace:
+global Ndim, grG_metricName, grG_ObjDef, gr_data, grC_calcFnParms:
 local contractFn, a, globalSeq:
 
   #
@@ -117,16 +76,9 @@ local contractFn, a, globalSeq:
   #    grG_ObjDef[`&args`[1]]['grC_calcFnParms'])):
 
   contractFn := 
-  _Inert_STATSEQ(_Inert_ASSIGN(_Inert_LOCAL(1), 
-        _Inert_SUM(_Inert_LOCAL(1), 
-          _Inert_TABLEREF(
-            _Inert_TABLEREF(
-              _Inert_NAME("grG_ObjDef"), 
-                _Inert_EXPSEQ(_Inert_PARAM(1))
-            ),    
-            _Inert_EXPSEQ(_Inert_NAME("grC_calcFnParams")
-          )
-        )
+  _Inert_STATSEQ(_Inert_ASSIGN(_Inert_NAME("s"), 
+        _Inert_SUM(_Inert_NAME("s"), 
+          ToInert( grG_ObjDef[object][grC_calcFnParms])
       )
     )
   );
@@ -142,28 +94,32 @@ local contractFn, a, globalSeq:
 #  od:
 
   for a from n to 1 by -1 do
-    contractFn := grF_inertFor(cat("s",a), _Inert_INTPOS(1), _Inert_STATSEQ(contractFn));
+    contractFn := grF_inertFor(cat("s",a,"_"), _Inert_INTPOS(1), _Inert_STATSEQ(contractFn));
   od:  
 
-  x1 := FromInert(contractFn);
 
   #
   # Add s:=0 initialisation, and return s at the end
   #
 #  contractFn := `&statseq`( `&:=` (`&local`[1], 0), contractFn,
 #    `&function`(RETURN,`&expseq`(s))):
+
+  contractFn := _Inert_STATSEQ( _Inert_ASSIGN(_Inert_NAME("s"), _Inert_INTPOS(0)), contractFn );
   
   #
   # build the procecture
   #  
-  globalSeq := seq (_Inert_NAME(cat("s",a)), a=1..n):
+  globalSeq := seq (_Inert_NAME(cat("s",a,"_")), a=1..n), 
+      _Inert_NAME("grG_ObjDef"),
+      _Inert_NAME("grC_calcFnParams"), 
+      _Inert_NAME("gr_data"):
 
   # globals Ndim and gr_data are inherited from calling routines
   
   contractFn := _Inert_PROC(
     _Inert_PARAMSEQ(_Inert_NAME("object"), _Inert_NAME("iList")),
     _Inert_LOCALSEQ(_Inert_NAME("s")),
-    _Inert_OPTIONSEQ(), 
+    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(contractFn),
     _Inert_DESCRIPTIONSEQ(), 
@@ -175,8 +131,6 @@ local contractFn, a, globalSeq:
 end:
 
 #==================================================================
-
-
 
 #
 # generic contraction functions, kept for the time being since they

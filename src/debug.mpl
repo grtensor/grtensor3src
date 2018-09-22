@@ -8,7 +8,7 @@ global grG_ObjDef;
 	interface(verboseproc=3);
 	for i in indices(grG_ObjDef[name]) do
 		index := op(i):
-		printf("[%a]:\n", index);
+		printf("grG_ObjDef[%a][%a]:\n", name, index);
 		print(grG_ObjDef[name][index]):
 	od:
 
