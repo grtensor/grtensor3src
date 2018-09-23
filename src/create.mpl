@@ -369,7 +369,7 @@ end:
 #----------------------------------------------------------
 
 grF_newSymmetry := proc(newObject,oldObject, newIndex)
-option trace;
+#option trace;
 local a, b, oldPerms, newPerm, permList, okay, symSet, asymSet, itype,
   oldIndex:
 global grG_ObjDef:
@@ -598,7 +598,7 @@ end:
 #----------------------------------------------------------
 
 grF_buildCoDfunction := proc( object, rootObj)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
+option trace;
 
 local i, objIndices, body, template,
       index, listIndex, firstStmt, loopStmt,
@@ -668,29 +668,68 @@ global grG_operands, gr_data:
       fi:
     od:
 
-    loopStmt := `&for`( s1, 1, 1, Ndim[grG_metricName], true,
-              `&statseq`( `&:=`(s, s + summand) )):
+#    loopStmt := `&for`( s1, 1, 1, Ndim[grG_metricName], true,
+#              `&statseq`( `&:=`(s, s + summand) )):
+    loopStmt := grF_inertFor( "s1", _Inert_INTPOS(1), 
+                  _Inert_STATSEQ(
+                    _Inert_ASSIGN(_Inert_NAME("s"), _Inert_SUM(_Inert_NAME("s"), ToInert(summand)))
+                  )
+                );
   else
-    loopStmt := `&expseq`():
+    #loopStmt := `&expseq`():
+    loopStmt := _Inert_EXPSEQ();
   fi:
 
+  xx := FromInert(loopStmt);
+
   if op ( n, object ) = cbdn or op ( n, object ) = pbdn then
-    body := `&proc`( [dummy, iList], [s1,s], [], `&statseq` (
-      `&:=`(s,0), 
-      `&for`( s1, 1, 1, Ndim[grG_metricName], true,
-        `&statseq`(
-        `&:=`(s, s + 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],
-           gr_data[xup_,grG_metricName, s1] )*gr_data[ebdnup_,grG_metricName,a||n||_,s1] 
-         ))
-       ),
-       loopStmt ) ):
+#    body := `&proc`( [dummy, iList], [s1,s], [], `&statseq` (
+#      `&:=`(s,0), 
+#      `&for`( s1, 1, 1, Ndim[grG_metricName], true,
+#        `&statseq`(
+#        `&:=`(s, s + 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],
+#           gr_data[xup_,grG_metricName, s1] )*gr_data[ebdnup_,grG_metricName,a||n||_,s1] 
+#         ))
+#       ),
+#       loopStmt ) ):
+
+    procBody := NULL:
+    ERROR("FIX ME cbdn, pbdn");
+
   else
-    body := `&proc`( [dummy, iList], [s1,s], [], `&statseq`(
-            `&:=`(s, 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],
-                                 gr_data[xup_,grG_metricName, a||n||_]) ),
-             loopStmt) ):
+#    body := `&proc`( [dummy, iList], [s1,s], [], `&statseq`(
+#            `&:=`(s, 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],
+#                                 gr_data[xup_,grG_metricName, a||n||_]) ),
+#             loopStmt) ):
+    # combine diff and the loop for Christoffel contractions into the procedure body
+    procBody := 
+        _Inert_STATSEQ(
+            _Inert_ASSIGN( _Inert_NAME("s"), 
+                              _Inert_FUNCTION(_Inert_NAME("diff"), 
+                                _Inert_EXPSEQ(
+                                  ToInert(gr_data[root,grG_metricName,grG_operands,baseSeq]), 
+                                   ToInert(gr_data[xup_,grG_metricName, a||n||_]) 
+                                  )
+                              )
+                            ),
+            loopStmt
+          );
   fi:
-  body := procmake(body):
+#  body := procmake(body):
+  procFull := _Inert_PROC(
+      _Inert_PARAMSEQ(_Inert_NAME("dummy"), _Inert_NAME("iList")),
+      _Inert_LOCALSEQ(_Inert_NAME("s"), _Inert_NAME("s1")),
+      _Inert_OPTIONSEQ(), 
+  #    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
+      _Inert_EXPSEQ(), 
+      _Inert_STATSEQ(procBody),
+      _Inert_DESCRIPTIONSEQ(), 
+      _Inert_GLOBALSEQ(_Inert_NAME("gr_data"), _Inert_NAME("grG_metricName"), _Inert_NAME("grG_operands")), 
+      _Inert_LEXICALSEQ(), 
+      _Inert_EOP(_Inert_EXPSEQ())
+  );
+  body := FromInert(procFull);
+
   grF_reassignMetrics():
   RETURN( body );
 

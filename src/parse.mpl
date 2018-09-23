@@ -37,8 +37,8 @@
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 # define used in debugging
-$define DEBUG option trace;
-#$define DEBUG 
+#$define DEBUG option trace;
+$define DEBUG 
 
 #----------------------------------------------------------
 # grF_buildCalcFn
@@ -246,7 +246,6 @@ local a,b,i, body, s, loopStmt, exStmt,
  #
  # now put together the rest around the loop sequence
  #
- loopStmt := NULL:
  localSeq := _Inert_NAME("s"):
  #
  # build a sequence of local variables
@@ -282,27 +281,31 @@ local a,b,i, body, s, loopStmt, exStmt,
 #	`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt) ):
 # od:
 
+ loopStmt := _Inert_STATSEQ();
+
  for a from maxSum by -1 to 1 do
-	loopStmt :=
-	    _Inert_FORFROM(
-	      _Inert_NAME(cat("s",a,"_")),   # loop variable
-	      _Inert_INTPOS(1),         # from 
-	      _Inert_INTPOS(1),         # step
-	      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
-	        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
-	      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
-	         _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
-	      # statement inside the loop
-	      _Inert_STATSEQ(
-	      	_Inert_ASSIGN( _Inert_NAME("s"), 
-	      		Inert_SUM( _Inert_NAME("s"),
-	      			ToInert(sumTerms[a])
-	      		)
-	      	)
-	      ), 
-	      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
-	         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
-	    ), loopStmt: 
+	loopStmt := 
+		    _Inert_FORFROM(
+		      _Inert_NAME(cat("s",a,"_")),   # loop variable
+		      _Inert_INTPOS(1),         	 # from 
+		      _Inert_INTPOS(1),         	 # step
+		      ToInert(Ndim[grG_metricName]),  # limit
+      		  _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
+         			_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+		      # body
+		      _Inert_STATSEQ(
+		      	_Inert_ASSIGN( 
+		      		_Inert_NAME("s"), 
+		      		_Inert_SUM( 
+		      			_Inert_NAME("s"),
+		      			ToInert(sumTerms[a])
+		      		)
+		      	), 
+		      	loopStmt
+		      ),
+		      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
+		         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
+	    	);
  od:
 
 # body := `&proc`( [object, iList], [localSeq], [],
@@ -311,7 +314,8 @@ local a,b,i, body, s, loopStmt, exStmt,
   procBody := _Inert_PROC(
     _Inert_PARAMSEQ(_Inert_NAME("object"), _Inert_NAME("iList")),
     _Inert_LOCALSEQ(localSeq),
-    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
+    _Inert_OPTIONSEQ(), 
+#    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(_Inert_ASSIGN( _Inert_NAME("s"), ToInert(sumTerms[0])),
     	loopStmt, 

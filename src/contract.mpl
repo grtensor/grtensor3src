@@ -64,7 +64,7 @@ end:
 # (procmake was deprecated and has finally stopped working)
 #==================================================================
 grF_build_contractFn := proc (n)
-option trace:
+#option trace:
 global Ndim, grG_metricName, grG_ObjDef, gr_data, grC_calcFnParms:
 local contractFn, a, globalSeq:
 
@@ -119,7 +119,8 @@ local contractFn, a, globalSeq:
   contractFn := _Inert_PROC(
     _Inert_PARAMSEQ(_Inert_NAME("object"), _Inert_NAME("iList")),
     _Inert_LOCALSEQ(_Inert_NAME("s")),
-    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
+    _Inert_OPTIONSEQ(), 
+#    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(contractFn),
     _Inert_DESCRIPTIONSEQ(), 

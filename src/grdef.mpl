@@ -615,7 +615,8 @@ symFn := _Inert_STATSEQ( symFn, symCoreLoop, _Inert_RETURN(_Inert_NAME("NULL")))
   procFn := _Inert_PROC(
     _Inert_PARAMSEQ(_Inert_NAME("objectName"), _Inert_NAME("root"), _Inert_NAME("calcFn")),
     _Inert_LOCALSEQ(),
-    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
+    _Inert_OPTIONSEQ(), 
+#    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(symFn),
     _Inert_DESCRIPTIONSEQ(), 
