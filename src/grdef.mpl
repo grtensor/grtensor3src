@@ -375,12 +375,15 @@ local a, i, j, k, l, symFn, freeIndexSeq, symIndexSeq, symIndices, asymIndices,
 		sym, loopParms, permList, lastLoopIndex, permsign1, permsign2,
 		stdIndexList, initLoop, initLoopParms, initStmt, fullSymList,
 		symCoreLoop, asymIndexSeq, replaceSet, initLoopNbr, zeroCond, initLoops,
-		idxList, idxSign, zeros, xrefs, idxInfo:
+		idxList, idxSign, zeros, xrefs, idxInfo, metricName:
 
 global grG_calc, grG_operands, grG_metricName:
 
 grG_calc := 'grG_calc':
 grG_operands := 'grG_operands':
+metricName := grG_metricName:
+grG_metricName := 'grG_metricName':
+
 symIndices := {}:
 asymIndices := {}:
 loopNbr := 1:
@@ -634,7 +637,9 @@ symFn := _Inert_STATSEQ( symFn, symCoreLoop, _Inert_RETURN(_Inert_NAME("NULL")))
     _Inert_LEXICALSEQ(), 
     _Inert_EOP(_Inert_EXPSEQ())
   );
-  RETURN (FromInert(procFn));
+  procActive := FromInert(procFn):
+  grG_metricName := metricName:
+  RETURN (procActive);
 
 end:
 
