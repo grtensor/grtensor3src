@@ -598,7 +598,7 @@ end:
 #----------------------------------------------------------
 
 grF_buildCoDfunction := proc( object, rootObj)
-option trace;
+#option trace;
 
 local i, objIndices, body, template,
       index, listIndex, firstStmt, loopStmt,
@@ -720,7 +720,6 @@ global grG_operands, gr_data:
       _Inert_PARAMSEQ(_Inert_NAME("dummy"), _Inert_NAME("iList")),
       _Inert_LOCALSEQ(_Inert_NAME("s"), _Inert_NAME("s1")),
       _Inert_OPTIONSEQ(), 
-  #    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
       _Inert_EXPSEQ(), 
       _Inert_STATSEQ(procBody),
       _Inert_DESCRIPTIONSEQ(), 

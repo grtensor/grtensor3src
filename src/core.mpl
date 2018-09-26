@@ -137,7 +137,7 @@ local a,  t, toc, root, entry, objectName, objectNameString,
   grG_profileSize := 0:
 
   grG_displayZero := true:    # global flag set by grF_components
-                              # (I KNOW it's ugly)
+                              # Set by slick display
   #
   # MULTIPLE DEFS ??
   #
@@ -218,12 +218,12 @@ local a,  t, toc, root, entry, objectName, objectNameString,
   # grG_fnCode is then reset at the end of core.
   #
   if grG_fnCode = grC_DISP
-	and type ( objectName, function )
-	and not assigned ( grG_ObjDef[objectName][grC_displayFn] )
-	and ( nops(objectName)=1 or nops(objectName)=2 ) then
+	 and type ( objectName, function )
+	 and not assigned ( grG_ObjDef[objectName][grC_displayFn] )
+	 and ( nops(objectName)=1 or nops(objectName)=2 ) then
 	    grG_fnCode := grF_slickdisplay ( objectName ):
       if (grG_fnCode = grC_tmpNoDISP) then 
-        printf("Early exit");
+        # printf("Early exit");
         RETURN():
       fi:
   fi:
@@ -249,16 +249,16 @@ local a,  t, toc, root, entry, objectName, objectNameString,
   # tensor components. In general nicer not to use these)
   if grG_calc and type( preCalcFn, procedure) then
        preCalcFn(oldObjectName);
- fi:
+  fi:
 
-#printf ("precalc done\n"):
+  #printf ("precalc done\n"):
   #
   # MAIN ROUTINE
   #
   #** now call the symmetry routine which does the work
   # (it should return NULL)
 
-  if NULL <> symFn(oldObjectName, root, calcFn) then
+  if NULL <> symFn(oldObjectName, root, calcFn, grF_symCore) then
     ERROR("Internal error-symmetry function did not return NULL", symFn ):
   fi:
    
@@ -268,22 +268,26 @@ local a,  t, toc, root, entry, objectName, objectNameString,
   #
   if grG_calc then
      if indexed then
-	#
-	# this is BOGUS. Need to ensure that default
-	# operands get placed in here!
-	# temporary kludge.
-	#
-	grF_assignedFlag(objectParm,set):
+      	#
+      	# this is BOGUS. Need to ensure that default
+      	# operands get placed in here!
+      	# temporary kludge.
+      	#
+      	grF_assignedFlag(objectParm,set):
      else
-	grF_assignedFlag(objectName,set):
+	      grF_assignedFlag(objectName,set):
      fi:
   fi:
 
   #
   # DISPLAY ALL ZERO ?
+  # (not slick display)
   #
   # if all components are zero and displaying then say this
   # (this is tensor dependent at present!)
+  #
+  # grG_displayZero should be cleared by calcFn if there is a non-zero 
+  #
   #
   if grG_fnCode = grC_DISP and grG_displayZero then
     if grG_ObjDef[objectName][grC_symmetry] = grF_sym_scalar then
@@ -307,17 +311,17 @@ local a,  t, toc, root, entry, objectName, objectNameString,
         printf ("Cleared  %a for the %a metric.\n", objectNameString, 
            grG_metricName):
     elif grG_calc then
-	t := time()-toc;
+	      t := time()-toc;
         if grOptionTimeStamp and grOptionMessageLevel > 0 then
-	  printf ("Calculated %s for %a (%f sec.)\n",
-	    objectNameString, grG_metricName, t):
+	         printf ("Calculated %s for %a (%f sec.)\n",
+	         objectNameString, grG_metricName, t):
         fi:
 	if grOptionProfile then
 	  if grG_profileCount > 0 and t > 0.00000001 then
-             printf ("\n profile: %d non-zero, avg. size. %6.1f, simp. = %4.1f percent. \n",
-		grG_profileCount, evalf(grG_profileSize/grG_profileCount),
-		evalf(100*grG_profileTimer/t) );
-	     printf ("Non-zero size list: \n",grG_profileList);
+      printf ("\n profile: %d non-zero, avg. size. %6.1f, simp. = %4.1f percent. \n",
+		  grG_profileCount, evalf(grG_profileSize/grG_profileCount),
+		  evalf(100*grG_profileTimer/t) );
+	    printf ("Non-zero size list: \n",grG_profileList);
 	  else
 	    printf (" no non-zero components or time=0.\n");
 	  fi:

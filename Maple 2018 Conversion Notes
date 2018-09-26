@@ -9,3 +9,31 @@ grF_createSymFn(0,{},{}):
 proc (objectName, root, calcFn) local gr_data; if grG_calc and assigned(calcFn) then gr_data[root, grG_metricName, grG_operands] := calcFn(objectName, []) end if; grF_symCore(objectName, [], root); RETURN() end proc
 
 Want Maple 2018 to produce the same thing:
+
+
+Friday Sept 21:
+- Rupup calcFnParams are wrong (fixed)
+
+Tues Sept 25
+- display og G(dn,up,cdn) is not happening. Components are non-zero when do a grdata([Gdnupcdn_])
+
+symmetry routines confuse me. Inside some loops there is a calcFn call in others a symCore call. Why?
+- it is what does e.g. simplification if there is no need to calculate 
+- also does grF_component, so clears is zero flag for display
+- if set grOptionVerbose, should see some stuff
+- yep, not actually calling grF_symCore
+**BUG**
+- tried using grtensor:-grF_symCore
+- tried exporting grF_symCore
+- could look at providing it as an argument, since calcFn seems to work ok...
+- other inert functions seem to do ok...
+
+Test Plan
+=========
+Unit tests for symmetric and asymmetric symmetry creation
+Check some standard objects:
+- definition of Chr1
+- definition of Rabcd
+- contraction to Ricci and Gab
+- specify components of a vector
+

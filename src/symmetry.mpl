@@ -91,11 +91,13 @@ end:
 #*****************************************************
 #
 # SYMMETRY CORE
-#
+# Apply the per-unique component to each of the elements
+# in the tensor. Might be a simplification or grF_component
+# to do zero detection for display.
 #*****************************************************
 
 grF_symCore := proc(objectName, iList, root)
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
+ #option trace;
  local tic, iSeq, simpArgs:
  global gr_data, grG_metricName, grG_profileList, grG_profileCount, grG_profileTimer, grG_profileSize:
 
@@ -137,7 +139,7 @@ grF_sym_nosym0 := grF_sym_scalar:
 
 grG_symmetry[grF_sym_scalar] := {[]}:
 #*** scalar ***
-grF_sym_scalar := proc(objectName, root, calcFn)
+grF_sym_scalar := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 global gr_data, grG_metricName:
 	if grG_calc and assigned(calcFn) then
@@ -159,7 +161,7 @@ grG_symmetry[grF_sym_vector] := {[[1],1]}:
 
 grF_sym_nosym1 := grF_sym_vector:
 
-grF_sym_vector := proc(objectName, root, calcFn)
+grF_sym_vector := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
   global gr_data, grG_metricName, a1_, grG_displayZero;
   #
@@ -182,7 +184,7 @@ NULL; end: # return NULL
 #*** 2 index symmetric ***
 grG_symmetry[grF_sym_sym2] := {[[2,1],1]}:
 
-grF_sym_sym2 := proc(objectName, root, calcFn)
+grF_sym_sym2 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     global gr_data, grG_metricName, a1_, a2_;
     for a1_ to Ndim[grG_metricName] do
@@ -203,7 +205,7 @@ NULL; end: # return NULL
 #*** 2 index ebdnup(N-1, N) ***
 # Used by tangent vectors of three surface in N=4 (junction/objects_null)
 
-grF_sym_esbdnup := proc(objectName, root, calcFn)
+grF_sym_esbdnup := proc(objectName, root, calcFn, coreFn)
 global gr_data, grG_metricName, a1_, a2_;
     for a1_ to Ndim[grG_metricName]-1 do
       for a2_ to Ndim[grG_metricName] do
@@ -219,7 +221,7 @@ NULL; end: # return NULL
 #*** 2 index anti-symmetric ***
 grG_symmetry[grF_sym_asym2] := {[[2,1],-1]}:
 
-grF_sym_asym2 := proc(objectName, root, calcFn)
+grF_sym_asym2 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     global gr_data, grG_metricName, a1_, a2_;
     for a1_ to Ndim[grG_metricName] do
@@ -240,7 +242,7 @@ NULL; end: # return NULL
 
 
 #*** two index - no symmetry ***
-grF_sym_nosym2 := proc(objectName, root, calcFn)
+grF_sym_nosym2 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
   global gr_data, grG_metricName, a1_, a2_;
   # 2 index symmetric object
@@ -258,7 +260,7 @@ end:
 #*** three index, symmetric in first two *** d1metric, Chr1 etc.
 grG_symmetry[grF_sym_Chr1] := {[[2,1,3],1]}:
 
-grF_sym_Chr1 := proc(objectName, root, calcFn)
+grF_sym_Chr1 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
   global gr_data, grG_metricName, a1_, a2_, a3_;
   # three index objects, sym w.r.t first two
@@ -282,7 +284,7 @@ NULL; end: # return NULL
 #*** 3 indices, no symmetry ***
 grG_symmetry[grF_sym_nosym3] := {}:
 
-grF_sym_nosym3 := proc(objectName, root, calcFn)
+grF_sym_nosym3 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
   global gr_data, grG_metricName, a1_, a2_, a3_;
   # three index objects, sym w.r.t first two
@@ -302,7 +304,7 @@ end: # return NULL
 #*** three index, anti-symmetric in first two *** eg. rotation coefficients
 grG_symmetry[grF_sym_12] := {[[2,1,3],-1]}:
 
-grF_sym_3a12 := proc(objectName, root, calcFn)
+grF_sym_3a12 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
   global gr_data, grG_metricName, a1_, a2_, a3_;
   # three index objects, anti-sym w.r.t first two
@@ -328,7 +330,7 @@ NULL; end: # return NULL
 #*** three index, anti-symmetric in first and third *** 
 grG_symmetry[grF_sym_3a13] := {[[3,2,1],-1]}:
 
-grF_sym_3a13 := proc(objectName, root, calcFn)
+grF_sym_3a13 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
   global gr_data, grG_metricName, a1_, a2_, a3_;
   # three index objects, sym w.r.t first two
@@ -354,7 +356,7 @@ NULL; end: # return NULL
 #*** three index, anti-symmetric in last two ***
 grG_symmetry[grF_sym_3a23] := {[[1,3,2],-1]}:
 
-grF_sym_3a23 := proc(objectName, root, calcFn)
+grF_sym_3a23 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
   global gr_data, grG_metricName, a1_, a2_, a3_;
   # three index objects, sym w.r.t first two
@@ -384,7 +386,7 @@ NULL; end: # return NULL
 #*** four index, symetric in first pair and second pair *** d2metric
 grG_symmetry[grF_sym_d2] := { [[2,1,3,4],1], [[1,2,4,3],1] }:
 
-grF_sym_d2 := proc(objectName, root, calcFn)
+grF_sym_d2 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     global gr_data, grG_metricName, a1_, a2_, a3_, a4_;
     for a1_ to Ndim[grG_metricName] do
@@ -415,7 +417,7 @@ NULL; end: # return NULL
 #*** four index - symmetry like the Riemann tensor ***
 grG_symmetry[grF_sym_Riem] := { [[2,1,3,4],-1], [[1,2,4,3],-1], [[3,4,1,2],1] }:
 
-grF_sym_Riem := proc(objectName, root, calcFn)
+grF_sym_Riem := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 global gr_data, grG_metricName, a1_, a2_, a3_, a4_;
 local x:
@@ -462,7 +464,7 @@ end: # return NULL
 #*** four index - symmetry of Natural (1,3) Riemann tensor ***
 grG_symmetry[grF_sym_NRiem] := { [[1,2,4,3],-1] }:
 
-grF_sym_NRiem := proc(objectName, root, calcFn)
+grF_sym_NRiem := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     global gr_data, grG_metricName, a1_, a2_, a3_, a4_;
     for a1_ to Ndim[grG_metricName] do
@@ -489,7 +491,7 @@ NULL; end: # return NULL
 #*** four index symmetry of (2,2) Riemann tensor
 grG_symmetry[grF_sym_MRiem] := { [[2,1,3,4],-1], [[1,2,4,3],-1] }:
 
-grF_sym_MRiem := proc(objectName, root, calcFn)
+grF_sym_MRiem := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     global gr_data, grG_metricName, a1_, a2_, a3_, a4_;
     if grG_calc and assigned(calcFn) then
@@ -526,7 +528,7 @@ end: # return NULL
 #*** four index - no symmetry ***
 grG_symmetry[grF_sym_nosym4] := {}:
 
-grF_sym_nosym4 := proc(objectName, root, calcFn)
+grF_sym_nosym4 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     global gr_data, grG_metricName, a1_, a2_, a3_, a4_;
     for a1_ to Ndim[grG_metricName] do
@@ -547,7 +549,7 @@ end: # return NULL
 #*** four index - sym in first 2 no symmetry in last 2***
 grG_symmetry[grF_sym_sym2nosym2] := {[[2,1,3,4],1]}:
 
-grF_sym_sym2nosym2 := proc(objectName, root, calcFn)
+grF_sym_sym2nosym2 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     global gr_data, grG_metricName, a1_, a2_, a3_, a4_;
     for a1_ to Ndim[grG_metricName] do
@@ -568,7 +570,7 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
  NULL;
 end: # return NULL
 
-grF_sym_LevC3 := proc(objectName, root, calcFn)
+grF_sym_LevC3 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 #
 # all other terms are just sign changes of  e
@@ -579,7 +581,7 @@ option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 end:
 
 
-grF_sym_LevC4 := proc(objectName, root, calcFn)
+grF_sym_LevC4 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
  #
  # all other terms are just sign changes of  e
@@ -599,7 +601,7 @@ end:
 
 grG_symmetry[grF_sym_DRiem] := { [[2,1,3,4,5],-1], [[1,2,4,3,5],-1], [[3,4,1,2,5],1] }:
 
-grF_sym_DRiem := proc(objectName, root, calcFn)
+grF_sym_DRiem := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 global gr_data, grG_metricName, a1_, a2_, a3_, a4_, a5_;
 local x:
@@ -650,7 +652,7 @@ end: # return NULL
 #*** five index symmetry of CoD of (2,2) Riemann tensor
 grG_symmetry[grF_sym_DMRiem] := { [[2,1,3,4,5],-1], [[1,2,4,3,5],-1] }:
 
-grF_sym_DMRiem := proc(objectName, root, calcFn)
+grF_sym_DMRiem := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
  global gr_data, grG_metricName, a1_, a2_, a3_, a4_, a5_;
  local N:
@@ -694,7 +696,7 @@ end: # return NULL
 #*** four index - no symmetry ***
 grG_symmetry[grF_sym_nosym5] := {}:
 
-grF_sym_nosym5 := proc(objectName, root, calcFn)
+grF_sym_nosym5 := proc(objectName, root, calcFn, coreFn)
 option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
     global gr_data, grG_metricName, a1_, a2_, a3_, a4_, a5_;
     for a1_ to Ndim[grG_metricName] do

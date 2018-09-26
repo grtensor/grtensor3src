@@ -571,7 +571,7 @@ symFn := grF_setUpDoLoops ( symFn, freeIndexNbr, symIndices,
 #x1 := FromInert(_Inert_STATSEQ(symFn));
 
 #
-# add `if grG_calc and assigned ( calcFn )` and call to grF_symCore:
+# add `if grG_calc and assigned ( calcFn )` 
 #
 #symFn := `&if`(  grG_calc and `&function`(assigned,`&expseq`(`&args`[3])), 
 #				`&statseq`( symFn ) ):
@@ -598,9 +598,19 @@ x2 := FromInert(symFn);
 #		`&function`(grF_symCore, `&expseq`(`&args`[1],[freeIndexSeq],`&args`[2])),
 #		freeIndexNbr, symIndices, asymIndices, loopParms, loopNbr, true ):
 
+#
+# Had a hard time getting a direct reference to grF_symCore to evaluate. Tried lots of things, but
+# as a work around decided to pass as a param, since calcFn does that and it works
+# Ugh! pm - Sept 2018
+
 symCoreLoop := grF_setUpDoLoops (
-		_Inert_FUNCTION(_Inert_NAME("grF_symCore"), _Inert_EXPSEQ( _Inert_NAME("objectName"), ToInert([freeIndexSeq]), _Inert_NAME("root"))),
-		freeIndexNbr, symIndices, asymIndices, loopParms, loopNbr, true ):
+				_Inert_STATSEQ(
+					ToInert(coreFn(objectName, [freeIndexSeq], root))
+#					_Inert_FUNCTION(_Inert_ASSIGNEDNAME("grF_symCore", "PROC"), 
+#						_Inert_EXPSEQ( _Inert_NAME("objectName"), ToInert([freeIndexSeq]), _Inert_NAME("root"))
+#					)
+				),
+				freeIndexNbr, symIndices, asymIndices, loopParms, loopNbr, true ):
 
 
 x3 := FromInert(symCoreLoop);
@@ -613,14 +623,14 @@ x3 := FromInert(symCoreLoop);
 symFn := _Inert_STATSEQ( symFn, symCoreLoop, _Inert_RETURN(_Inert_NAME("NULL")));
 
   procFn := _Inert_PROC(
-    _Inert_PARAMSEQ(_Inert_NAME("objectName"), _Inert_NAME("root"), _Inert_NAME("calcFn")),
+    _Inert_PARAMSEQ(_Inert_NAME("objectName"), _Inert_NAME("root"), _Inert_NAME("calcFn"), _Inert_NAME("coreFn")),
     _Inert_LOCALSEQ(),
     _Inert_OPTIONSEQ(), 
 #    _Inert_OPTIONSEQ(_Inert_NAME("trace")), 
     _Inert_EXPSEQ(), 
     _Inert_STATSEQ(symFn),
     _Inert_DESCRIPTIONSEQ(), 
-    _Inert_GLOBALSEQ(), # define globals? Or rely on scoping 
+    _Inert_GLOBALSEQ(_Inert_NAME("grF_symCore")), # define globals? Or rely on scoping 
     _Inert_LEXICALSEQ(), 
     _Inert_EOP(_Inert_EXPSEQ())
   );
