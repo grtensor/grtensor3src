@@ -28,6 +28,33 @@ symmetry routines confuse me. Inside some loops there is a calcFn call in others
 - could look at providing it as an argument, since calcFn seems to work ok...
 - other inert functions seem to do ok...
 
+Sept. 26, 2018
+Issue with overview. The RN section does something to screw up the calculation of Kerr killing. Get kt(dn,dn,dn) with unassigned gr_data. 
+- when trim the RN calc this does not happen
+- need to look at the defintion and see if the issue is with construction?
+- may be some variable previously unassigned that causes issues when run through subsequent grdefs...
+Yep: gr_data[root, reisnord, grG_operands, a1_, a2_, a3_] := calcFn(objectName, [a1_, a2_, a3_])
+The previous metric reisnord is being used in the defintion, not grG_metricName. 
+- either need to unassign it, or delay it's eval.
+FIX: unassign grG_metricName at the start
+TODO: Need to check every other inert case to make sure this issue cannot occur. 
+
+List of places that use FromInert():
+	contract.mpl
+	create.mpl
+	grdef.mpl
+	parse.mpl
+
+Use grF_unassignMetricNames()/grF_restoreMetrics()
+
+
+Sept 27, 2018
+=============
+Bug in symmetry routines. LSH is missing indices:
+	gr_data[root, grG_metricName, grG_operands] := gr_data[root, grG_metricName, grG_operands, a1_, a2_, a3_, a4_]
+
+
+
 Test Plan
 =========
 Unit tests for symmetric and asymmetric symmetry creation

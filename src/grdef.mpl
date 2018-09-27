@@ -433,10 +433,10 @@ zeros := NULL:
 for a to nops ( idxList ) do
 	symIndexSeq := op ( grF_createIdxNameList ( idxList[a] ) ):
 	if symIndexSeq <> freeIndexSeq then
-	symIndexSeqInert := NULL:
-	for b in symIndexSeqInert do
-		symIndexSeqInert := symIndexSeqInert, ToInert(b):
-	od:
+		symIndexSeqInert := NULL:
+		for b in symIndexSeq do
+			symIndexSeqInert := symIndexSeqInert, ToInert(b):
+		od:
 #		xrefs := `&:=`(
 #			'gr_data'[
 #			`&expseq`(`&args`[2],'grG_metricName','grG_operands', symIndexSeq)], 
