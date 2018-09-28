@@ -52,6 +52,63 @@ Sept 27, 2018
 =============
 Bug in symmetry routines. LSH is missing indices:
 	gr_data[root, grG_metricName, grG_operands] := gr_data[root, grG_metricName, grG_operands, a1_, a2_, a3_, a4_]
+typo in sym create. FIXED
+
+KN RiemSq is in a different form - although guessing it is equivilent. Odd that the form is different by might be Maple2018 vs 2017?
+- need to prove they are equivilent
+
+Maple 2017: Getting:
+grcalc(RiemSq);
+Error, (in grtensor:-grF_build_contractFn) incorrect number of arguments to _Inert_FORFROM
+in Maple 2017 using the same lib. 
+OH - hell. Is the implementation of _Inert_FOR different in 2017 versus 2018?! That would be very annoying!
+- this may have been the root cause all along!!
+
+Maple 2018:
+_Inert_FORFROM(
+1	_Inert_LOCAL(1), 
+2	_Inert_INTPOS(1), 
+3	_Inert_INTPOS(1), 
+4	_Inert_INTPOS(4), 
+5	_Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+6   _Inert_STATSEQ(_Inert_FUNCTION(_Inert_ASSIGNEDNAME("print", "PROC", _Inert_ATTRIBUTE(_Inert_NAME("protected", 	
+		_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), _Inert_EXPSEQ(_Inert_PARAM(1)))), 
+7	_Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))))
+
+Maple 2017:
+_Inert_FORFROM(
+1	_Inert_LOCAL(1), 
+2	_Inert_INTPOS(1), 
+3	_Inert_INTPOS(1), 
+4	_Inert_INTPOS(4), 
+5	_Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+6   _Inert_STATSEQ(_Inert_FUNCTION(_Inert_ASSIGNEDNAME("print", "PROC", _Inert_ATTRIBUTE(_Inert_NAME("protected", 	
+		_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+		_Inert_EXPSEQ(_Inert_PARAM(1))))
+	)
+
+YEP. That's the deal. 
+Looks like I need to add a "false" as the final attribute for Maple 2018 in for loops. 
+(might even be able to keep the procmake stuff....)
+
+Hmmmm. MIght be useful to modernize anyway. Ponder.
+
+Inert_FOR occurs in only two places (contract and parse) - so relativly centralized.
+not too hard to fix. (8 places prior to ToInert refactoring). 
+
+Ok, keep the ToInert() stuff as future proofing. 
+
+Add check for version() > 1265877 (with a define INERT_FOR_7ARGS)
+- seems to work
+
+TODO: supress version logging, or move to the init and assign to a global
+Check the KN RiemSq result - still think form might be different than before. 
+
+Re-think
+
+Make a wrapper for &for and see if that is all that is needed - greatly reduces the need for regression testing. 
+
+
 
 
 
