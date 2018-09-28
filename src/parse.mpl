@@ -55,7 +55,7 @@ $define DEBUG
 
 grF_buildCalcFn := proc( expr, newObject, indexList, listingSub, subRanges)
 DEBUG
-global  grG_ObjDef, 
+global  grG_ObjDef, grG_inertForHas7,
         grG_firstTerm: # if true, then carry out init in grF_parse
 
 local a,b,i, body, s, loopStmt, exStmt,
@@ -271,8 +271,13 @@ local a,b,i, body, s, loopStmt, exStmt,
  # generate the loops to do implied summations
  #
  for a from maxSum by -1 to 1 do
-	loopStmt := `&for`( s||a||_, 1, 1, Ndim['grG_metricName'], true,
-	`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt) ):
+ 	if grG_inertForHas7 then
+		loopStmt := `&for`( s||a||_, 1, 1, Ndim['grG_metricName'], true,
+		`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt) ):
+	else
+		loopStmt := `&for`( s||a||_, 1, 1, Ndim['grG_metricName'], true,
+			`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt) ):
+	fi:
  od:
  body := `&proc`( [object, iList], [localSeq], [],
 	 `&statseq`( exStmt, `&:=`(s, sumTerms[0]), loopStmt) ):

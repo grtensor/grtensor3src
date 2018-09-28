@@ -604,7 +604,7 @@ local i, objIndices, body, template,
       index, listIndex, firstStmt, loopStmt,
       summand, root, n, baseSeq, indexSeq:
 
-global grG_operands, gr_data:
+global grG_operands, gr_data, grG_inertForHas7:
 
   #
   # to create the defintion it's best if the metric names are
@@ -668,22 +668,39 @@ global grG_operands, gr_data:
       fi:
     od:
 
-    loopStmt := `&for`( s1, 1, 1, Ndim[grG_metricName], true,
+    if grG_inertForHas7 then
+      loopStmt := `&for`( s1, 1, 1, Ndim[grG_metricName], true,
+              `&statseq`( `&:=`(s, s + summand) ), false):
+    else
+      loopStmt := `&for`( s1, 1, 1, Ndim[grG_metricName], true,
               `&statseq`( `&:=`(s, s + summand) )):
+    fi:
   else
     loopStmt := `&expseq`():
   fi:
 
   if op ( n, object ) = cbdn or op ( n, object ) = pbdn then
-    body := `&proc`( [dummy, iList], [s1,s], [], `&statseq` (
-      `&:=`(s,0), 
-      `&for`( s1, 1, 1, Ndim[grG_metricName], true,
-        `&statseq`(
-        `&:=`(s, s + 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],
-           gr_data[xup_,grG_metricName, s1] )*gr_data[ebdnup_,grG_metricName,a||n||_,s1] 
-         ))
-       ),
-       loopStmt ) ):
+    if grG_inertForHas7 then
+      body := `&proc`( [dummy, iList], [s1,s], [], `&statseq` (
+        `&:=`(s,0), 
+        `&for`( s1, 1, 1, Ndim[grG_metricName], true,
+          `&statseq`(
+          `&:=`(s, s + 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],
+             gr_data[xup_,grG_metricName, s1] )*gr_data[ebdnup_,grG_metricName,a||n||_,s1] 
+           )), false
+         ),
+         loopStmt ) ):
+    else
+      body := `&proc`( [dummy, iList], [s1,s], [], `&statseq` (
+        `&:=`(s,0), 
+        `&for`( s1, 1, 1, Ndim[grG_metricName], true,
+          `&statseq`(
+          `&:=`(s, s + 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],
+             gr_data[xup_,grG_metricName, s1] )*gr_data[ebdnup_,grG_metricName,a||n||_,s1] 
+           ))
+         ),
+         loopStmt ) ):
+    fi:
   else
     body := `&proc`( [dummy, iList], [s1,s], [], `&statseq`(
             `&:=`(s, 'diff'( gr_data[root,grG_metricName,grG_operands,baseSeq],

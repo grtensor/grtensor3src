@@ -14,7 +14,6 @@
 # Modifications:
 #------------------------------------------------------------------------------
 # 9 Sep 1999  Created [dp]
-# May 2018 - Adapt to ToInert/FromInert since procmake is broken in Maple 2018
 #
 #==============================================================================
 
@@ -33,9 +32,9 @@ end:
 # Argument: n - the number of contractions
 # Returns:  a procedure which carries out the index contraction
 #------------------------------------------------------------------------------
-grF_build_contractFn_old := proc (n)
-option trace:
-global Ndim, grG_metricName, grG_ObjDef, gr_data:
+grF_build_contractFn := proc (n)
+option `Copyright 1999 Denis Pollney`:
+global Ndim, grG_metricName, grG_ObjDef, gr_data, grG_inertForHas7:
 local contractFn, a, globallist:
 
   #
@@ -50,8 +49,13 @@ local contractFn, a, globallist:
   # global variables s1_ ... s.n._ 
   # 
   for a from n to 1 by -1 do
-    contractFn := `&for` (s||a||_, 1, 1, 'Ndim[grG_metricName]', true,
-      `&statseq` (contractFn));
+    if grG_inertForHas7 then
+      contractFn := `&for`(s||a||_, 1, 1, 'Ndim[grG_metricName]', true,
+        `&statseq` (contractFn), false);
+    else
+      contractFn := `&for`(s||a||_, 1, 1, 'Ndim[grG_metricName]', true,
+        `&statseq` (contractFn));
+    fi:
   od:
   
   #
@@ -77,104 +81,6 @@ local contractFn, a, globallist:
   ):
   RETURN (procmake (contractFn)):
 end:
-
-grF_inertFor := proc(loopVarName, body)
-# loopVarName - global variable name
-# toName   - name of global for to limit
-# body     - inert form of body of for loop (_Inert_STATSEQ() )
-
-  RETURN(
-    _Inert_FORFROM(
-      _Inert_NAME(loopVarName),   # loop variable
-      _Inert_INTPOS(1),         # from 
-      _Inert_INTPOS(1),         # step
-      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
-        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
-      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
-         _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
-      body, 
-      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
-         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
-    )   
-  )
-  
-end:
-
-#==================================================================
-# Update in Maple 2018 to use FromInert
-# (procmake was deprecated and has finally stopped working)
-#==================================================================
-grF_build_contractFn := proc (n)
-option trace:
-global Ndim, grG_metricName, grG_ObjDef, gr_data:
-local contractFn, a, globalSeq:
-
-  #
-  # core of the contraction routine:
-  #   s := s + grG_ObjDef [object][grC_calcFnParms]
-  #
-#  contractFn := `&statseq`(`&:=` (`&local`[1], `&local`[1] +
-#    grG_ObjDef[`&args`[1]]['grC_calcFnParms'])):
-
-  contractFn := 
-  _Inert_STATSEQ(_Inert_ASSIGN(_Inert_LOCAL(1), 
-        _Inert_SUM(_Inert_LOCAL(1), 
-          _Inert_TABLEREF(
-            _Inert_TABLEREF(
-              _Inert_NAME("grG_ObjDef"), 
-                _Inert_EXPSEQ(_Inert_PARAM(1))
-            ),    
-            _Inert_EXPSEQ(_Inert_NAME("grC_calcFnParams")
-          )
-        )
-      )
-    )
-  );
-        
-      
-  #
-  # build a loop for each index contraction using the
-  # global variables s1_ ... s.n._ 
-  # 
-#  for a from n to 1 by -1 do
-#    contractFn := `&for` (s||a||_, 1, 1, 'Ndim[grG_metricName]', true,
-#      `&statseq` (contractFn));
-#  od:
-
-  for a from n to 1 by -1 do
-    contractFn := grF_inertFor(cat("s",a), _Inert_STATSEQ(contractFn));
-  od:  
-
-  #
-  # Add s:=0 initialisation, and return s at the end
-  #
-#  contractFn := `&statseq`( `&:=` (`&local`[1], 0), contractFn,
-#    `&function`(RETURN,`&expseq`(s))):
-  
-  #
-  # build the procecture
-  #  
-  globalSeq := seq (_Inert_NAME(cat("s",a)), a=1..n):
-
-  # globals Ndim and gr_data are inherited from calling routines
-  
-  contractFn := _Inert_PROC(
-    _Inert_PARAMSEQ(_Inert_NAME("object"), _Inert_NAME("iList")),
-    _Inert_LOCALSEQ(_Inert_NAME("s")),
-    _Inert_OPTIONSEQ(), 
-    _Inert_EXPSEQ(), 
-    _Inert_STATSEQ(contractFn),
-    _Inert_DESCRIPTIONSEQ(), 
-    _Inert_GLOBALSEQ(globalSeq), 
-    _Inert_LEXICALSEQ(), 
-    _Inert_EOP(_Inert_EXPSEQ())
-  ):
-  RETURN (FromInert(contractFn)):
-end:
-
-#==================================================================
-
-
 
 #
 # generic contraction functions, kept for the time being since they

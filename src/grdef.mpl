@@ -362,6 +362,7 @@ fi:
 
 end:
 
+
 #----------------------------------------------------------------------------
 # create_symFn
 # Given symmetry/asymmetry lists of the form [1,2,...,n], this function
@@ -542,13 +543,18 @@ end:
 grF_setUpDoLoops := proc ( loopStmts, freeIndexNbr, symIndices, asymIndices, 
 	loopParms, loopNbr, asymmetrize )
 local i, symFn, fromval:
+global grG_inertForHas7:
 
 # Set up the do-loops for indices not involved in any symmetrizations:
 
 symFn := loopStmts:
 for i to freeIndexNbr do
 		if not member ( i, symIndices union asymIndices ) then
-				symFn := `&for`( a||i||_, 1, 1, Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+				if grG_inertForHas7 then
+					symFn := `&for`( a||i||_, 1, 1, Ndim['grG_metricName'], true, `&statseq`(symFn), false ):
+				else
+					symFn := `&for`( a||i||_, 1, 1, Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+				fi:
 		fi:
 od:
 
@@ -557,11 +563,21 @@ for i from loopNbr to 1 by -1 do
 		if member ( loopParms[i][1], symIndices ) or 
 			( member ( loopParms[i][1], asymIndices ) and not asymmetrize ) then
 				if loopParms[i][2] = -1 then
-						symFn := `&for`( a||(loopParms[i][1])||_, 1, 1, Ndim['grG_metricName'],
+						if grG_inertForHas7 then
+							symFn := `&for`( a||(loopParms[i][1])||_, 1, 1, Ndim['grG_metricName'],
+								true, `&statseq`(symFn), false ):
+						else
+							symFn := `&for`( a||(loopParms[i][1])||_, 1, 1, Ndim['grG_metricName'],
 								true, `&statseq`(symFn) ):
+						fi:
 				else
-						symFn := `&for`( a||(loopParms[i][1])||_, a||(loopParms[i][2])||_, 1,
+						if grG_inertForHas7 then
+							symFn := `&for`( a||(loopParms[i][1])||_, a||(loopParms[i][2])||_, 1,
+								Ndim['grG_metricName'], true, `&statseq`(symFn), false ):
+						else
+							symFn := `&for`( a||(loopParms[i][1])||_, a||(loopParms[i][2])||_, 1,
 								Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+						fi:
 				fi:
 		else
 				if loopParms[i][2] = -1 and asymmetrize then
@@ -569,8 +585,13 @@ for i from loopNbr to 1 by -1 do
 				else
 						fromval := a||(loopParms[i][2])||_ + 1:
 				fi:
-				symFn := `&for`( a||(loopParms[i][1])||_, fromval, 1,
+				if grG_inertForHas7 then
+					symFn := `&for`( a||(loopParms[i][1])||_, fromval, 1,
+						Ndim['grG_metricName'], true, `&statseq`(symFn), false ):
+				else
+					symFn := `&for`( a||(loopParms[i][1])||_, fromval, 1,
 						Ndim['grG_metricName'], true, `&statseq`(symFn) ):
+				fi:
 		fi:
 od:
 

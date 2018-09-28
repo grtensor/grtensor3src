@@ -107,6 +107,7 @@ global
 	grG_metricSet,
 	grG_rootSet,
 	grG_ObjDef, 
+	grG_inertForHas7,
 	grG_sig_,
 	grG_symmetry,
 	grC_maxMetricsInDef,
@@ -271,7 +272,7 @@ Useful debug routines
 $include "src/debug.mpl"
 
 grinit := proc()
-global grG_metricSet, grG_ObjDef;
+global grG_metricSet, grG_ObjDef, grG_inertForHas7;
 
 	grG_metricSet := {}:
 	globals_init():
@@ -279,7 +280,12 @@ global grG_metricSet, grG_ObjDef;
 	load_hypers_objects():
     grF_gen_rootSet():
 	grF_gen_calcFnSet():
-	print("GRTensor III v2.1.9 Sept 24, 2017"):
+	# Maple 2018 changes the inert form of for &for to take 7 params (was 6)
+	grG_inertForHas7 := false:
+	if version() > 1265877 then 
+		grG_inertForHas7 := true;
+	fi:
+	print("GRTensor III v2.2 Sept 26, 2018"):
 	print("Copyright 2017, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://github.com/grtensor/grtensor");
 	print("For help ?grtensor");
