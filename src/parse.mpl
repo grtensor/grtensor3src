@@ -284,29 +284,52 @@ local a,b,i, body, s, loopStmt, exStmt,
  loopStmt := _Inert_STATSEQ();
 
  for a from maxSum by -1 to 1 do
-	loopStmt := 
-		    _Inert_FORFROM(
-		      _Inert_NAME(cat("s",a,"_")),   # loop variable
-		      _Inert_INTPOS(1),         	 # from 
-		      _Inert_INTPOS(1),         	 # step
-		      ToInert(Ndim[grG_metricName]),  # limit
-      		  _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
-         			_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
-		      # body
-		      _Inert_STATSEQ(
-		      	_Inert_ASSIGN( 
-		      		_Inert_NAME("s"), 
-		      		_Inert_SUM( 
-		      			_Inert_NAME("s"),
-		      			ToInert(sumTerms[a])
-		      		)
-		      	), 
-		      	loopStmt
-		      ),
-		      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
-		         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
-	    	);
- od:
+ 	if version() > 1265877 then
+		loopStmt := 
+			    _Inert_FORFROM(
+			      _Inert_NAME(cat("s",a,"_")),   # loop variable
+			      _Inert_INTPOS(1),         	 # from 
+			      _Inert_INTPOS(1),         	 # step
+			      ToInert(Ndim[grG_metricName]),  # limit
+	      		  _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
+	         			_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+			      # body
+			      _Inert_STATSEQ(
+			      	_Inert_ASSIGN( 
+			      		_Inert_NAME("s"), 
+			      		_Inert_SUM( 
+			      			_Inert_NAME("s"),
+			      			ToInert(sumTerms[a])
+			      		)
+			      	), 
+			      	loopStmt
+			      ),
+			      _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
+			         _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
+		    	);
+	else
+		loopStmt := 
+			    _Inert_FORFROM(
+			      _Inert_NAME(cat("s",a,"_")),   # loop variable
+			      _Inert_INTPOS(1),         	 # from 
+			      _Inert_INTPOS(1),         	 # step
+			      ToInert(Ndim[grG_metricName]),  # limit
+	      		  _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
+	         			_Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+			      # body
+			      _Inert_STATSEQ(
+			      	_Inert_ASSIGN( 
+			      		_Inert_NAME("s"), 
+			      		_Inert_SUM( 
+			      			_Inert_NAME("s"),
+			      			ToInert(sumTerms[a])
+			      		)
+			      	), 
+			      	loopStmt
+			      )
+		    	);
+    fi:
+  od:
 
 # body := `&proc`( [object, iList], [localSeq], [],
 #	 `&statseq`( exStmt, `&:=`(s, sumTerms[0]), loopStmt) ):

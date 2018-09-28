@@ -36,8 +36,11 @@ grF_inertFor := proc(loopVarName, inertFrom, body)
 # toName   - name of global for to limit
 # body     - inert form of body of for loop (_Inert_STATSEQ() )
 
-  RETURN(
-    _Inert_FORFROM(
+local forLoop; 
+
+  if version() > 1265877 then
+    forLoop :=
+      _Inert_FORFROM(
       _Inert_NAME(loopVarName),   # loop variable
       inertFrom,                # from 
       _Inert_INTPOS(1),         # step
@@ -48,8 +51,22 @@ grF_inertFor := proc(loopVarName, inertFrom, body)
       body, 
       _Inert_NAME("false", _Inert_ATTRIBUTE(_Inert_NAME("protected",
          _Inert_ATTRIBUTE(_Inert_NAME("protected")))))
-    )   
-  )
+    );
+  else
+    forLoop :=
+      _Inert_FORFROM(
+      _Inert_NAME(loopVarName),   # loop variable
+      inertFrom,                # from 
+      _Inert_INTPOS(1),         # step
+      _Inert_TABLEREF(_Inert_NAME("Ndim"), # limit
+        _Inert_EXPSEQ(_Inert_NAME("grG_metricName"))),         
+      _Inert_NAME("true", _Inert_ATTRIBUTE(_Inert_NAME("protected", 
+         _Inert_ATTRIBUTE(_Inert_NAME("protected"))))), 
+      body
+    );
+  fi:
+
+  RETURN(forLoop)
   
 end:
 
