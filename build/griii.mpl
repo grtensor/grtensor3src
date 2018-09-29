@@ -30,19 +30,19 @@ In the module-friendly refactor:
 Still need to handle signature, basis, np stuff
 
 *)
-(*
+
 with(FileTools); 
 griiilib := FileTools:-JoinPath(["lib", "griii.mla"]);
 
 
 if FileTools:-Exists(griiilib) then
-   printf("Remove existing library %a\n", griiilib);
+   printf("Removing existing library %a\n", griiilib);
    FileTools:-Remove(griiilib);
 fi:
 if not FileTools:-Exists(griiilib) then
 	march('create',griiilib,100);
 fi:
-*)
+
 
 grtensor := module()
 option package;
@@ -282,10 +282,17 @@ global grG_metricSet, grG_ObjDef, grG_inertForHas7;
 	grF_gen_calcFnSet():
 	# Maple 2018 changes the inert form of for &for to take 7 params (was 6)
 	grG_inertForHas7 := false:
-	if version() > 1265877 then 
+#	if version() > 1265877 then 
+#		grG_inertForHas7 := true;
+#	fi:
+	# since we don't know the exact version FOR args changes, try and catch
+	try 
+		procmake(`&for`(a, 1, 1, 4, true, `&statseq`(x)));
+	catch: 
 		grG_inertForHas7 := true;
-	fi:
-	print("GRTensor III v2.2 Sept 26, 2018"):
+		print("GRTensor has detected correct length for inert FOR. Disregard the above error") ;
+	end:
+	print("\nGRTensor III v2.2 Sept 26, 2018"):
 	print("Copyright 2017, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://github.com/grtensor/grtensor");
 	print("For help ?grtensor");
