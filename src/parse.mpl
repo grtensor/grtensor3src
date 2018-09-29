@@ -273,7 +273,7 @@ local a,b,i, body, s, loopStmt, exStmt,
  for a from maxSum by -1 to 1 do
  	if grG_inertForHas7 then
 		loopStmt := `&for`( s||a||_, 1, 1, Ndim['grG_metricName'], true,
-		`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt) ):
+		`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt), false ):
 	else
 		loopStmt := `&for`( s||a||_, 1, 1, Ndim['grG_metricName'], true,
 			`&statseq`( `&:=`(s, s + sumTerms[a]), loopStmt) ):
