@@ -108,8 +108,16 @@ Re-think
 
 Make a wrapper for &for and see if that is all that is needed - greatly reduces the need for regression testing. 
 
+Sept 30
+=======
+regression:
+Metric not showing ds on a qload(schw) or qload(kerr) [ qload(npschw) was ok]
+Bug is a grdisplay of (x(up), ds) skips the ds
+Actually a grdisplay of two things only displays the first one!
 
 
+Is this in the production release?! Yep.
+- this is a consequence of 7b83faeca2dfcdbd87b0e291cca65bf269cf5ddf the fix to allow mapping int.
 
 
 Test Plan
@@ -129,5 +137,8 @@ Working through the regression directory
 - found & fixed a bug in parse.mpl in basis_book_regres
 - RayEqn in the calc_book_regres is not defined. Did the name change? removed? bug?
   * It is commented out
-  
+  * commented out in 2017, since it "looked wrong"
+- leave this for now
+
+
 

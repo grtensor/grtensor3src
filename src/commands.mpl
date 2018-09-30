@@ -701,7 +701,6 @@ end:
 #********************************************************************
 
 grdisplay :=  proc()
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 global  grG_fnCode, grG_simp, grG_calc, grG_callComp, grG_lastHeader:
 local i, new_args;
      new_args := grF_screenArgs([args], true, false):

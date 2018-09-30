@@ -390,7 +390,6 @@ end:
 # getds.
 #-------------------------------------------------------------------
 grF_getds := proc ( gdim, coord )
-option trace;
 local	ds, metric, happy, divby, s:
 	happy := false:
 	while not happy do
