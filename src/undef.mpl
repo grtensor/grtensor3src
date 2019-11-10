@@ -52,7 +52,13 @@ local a, b, c, per_index, index, objects:
     list := new_list:
     new_list := []:
     for a in list do
-      new_list := [op(new_list), op(0,object)(op(a))]:
+      
+      
+      if op(0,object) = symbol then
+        new_list := [op(new_list), (object)]:
+      else
+        new_list := [op(new_list), op(0,object)(op(a))]:
+      fi:
     od:
 
   else
@@ -72,22 +78,27 @@ local a, b, c, per_index, index, objects:
   # remove the definition of each combination of indices
   #
   for e in new_list do
-    printf("object %a\n", e):
     if assigned(grG_ObjDef[e]) then
       for a in indices(grG_ObjDef[e]) do
         # cannot use unassign (requires iname to be table, rtable or array)
         entry := op(a):
         # s := sprintf("grG_ObjDef[%a][%a] := `grG_ObjDef[%a][%a]`", e, entry, e, entry):
         s := sprintf("grG_ObjDef[%a][%a] := evaln(grG_ObjDef[%a][%a]);", e, entry, e, entry):
-        printf("exec: %s\n",s);
         parse(s, 'statement');
-        printf("parse done\n"):
-        printf("check assigned %a: %a\n", grG_ObjDef[e][entry], assigned(grG_ObjDef[e][entry])):
       od:
       printf("Definition for %a has been removed.\n", e);
     fi:
   od:
+  
+  print(object);
+  
   baseObj := cat(grG_,op(0,object),"_", nops(object)):
+  if op(0,object) = symbol then
+    baseObj := cat(grG_,object):
+  fi:
+  
+  #print(grG_rootSet);
+  
   grG_rootSet := grG_rootSet minus {baseObj}:
 
   printf("done\n");
