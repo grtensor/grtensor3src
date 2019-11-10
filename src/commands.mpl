@@ -831,6 +831,21 @@ global  grG_default_metricName, grG_metricName:
   grF_setComplexSet ( gname ):
 end:
 
+grF_copyMetric := proc( from_gname, to_gname)
+global gr_data, Ndim:
+local a,b:
+  Ndim[to_gname] := Ndim[from_gname];
+  for a to Ndim[from_gname] do
+      gr_data[xup_, to_gname, a] := gr_data[xup_, from_gname, a];
+      for b to Ndim[from_gname] do
+        gr_data[gdndn_, to_gname, a, b] := gr_data[gdndn_, from_gname, a, b];
+      od:
+  od:
+  grF_assignedFlag(x(up), set, to_gname);
+  grF_assignedFlag(g(dn,dn), set, to_gname);
+  grF_initMetric(to_gname, true);
+end:
+
 #----------------------------------------------------------
 # groptions(): Display the setting of option variables
 #----------------------------------------------------------

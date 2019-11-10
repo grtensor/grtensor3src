@@ -285,7 +285,7 @@ local a,b,c,i, cousins,root, newList, baseObj, objIndices, dependSet,
         if not assigned ( grG_metricName ) then
           grF_reassignMetrics():
         fi:
-        ERROR(`cannot convert index difference:`,newList[a],nearList[a] ):
+        ERROR(`cannot convert index difference:`,newList[a],nearList[a], object ):
       fi:
 
       # add a summation index to the index list for objects

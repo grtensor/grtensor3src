@@ -239,35 +239,60 @@ end:
 #---------------------------------------------------------
 
 nprotate := proc()
-option `Copyright 1994 by Peter Musgrave, Denis Pollney and Kayll Lake`;
 
-global	grG_metricName:
-local	gname, rclass:
+global	grG_metricName, grG_metricSet, gr_data:
+local	gname, new_gname, rclass:
+
+
+if nargs != 4 then
+  ERROR(`4 arguments required: <new_metric_name>, <class [I,II,III]>, <param1>, <param2>)`);
+fi:
+
+new_gname := args[1];
+# TODO check name is not in use already
 
 gname := grG_metricName:
 if not grF_checkIfAssigned ( e(bdn,up) ) then
   ERROR ( `A tetrad must first be defined.` ):
 fi:
 
-if not member ( args[1], { I, II, III } ) then
+if not member ( args[2], { I, II, III } ) then
   ERROR ( `Rotation class must be of type I, II or III.` ):
 fi:
 
-rclass := args[1]:
+rclass := args[2]:
 
 if rclass = I then
-  grF_rotateI ( gname, 1, args[2], args[3] ):
+  grF_rotateI ( gname, new_gname, 1, args[3], args[4] ):
 elif rclass = II then
-  grF_rotateI ( gname, 2, args[2], args[3] ):
+  grF_rotateI ( gname, new_gname, 2, args[3], args[4] ):
 else
-  grF_rotateIII( gname, args[2], args[3] ):
+  grF_rotateIII( gname, new_gname, args[3], args[4] ):
 fi:
 
-if grF_checkIfAssigned ( e(bdn,dn) ) then
-  grclear ( e(bdn,dn) ):
-fi:
+#if grF_checkIfAssigned ( e(bdn,dn) ) then
+#  grclear ( e(bdn,dn) ):
+#fi:
 
-printf ("Rotated tetrad stored as e(bdn,up).\n"):
+# set up a new metric. Copy coords and g(dn,dn) [also does initMetric/setmetric]
+grF_copyMetric(gname, new_gname);
+grF_assignedFlag(e(bdn,up), set, new_gname);
+grG_metricSet := grG_metricSet union {new_gname};
+grcalc(e(bdn,dn));
+# fill in the NP vectors from basis
+for a to 4 do
+  gr_data[NPldn_,new_gname,a] := gr_data[ebdndn_,new_gname,1,a]:
+  gr_data[NPndn_,new_gname,a] := gr_data[ebdndn_,new_gname,2,a]:
+  gr_data[NPmdn_,new_gname,a] := gr_data[ebdndn_,new_gname,3,a]:
+  gr_data[NPmbardn_,new_gname,a] := gr_data[ebdndn_,new_gname,4,a]:
+od:
+grF_assignedFlag ( NPl(dn), set ):
+grF_assignedFlag ( NPn(dn), set ):
+grF_assignedFlag ( NPm(dn), set ):
+grF_assignedFlag ( NPmbar(dn), set ):
+
+
+printf ("Rotated tetrad stored as e(bdn,up) in metric %s.\n", new_gname):
 end:
    
 #---------------------------------------------------------
@@ -587,7 +612,7 @@ end:
 #
 #---------------------------------------------------------
 
-grF_rotateI := proc ( gname, v1, aR, aI )
+grF_rotateI := proc ( gname, new_gname, v1, aR, aI )
 
 global	gr_data:
 local	a, A, Ac, v2:
@@ -601,15 +626,21 @@ else
   v2 := 1:
 fi:
 
+
+
 for a to 4 do
-  gr_data[ebdnup_,gname, v2, a] := gr_data[ebdnup_,gname, v2, a] +
+  # copy across unmodified vector
+  gr_data[ebdnup_,new_gname, v1, a] := gr_data[ebdnup_,gname, v1, a]:
+
+  # transform others
+  gr_data[ebdnup_,new_gname, v2, a] := gr_data[ebdnup_,gname, v2, a] +
     Ac*gr_data[ebdnup_,gname,3,a] + A*gr_data[ebdnup_,gname,4,a] +
     A*Ac*gr_data[ebdnup_,gname, v2, a]:
 
-  gr_data[ebdnup_,gname, 3, a] := gr_data[ebdnup_,gname, 3, a] +
+  gr_data[ebdnup_,new_gname, 3, a] := gr_data[ebdnup_,gname, 3, a] +
     A*gr_data[ebdnup_,gname, v1, a]:
 
-  gr_data[ebdnup_,gname, 4, a] := gr_data[ebdnup_,gname, 4, a] +
+  gr_data[ebdnup_,new_gname, 4, a] := gr_data[ebdnup_,gname, 4, a] +
     Ac*gr_data[ebdnup_,gname, v1, a]:
 od:
 
@@ -621,19 +652,19 @@ end:
 #
 #---------------------------------------------------------
 
-grF_rotateIII := proc ( gname, A, theta )
+grF_rotateIII := proc ( gname, new_gname, A, theta )
 
 global	gr_data:
 local	a:
 
 for a to 4 do
-  gr_data[ebdnup_,gname, 1, a] := gr_data[ebdnup_,gname, 1, a]/A:
+  gr_data[ebdnup_,new_gname, 1, a] := gr_data[ebdnup_,gname, 1, a]/A:
 
-  gr_data[ebdnup_,gname, 2, a] := gr_data[ebdnup_,gname, 2, a]*A:
+  gr_data[ebdnup_,new_gname, 2, a] := gr_data[ebdnup_,gname, 2, a]*A:
 
-  gr_data[ebdnup_,gname, 3, a] := gr_data[ebdnup_,gname, 3, a]*exp( I*theta):
+  gr_data[ebdnup_,new_gname, 3, a] := gr_data[ebdnup_,gname, 3, a]*exp( I*theta):
 
-  gr_data[ebdnup_,gname, 4, a] := gr_data[ebdnup_,gname, 4, a]*exp(-I*theta):
+  gr_data[ebdnup_,new_gname, 4, a] := gr_data[ebdnup_,gname, 4, a]*exp(-I*theta):
 od:
 
 end: 
