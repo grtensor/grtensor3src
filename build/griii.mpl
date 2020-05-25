@@ -13,8 +13,8 @@
 # savelibname is a Maple global for savelib()
 #  savelibname := "/home/grtensor/gitlab/GRTensorIII/lib":
 # PeterM Mac
-#savelibname := "/Users/peter/maple/gitlab/GRTensorIII/lib":
-savelibname := "D:\\grtensor\\grtensor\\lib":
+savelibname := "/Users/peter/maple/gitlab/GRTensorIII/lib":
+#savelibname := "D:\\grtensor\\grtensor\\lib":
 
 $define junction
 (*
@@ -87,7 +87,8 @@ export
 	nptetrad,
 	PetrovReport,
 	qload, 
-	grtestinput,   
+	grtestinput,
+        setcmpt,   
 $ifdef junction
 	# Junction functions
 	join,
@@ -293,8 +294,8 @@ global grG_metricSet, grG_ObjDef, grG_inertForHas7;
 		grG_inertForHas7 := true;
 		print("GRTensor has detected correct length for inert FOR. Disregard the above error") ;
 	end:
-	print("\nGRTensor III v2.3 Nov 10, 2019"):
-	print("Copyright 2018, Peter Musgrave, Denis Pollney, Kayll Lake");
+	print("\nGRTensor III v2.4 May 19, 2020"):
+	print("Copyright 2020, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://github.com/grtensor/grtensor");
 	print("For help ?grtensor");
 	print("Support/contact grtensor3@gmail.com");
