@@ -149,6 +149,16 @@ local a,b,i, body, s, loopStmt, exStmt,
 	dummySet := ( {op(grG_parseList[grC_allIndices])} minus listingSet)
 		 minus subRangeSet: # remove subRange dummy indices
 
+  # 2022
+  # check that the index set and dummy set do not intersect
+  indexSet := {op(indexList)};
+  allUp := {op(grG_parseList[bup]), op(grG_parseList[up]), op(grG_parseList[pup]), op(grG_parseList[cup]), op(grG_parseList[pbup])};
+  allDn := {op(grG_parseList[bdn]), op(grG_parseList[dn]), op(grG_parseList[pdn]), op(grG_parseList[cdn]), op(grG_parseList[pbdn])};
+  dummyCheck := allUp intersect allDn;
+  if (nops(dummyCheck intersect indexSet) > 0) then
+     ERROR("Dummy index conflict with listing index:" + (dummyCheck intersect indexSet));
+  fi:
+
 	# keep track of the term with the largest number of sums as we go
 	maxSum := max( nops(dummySet), maxSum):
 	numDummy := nops(dummySet):
@@ -176,6 +186,7 @@ local a,b,i, body, s, loopStmt, exStmt,
 	   dummySub := dummySub, dummySet[a] = s||a||_:
 	od:
   	#
+
 	# now do index substitutions.
 	#
 	termExpr := grF_data_subs( termExpr, [dummySub] ):
