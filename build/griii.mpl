@@ -283,19 +283,19 @@ global grG_metricSet, grG_ObjDef, grG_inertForHas7;
     grF_gen_rootSet():
 	grF_gen_calcFnSet():
 	# Maple 2018 changes the inert form of for &for to take 7 params (was 6)
-	grG_inertForHas7 := false:
+	grG_inertForHas7 := true:
 #	if version() > 1265877 then 
 #		grG_inertForHas7 := true;
 #	fi:
 	# since we don't know the exact version FOR args changes, try and catch
 	try 
-		procmake(`&for`(a, 1, 1, 4, true, `&statseq`(x)));
+		procmake(`&for`(a, 1, 1, 4, true, `&statseq`(x), false));
 	catch: 
-		grG_inertForHas7 := true;
+		grG_inertForHas7 := false;
 		print("GRTensor has detected correct length for inert FOR. Disregard the above error") ;
 	end:
-	print("\nGRTensor III v2.5 Jan 29, 2022"):
-	print("Copyright 2020, Peter Musgrave, Denis Pollney, Kayll Lake");
+	print("\nGRTensor III v2.6 Jan 29, 2022"):
+	print("Copyright 2022, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://github.com/grtensor/grtensor");
 	print("For help ?grtensor");
 	print("Support/contact grtensor3@gmail.com");
