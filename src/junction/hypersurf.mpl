@@ -319,6 +319,21 @@ DEBUG
   fi:
   grdisplay(n(dn));
 
+  #
+  # May 2022: If nup was specified then explicitly calc ndn (otherwise will ask for a surface eqn)
+  #
+  if assigned(args_by_name[nup]) then
+    for a to Ndim[grG_metricName] do
+      s := 0;
+      for b to Ndim[grG_metricName] do
+        s := s + gr_data[gdndn_, grG_metricName, a, b];
+      od:
+      gr_data[ndn_,grG_metricName, a] := s;
+    od:
+    grF_assignedFlag(n(dn), set);
+  fi:
+
+
   #....................................................
   # assign the totalVar on the surface (if required)
   #....................................................
@@ -354,6 +369,7 @@ DEBUG
   gr_data[ds_,sName] := grF_calc_ds(ds,[]):
   grF_assignedFlag(ds, set);
   grdisplay(ds);
+
 
 end proc:
 

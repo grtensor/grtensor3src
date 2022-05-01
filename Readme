@@ -25,3 +25,24 @@ some old notes describing GRTensorII source in the file doc/grtensor.notes.
 
 The code structure has changed into a single module, but much of the structure
 of the code as described there is still relevant. 
+
+Feature Request:
+Support multicharacter index names
+- key issue is tha grF_indexFind in str2def.mpl walks the characters between brckets and returns an array
+  aligned place by place with the characters in the string 
+  e.g. grF_indexFind( grF_stringify( `T{ a ^b}`)):
+#      yeilds: [ 0,0,0,dn,0,0,up,0 ]
+
+And so would need to refactor the callers of this routine. 
+(It also currently skips spaces and would need to change this so spaces are seen as a delimiter)
+
+Requires code in grF_str2def that just pulls index names from the string directly
+
+HACK? Could just put in some kind of continuation character in the index find being returned
+e.g. T{abc def} => [0,0,dn,c,c,0,dn,c,c] where c denotes a continuation character
+
+Or - could return some kind of tokenized character list
+"T", "{", "abc", "def", "}"
+
+
+

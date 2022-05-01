@@ -622,6 +622,7 @@ end:
 #-----------------------------------------------------------------
 grF_verifyDefIndices := proc ( tname, tdef )
 DEBUG
+option trace;
 local idxn, idxd:
 	idxn := grF_checkIndices ( tname ):
 	if type (tdef, list) then
