@@ -527,7 +527,7 @@ grG_ObjDef[G(bdn,bdn)][grC_root] := Gbdnbdn_:
 grG_ObjDef[G(bdn,bdn)][grC_rootStr] := `G`:
 grG_ObjDef[G(bdn,bdn)][grC_indexList] := [bdn,bdn]:
 grG_ObjDef[G(bdn,bdn)][grC_calcFn] := grF_calc_sum0:
-grG_ObjDef[G(bdn,bdn)][grC_calcFnParms] := grG_Rbdnbdn_[grG_metricName,a1_,a2_]
+grG_ObjDef[G(bdn,bdn)][grC_calcFnParms] := gr_data[Rbdnbdn_,grG_metricName,a1_,a2_]
 	- 1/2*(gr_data[etabdnbdn_,grG_metricName,a1_,a2_] * gr_data[scalarR_,grG_metricName]):
 grG_ObjDef[G(bdn,bdn)][grC_symmetry] := grF_sym_sym2:
 grG_ObjDef[G(bdn,bdn)][grC_depends] := {eta(bdn,bdn), R(bdn,bdn), bRicciscalar}:
