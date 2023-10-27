@@ -88,8 +88,8 @@
 #******************************************
 
 # define used in debugging
-#$define DEBUG option trace;
-$define DEBUG 
+$define DEBUG option trace;
+#$define DEBUG 
 
 grG_defineOperators := {`CoD`, `LieD`}:
 
@@ -745,7 +745,9 @@ local a, idx, newidx, upset, dnset, dummyset:
 			# Operator_(LieD, u, Tensor_(R, [dn, dn], [a, b], 0), [], [])
 			#
 		if member (op(0,expr), {Operator_}) then
-			newidx := grF_checkTermIndices (op(2,expr)):
+			#newidx := grF_checkTermIndices (op(2,expr)):
+			# BUG fix 2023, Tensor is in the 3rd argument not 2nd. Supposedly this used to work way back when so WTF?
+			newidx := grF_checkTermIndices (op(3,expr)):
 			idx := grF_appendIdx(newidx, idx):
 		fi:
 

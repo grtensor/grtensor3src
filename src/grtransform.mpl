@@ -23,6 +23,7 @@
 #---------------------------------------------------------
 
 grtransform := proc ()
+  #option trace;
   local a, b, c, d, ndim, newcoordlist, newcoords, oldcoords, xfdir,
         dcoord, keeper, fullpath, J, iJ, npEta, metric, b1, b2, ip, 
         gtype, oldmetric, newmetric, xform, stsig:
@@ -59,19 +60,16 @@ grtransform := proc ()
   xfdir := newcoords[0]:
 
   if xfdir=1 then 
-    #printf("transform is x_new(x_old)\n"):
+    printf("transform is x_new(x_old)\n"):
     dcoord := oldcoords:
   else
-    #printf("transform is x_old(x_new)\n"):
+    printf("transform is x_old(x_new)\n"):
     dcoord := newcoords:
   fi:
   J := Matrix(ndim,ndim):
   for a to ndim do
     for b to ndim do
       J[a,b] := simplify ( diff(rhs(xform[a]),dcoord[b]), hypergeom ):
-#      if J[a,b] <> 0 then
-#        printf("Jacobian[%d,%d]: %a\n", a, b, J[a,b]);
-#      fi:
     od:
   od:
 
@@ -209,11 +207,13 @@ end:
 #---------------------------------------------------------
 grF_set_old_coords := proc (oldmetric, ndim)
 global gr_data:
+#option trace;
 local a, oldcoords:
+  oldcoords := [];
   for a to ndim do
-    oldcoords[a] := gr_data[xup_,oldmetric,a]
+    oldcoords := [ op(oldcoords),gr_data[xup_,oldmetric,a]];
   od:
-  RETURN (eval(oldcoords)):
+  RETURN (oldcoords):
 end:
 
 #----------------------------------------------------------
@@ -224,6 +224,7 @@ end:
 #               -1  function give old coords
 #---------------------------------------------------------
 grF_find_new_coords := proc (oldmetric, oldcoords, xform, ndim)
+#option trace;
 local a, b, c, cname, funcname, funcnames, funcnamev, fargname, fargnames,
   fargnamev:
   funcnames := {}:
@@ -269,7 +270,7 @@ local a, b, c, cname, funcname, funcnames, funcnamev, fargname, fargnames,
   fi:
 
   # Are function names new coords?
-  oldcoord_set := {ops(oldcoords)}:
+  oldcoord_set := {eval(op(oldcoords))}:
   if nops(funcnames minus oldcoord_set) > 0 then
     # use function names as new coords
     funcnamev[0] := 1:

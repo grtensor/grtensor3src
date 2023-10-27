@@ -294,8 +294,8 @@ global grG_metricSet, grG_ObjDef, grG_inertForHas7;
 		grG_inertForHas7 := false;
 		print("GRTensor has detected correct length for inert FOR. Disregard the above error") ;
 	end:
-	print("\nGRTensor III v2.8 Feb 28, 2023"):
-	print("Copyright 2022, Peter Musgrave, Denis Pollney, Kayll Lake");
+	print("\nGRTensor III v2.10 Oct 27, 2023"):
+	print("Copyright 2023, Peter Musgrave, Denis Pollney, Kayll Lake");
 	print("Latest version is at http://github.com/grtensor/grtensor");
 	print("For help ?grtensor");
 	print("Support/contact grtensor3@gmail.com");
