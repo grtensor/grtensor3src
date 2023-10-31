@@ -88,8 +88,8 @@
 #******************************************
 
 # define used in debugging
-$define DEBUG option trace;
-#$define DEBUG 
+#$define DEBUG option trace;
+$define DEBUG 
 
 grG_defineOperators := {`CoD`, `LieD`}:
 
